@@ -10,6 +10,24 @@ from pycbc.psd import aLIGOZeroDetHighPower
 from pycbc.types import timeseries
 from scipy.optimize import minimize
 
+## Frequency definition conversions
+
+# Converts Keplerian frequency to average frequency used by TEOBResumS
+def f_kep2avg(f_kep, e):
+
+    numerator = (1+e**2) * np.sqrt(1-e**2)
+    denominator = (1+e)**2 * (1-e)**2
+
+    return f_kep*(numerator/denominator)
+
+# Converts average frequency used by TEOBResumS to Keplerian frequency
+def f_avg2kep(f_avg, e):
+
+    numerator = (1+e)**2 * (1-e)**2
+    denominator = (1+e**2) * np.sqrt(1-e**2)
+
+    return f_avg*(numerator/denominator)
+
 ## Generating waveform
 
 # Generates EccentricTD waveform with given parameters
@@ -30,7 +48,9 @@ def modes_to_k(modes):
     return [int(x[0]*(x[0]-1)/2 + x[1]-2) for x in modes]
 
 # Generates TEOBResumS waveform with given parameters
-def gen_teob_wf(f_low, e, M, q, sample_rate, phase):
+def gen_teob_wf(f_kep, e, M, q, sample_rate, phase):
+
+    f_avg = f_kep2avg(f_kep, e)
 
     # Define parameters
     k = modes_to_k([[2,2]])
@@ -46,7 +66,7 @@ def gen_teob_wf(f_low, e, M, q, sample_rate, phase):
             'use_mode_lm'        : k,            # List of modes to use/output through EOBRunPy
             'srate_interp'       : sample_rate,  # srate at which to interpolate. Default = 4096.
             'use_geometric_units': 0,            # Output quantities in geometric units. Default = 1
-            'initial_frequency'  : f_low,        # in Hz if use_geometric_units = 0, else in geometric units
+            'initial_frequency'  : f_avg,        # in Hz if use_geometric_units = 0, else in geometric units
             'interp_uniform_grid': 1,            # Interpolate mode by mode on a uniform grid. Default = 0 (no interpolation)
             'distance'           : 1,
             'coalescence_angle'  : phase,
