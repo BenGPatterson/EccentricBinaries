@@ -159,11 +159,11 @@ def ceiltwo(number):
     return 2**ceil
 
 # Resize both waveform lengths to next highest power of two
-def resize_wfs(wf1, wf2):
-    tlen = ceiltwo(max(len(wf1), len(wf2)))
-    wf1.resize(tlen)
-    wf2.resize(tlen)
-    return wf1, wf2
+def resize_wfs(wf_a, wf_b):
+    tlen = ceiltwo(max(len(wf_a), len(wf_b)))
+    wf_a.resize(tlen)
+    wf_b.resize(tlen)
+    return wf_a, wf_b
 
 # Calculates match between two waveforms
 def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
@@ -188,6 +188,13 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
 # Calculates complex overlap between two waveforms
 def overlap_cplx_wfs(wf1, wf2, f_low):
 
+    # Trim wavelengths such that they start at the same time
+    if wf1.start_time < wf2.start_time:
+        wf1 = trim_wf(wf1, wf2)
+    elif wf1.start_time > wf2.start_time:
+        wf2 = trim_wf(wf2, wf1)
+    assert wf1.start_time == wf2.start_time
+
     # Resize the waveforms to the same length
     wf1, wf2 = resize_wfs(wf1, wf2)
 
@@ -196,10 +203,9 @@ def overlap_cplx_wfs(wf1, wf2, f_low):
     flen = len(wf1)//2 + 1
     psd = aLIGOZeroDetHighPower(flen, delta_f, f_low)
 
-    # Perform match
+    # Perform complex overlap
     m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low)
 
-    # Additionally returns phase required to match waveforms up if requested
     return m
 
 # Function to vary s_f to minimise match and find out of phase waveform
@@ -219,15 +225,15 @@ def minimise_match(s_f, f_low, e, M, q, h_fid, sample_rate, approximant, subsamp
 ## Waveform components
 
 # Ensures a waveform starts at the same index/time as a reference waveform
-def trim_wf(wf2, wf_ref):
+def trim_wf(wf_trim, wf_ref):
     
-    first_ind = np.argmin(np.abs(wf_ref.sample_times[0]-wf2.sample_times))
-    wf2 = wf2[first_ind:]
-    wf_ref, wf2 = resize_wfs(wf_ref, wf2)
-    wf2.start_time = wf_ref.start_time
-    assert np.array_equal(wf_ref.sample_times, wf2.sample_times)
+    first_ind = np.argmin(np.abs(wf_ref.sample_times[0]-wf_trim.sample_times))
+    wf_trim = wf_trim[first_ind:]
+    wf_ref, wf_trim = resize_wfs(wf_ref, wf_trim)
+    wf_trim.start_time = wf_ref.start_time
+    assert np.array_equal(wf_ref.sample_times, wf_trim.sample_times)
 
-    return wf2
+    return wf_trim
     
 # Gets waveform with given parameters at default true anomaly
 def get_h_def(f_low, e, M, q, sample_rate, approximant):
@@ -311,23 +317,12 @@ def get_h_FD(coeffs, h_ap, h_peri):
     # Returns overall waveform and components for testing purposes
     return hp_tilde.to_timeseries(), h1_tilde.to_timeseries(), h2_tilde.to_timeseries(), h_ap, h_peri
 
-# Gets overall waveform h = A*h1 + B*h2
+# Gets overall waveform h = A*h1 + B*h2 (as well as waveform components h1, h2, h_ap, h_peri)
 def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='EccentricTD', opp_method='equation', subsample_interpolation=True, domain='TD'):
 
     # Gets h_def and h_opp components which make up overall waveform
     h_def = get_h_def(f_low, e, M, q, sample_rate, approximant)
     h_opp = get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsample_interpolation)
-
-    # Edits sample times of h_opp to match h_def
-    first_ind = np.argmin(np.abs(h_def.sample_times[0]-h_opp.sample_times))
-    h_opp = h_opp[first_ind:]
-    h_def, h_opp = resize_wfs(h_def, h_opp)
-    h_opp.start_time = h_def.start_time
-    assert np.array_equal(h_def.sample_times, h_opp.sample_times)
-
-    # Rotate h_opp by necessary amount to bring into phase with h_def
-    _, phase_diff = match_wfs(h_def, h_opp, f_low, subsample_interpolation, return_phase=True)
-    h_opp *= np.e**(-1j*phase_diff)
 
     # Identify h_ap and h_peri based on waveform approximant used
     if approximant=='EccentricTD':
