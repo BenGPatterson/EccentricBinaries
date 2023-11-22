@@ -15,16 +15,16 @@ from scipy.optimize import minimize
 # Converts Keplerian frequency to average frequency used by TEOBResumS
 def f_kep2avg(f_kep, e):
 
-    numerator = (1+e**2) * np.sqrt(1-e**2)
-    denominator = (1+e)**2 * (1-e)**2
+    numerator = (1+e**2)
+    denominator = (1-e**2)**(3/2)
 
     return f_kep*(numerator/denominator)
 
 # Converts average frequency used by TEOBResumS to Keplerian frequency
 def f_avg2kep(f_avg, e):
 
-    numerator = (1+e)**2 * (1-e)**2
-    denominator = (1+e**2) * np.sqrt(1-e**2)
+    numerator = (1-e**2)**(3/2)
+    denominator = (1+e**2)
 
     return f_avg*(numerator/denominator)
 
@@ -186,7 +186,7 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
         return m[0]
 
 # Calculates complex overlap between two waveforms
-def overlap_cplx_wfs(wf1, wf2, f_low):
+def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
 
     # Trim wavelengths such that they start at the same time
     if wf1.start_time < wf2.start_time:
@@ -204,7 +204,7 @@ def overlap_cplx_wfs(wf1, wf2, f_low):
     psd = aLIGOZeroDetHighPower(flen, delta_f, f_low)
 
     # Perform complex overlap
-    m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low)
+    m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low, normalized=normalized)
 
     return m
 
@@ -234,6 +234,19 @@ def trim_wf(wf_trim, wf_ref):
     assert np.array_equal(wf_ref.sample_times, wf_trim.sample_times)
 
     return wf_trim
+
+# Normalises h_ap and h_peri to ensure (h1|h2) = 0
+def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
+
+    # Calculates (square of) normalisation factors
+    norm_ap = abs(overlap_cplx_wfs(unnorm_h_ap, unnorm_h_ap, f_low, normalized=False))
+    norm_peri = abs(overlap_cplx_wfs(unnorm_h_peri, unnorm_h_peri, f_low, normalized=False))
+
+    # Applies normalisation
+    norm_h_ap = unnorm_h_ap/np.sqrt(norm_ap)
+    norm_h_peri = unnorm_h_peri/np.sqrt(norm_peri)
+
+    return norm_h_ap, norm_h_peri
     
 # Gets waveform with given parameters at default true anomaly
 def get_h_def(f_low, e, M, q, sample_rate, approximant):
@@ -318,7 +331,7 @@ def get_h_FD(coeffs, h_ap, h_peri):
     return hp_tilde.to_timeseries(), h1_tilde.to_timeseries(), h2_tilde.to_timeseries(), h_ap, h_peri
 
 # Gets overall waveform h = A*h1 + B*h2 (as well as waveform components h1, h2, h_ap, h_peri)
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='EccentricTD', opp_method='equation', subsample_interpolation=True, domain='TD'):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', opp_method='equation', subsample_interpolation=True, domain='TD', normalisation=True):
 
     # Gets h_def and h_opp components which make up overall waveform
     h_def = get_h_def(f_low, e, M, q, sample_rate, approximant)
@@ -331,6 +344,10 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='EccentricTD', opp_me
         h_ap, h_peri = h_def, h_opp
     else:
         raise Exception('approximant not recognised')
+
+    # Normalises h_ap and h_peri if required
+    if normalisation:
+        h_ap, h_peri = norm_ap_peri(h_ap, h_peri, f_low)
 
     # Calculate overall waveform and components in specified domain
     if domain == 'TD':
