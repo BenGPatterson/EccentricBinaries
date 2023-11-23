@@ -10,7 +10,7 @@ from pycbc.psd import aLIGOZeroDetHighPower
 from pycbc.types import timeseries
 from scipy.optimize import minimize
 
-## Frequency definition conversions
+## Conversions
 
 # Converts Keplerian frequency to average frequency used by TEOBResumS
 def f_kep2avg(f_kep, e):
@@ -27,6 +27,22 @@ def f_avg2kep(f_avg, e):
     denominator = (1+e**2)
 
     return f_avg*(numerator/denominator)
+
+# Converts from chirp to total mass
+def chirp2total(chirp, q):
+    
+    q_factor = q/(1+q)**2
+    total = q_factor**(-3/5) * chirp
+
+    return total
+
+# Converts from total to chirp mass
+def total2chirp(total, q):
+    
+    q_factor = q/(1+q)**2
+    chirp = q_factor**(3/5) * total
+
+    return chirp
 
 ## Generating waveform
 
