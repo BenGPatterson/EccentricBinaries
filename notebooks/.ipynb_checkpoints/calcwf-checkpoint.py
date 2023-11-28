@@ -3,7 +3,7 @@ import numpy as np
 import math
 import scipy.constants as const
 import astropy.constants as aconst
-from pycbc.waveform import td_approximants, fd_approximants, get_td_waveform, get_fd_waveform
+from pycbc.waveform import td_approximants, fd_approximants, get_td_waveform, get_fd_waveform, taper_timeseries
 from pycbc.detector import Detector
 from pycbc.filter import match, optimized_match, overlap_cplx
 from pycbc.psd import aLIGOZeroDetHighPower
@@ -12,32 +12,68 @@ from scipy.optimize import minimize
 
 ## Conversions
 
-# Converts Keplerian frequency to average frequency used by TEOBResumS
 def f_kep2avg(f_kep, e):
+    """
+    Converts Keplerian frequency to the average frequency quantity used by TEOBResumS.
+
+    Parameters:
+        f_kep: Keplerian frequency to be converted.
+        e: eccentricity of signal.
+
+    Returns:
+        Average frequency.
+    """
 
     numerator = (1+e**2)
     denominator = (1-e**2)**(3/2)
 
     return f_kep*(numerator/denominator)
 
-# Converts average frequency used by TEOBResumS to Keplerian frequency
 def f_avg2kep(f_avg, e):
+    """
+    Converts average frequency quantity used by TEOBResumS to Keplerian frequency.
+
+    Parameters:
+        f_kep: Average frequency to be converted.
+        e: eccentricity of signal.
+
+    Returns:
+        Keplerian frequency.
+    """
 
     numerator = (1-e**2)**(3/2)
     denominator = (1+e**2)
 
     return f_avg*(numerator/denominator)
 
-# Converts from chirp to total mass
 def chirp2total(chirp, q):
+    """
+    Converts chirp mass to total mass.
+
+    Parameters:
+        chirp: Chirp mass.
+        q: Mass ratio.
+
+    Returns:
+        Total mass.
+    """
     
     q_factor = q/(1+q)**2
     total = q_factor**(-3/5) * chirp
 
     return total
 
-# Converts from total to chirp mass
 def total2chirp(total, q):
+    """
+    Converts total mass to chirp mass.
+
+    Parameters:
+        total: Total mass.
+        q: Mass ratio.
+
+    Returns:
+        Chirp mass.
+    """
     
     q_factor = q/(1+q)**2
     chirp = q_factor**(3/5) * total
@@ -46,8 +82,22 @@ def total2chirp(total, q):
 
 ## Generating waveform
 
-# Generates EccentricTD waveform with given parameters
 def gen_e_td_wf(f_low, e, M, q, sample_rate, phase):
+    """
+    Generates EccentricTD waveform with chosen parameters.
+
+    Parameters:
+        f_low: Starting frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+        sample_rate: Sampling rate of waveform to be generated.
+        phase: Phase of signal.
+
+    Returns:
+        Plus and cross polarisation of EccentricTD waveform.
+    """
+    
     m2 = M / (1+q)
     m1 = M - m2
     e_td_p, e_td_c = get_td_waveform(approximant='EccentricTD',
@@ -59,13 +109,36 @@ def gen_e_td_wf(f_low, e, M, q, sample_rate, phase):
                                      f_lower=f_low)
     return e_td_p, e_td_c
 
-# Converts modes to use into language TEOBResumS understands
 def modes_to_k(modes):
+    """
+    Converts list of modes to use into the 'k' parameter accepted by TEOBResumS.
+
+    Parameters:
+        modes: List of modes to use.
+
+    Returns:
+        'k' parameter of TEOBResumS.
+    """
+    
     return [int(x[0]*(x[0]-1)/2 + x[1]-2) for x in modes]
 
-# Generates TEOBResumS waveform with given parameters
 def gen_teob_wf(f_kep, e, M, q, sample_rate, phase):
+    """
+    Generates TEOBResumS waveform with chosen parameters.
 
+    Parameters:
+        f_kep: Starting (Keplerian) frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+        sample_rate: Sampling rate of waveform to be generated.
+        phase: Phase of signal.
+
+    Returns:
+        Plus and cross polarisation of TEOBResumS waveform.
+    """
+
+    # Gets average frequency quantity used by TEOBResumS
     f_avg = f_kep2avg(f_kep, e)
 
     # Define parameters
@@ -101,8 +174,22 @@ def gen_teob_wf(f_kep, e, M, q, sample_rate, phase):
     
     return teob_p, teob_c
 
-# Generates waveform with given parameters and approximant
 def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0):
+    """
+    Generates waveform with chosen parameters.
+
+    Parameters:
+        f_low: Starting frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+        sample_rate: Sampling rate of waveform to be generated.
+        approximant: Approximant to use to generate the waveform.
+        phase: Phase of signal.
+
+    Returns:
+        Complex combination of plus and cross waveform polarisations.
+    """
 
     # Chooses specified approximant
     if approximant=='EccentricTD':
@@ -117,72 +204,188 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0):
 
 ## Varying true anomaly
 
-# Calculates component masses from total mass and mass ratio
 def m1_m2_from_M_q(M, q):
+    """
+    Calculates component masses from total mass and mass ratio.
+
+    Parameters:
+        M: Total mass.
+        q: Mass ratio.
+
+    Returns:
+        Masses of binary components.
+    """
+    
     m2 = M/(1+q)
     m1 = M - m2
     return m1, m2
 
-# Calculates orbital period from gw frequency
 def P_from_f(f):
+    """
+    Calculates orbital period from gravitational wave frequency.
+
+    Parameters:
+        f: Gravitational wave frequency.
+
+    Returns:
+        Orbital period.
+    """
+    
     f_orb = f/2
     return 1/f_orb
 
-# Uses Kepler's 3rd to get semi-major axis from period of orbit
 def a_from_P(P, M):
+    """
+    Calculates semi-major axis of orbit using Kepler's third law.
+
+    Parameters:
+        P: Orbital period.
+        M: Total mass.
+
+    Returns:
+        Semi-major axis.
+    """
+    
     a_cubed = (const.G*M*P**2)/(4*np.pi**2)
     return a_cubed**(1/3)
 
-# Calculates periastron advance per orbital revolution
 def peri_advance_orbit(P, e, M):
+    """
+    Calculates periastron advance for one orbital revolution.
+
+    Parameters:
+        P: Orbital period.
+        e: Eccentricity.
+        M: Total mass.
+
+    Returns:
+        Periastron advance per orbit.
+    """
     numerator = 6*np.pi*const.G*M
     a = a_from_P(P, M)
     denominator = const.c**2*a*(1-e**2)
     
     return numerator/denominator
 
-# Calculates number of orbits for true anomaly to shift by 2pi
 def num_orbits(P, e, M):
+    """
+    Calculates number of orbits required for true anomaly to change by complete cycle of 2pi.
+
+    Parameters:
+        P: Orbital period.
+        e: Eccentricity.
+        M: Total mass.
+
+    Returns:
+        Number of orbits to shift true anomaly by 2pi.
+    """
+    
     delta_phi = peri_advance_orbit(P, e, M)
     n_orbit = (2*np.pi)/(2*np.pi - delta_phi)
     return n_orbit
 
-# How much frequency is shifted by per orbit
 def delta_freq_orbit(P, e, M, q):
+    """
+    Calculates shift in frequency for one orbital revolution.
+
+    Parameters:
+        P: Orbital period.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+
+    Returns:
+        Frequency shift per orbit.
+    """
+    
     m1, m2 = m1_m2_from_M_q(M, q)
     numerator = 2*192*np.pi*(2*np.pi*const.G)**(5/3)*m1*m2*(1+(73/24)*e**2+(37/96)*e**4)
     denominator = 5*const.c**5*P**(8/3)*(m1+m2)**(1/3)*(1-e**2)**(7/2)
     return numerator/denominator
 
-# Calculates what new shifted frequency should be such that true anomaly changes by 2pi
 def shifted_f(f, e, M, q):
+    """
+    Calculates how to shift frequency such that true anomaly changes by 2pi.
+
+    Parameters:
+        f: Original starting frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+
+    Returns:
+        Shifted starting frequency.
+    """
+    
     M *= aconst.M_sun.value
     P = P_from_f(f)
     delta_f_orbit = delta_freq_orbit(P, e, M, q)
     n_orbit = num_orbits(P, e, M)
     return f - delta_f_orbit*n_orbit
 
-# Calculates what new shifted frequency and eccentricity should be to shift such that true anomaly changes by 2pi
 def shifted_e(s_f, f, e):
+    """
+    Calculates how to shift eccentricity to match shifted frequency in such a way that the original frequency and eccentricity are recovered after one true anomaly cycle of 2pi.
+
+    Parameters:
+        s_f: Shifted starting frequency.
+        f: Original starting frequency.
+        e: Starting eccentricity.
+
+    Returns:
+        Shifted starting eccentricity.
+    """
+    
     s_e = e*(s_f/f)**(-19/18)
     return s_e
 
 ## Match waveforms
 
-# Finds next highest power of two
 def ceiltwo(number):
+    """
+    Finds next highest power of two of a number.
+
+    Parameters:
+        number: Number to find next highest power of two for.
+
+    Returns:
+        Next highest power of two.
+    """
+    
     ceil = math.ceil(np.log2(number))
     return 2**ceil
 
-# Resize both waveform lengths to next highest power of two
 def resize_wfs(wf_a, wf_b):
+    """
+    Resizes two input waveforms to both match the next highest power of two.
+
+    Parameters:
+        wf_a: First input waveform.
+        wf_b: Second input waveform.
+
+    Returns:
+        Resized waveforms.
+    """
+    
     tlen = ceiltwo(max(len(wf_a), len(wf_b)))
     wf_a.resize(tlen)
     wf_b.resize(tlen)
     return wf_a, wf_b
 
-# Calculates match between two waveforms
 def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
+    """
+    Calculates match (overlap maximised over time and phase) between two input waveforms.
+
+    Parameters:
+        wf1: First input waveform.
+        wf2: Second input waveform.
+        f_low: Lower bound of frequency integral.
+        subsample_interpolation: Whether to use subsample interpolation.
+        return_phase: Whether to return phase of maximum match.
+        
+    Returns:
+        Amplitude (and optionally phase) of match.
+    """
 
     # Resize the waveforms to the same length
     wf1, wf2 = resize_wfs(wf1, wf2)
@@ -190,10 +393,10 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     # Generate the aLIGO ZDHP PSD
     delta_f = 1.0 / wf1.duration
     flen = len(wf1)//2 + 1
-    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low)
+    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
 
     # Perform match
-    m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low, subsample_interpolation=subsample_interpolation, return_phase=return_phase)
+    m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=subsample_interpolation, return_phase=return_phase)
 
     # Additionally returns phase required to match waveforms up if requested
     if return_phase:
@@ -201,14 +404,25 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     else:
         return m[0]
 
-# Calculates complex overlap between two waveforms
 def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
+    """
+    Calculates complex overlap (overlap maximised over phase) between two input waveforms.
 
-    # Trim wavelengths such that they start at the same time
-    if wf1.start_time < wf2.start_time:
-        wf1 = trim_wf(wf1, wf2)
-    elif wf1.start_time > wf2.start_time:
-        wf2 = trim_wf(wf2, wf1)
+    Parameters:
+        wf1: First input waveform.
+        wf2: Second input waveform.
+        f_low: Starting frequency of waveforms.
+        normalized: Whether to normalise result between 0 and 1.
+        
+    Returns:
+        Complex overlap.
+    """
+
+    # Prepend zeros to waveforms such that they start at the same time
+    if wf1.start_time > wf2.start_time:
+        wf1 = prepend_zeros(wf1, wf2)
+    elif wf1.start_time < wf2.start_time:
+        wf2 = prepend_zeros(wf2, wf1)
     assert wf1.start_time == wf2.start_time
 
     # Resize the waveforms to the same length
@@ -217,15 +431,31 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
     # Generate the aLIGO ZDHP PSD
     delta_f = 1.0 / wf1.duration
     flen = len(wf1)//2 + 1
-    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low)
+    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
 
     # Perform complex overlap
-    m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low, normalized=normalized)
+    m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=normalized)
 
     return m
 
-# Function to vary s_f to minimise match and find out of phase waveform
 def minimise_match(s_f, f_low, e, M, q, h_fid, sample_rate, approximant, subsample_interpolation):
+    """
+    Calculates match to fiducial waveform for a given shifted frequency.
+
+    Parameters:
+        s_f: Shifted frequency.
+        f_low: Original starting frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+        h_fid: Fiducial waveform.
+        sample_rate: Sample rate of waveform.
+        approximant: Approximant to use.
+        subsample_interpolation: Whether to use subsample interpolation.
+        
+    Returns:
+        Match of waveforms.
+    """
 
     # Calculate shifted eccentricity
     s_e = shifted_e(s_f[0], f_low, e)
@@ -240,8 +470,17 @@ def minimise_match(s_f, f_low, e, M, q, h_fid, sample_rate, approximant, subsamp
 
 ## Waveform components
 
-# Ensures a waveform starts at the same index/time as a reference waveform
 def trim_wf(wf_trim, wf_ref):
+    """
+    Cuts the initial part of one of the waveforms such that both have the same amount of data prior to merger.
+
+    Parameters:
+        wf_trim: Waveform to be edited.
+        wf_ref: Reference waveform.
+        
+    Returns:
+        Edited waveform.
+    """
     
     first_ind = np.argmin(np.abs(wf_ref.sample_times[0]-wf_trim.sample_times))
     wf_trim = wf_trim[first_ind:]
@@ -251,8 +490,38 @@ def trim_wf(wf_trim, wf_ref):
 
     return wf_trim
 
-# Normalises h_ap and h_peri to ensure (h1|h2) = 0
+def prepend_zeros(wf_pre, wf_ref):
+    """
+    Prepends zeros to one of the waveforms such that both have the same amount of data prior to merger.
+
+    Parameters:
+        wf_pre: Waveform to be edited.
+        wf_ref: Reference waveform.
+        
+    Returns:
+        Edited waveform.
+    """
+
+    num_zeros = len(np.where(wf_pre.sample_times[0] - wf_ref.sample_times > 0)[0])
+    wf_pre.prepend_zeros(num_zeros)
+    wf_pre, wf_ref = resize_wfs(wf_pre, wf_ref)
+    wf_pre.start_time = wf_ref.start_time
+    assert np.array_equal(wf_pre.sample_times, wf_ref.sample_times)
+
+    return wf_pre
+
 def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
+    """
+    Normalises h_ap and h_peri to ensure that (h1|h2) = 0.
+
+    Parameters:
+        unnorm_h_ap: Unnormalised h_ap waveform.
+        unnorm_h_peri: Unnormalised h_peri waveform.
+        f_low: Lower bound of frequency interval.
+        
+    Returns:
+        Normalised h_ap and h_peri waveforms.
+    """
 
     # Calculates (square of) normalisation factors
     norm_ap = abs(overlap_cplx_wfs(unnorm_h_ap, unnorm_h_ap, f_low, normalized=False))
@@ -264,13 +533,52 @@ def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
 
     return norm_h_ap, norm_h_peri
     
-# Gets waveform with given parameters at default true anomaly
-def get_h_def(f_low, e, M, q, sample_rate, approximant):
+def get_h_def(f_low, e, M, q, sample_rate, approximant, taper):
+    """
+    Generates waveform with chosen parameters at the default value of true anomaly.
+
+    Parameters:
+        f_low: Starting frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+        sample_rate: Sample rate of waveform.
+        approximant: Approximant to use.
+        taper: Whether to taper start of waveform.
+        
+    Returns:
+        Complex combination of plus and cross waveform polarisations.
+    """
+    
     h_def = gen_wf(f_low, e, M, q, sample_rate, approximant)
+
+    # Tapers start of waveform if requested
+    if taper:
+        h_def_p = taper_timeseries(h_def.real(), tapermethod='start')
+        h_def_c = taper_timeseries(-h_def.imag(), tapermethod='start')
+        h_def = h_def_p - 1j*h_def_c
+        
     return h_def
 
-# Gets waveform with given parameters out of phase with default true anomaly
-def get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsample_interpolation):
+def get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsample_interpolation, taper):
+    """
+    Generates waveform with chosen parameters out of phase with the default value of true anomaly.
+
+    Parameters:
+        f_low: Starting frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+        h_def: Waveform with the default value of true anomaly.
+        sample_rate: Sample rate of waveform.
+        approximant: Approximant to use.
+        opp_method: Method to use to calculate the true anomaly shift of pi, either 'equation' or 'samples'.
+        subsample_interpolation: Whether to use subsample interpolation.
+        taper: Whether to taper start of waveform.
+        
+    Returns:
+        Complex combination of plus and cross waveform polarisations.
+    """
 
     # Gets amount to shift frequency by from equations in order to vary true anomaly by pi
     s_f_2pi = shifted_f(f_low, e, M, q)
@@ -286,8 +594,7 @@ def get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsa
         min_match_result = minimize(minimise_match, init_guess, args=args, bounds=bounds, method='Nelder-Mead')
         s_f_pi = min_match_result['x']
     else:
-        s_f_pi = f_low - 0.12/2
-        #raise Exception('opp_method not recognised')
+        raise Exception('opp_method not recognised')
 
     # Generates waveform
     s_e_pi = shifted_e(s_f_pi, f_low, e)
@@ -302,12 +609,31 @@ def get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsa
     h_opp = gen_wf(s_f_pi, s_e_pi, M, q, sample_rate, approximant, phase=phase_angle)
     h_opp = trim_wf(h_opp, h_def)
 
+    # Tapers start of waveform if requested
+    if taper:
+        h_opp_p = taper_timeseries(h_opp.real(), tapermethod='start')
+        h_opp_c = taper_timeseries(-h_opp.imag(), tapermethod='start')
+        h_opp = h_opp_p - 1j*h_opp_c
+
     return h_opp 
 
 ## Overall waveform
 
-# Combines waveform components in time domain
 def get_h_TD(coeffs, h_ap, h_peri):
+    """
+    Combines waveform components in time domain to form h1, h2 and h as follows:
+    h1 = 0.5*(h_ap + h_peri)
+    h2 = 0.5*(h_ap - h_peri)
+    h = A*h1 + B*h2
+
+    Parameters:
+        coeffs: List containing A and B, the coefficients of h1 and h2.
+        h_ap: Waveform starting at apastron.
+        h_peri: Waveform starting at periastron.
+        
+    Returns:
+        All waveform components and combinations: h, h1, h2, h_ap, h_peri
+    """
 
     # Calculate h1, h2 components of waveform
     h1 = 0.5*(h_ap + h_peri)
@@ -320,38 +646,33 @@ def get_h_TD(coeffs, h_ap, h_peri):
     # Returns overall waveform and components for testing purposes
     return h, h1, h2, h_ap, h_peri
 
-# Combines waveform components in frequency domain - BROKEN DO NOT USE
-def get_h_FD(coeffs, h_ap, h_peri):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', opp_method='equation', subsample_interpolation=True, normalisation=True, taper=True):
+    """
+    Generates a total waveform and components defined by the following equations:
+    h1 = 0.5*(h_ap + h_peri)
+    h2 = 0.5*(h_ap - h_peri)
+    h = A*h1 + B*h2
 
-    # Calculate h1, h2 components of waveform
-    h1p_tilde = 0.5*(h_ap.real().to_frequencyseries() + h_peri.real().to_frequencyseries())
-    h1c_tilde = -0.5*(h_ap.imag().to_frequencyseries() + h_peri.imag().to_frequencyseries())
-    h2p_tilde = 0.5*(h_ap.real().to_frequencyseries() - h_peri.real().to_frequencyseries())
-    h2c_tilde = -0.5*(h_ap.imag().to_frequencyseries() - h_peri.imag().to_frequencyseries())
-    h1_tilde = h1p_tilde - 1j*h1c_tilde
-    h2_tilde = h2p_tilde - 1j*h2c_tilde
-
-    #plt.plot(h1p_tilde.to_timeseries().sample_times, h1p_tilde.to_timeseries().real())
-    plt.plot(h1_tilde.sample_frequencies, h1_tilde.real())
-    plt.plot(h1c_tilde.sample_frequencies, h1c_tilde.imag())
-    plt.show()
-
-    # Calculates overall waveform using complex coefficients A, B
-    A, B = coeffs
-    hp_tilde = A*h1p_tilde + B*h2p_tilde
-    hc_tilde = A*h1c_tilde + B*h2c_tilde
-
-    #h_tilde = hp_tilde - 1j*hc_tilde
-
-    # Returns overall waveform and components for testing purposes
-    return hp_tilde.to_timeseries(), h1_tilde.to_timeseries(), h2_tilde.to_timeseries(), h_ap, h_peri
-
-# Gets overall waveform h = A*h1 + B*h2 (as well as waveform components h1, h2, h_ap, h_peri)
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', opp_method='equation', subsample_interpolation=True, domain='TD', normalisation=True):
+    Parameters:
+        coeffs: List containing A and B, the coefficients of h1 and h2.
+        f_low: Starting frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+        sample_rate: Sample rate of waveform.
+        approximant: Approximant to use.
+        opp_method: Method to use to calculate the true anomaly shift of pi, either 'equation' or 'samples'.
+        subsample_interpolation: Whether to use subsample interpolation.
+        normalisation: Whether to normalise h_ap and h_peri components to ensure (h1|h2) = 0.
+        taper: Whether to taper start of waveform.
+        
+    Returns:
+        All waveform components and combinations: h, h1, h2, h_ap, h_peri
+    """
 
     # Gets h_def and h_opp components which make up overall waveform
-    h_def = get_h_def(f_low, e, M, q, sample_rate, approximant)
-    h_opp = get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsample_interpolation)
+    h_def = get_h_def(f_low, e, M, q, sample_rate, approximant, taper)
+    h_opp = get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsample_interpolation, taper)
 
     # Identify h_ap and h_peri based on waveform approximant used
     if approximant=='EccentricTD':
@@ -365,12 +686,7 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', opp_met
     if normalisation:
         h_ap, h_peri = norm_ap_peri(h_ap, h_peri, f_low)
 
-    # Calculate overall waveform and components in specified domain
-    if domain == 'TD':
-        wfs = get_h_TD(coeffs, h_ap, h_peri)
-    elif domain =='FD':
-        wfs = get_h_FD(coeffs, h_ap, h_peri)
-    else:
-        raise Exception('domain not recognised')
-
+    # Calculate overall waveform and components in time domain
+    wfs = get_h_TD(coeffs, h_ap, h_peri)
+   
     return wfs
