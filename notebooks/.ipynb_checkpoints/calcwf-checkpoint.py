@@ -5,7 +5,7 @@ import scipy.constants as const
 import astropy.constants as aconst
 from pycbc.waveform import td_approximants, fd_approximants, get_td_waveform, get_fd_waveform, taper_timeseries
 from pycbc.detector import Detector
-from pycbc.filter import match, optimized_match, overlap_cplx
+from pycbc.filter import match, optimized_match, overlap_cplx, sigma
 from pycbc.psd import aLIGOZeroDetHighPower
 from pycbc.types import timeseries
 from scipy.optimize import minimize
@@ -420,21 +420,26 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
 
     # Prepend zeros to waveforms such that they start at the same time
     if wf1.start_time > wf2.start_time:
-        wf1 = prepend_zeros(wf1, wf2)
+        wf1_altered = prepend_zeros(wf1.copy(), wf2.copy())
+        wf2_altered = wf2.copy()
     elif wf1.start_time < wf2.start_time:
-        wf2 = prepend_zeros(wf2, wf1)
-    assert wf1.start_time == wf2.start_time
+        wf2_altered = prepend_zeros(wf2.copy(), wf1.copy())
+        wf1_altered = wf1.copy()
+    else:
+        wf1_altered = wf1.copy()
+        wf2_altered = wf2.copy()
+        assert wf1.start_time == wf2.start_time
 
     # Resize the waveforms to the same length
-    wf1, wf2 = resize_wfs(wf1, wf2)
+    wf1_altered, wf2_altered = resize_wfs(wf1_altered, wf2_altered)
 
     # Generate the aLIGO ZDHP PSD
-    delta_f = 1.0 / wf1.duration
-    flen = len(wf1)//2 + 1
+    delta_f = 1.0 / wf1_altered.duration
+    flen = len(wf1_altered)//2 + 1
     psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
 
     # Perform complex overlap
-    m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=normalized)
+    m = overlap_cplx(wf1_altered.real(), wf2_altered.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=normalized)
 
     return m
 
@@ -523,13 +528,19 @@ def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
         Normalised h_ap and h_peri waveforms.
     """
 
-    # Calculates (square of) normalisation factors
-    norm_ap = abs(overlap_cplx_wfs(unnorm_h_ap, unnorm_h_ap, f_low, normalized=False))
-    norm_peri = abs(overlap_cplx_wfs(unnorm_h_peri, unnorm_h_peri, f_low, normalized=False))
+    # Generate the aLIGO ZDHP PSD
+    assert len(unnorm_h_ap) == len(unnorm_h_peri)
+    delta_f = 1.0 / unnorm_h_ap.duration
+    flen = len(unnorm_h_ap)//2 + 1
+    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+
+    # Calculates normalisation factor using sigma function
+    norm_ap = sigma(unnorm_h_ap.real(), psd=psd, low_frequency_cutoff=f_low+3)
+    norm_peri = sigma(unnorm_h_peri.real(), psd=psd, low_frequency_cutoff=f_low+3)
 
     # Applies normalisation
-    norm_h_ap = unnorm_h_ap/np.sqrt(norm_ap)
-    norm_h_peri = unnorm_h_peri/np.sqrt(norm_peri)
+    norm_h_ap = unnorm_h_ap/norm_ap
+    norm_h_peri = unnorm_h_peri/norm_peri
 
     return norm_h_ap, norm_h_peri
     
