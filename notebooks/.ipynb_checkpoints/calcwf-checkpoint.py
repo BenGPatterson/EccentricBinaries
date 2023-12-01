@@ -418,28 +418,23 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
         Complex overlap.
     """
 
-    # Prepend zeros to waveforms such that they start at the same time
-    if wf1.start_time > wf2.start_time:
-        wf1_altered = prepend_zeros(wf1.copy(), wf2.copy())
-        wf2_altered = wf2.copy()
-    elif wf1.start_time < wf2.start_time:
-        wf2_altered = prepend_zeros(wf2.copy(), wf1.copy())
-        wf1_altered = wf1.copy()
-    else:
-        wf1_altered = wf1.copy()
-        wf2_altered = wf2.copy()
-        assert wf1.start_time == wf2.start_time
-
+    # Trims earlier wf so same amount of data before merger
+    if wf1.start_time < wf2.start_time:
+        wf1 = trim_wf(wf1, wf2)
+    elif wf1.start_time > wf2.start_time:
+        wf2 = trim_wf(wf2, wf1)
+    assert wf1.start_time == wf2.start_time
+    
     # Resize the waveforms to the same length
-    wf1_altered, wf2_altered = resize_wfs(wf1_altered, wf2_altered)
+    wf1, wf2 = resize_wfs(wf1, wf2)
 
     # Generate the aLIGO ZDHP PSD
-    delta_f = 1.0 / wf1_altered.duration
-    flen = len(wf1_altered)//2 + 1
+    delta_f = 1.0 / wf1.duration
+    flen = len(wf1)//2 + 1
     psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
 
     # Perform complex overlap
-    m = overlap_cplx(wf1_altered.real(), wf2_altered.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=normalized)
+    m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=normalized)
 
     return m
 
