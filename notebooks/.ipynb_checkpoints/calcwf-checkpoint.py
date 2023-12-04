@@ -9,6 +9,7 @@ from pycbc.filter import match, optimized_match, overlap_cplx, sigma
 from pycbc.psd import aLIGOZeroDetHighPower
 from pycbc.types import timeseries
 from scipy.optimize import minimize
+import matplotlib.pyplot as plt
 
 ## Conversions
 
@@ -424,6 +425,12 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
     elif wf1.start_time > wf2.start_time:
         wf2 = trim_wf(wf2, wf1)
     assert wf1.start_time == wf2.start_time
+
+    # Ensures wfs are tapered
+    if wf1[0] != 0:
+        wf1 = taper_wf(wf1)
+    if wf2[0] != 0:
+        wf2 = taper_wf(wf2)
     
     # Resize the waveforms to the same length
     wf1, wf2 = resize_wfs(wf1, wf2)
@@ -469,6 +476,23 @@ def minimise_match(s_f, f_low, e, M, q, h_fid, sample_rate, approximant, subsamp
     return m    
 
 ## Waveform components
+
+def taper_wf(wf_taper):
+    """
+    Tapers start of input waveform using pycbc.waveform taper_timeseries() function.
+
+    Parameters:
+        wf_taper: Waveform to be tapered.
+        
+    Returns:
+        Tapered waveform.
+    """
+    
+    wf_taper_p = taper_timeseries(wf_taper.real(), tapermethod='start')
+    wf_taper_c = taper_timeseries(-wf_taper.imag(), tapermethod='start')
+    wf_taper = wf_taper_p - 1j*wf_taper_c
+
+    return wf_taper
 
 def trim_wf(wf_trim, wf_ref):
     """
@@ -534,8 +558,8 @@ def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
     norm_peri = sigma(unnorm_h_peri.real(), psd=psd, low_frequency_cutoff=f_low+3)
 
     # Applies normalisation
-    norm_h_ap = unnorm_h_ap/norm_ap
-    norm_h_peri = unnorm_h_peri/norm_peri
+    norm_h_ap = unnorm_h_ap
+    norm_h_peri = unnorm_h_peri*norm_ap/norm_peri
 
     return norm_h_ap, norm_h_peri
     
@@ -560,9 +584,7 @@ def get_h_def(f_low, e, M, q, sample_rate, approximant, taper):
 
     # Tapers start of waveform if requested
     if taper:
-        h_def_p = taper_timeseries(h_def.real(), tapermethod='start')
-        h_def_c = taper_timeseries(-h_def.imag(), tapermethod='start')
-        h_def = h_def_p - 1j*h_def_c
+        h_def = taper_wf(h_def)
         
     return h_def
 
@@ -617,9 +639,7 @@ def get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsa
 
     # Tapers start of waveform if requested
     if taper:
-        h_opp_p = taper_timeseries(h_opp.real(), tapermethod='start')
-        h_opp_c = taper_timeseries(-h_opp.imag(), tapermethod='start')
-        h_opp = h_opp_p - 1j*h_opp_c
+        h_opp = taper_wf(h_opp)
 
     return h_opp 
 

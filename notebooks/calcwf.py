@@ -9,6 +9,7 @@ from pycbc.filter import match, optimized_match, overlap_cplx, sigma
 from pycbc.psd import aLIGOZeroDetHighPower
 from pycbc.types import timeseries
 from scipy.optimize import minimize
+import matplotlib.pyplot as plt
 
 ## Conversions
 
@@ -372,6 +373,46 @@ def resize_wfs(wf_a, wf_b):
     wf_b.resize(tlen)
     return wf_a, wf_b
 
+def trim_wf(wf_trim, wf_ref):
+    """
+    Cuts the initial part of one of the waveforms such that both have the same amount of data prior to merger.
+
+    Parameters:
+        wf_trim: Waveform to be edited.
+        wf_ref: Reference waveform.
+        
+    Returns:
+        Edited waveform.
+    """
+    
+    first_ind = np.argmin(np.abs(wf_ref.sample_times[0]-wf_trim.sample_times))
+    wf_trim = wf_trim[first_ind:]
+    wf_ref, wf_trim = resize_wfs(wf_ref, wf_trim)
+    wf_trim.start_time = wf_ref.start_time
+    assert np.array_equal(wf_ref.sample_times, wf_trim.sample_times)
+
+    return wf_trim
+
+def prepend_zeros(wf_pre, wf_ref):
+    """
+    Prepends zeros to one of the waveforms such that both have the same amount of data prior to merger.
+
+    Parameters:
+        wf_pre: Waveform to be edited.
+        wf_ref: Reference waveform.
+        
+    Returns:
+        Edited waveform.
+    """
+
+    num_zeros = len(np.where(wf_pre.sample_times[0] - wf_ref.sample_times > 0)[0])
+    wf_pre.prepend_zeros(num_zeros)
+    wf_pre, wf_ref = resize_wfs(wf_pre, wf_ref)
+    wf_pre.start_time = wf_ref.start_time
+    assert np.array_equal(wf_pre.sample_times, wf_ref.sample_times)
+
+    return wf_pre
+
 def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     """
     Calculates match (overlap maximised over time and phase) between two input waveforms.
@@ -424,6 +465,12 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
     elif wf1.start_time > wf2.start_time:
         wf2 = trim_wf(wf2, wf1)
     assert wf1.start_time == wf2.start_time
+
+    # Ensures wfs are tapered
+    if wf1[0] != 0:
+        wf1 = taper_wf(wf1)
+    if wf2[0] != 0:
+        wf2 = taper_wf(wf2)
     
     # Resize the waveforms to the same length
     wf1, wf2 = resize_wfs(wf1, wf2)
@@ -470,45 +517,22 @@ def minimise_match(s_f, f_low, e, M, q, h_fid, sample_rate, approximant, subsamp
 
 ## Waveform components
 
-def trim_wf(wf_trim, wf_ref):
+def taper_wf(wf_taper):
     """
-    Cuts the initial part of one of the waveforms such that both have the same amount of data prior to merger.
+    Tapers start of input waveform using pycbc.waveform taper_timeseries() function.
 
     Parameters:
-        wf_trim: Waveform to be edited.
-        wf_ref: Reference waveform.
+        wf_taper: Waveform to be tapered.
         
     Returns:
-        Edited waveform.
+        Tapered waveform.
     """
     
-    first_ind = np.argmin(np.abs(wf_ref.sample_times[0]-wf_trim.sample_times))
-    wf_trim = wf_trim[first_ind:]
-    wf_ref, wf_trim = resize_wfs(wf_ref, wf_trim)
-    wf_trim.start_time = wf_ref.start_time
-    assert np.array_equal(wf_ref.sample_times, wf_trim.sample_times)
+    wf_taper_p = taper_timeseries(wf_taper.real(), tapermethod='start')
+    wf_taper_c = taper_timeseries(-wf_taper.imag(), tapermethod='start')
+    wf_taper = wf_taper_p - 1j*wf_taper_c
 
-    return wf_trim
-
-def prepend_zeros(wf_pre, wf_ref):
-    """
-    Prepends zeros to one of the waveforms such that both have the same amount of data prior to merger.
-
-    Parameters:
-        wf_pre: Waveform to be edited.
-        wf_ref: Reference waveform.
-        
-    Returns:
-        Edited waveform.
-    """
-
-    num_zeros = len(np.where(wf_pre.sample_times[0] - wf_ref.sample_times > 0)[0])
-    wf_pre.prepend_zeros(num_zeros)
-    wf_pre, wf_ref = resize_wfs(wf_pre, wf_ref)
-    wf_pre.start_time = wf_ref.start_time
-    assert np.array_equal(wf_pre.sample_times, wf_ref.sample_times)
-
-    return wf_pre
+    return wf_taper
 
 def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
     """
@@ -534,8 +558,8 @@ def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
     norm_peri = sigma(unnorm_h_peri.real(), psd=psd, low_frequency_cutoff=f_low+3)
 
     # Applies normalisation
-    norm_h_ap = unnorm_h_ap/norm_ap
-    norm_h_peri = unnorm_h_peri/norm_peri
+    norm_h_ap = unnorm_h_ap
+    norm_h_peri = unnorm_h_peri*norm_ap/norm_peri
 
     return norm_h_ap, norm_h_peri
     
@@ -560,9 +584,7 @@ def get_h_def(f_low, e, M, q, sample_rate, approximant, taper):
 
     # Tapers start of waveform if requested
     if taper:
-        h_def_p = taper_timeseries(h_def.real(), tapermethod='start')
-        h_def_c = taper_timeseries(-h_def.imag(), tapermethod='start')
-        h_def = h_def_p - 1j*h_def_c
+        h_def = taper_wf(h_def)
         
     return h_def
 
@@ -617,9 +639,7 @@ def get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsa
 
     # Tapers start of waveform if requested
     if taper:
-        h_opp_p = taper_timeseries(h_opp.real(), tapermethod='start')
-        h_opp_c = taper_timeseries(-h_opp.imag(), tapermethod='start')
-        h_opp = h_opp_p - 1j*h_opp_c
+        h_opp = taper_wf(h_opp)
 
     return h_opp 
 
