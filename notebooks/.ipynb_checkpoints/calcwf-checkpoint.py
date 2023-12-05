@@ -9,6 +9,7 @@ from pycbc.filter import match, optimized_match, overlap_cplx, sigma
 from pycbc.psd import aLIGOZeroDetHighPower
 from pycbc.types import timeseries
 from scipy.optimize import minimize
+from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
 
 ## Conversions
@@ -373,6 +374,122 @@ def resize_wfs(wf_a, wf_b):
     wf_b.resize(tlen)
     return wf_a, wf_b
 
+def trim_wf(wf_trim, wf_ref):
+    """
+    Cuts the initial part of one of the waveforms such that both have the same amount of data prior to merger.
+
+    Parameters:
+        wf_trim: Waveform to be edited.
+        wf_ref: Reference waveform.
+        
+    Returns:
+        Edited waveform.
+    """
+
+    wf_trim_interpolate = interp1d(wf_trim.sample_times, wf_trim, bounds_error=False, fill_value=0)
+    wf_trim_strain = wf_trim_interpolate(wf_ref.sample_times)
+    wf_trim = timeseries.TimeSeries(wf_trim_strain, wf_ref.delta_t, epoch=wf_ref.start_time)
+    assert np.array_equal(wf_ref.sample_times, wf_trim.sample_times)
+
+    return wf_trim
+
+def prepend_zeros(wf_pre, wf_ref):
+    """
+    Prepends zeros to one of the waveforms such that both have the same amount of data prior to merger.
+
+    Parameters:
+        wf_pre: Waveform to be edited.
+        wf_ref: Reference waveform.
+        
+    Returns:
+        Edited waveform.
+    """
+
+    wf_pre_interpolate = interp1d(wf_pre.sample_times, wf_pre, bounds_error=False, fill_value=0)
+    wf_pre_strain = wf_pre_interpolate(wf_ref.sample_times)
+    wf_pre = timeseries.TimeSeries(wf_pre_strain, wf_ref.delta_t, epoch=wf_ref.start_time)
+    assert np.array_equal(wf_ref.sample_times, wf_pre.sample_times)
+
+    return wf_pre
+
+def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, return_index=False):
+    """
+    Calculates match between fiducial h1 waveform and a trial waveform, and uses the time shift 
+    in this match to compute the complex overlap between the time-shifted fiducial h2 waveform 
+    and a trial waveform. This ensures the 'match' is calculated for both h1 and h2 at the same 
+    time.
+
+    Parameters:
+        wf_h1: Fiducial h1 waveform.
+        wf_h2: Fiducial h2 waveform.
+        wf_s: Trial waveform
+        f_low: Starting frequency of waveforms.
+        return_index: Whether to return index shift of h1 match.
+        
+    Returns:
+        Complex matches of trial waveform to h1 and h2 respectively.
+    """
+
+    # Creates new versions of waveforms to avoid editing originals
+    wf_h1 = timeseries.TimeSeries(wf_h1.copy(), wf_h1.delta_t, epoch=wf_h1.start_time)
+    wf_h2 = timeseries.TimeSeries(wf_h2.copy(), wf_h2.delta_t, epoch=wf_h2.start_time)
+    wf_s = timeseries.TimeSeries(wf_s.copy(), wf_s.delta_t, epoch=wf_s.start_time)
+
+    # Resize waveforms to the same length
+    assert len(wf_h1) == len(wf_h2)
+    wf_h1, wf_s = resize_wfs(wf_h1, wf_s)
+    wf_h1, wf_h2 = resize_wfs(wf_h1, wf_h2)
+
+    # Generate the aLIGO ZDHP PSD
+    delta_f = 1.0 / wf_h1.duration
+    flen = len(wf_h1)//2 + 1
+    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+
+    # Perform match on h1
+    m_h1_amp, m_index, m_h1_phase = match(wf_h1.real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=True, return_phase=True)
+    m_h1 = m_h1_amp*np.e**(1j*m_h1_phase)
+
+    # Shift fiducial h2
+    if m_index <= len(wf_h1)/2:
+        # If fiducial h2 needs to be shifted forward, prepend zeros to it
+        wf_h2.prepend_zeros(int(m_index))
+    else:
+        # If fiducial h2 needs to be shifted backward, prepend zeros to trial waveform instead
+        wf_s.prepend_zeros(int(len(wf_h1) - m_index))
+
+    # As subsample_interpolation=True, require interpolation of h2 to account for non-integer index shift
+    delta_t = wf_h1.delta_t
+    if m_index <= len(wf_h1)/2:
+        # If fiducial h2 needs to be shifted forward, interpolate h2 waveform forward
+        inter_index = m_index - int(m_index)
+        wf_h2_interpolate = interp1d(wf_h2.sample_times, wf_h2, bounds_error=False, fill_value=0)
+        wf_h2_strain = wf_h2_interpolate(wf_h2.sample_times-(inter_index*delta_t))
+        wf_h2 = timeseries.TimeSeries(wf_h2_strain, wf_h2.delta_t, epoch=wf_h2.start_time-(inter_index*delta_t))
+    else:
+        # If fiducial h2 needs to be shifted backward, interpolate h2 waveform backward
+        inter_index = (len(wf_h1) - m_index) - int(len(wf_h1) - m_index)
+        wf_h2_interpolate = interp1d(wf_h2.sample_times-(inter_index*delta_t), wf_h2, bounds_error=False, fill_value=0)
+        wf_h2_strain = wf_h2_interpolate(wf_h2.sample_times+(inter_index*delta_t))
+        wf_h2 = timeseries.TimeSeries(wf_h2_strain, wf_h2.delta_t, epoch=wf_h2.start_time+(inter_index*delta_t))
+
+    # Resize waveforms to the same length
+    wf_h2, wf_s = resize_wfs(wf_h2, wf_s)
+
+    # Generate the aLIGO ZDHP PSD again as waveform length doubled
+    delta_f = 1.0 / wf_h2.duration
+    flen = len(wf_h2)//2 + 1
+    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+
+    # Perform complex overlap on h2
+    m_h2 = overlap_cplx(wf_h2.real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3)
+    
+    # Returns index shift if requested
+    if return_index:
+        return m_h1, m_h2, m_index
+    else:
+        return m_h1, m_h2
+    
+
 def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     """
     Calculates match (overlap maximised over time and phase) between two input waveforms.
@@ -419,11 +536,11 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
         Complex overlap.
     """
 
-    # Trims earlier wf so same amount of data before merger
-    if wf1.start_time < wf2.start_time:
-        wf1 = trim_wf(wf1, wf2)
-    elif wf1.start_time > wf2.start_time:
-        wf2 = trim_wf(wf2, wf1)
+    # Prepends earlier wf with zeroes so same amount of data before merger (required for overlap_cplx)
+    if wf1.start_time > wf2.start_time:
+        wf1 = prepend_zeros(wf1, wf2)
+    elif wf1.start_time < wf2.start_time:
+        wf2 = prepend_zeros(wf2, wf1)
     assert wf1.start_time == wf2.start_time
 
     # Ensures wfs are tapered
@@ -493,46 +610,6 @@ def taper_wf(wf_taper):
     wf_taper = wf_taper_p - 1j*wf_taper_c
 
     return wf_taper
-
-def trim_wf(wf_trim, wf_ref):
-    """
-    Cuts the initial part of one of the waveforms such that both have the same amount of data prior to merger.
-
-    Parameters:
-        wf_trim: Waveform to be edited.
-        wf_ref: Reference waveform.
-        
-    Returns:
-        Edited waveform.
-    """
-    
-    first_ind = np.argmin(np.abs(wf_ref.sample_times[0]-wf_trim.sample_times))
-    wf_trim = wf_trim[first_ind:]
-    wf_ref, wf_trim = resize_wfs(wf_ref, wf_trim)
-    wf_trim.start_time = wf_ref.start_time
-    assert np.array_equal(wf_ref.sample_times, wf_trim.sample_times)
-
-    return wf_trim
-
-def prepend_zeros(wf_pre, wf_ref):
-    """
-    Prepends zeros to one of the waveforms such that both have the same amount of data prior to merger.
-
-    Parameters:
-        wf_pre: Waveform to be edited.
-        wf_ref: Reference waveform.
-        
-    Returns:
-        Edited waveform.
-    """
-
-    num_zeros = len(np.where(wf_pre.sample_times[0] - wf_ref.sample_times > 0)[0])
-    wf_pre.prepend_zeros(num_zeros)
-    wf_pre, wf_ref = resize_wfs(wf_pre, wf_ref)
-    wf_pre.start_time = wf_ref.start_time
-    assert np.array_equal(wf_pre.sample_times, wf_ref.sample_times)
-
-    return wf_pre
 
 def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
     """
