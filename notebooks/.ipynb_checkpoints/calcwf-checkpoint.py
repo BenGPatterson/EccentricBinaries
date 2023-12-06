@@ -590,7 +590,87 @@ def minimise_match(s_f, f_low, e, M, q, h_fid, sample_rate, approximant, subsamp
     # Calculate match
     m = match_wfs(trial_wf, h_fid, s_f[0], subsample_interpolation)
 
-    return m    
+    return m
+
+## Maximising over shifted frequency
+
+def s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant):
+    """
+    Calculates match between fiducial h1, h2 waveforms and a trial waveform, maximised 
+    over true anomaly/shifted frequency using the difference between the phase of matches 
+    to the h1,h2 waveforms when the trial waveform starts at f=f_low.
+
+    Parameters:
+        wf_h1: Fiducial h1 waveform.
+        wf_h2: Fiducial h2 waveform.
+        f_low: Starting frequency of waveforms.
+        e: Eccentricity of trial waveform.
+        M: Total mass of trial waveform.
+        q: Mass ratio of trial waveform.
+        sample_rate: Sample rate of trial waveform.
+        approximant: Approximant of trial waveform.
+        
+    Returns:
+        Complex matches to h1,h2 maximised to quad match peak.
+    """
+
+    # Calculates matches to h1, h2 at f_low
+    wf_f_low = gen_wf(f_low, e, M, q, sample_rate, approximant)
+    m1_f_low, m2_f_low = match_h1_h2(wf_h1, wf_h2, wf_f_low, f_low)
+
+    # Gets phase difference
+    phase_diff = np.angle(m1_f_low) - np.angle(m2_f_low)
+    if phase_diff < 0:
+        phase_diff += 2*np.pi
+
+    # Converts phase difference to shifted frequency and eccentricity
+    s_f_range = f_low - shifted_f(f_low, e, M, q)
+    s_f = f_low - (phase_diff/(2*np.pi))*s_f_range
+    s_e = shifted_e(s_f, f_low, e)
+
+    # Calculates matches to h1, h2 at shifted frequency
+    wf_s_f = gen_wf(s_f, s_e, M, q, sample_rate, approximant)
+    matches =  match_h1_h2(wf_h1, wf_h2, wf_s_f, f_low)
+
+    return matches
+    
+
+def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_method, max_all_peaks=False):
+    """
+    Calculates match between fiducial h1, h2 waveforms and a trial waveform, maximised 
+    over true anomaly/shifted frequency using the specified method.
+
+    Parameters:
+        wf_h1: Fiducial h1 waveform.
+        wf_h2: Fiducial h2 waveform.
+        f_low: Starting frequency of waveforms.
+        e: Eccentricity of trial waveform.
+        M: Total mass of trial waveform.
+        q: Mass ratio of trial waveform.
+        sample_rate: Sample rate of trial waveform.
+        approximant: Approximant of trial waveform.
+        max_method: Which method to use to maximise over shifted frequency, either 'sine_approx' or 'phase_diff'.
+        max_all_peaks: Whether to maximise to h1, h2, and quad match peaks individually.
+        
+    Returns:
+        Complex matches to h1,h2 maximised to quad match peak, and optionally also complex matches to h1,h2 
+        maximised to their own respective peaks.
+    """
+
+    # Calculates matches maximised over shifted frequency using specified method and options
+    if max_method == 'sine_approx':
+        raise Exception('max_method=sine_approx is not yet implemented')
+    elif max_method == 'phase_diff':
+        if max_all_peaks:
+            raise Exception('max_all_peaks=True cannot be used with max_method=phase_diff')
+        else:
+            matches = s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant)
+    else:
+        raise Exception('max_method not recognised')
+
+    # Returns matches
+    return matches
+
 
 ## Waveform components
 
