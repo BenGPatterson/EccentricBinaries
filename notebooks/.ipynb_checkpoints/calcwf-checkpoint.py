@@ -514,7 +514,7 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
 
     # Perform match
-    m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=subsample_interpolation, return_phase=return_phase)
+    m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3,    subsample_interpolation=subsample_interpolation, return_phase=return_phase)
 
     # Additionally returns phase required to match waveforms up if requested
     if return_phase:
@@ -593,6 +593,108 @@ def minimise_match(s_f, f_low, e, M, q, h_fid, sample_rate, approximant, subsamp
     return m
 
 ## Maximising over shifted frequency
+
+def sine_model_coeffs(m_0, m_1, m_2):
+    """
+    Calculates coefficients A, B, C in equation m(x) = A*sin(x+B)+C given the value of 
+    m(0), m(-pi/2) and m(-pi).
+
+    Parameters:
+        m_0: Value of m(0).
+        m_1: Value of m(-pi/2).
+        m_2: Value of m(-pi).
+        
+    Returns:
+        Coefficients A, B, C.
+    """
+
+    # Calculate C
+    C = (m_0 + m_2)/2
+    
+    # Calculate A
+    A = np.sqrt((m_0 - C)**2 + (m_1 - C)**2)
+
+    # Calculate B
+    B = -np.arctan2(m_0 - C, m_1 - C)
+
+    return A, B, C
+
+def sine_model(x, A, B, C):
+    """
+    Calculates sinusoid modelled as m(x) = A*sin(x+B)+C at a given value of x.
+
+    Parameters:
+        x: Value at which to evaluate m(x).
+        A_1: Amplitude of sinusoid.
+        B_1: Phase offset of sinusoid.
+        C_1: Offset of sinusoid.
+        
+    Returns:
+        Value of m(x) at given value of x.
+    """
+    
+    m = A*np.sin(x+B)+C
+
+    return m
+
+def quad_sine_model(x, A_1, B_1, C_1, A_2, B_2, C_2, sign=1):
+    """
+    Calculates quadrature sum of two sinusoids modelled as m_quad(x) = sqrt(m_1^2(x) + m_2^2(x)) 
+    where m_n(x) = A_n*sin(x+B_n)+C_n for n=1,2 at a given value of x.
+
+    Parameters:
+        x: Value at which to evaluate m_n(x).
+        A_1: Amplitude of first sinusoid.
+        B_1: Phase offset of first sinusoid.
+        C_1: Offset of first sinusoid.
+        A_2: Amplitude of second sinusoid.
+        B_2: Phase offset of second sinusoid.
+        C_2: Offset of second sinusoid.
+        
+    Returns:
+        Value of m_quad(x) at given value of x.
+    """
+    
+    # Calculates m_n functions for this value of x
+    m_1 = sine_model(x, A_1, B_1, C_1)
+    m_2 = sine_model(x, A_2, B_2, C_2)
+
+    # Calculates quadrature sum for this value of x
+    m_quad = np.sqrt(m_1**2 + m_2**2)
+
+    return m_quad
+
+def maximise_quad_sine(A_1, B_1, C_1, A_2, B_2, C_2):
+    """
+    Maximises quadrature sum of two sinusoids modelled as m_quad(x) = sqrt(m_1^2(x) + m_2^2(x)) 
+    where m_n(x) = A_n*sin(x+B_n)+C_n for n=1,2.
+
+    Parameters:
+        A_1: Amplitude of first sinusoid.
+        B_1: Phase offset of first sinusoid.
+        C_1: Offset of first sinusoid.
+        A_2: Amplitude of second sinusoid.
+        B_2: Phase offset of second sinusoid.
+        C_2: Offset of second sinusoid.
+        
+    Returns:
+        Value of x which maximises m_quad(x).
+    """
+
+    # Use location of peak of first sinusoid for initial guess
+    init_guess = np.pi/2 - B_1
+    if init_guess > 0:
+        init_guess -= 2*np.pi
+
+    # Set bounds and arguments of function
+    args = (A_1, B_1, C_1, A_2, B_2, C_2)
+    bounds = [(-2*np.pi, 0)]
+
+    # Perform maximisation
+    max_result = minimize(lambda x: -quad_sine_model(x, *args), init_guess, bounds=bounds)
+    max_location = max_result['x']
+
+    return max_location
 
 def s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant):
     """
