@@ -603,10 +603,13 @@ def sine_model_coeffs(m_0, m_1, m_2):
         m_0: Value of m(0).
         m_1: Value of m(-pi/2).
         m_2: Value of m(-pi).
-        
+    
     Returns:
         Coefficients A, B, C.
     """
+
+    # Ensure amplitude of match is given
+    m_0, m_1, m_2 = abs(m_0), abs(m_1), abs(m_2)
 
     # Calculate C
     C = (m_0 + m_2)/2
@@ -615,7 +618,7 @@ def sine_model_coeffs(m_0, m_1, m_2):
     A = np.sqrt((m_0 - C)**2 + (m_1 - C)**2)
 
     # Calculate B
-    B = -np.arctan2(m_0 - C, m_1 - C)
+    B = np.arctan2(m_0 - C, -(m_1 - C))
 
     return A, B, C
 
@@ -696,6 +699,58 @@ def maximise_quad_sine(A_1, B_1, C_1, A_2, B_2, C_2):
 
     return max_location
 
+def s_f_max_sine_approx(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, return_coeffs=False):
+    """
+    Calculates match between fiducial h1, h2 waveforms and a trial waveform, maximised 
+    over true anomaly/shifted frequency by approximating the matches of h1/h2 against 
+    as sinusoidal curves.
+
+    Parameters:
+        wf_h1: Fiducial h1 waveform.
+        wf_h2: Fiducial h2 waveform.
+        f_low: Starting frequency of waveforms.
+        e: Eccentricity of trial waveform.
+        M: Total mass of trial waveform.
+        q: Mass ratio of trial waveform.
+        sample_rate: Sample rate of trial waveform.
+        approximant: Approximant of trial waveform.
+        return_coeffs: whether to return calculated coefficients of sine models.
+        
+    Returns:
+        Complex matches to h1,h2 maximised to quad match peak.
+    """
+    
+    # Converts necessary phase shifts to shifted frequency and eccentricity
+    phase_shifts = np.array([0, -np.pi/2, -np.pi])
+    s_f_range = f_low - shifted_f(f_low, e, M, q)
+    s_f_vals = f_low + (phase_shifts/(2*np.pi))*s_f_range
+    s_e_vals = shifted_e(s_f_vals, f_low, e)
+
+    # Calculates matches to h1, h2 at each phase shift
+    m1_vals, m2_vals = np.empty(3, dtype=np.complex128), np.empty(3, dtype=np.complex128)
+    for i, (s_f, s_e) in enumerate(zip(s_f_vals, s_e_vals)):
+        wf_s = gen_wf(s_f, s_e, M, q, sample_rate, approximant)
+        m1_vals[i], m2_vals[i] = match_h1_h2(wf_h1, wf_h2, wf_s, f_low)
+    
+    # Calculates both sets of sine model coefficients
+    coeffs_h1 = sine_model_coeffs(*m1_vals)
+    coeffs_h2 = sine_model_coeffs(*m2_vals)
+
+    # Find location of quad match peak in terms of required phase shift
+    phase_shift_quad_max = maximise_quad_sine(*coeffs_h1, *coeffs_h2)
+
+    # Perform final match to h1, h2 at this phase shift
+    s_f_quad_max = f_low + (phase_shift_quad_max/(2*np.pi))*s_f_range
+    s_e_quad_max = shifted_e(s_f_quad_max, f_low, e)
+    wf_quad_max = gen_wf(s_f_quad_max, s_e_quad_max, M, q, sample_rate, approximant)
+    matches = match_h1_h2(wf_h1, wf_h2, wf_quad_max, f_low)
+
+    # Additionall returns coefficients if requested
+    if return_coeffs:
+        return matches, list(coeffs_h1) + list(coeffs_h2)
+    else:
+        return matches
+
 def s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant):
     """
     Calculates match between fiducial h1, h2 waveforms and a trial waveform, maximised 
@@ -721,13 +776,13 @@ def s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant):
     m1_f_low, m2_f_low = match_h1_h2(wf_h1, wf_h2, wf_f_low, f_low)
 
     # Gets phase difference
-    phase_diff = np.angle(m1_f_low) - np.angle(m2_f_low)
-    if phase_diff < 0:
-        phase_diff += 2*np.pi
+    phase_diff = np.angle(m2_f_low) - np.angle(m1_f_low)
+    if phase_diff > 0:
+        phase_diff -= 2*np.pi
 
     # Converts phase difference to shifted frequency and eccentricity
     s_f_range = f_low - shifted_f(f_low, e, M, q)
-    s_f = f_low - (phase_diff/(2*np.pi))*s_f_range
+    s_f = f_low + (phase_diff/(2*np.pi))*s_f_range
     s_e = shifted_e(s_f, f_low, e)
 
     # Calculates matches to h1, h2 at shifted frequency
@@ -737,7 +792,7 @@ def s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant):
     return matches
     
 
-def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_method, max_all_peaks=False):
+def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_method):
     """
     Calculates match between fiducial h1, h2 waveforms and a trial waveform, maximised 
     over true anomaly/shifted frequency using the specified method.
@@ -752,21 +807,16 @@ def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_me
         sample_rate: Sample rate of trial waveform.
         approximant: Approximant of trial waveform.
         max_method: Which method to use to maximise over shifted frequency, either 'sine_approx' or 'phase_diff'.
-        max_all_peaks: Whether to maximise to h1, h2, and quad match peaks individually.
         
     Returns:
-        Complex matches to h1,h2 maximised to quad match peak, and optionally also complex matches to h1,h2 
-        maximised to their own respective peaks.
+        Complex matches to h1,h2 maximised to quad match peak.
     """
 
-    # Calculates matches maximised over shifted frequency using specified method and options
+    # Calculates matches maximised over shifted frequency using specified method
     if max_method == 'sine_approx':
-        raise Exception('max_method=sine_approx is not yet implemented')
+        matches = s_f_max_sine_approx(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant)
     elif max_method == 'phase_diff':
-        if max_all_peaks:
-            raise Exception('max_all_peaks=True cannot be used with max_method=phase_diff')
-        else:
-            matches = s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant)
+        matches = s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant)
     else:
         raise Exception('max_method not recognised')
 
