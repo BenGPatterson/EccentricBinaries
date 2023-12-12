@@ -468,7 +468,7 @@ def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, return_index=False):
     else:
         # If fiducial h2 needs to be shifted backward, interpolate h2 waveform backward
         inter_index = (len(wf_h1) - m_index) - int(len(wf_h1) - m_index)
-        wf_h2_interpolate = interp1d(wf_h2.sample_times-(inter_index*delta_t), wf_h2, bounds_error=False, fill_value=0)
+        wf_h2_interpolate = interp1d(wf_h2.sample_times, wf_h2, bounds_error=False, fill_value=0)
         wf_h2_strain = wf_h2_interpolate(wf_h2.sample_times+(inter_index*delta_t))
         wf_h2 = timeseries.TimeSeries(wf_h2_strain, wf_h2.delta_t, epoch=wf_h2.start_time+(inter_index*delta_t))
 
