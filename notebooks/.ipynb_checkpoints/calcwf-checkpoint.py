@@ -798,7 +798,7 @@ def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_me
     over true anomaly/shifted frequency using the specified method.
 
     Parameters:
-        wf_h1: Fiducial h1 waveform.
+        wf_h1: Fiducial h1 w_anomalyaveform.
         wf_h2: Fiducial h2 waveform.
         f_low: Starting frequency of waveforms.
         e: Eccentricity of trial waveform.
@@ -823,6 +823,45 @@ def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_me
     # Returns matches
     return matches
 
+def match_true_anomaly(wf_h, f_low, e, M, q, sample_rate, approximant):
+    """
+    Calculates match between two waveforms, maximised over shifted frequency 
+    by calculating the true anomaly using matches to h1, h2 waveforms.
+
+    Parameters:
+        wf_h: Fiducial waveform.
+        f_low: Starting frequency of waveforms.
+        e: Eccentricity of trial waveform.
+        M: Total mass of trial waveform.
+        q: Mass ratio of trial waveform.
+        sample_rate: Sample rate of trial waveform.
+        approximant: Approximant of trial waveform.
+        
+    Returns:
+        Complex match between waveforms maximised over shifted frequency/true anomaly.
+    """
+
+    # Calculates matches to h1, h2 at f_low
+    _, wf_h1, wf_h2, _, _ = get_h([1,1], f_low, e, M, q, sample_rate, approximant=approximant)
+    m1, m2 = match_h1_h2(wf_h1, wf_h2, wf_h, f_low)
+
+    # Gets phase difference
+    phase_diff = np.angle(m1) - np.angle(m2)
+    if phase_diff > 0:
+        phase_diff -= 2*np.pi
+
+    # Converts phase difference to shifted frequency and eccentricity
+    s_f_range = f_low - shifted_f(f_low, e, M, q)
+    s_f = f_low + (phase_diff/(2*np.pi))*s_f_range
+    s_e = shifted_e(s_f, f_low, e)
+
+    # Calculates matches to h1, h2 at shifted frequency
+    wf_s_f = gen_wf(s_f, s_e, M, q, sample_rate, approximant)
+    m_amp, m_phase =  match_wfs(wf_s_f, wf_h, f_low, True, return_phase=True)
+    match = m_amp*np.e**(1j*m_phase)
+
+    # Returns matches
+    return match
 
 ## Waveform components
 
