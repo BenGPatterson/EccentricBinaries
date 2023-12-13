@@ -414,14 +414,14 @@ def prepend_zeros(wf_pre, wf_ref):
 
 def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, return_index=False):
     """
-    Calculates match between fiducial h1 waveform and a trial waveform, and uses the time shift 
-    in this match to compute the complex overlap between the time-shifted fiducial h2 waveform 
+    Calculates match between h1 waveform and a trial waveform, and uses the time shift 
+    in this match to compute the complex overlap between the time-shifted h2 waveform 
     and a trial waveform. This ensures the 'match' is calculated for both h1 and h2 at the same 
     time.
 
     Parameters:
-        wf_h1: Fiducial h1 waveform.
-        wf_h2: Fiducial h2 waveform.
+        wf_h1: h1 waveform.
+        wf_h2: h2 waveform.
         wf_s: Trial waveform
         f_low: Starting frequency of waveforms.
         return_index: Whether to return index shift of h1 match.
@@ -449,24 +449,24 @@ def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, return_index=False):
     m_h1_amp, m_index, m_h1_phase = match(wf_h1.real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=True, return_phase=True)
     m_h1 = m_h1_amp*np.e**(1j*m_h1_phase)
 
-    # Shift fiducial h2
+    # Shift h2
     if m_index <= len(wf_h1)/2:
-        # If fiducial h2 needs to be shifted forward, prepend zeros to it
+        # If h2 needs to be shifted forward, prepend zeros to it
         wf_h2.prepend_zeros(int(m_index))
     else:
-        # If fiducial h2 needs to be shifted backward, prepend zeros to trial waveform instead
+        # If h2 needs to be shifted backward, prepend zeros to trial waveform instead
         wf_s.prepend_zeros(int(len(wf_h1) - m_index))
 
     # As subsample_interpolation=True, require interpolation of h2 to account for non-integer index shift
     delta_t = wf_h1.delta_t
     if m_index <= len(wf_h1)/2:
-        # If fiducial h2 needs to be shifted forward, interpolate h2 waveform forward
+        # If h2 needs to be shifted forward, interpolate h2 waveform forward
         inter_index = m_index - int(m_index)
         wf_h2_interpolate = interp1d(wf_h2.sample_times, wf_h2, bounds_error=False, fill_value=0)
         wf_h2_strain = wf_h2_interpolate(wf_h2.sample_times-(inter_index*delta_t))
         wf_h2 = timeseries.TimeSeries(wf_h2_strain, wf_h2.delta_t, epoch=wf_h2.start_time-(inter_index*delta_t))
     else:
-        # If fiducial h2 needs to be shifted backward, interpolate h2 waveform backward
+        # If h2 needs to be shifted backward, interpolate h2 waveform backward
         inter_index = (len(wf_h1) - m_index) - int(len(wf_h1) - m_index)
         wf_h2_interpolate = interp1d(wf_h2.sample_times, wf_h2, bounds_error=False, fill_value=0)
         wf_h2_strain = wf_h2_interpolate(wf_h2.sample_times+(inter_index*delta_t))
@@ -699,25 +699,24 @@ def maximise_quad_sine(A_1, B_1, C_1, A_2, B_2, C_2):
 
     return max_location
 
-def s_f_max_sine_approx(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, return_coeffs=False):
+def s_f_max_sine_approx(wf_s, f_low, e, M, q, sample_rate, approximant, return_coeffs=False):
     """
-    Calculates match between fiducial h1, h2 waveforms and a trial waveform, maximised 
+    Calculates match between h1, h2 waveforms and a trial waveform, maximised 
     over true anomaly/shifted frequency by approximating the matches of h1/h2 against 
     as sinusoidal curves.
 
     Parameters:
-        wf_h1: Fiducial h1 waveform.
-        wf_h2: Fiducial h2 waveform.
+        wf_s: Trial waveform.
         f_low: Starting frequency of waveforms.
-        e: Eccentricity of trial waveform.
-        M: Total mass of trial waveform.
-        q: Mass ratio of trial waveform.
-        sample_rate: Sample rate of trial waveform.
-        approximant: Approximant of trial waveform.
+        e: Eccentricity of h1, h2 waveforms.
+        M: Total mass of h1, h2 waveforms.
+        q: Mass ratio of h1, h2 waveforms.
+        sample_rate: Sample rate of h1, h2 waveforms.
+        approximant: Approximant of h1, h2 waveforms.
         return_coeffs: whether to return calculated coefficients of sine models.
         
     Returns:
-        Complex matches to h1,h2 maximised to quad match peak.
+        Complex matches to h1, h2 maximised to quad match peak.
     """
     
     # Converts necessary phase shifts to shifted frequency and eccentricity
@@ -729,7 +728,7 @@ def s_f_max_sine_approx(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, 
     # Calculates matches to h1, h2 at each phase shift
     m1_vals, m2_vals = np.empty(3, dtype=np.complex128), np.empty(3, dtype=np.complex128)
     for i, (s_f, s_e) in enumerate(zip(s_f_vals, s_e_vals)):
-        wf_s = gen_wf(s_f, s_e, M, q, sample_rate, approximant)
+        _, wf_h1, wf_h2, _, _ = get_h([1,1], s_f, s_e, M, q, sample_rate, approximant=approximant)
         m1_vals[i], m2_vals[i] = match_h1_h2(wf_h1, wf_h2, wf_s, f_low)
     
     # Calculates both sets of sine model coefficients
@@ -742,41 +741,40 @@ def s_f_max_sine_approx(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, 
     # Perform final match to h1, h2 at this phase shift
     s_f_quad_max = f_low + (phase_shift_quad_max/(2*np.pi))*s_f_range
     s_e_quad_max = shifted_e(s_f_quad_max, f_low, e)
-    wf_quad_max = gen_wf(s_f_quad_max, s_e_quad_max, M, q, sample_rate, approximant)
-    matches = match_h1_h2(wf_h1, wf_h2, wf_quad_max, f_low)
+    _, wf_h1_quad_max, wf_h2_quad_max, _, _ = get_h([1,1], s_f_quad_max, s_e_quad_max, M, q, sample_rate, approximant=approximant)
+    matches = match_h1_h2(wf_h1_quad_max, wf_h2_quad_max, wf_s, f_low)
 
-    # Additionall returns coefficients if requested
+    # Additionally returns coefficients if requested
     if return_coeffs:
         return matches, list(coeffs_h1) + list(coeffs_h2)
     else:
         return matches
 
-def s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant):
+def s_f_max_phase_diff(wf_s, f_low, e, M, q, sample_rate, approximant):
     """
-    Calculates match between fiducial h1, h2 waveforms and a trial waveform, maximised 
+    Calculates match between h1, h2 waveforms and a trial waveform, maximised 
     over true anomaly/shifted frequency using the difference between the phase of matches 
-    to the h1,h2 waveforms when the trial waveform starts at f=f_low.
+    to the h1,h2 waveforms when the fiducial waveforms start at f=f_low.
 
     Parameters:
-        wf_h1: Fiducial h1 waveform.
-        wf_h2: Fiducial h2 waveform.
+        wf_s: Trial waveform.
         f_low: Starting frequency of waveforms.
-        e: Eccentricity of trial waveform.
-        M: Total mass of trial waveform.
-        q: Mass ratio of trial waveform.
-        sample_rate: Sample rate of trial waveform.
-        approximant: Approximant of trial waveform.
+        e: Eccentricity of h1, h2 waveforms.
+        M: Total mass of h1, h2 waveforms.
+        q: Mass ratio of h1, h2 waveforms.
+        sample_rate: Sample rate of h1, h2 waveforms.
+        approximant: Approximant of h1, h2 waveforms.
         
     Returns:
         Complex matches to h1,h2 maximised to quad match peak.
     """
 
     # Calculates matches to h1, h2 at f_low
-    wf_f_low = gen_wf(f_low, e, M, q, sample_rate, approximant)
-    m1_f_low, m2_f_low = match_h1_h2(wf_h1, wf_h2, wf_f_low, f_low)
+    _, wf_h1, wf_h2, _, _ = get_h([1,1], f_low, e, M, q, sample_rate, approximant=approximant)
+    m1_f_low, m2_f_low = match_h1_h2(wf_h1, wf_h2, wf_s, f_low)
 
     # Gets phase difference
-    phase_diff = np.angle(m2_f_low) - np.angle(m1_f_low)
+    phase_diff = np.angle(m1_f_low) - np.angle(m2_f_low)
     if phase_diff > 0:
         phase_diff -= 2*np.pi
 
@@ -786,26 +784,25 @@ def s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant):
     s_e = shifted_e(s_f, f_low, e)
 
     # Calculates matches to h1, h2 at shifted frequency
-    wf_s_f = gen_wf(s_f, s_e, M, q, sample_rate, approximant)
-    matches =  match_h1_h2(wf_h1, wf_h2, wf_s_f, f_low)
+    _, wf_h1_s_f, wf_h2_s_f, _, _ = get_h([1,1], s_f, s_e, M, q, sample_rate, approximant=approximant)
+    matches =  match_h1_h2(wf_h1_s_f, wf_h2_s_f, wf_s, f_low)
 
     return matches
     
 
-def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_method):
+def match_s_f_max(wf_s, f_low, e, M, q, sample_rate, approximant, max_method):
     """
-    Calculates match between fiducial h1, h2 waveforms and a trial waveform, maximised 
+    Calculates match between h1, h2 waveforms and a trial waveform, maximised 
     over true anomaly/shifted frequency using the specified method.
 
     Parameters:
-        wf_h1: Fiducial h1 waveform.
-        wf_h2: Fiducial h2 waveform.
+        wf_s: Trial waveform.
         f_low: Starting frequency of waveforms.
-        e: Eccentricity of trial waveform.
-        M: Total mass of trial waveform.
-        q: Mass ratio of trial waveform.
-        sample_rate: Sample rate of trial waveform.
-        approximant: Approximant of trial waveform.
+        e: Eccentricity of h1, h2 waveforms.
+        M: Total mass of h1, h2 waveforms.
+        q: Mass ratio of h1, h2 waveforms.
+        sample_rate: Sample rate of h1, h2 waveforms.
+        approximant: Approximant of h1, h2 waveforms.
         max_method: Which method to use to maximise over shifted frequency, either 'sine_approx' or 'phase_diff'.
         
     Returns:
@@ -814,9 +811,9 @@ def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_me
 
     # Calculates matches maximised over shifted frequency using specified method
     if max_method == 'sine_approx':
-        matches = s_f_max_sine_approx(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant)
+        matches = s_f_max_sine_approx(wf_s, f_low, e, M, q, sample_rate, approximant)
     elif max_method == 'phase_diff':
-        matches = s_f_max_phase_diff(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant)
+        matches = s_f_max_phase_diff(wf_s, f_low, e, M, q, sample_rate, approximant)
     else:
         raise Exception('max_method not recognised')
 
