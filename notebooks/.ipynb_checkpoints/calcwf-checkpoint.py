@@ -14,6 +14,29 @@ import matplotlib.pyplot as plt
 
 ## Conversions
 
+def const_eff_chirp(given_e, given_chirp, e_vals):
+    """
+    Converts array of eccentricity values to chirp mass along a line of constant 
+    effective chirp mass, as given by equation 1.1 in Fawata et al. 
+    https://arxiv.org/pdf/2108.05861.pdf.
+
+    Parameters:
+        given_e: Value of eccentricity for given point on line of constant effective chirp mass.
+        given_chirp: Value of chirp mass for given point on line of constant effective chirp mass.
+        e_vals: Frequency values to be converted.
+
+    Returns:
+        Converted chirp mass values.
+    """
+
+    # Find effective chirp mass of given point
+    eff_chirp = given_chirp/(1-157*given_e**2/24)**(3/5)
+
+    # Convert to chirp mass values
+    chirp_vals = eff_chirp*(1-157*e_vals**2/24)**(3/5)
+
+    return chirp_vals
+
 def f_kep2avg(f_kep, e):
     """
     Converts Keplerian frequency to the average frequency quantity used by TEOBResumS.
