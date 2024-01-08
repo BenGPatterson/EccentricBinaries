@@ -14,10 +14,10 @@ import matplotlib.pyplot as plt
 
 ## Conversions
 
-def const_eff_chirp(given_e, given_chirp, e_vals):
+def const_eff_chirp_favata(given_e, given_chirp, e_vals):
     """
     Converts array of eccentricity values to chirp mass along a line of constant 
-    effective chirp mass, as given by equation 1.1 in Fawata et al. 
+    effective chirp mass, as given by equation 1.1 in Favata et al. 
     https://arxiv.org/pdf/2108.05861.pdf.
 
     Parameters:
@@ -35,6 +35,69 @@ def const_eff_chirp(given_e, given_chirp, e_vals):
     # Convert to chirp mass values
     chirp_vals = eff_chirp*(1-157*e_vals**2/24)**(3/5)
 
+    return chirp_vals
+
+def eff_chirp_bose(chirp, e):
+    """
+    Calculates the effective chirp mass parameter defined by Bose and Pai (2021).
+
+    Parameters:
+        chirp: chirp mass in solar masses.
+        e: eccentricity at 10Hz.
+
+    Returns:
+        Effective chirp mass parameter in solar masses.
+    """
+    
+    # Define polynomial constants
+    epsilon = 0.06110974175360381
+    delta = -0.4193723077257345
+    Theta_beta = 0.00801015132110059
+    Delta_beta = -2.14807199936756*10**-5
+    kappa_beta = 1.12702400406416*10**-8
+    zeta_beta = -1.9753003183066*10**-12
+    Theta_gamma = 0.024204222771565382
+    Delta_gamma = -6.261945897154536*10**-6
+    kappa_gamma = 1.1175104924576945*10**-8
+    zeta_gamma = -3.681726165703978*10**-12
+
+    # Coefficient of e_10^2
+    alpha = epsilon*chirp + delta
+
+    # Coefficient of e_10^4
+    beta = Theta_beta*chirp**2 + Delta_beta*chirp**2 + kappa_beta*chirp**6 + zeta_beta*chirp**8
+
+    # Coefficient of e_10^6
+    gamma = Theta_gamma*chirp**2 + Delta_gamma*chirp**2 + kappa_gamma*chirp**6 + zeta_gamma*chirp**8
+
+    # Effective chirp mass
+    eff_chirp = chirp*(1 + alpha*e**2 + beta*e**4 + gamma*e**6)
+
+    return eff_chirp
+    
+def const_eff_chirp_bose(given_e, given_chirp, e_vals):
+    """
+    Converts array of eccentricity values to chirp mass along a line of constant 
+    effective chirp mass, as given by equation 7 in Bose and Pai (2021) 
+    https://arxiv.org/pdf/2107.14736.pdf.
+
+    Parameters:
+        given_e: Value of eccentricity for given point on line of constant effective chirp mass.
+        given_chirp: Value of chirp mass for given point on line of constant effective chirp mass.
+        e_vals: Frequency values to be converted.
+
+    Returns:
+        Converted chirp mass values.
+    """
+
+    # Find effective chirp mass of given point
+    eff_chirp = eff_chirp_bose(given_chirp, given_e)
+
+    # Optimise to find chirp mass values corresponding to eccentricity values
+    init_guess = np.full(len(e_vals), given_chirp)
+    best_fit = minimize(lambda x: np.sum(abs(eff_chirp_bose(x, e_vals)-eff_chirp)), init_guess)
+    chirp_vals = np.array(best_fit['x'])
+    
     return chirp_vals
 
 def f_kep2avg(f_kep, e):
@@ -846,7 +909,7 @@ def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_me
     # Returns matches
     return matches
 
-def match_true_anomaly(wf_h, f_low, e, M, q, sample_rate, approximant):
+def match_true_anomaly(wf_h, f_low, e, M, q, sample_rate, approximant, final_match):
     """
     Calculates match between two waveforms, maximised over shifted frequency 
     by calculating the true anomaly using matches to h1, h2 waveforms.
@@ -859,6 +922,7 @@ def match_true_anomaly(wf_h, f_low, e, M, q, sample_rate, approximant):
         q: Mass ratio of trial waveform.
         sample_rate: Sample rate of trial waveform.
         approximant: Approximant of trial waveform.
+        final_match: Whether to perform final match to TEOBResumS waveform or h1, h2 quad match.
         
     Returns:
         Complex match between waveforms maximised over shifted frequency/true anomaly.
@@ -878,12 +942,20 @@ def match_true_anomaly(wf_h, f_low, e, M, q, sample_rate, approximant):
     s_f = f_low + (phase_diff/(2*np.pi))*s_f_range
     s_e = shifted_e(s_f, f_low, e)
 
-    # Calculates matches to h1, h2 at shifted frequency
-    wf_s_f = gen_wf(s_f, s_e, M, q, sample_rate, approximant)
-    m_amp, m_phase =  match_wfs(wf_s_f, wf_h, f_low, True, return_phase=True)
-    match = m_amp*np.e**(1j*m_phase)
+    # Calculates match(es) to final_match at shifted frequency
+    if final_match == 'TEOB':
+        wf_s_f = gen_wf(s_f, s_e, M, q, sample_rate, approximant)
+        m_amp, m_phase =  match_wfs(wf_s_f, wf_h, f_low, True, return_phase=True)
+        match = m_amp*np.e**(1j*m_phase)
+    elif final_match == 'quad':
+        _, wf_s_f_h1, wf_s_f_h2, _, _ = get_h([1,1], s_f, s_e, M, q, sample_rate, approximant=approximant)
+        m_h1_amp, m_h1_phase =  match_wfs(wf_s_f_h1, wf_h, f_low, True, return_phase=True)
+        m_h2_amp, m_h2_phase =  match_wfs(wf_s_f_h2, wf_h, f_low, True, return_phase=True)
+        match = [m_h1_amp*np.e**(1j*m_h1_phase), m_h2_amp*np.e**(1j*m_h2_phase)]
+    else:
+        raise Exception('final_match not recognised')
 
-    # Returns matches
+    # Returns match(es)
     return match
 
 ## Waveform components
