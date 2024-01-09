@@ -5,7 +5,7 @@ import scipy.constants as const
 import astropy.constants as aconst
 from pycbc.waveform import td_approximants, fd_approximants, get_td_waveform, get_fd_waveform, taper_timeseries
 from pycbc.detector import Detector
-from pycbc.filter import match, optimized_match, overlap_cplx, sigma
+from pycbc.filter import match, optimized_match, overlap_cplx, sigma, sigmasq
 from pycbc.psd import aLIGOZeroDetHighPower
 from pycbc.types import timeseries
 from scipy.optimize import minimize
@@ -14,7 +14,39 @@ import matplotlib.pyplot as plt
 
 ## Conversions
 
-def const_eff_chirp_favata(given_e, given_chirp, e_vals):
+def shifted_e_const(f, e):
+    """
+    Calculates constant of proportionality between gw frequency and function of eccentricity.
+
+    Parameters:
+        f: Gravitational wave frequency.
+        e: Eccentricity.
+
+    Returns:
+        Proportionality constant.
+    """
+
+    constant = f*e**(18/19)*(1+(121/304)*e**2)**(1305/2299)*(1-e**2)**(-3/2)
+
+    return constant
+
+def total2f_ISCO(M):
+    """
+    Converts total mass of BBH to gravitational wave frequency at ISCO (approximated by assuming 
+    circular, non-spinning).
+
+    Parameters:
+        M: Total mass.
+
+    Returns:
+        Gravitiational wave frequencya at ISCO.
+    """
+
+    f_ISCO = const.c**3/(6*np.sqrt(6)*np.pi*const.G*M*aconst.M_sun.value)
+
+    return f_ISCO
+
+def const_eff_chirp_favata(given_e, given_chirp, e_vals, f_low=10, q=2, average_f=True, shift_e='approx', ISCO_upper=False):
     """
     Converts array of eccentricity values to chirp mass along a line of constant 
     effective chirp mass, as given by equation 1.1 in Favata et al. 
@@ -29,11 +61,62 @@ def const_eff_chirp_favata(given_e, given_chirp, e_vals):
         Converted chirp mass values.
     """
 
+    # Find average value of f and evolve eccentricities if required
+    if average_f:
+
+        # Generate waveform at given point to use in sigmasq
+        h = gen_wf(f_low, given_e, chirp2total(given_chirp, q), q, 4096, 'TEOBResumS')
+        h.resize(ceiltwo(len(h)))
+        
+        # Generate the aLIGO ZDHP PSD
+        delta_f = 1.0 / h.duration
+        flen = len(h)//2 + 1
+        psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+
+        # Sets upper bound of f_ISCO if requested
+        if ISCO_upper:
+            high_frequency_cutoff = total2f_ISCO(chirp2total(given_chirp, 2))
+        else:
+            high_frequency_cutoff = None
+
+        # Calculate both integrals using sigmasq
+        h = h.real().to_frequencyseries()
+        ss = sigmasq(h, psd=psd, low_frequency_cutoff=f_low+3, high_frequency_cutoff=high_frequency_cutoff)
+        ssf = sigmasq(h*np.sqrt(h.sample_frequencies), psd=psd, low_frequency_cutoff=f_low+3, 
+                      high_frequency_cutoff=high_frequency_cutoff)
+
+        # Use average frequency to evolve eccentricities
+        avg_f = ssf/ss
+        print('Average frequency: '+str(avg_f)+' Hz')
+        if shift_e == 'approx':
+            s_given_e = shifted_e(avg_f, f_low, given_e)
+            print(f'Given_e shifted from {given_e} to {s_given_e}')
+            s_e_vals = shifted_e(avg_f, f_low, e_vals)
+        elif shift_e == 'exact':
+            # For given_e
+            constant = shifted_e_const(f_low, given_e)
+            init_guess = shifted_e(avg_f, f_low, given_e)
+            bounds = [(0, 0.999)]
+            best_fit = minimize(lambda x: abs(shifted_e_const(avg_f, x)-constant), init_guess, bounds=bounds)
+            s_given_e = np.array(best_fit['x'])
+            print(f'Given_e shifted from {given_e} to {s_given_e}')
+            # For e_vals
+            constant = shifted_e_const(f_low, e_vals)
+            init_guess = np.full(len(e_vals), shifted_e(avg_f, f_low, e_vals))
+            bounds = [(0, 0.999)]
+            best_fit = minimize(lambda x: np.sum(abs(shifted_e_const(avg_f, x)-constant)), init_guess, bounds=bounds)
+            s_e_vals = np.array(best_fit['x'])
+        else:
+            raise Exception('shift_e not recognised')
+    else:
+        s_given_e = given_e
+        s_e_vals = e_vals
+
     # Find effective chirp mass of given point
-    eff_chirp = given_chirp/(1-157*given_e**2/24)**(3/5)
+    eff_chirp = given_chirp/(1-(157/24)*s_given_e**2)**(3/5)
 
     # Convert to chirp mass values
-    chirp_vals = eff_chirp*(1-157*e_vals**2/24)**(3/5)
+    chirp_vals = eff_chirp*(1-(157/24)*s_e_vals**2)**(3/5)
 
     return chirp_vals
 
@@ -48,7 +131,7 @@ def eff_chirp_bose(chirp, e):
     Returns:
         Effective chirp mass parameter in solar masses.
     """
-    
+
     # Define polynomial constants
     epsilon = 0.06110974175360381
     delta = -0.4193723077257345
@@ -600,7 +683,7 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
 
     # Perform match
-    m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3,    subsample_interpolation=subsample_interpolation, return_phase=return_phase)
+    m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=subsample_interpolation, return_phase=return_phase)
 
     # Additionally returns phase required to match waveforms up if requested
     if return_phase:
@@ -949,9 +1032,7 @@ def match_true_anomaly(wf_h, f_low, e, M, q, sample_rate, approximant, final_mat
         match = m_amp*np.e**(1j*m_phase)
     elif final_match == 'quad':
         _, wf_s_f_h1, wf_s_f_h2, _, _ = get_h([1,1], s_f, s_e, M, q, sample_rate, approximant=approximant)
-        m_h1_amp, m_h1_phase =  match_wfs(wf_s_f_h1, wf_h, f_low, True, return_phase=True)
-        m_h2_amp, m_h2_phase =  match_wfs(wf_s_f_h2, wf_h, f_low, True, return_phase=True)
-        match = [m_h1_amp*np.e**(1j*m_h1_phase), m_h2_amp*np.e**(1j*m_h2_phase)]
+        match = match_h1_h2(wf_s_f_h1, wf_s_f_h2, wf_h, f_low, return_index=False)
     else:
         raise Exception('final_match not recognised')
 
