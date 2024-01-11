@@ -39,7 +39,7 @@ def total2f_ISCO(M):
         M: Total mass.
 
     Returns:
-        Gravitiational wave frequencya at ISCO.
+        Gravitiational wave frequency at ISCO.
     """
 
     f_ISCO = const.c**3/(6*np.sqrt(6)*np.pi*const.G*M*aconst.M_sun.value)
