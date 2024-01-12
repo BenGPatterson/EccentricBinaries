@@ -1210,8 +1210,8 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', opp_met
         M: Total mass.
         q: Mass ratio.
         sample_rate: Sample rate of waveform.
-        approximant: Approximant to use.
-        opp_method: Method to use to calculate the true anomaly shift of pi, either 'equation' or 'samples'.
+        approximant: Approximant to use (deprecated).
+        opp_method: Method to use to calculate the true anomaly shift of pi (deprecated).
         subsample_interpolation: Whether to use subsample interpolation.
         normalisation: Whether to normalise h_ap and h_peri components to ensure (h1|h2) = 0.
         taper: Whether to taper start of waveform.
