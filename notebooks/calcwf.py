@@ -1057,40 +1057,12 @@ def taper_wf(wf_taper):
     wf_taper = wf_taper_p - 1j*wf_taper_c
 
     return wf_taper
-
-def norm_ap_peri(unnorm_h_ap, unnorm_h_peri, f_low):
-    """
-    Normalises h_ap and h_peri to ensure that (h1|h2) = 0.
-
-    Parameters:
-        unnorm_h_ap: Unnormalised h_ap waveform.
-        unnorm_h_peri: Unnormalised h_peri waveform.
-        f_low: Lower bound of frequency interval.
-        
-    Returns:
-        Normalised h_ap and h_peri waveforms.
-    """
-
-    # Generate the aLIGO ZDHP PSD
-    assert len(unnorm_h_ap) == len(unnorm_h_peri)
-    delta_f = 1.0 / unnorm_h_ap.duration
-    flen = len(unnorm_h_ap)//2 + 1
-    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
-
-    # Calculates normalisation factor using sigma function
-    norm_ap = sigma(unnorm_h_ap.real(), psd=psd, low_frequency_cutoff=f_low+3)
-    norm_peri = sigma(unnorm_h_peri.real(), psd=psd, low_frequency_cutoff=f_low+3)
-
-    # Applies normalisation
-    norm_h_ap = unnorm_h_ap
-    norm_h_peri = unnorm_h_peri*norm_ap/norm_peri
-
-    return norm_h_ap, norm_h_peri
     
-def get_h_def(f_low, e, M, q, sample_rate, approximant, taper):
-    """
-    Generates waveform with chosen parameters at the default value of true anomaly.
-
+def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation, taper):
+    '''
+    Creates n component waveforms used to make h_1,...,h_n, all equally spaced in
+    true anomaly.
+    
     Parameters:
         f_low: Starting frequency.
         e: Eccentricity.
@@ -1098,145 +1070,152 @@ def get_h_def(f_low, e, M, q, sample_rate, approximant, taper):
         q: Mass ratio.
         sample_rate: Sample rate of waveform.
         approximant: Approximant to use.
+        normalisation: Whether to normalise h_ap and h_peri components to ensure (h1|h2) = 0.
         taper: Whether to taper start of waveform.
         
     Returns:
-        Complex combination of plus and cross waveform polarisations.
-    """
+        Component waveforms.
+    '''
+
+    # Generate shifted frequency, eccentricity, phase values
+    max_s_f = shifted_f(f_low, e, M, q)
+    s_f_vals = np.linspace(f_low, max_s_f, n, endpoint=False)
+    s_e_vals = shifted_e(s_f_vals, f_low, e)
+
+    comp_wfs = []
+    # Generate all component waveforms
+    for i, (s_f, s_e) in enumerate(zip(s_f_vals, s_e_vals)):
+
+        # Create waveform
+        h = gen_wf(s_f, s_e, M, q, sample_rate, approximant, phase=0)
+        
+        if i > 0:
+
+            # Trim waveform to same size as first (shortest), and corrects phase
+            h = trim_wf(h, comp_wfs[0])
+            overlap = overlap_cplx_wfs(h, comp_wfs[0], f_low)
+            phase_angle = np.angle(overlap)/2
+            h = gen_wf(s_f, s_e, M, q, sample_rate, approximant, phase=phase_angle)
+            h = trim_wf(h, comp_wfs[0])
+
+            # Tapers if requested
+            if taper:
+                h = taper_wf(h)
+            
+            # Normalises waveform if requested
+            if normalisation:
+                sigma_h = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
+                h *= sigma_0/sigma_h
+                
+        # Work out normalisation of first waveform        
+        elif normalisation:
+
+            # Tapers if requested
+            if taper:
+                h = taper_wf(h)
+            
+            # Generate the aLIGO ZDHP PSD
+            h.resize(ceiltwo(len(h))) 
+            delta_f = 1.0 / h.duration
+            flen = len(h)//2 + 1
+            psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+        
+            # Calculates normalisation factor using sigma function
+            sigma_0 = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
+
+        comp_wfs.append(h)
+
+    return comp_wfs
+
+def get_dominance_order(n):
+    '''
+    Creates indexing array to order h1, ..., hn waveforms from their natural roots of unity order 
+    to their order of dominance.
     
-    h_def = gen_wf(f_low, e, M, q, sample_rate, approximant)
-
-    # Tapers start of waveform if requested
-    if taper:
-        h_def = taper_wf(h_def)
-        
-    return h_def
-
-def get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsample_interpolation, taper):
-    """
-    Generates waveform with chosen parameters out of phase with the default value of true anomaly.
-
     Parameters:
-        f_low: Starting frequency.
-        e: Eccentricity.
-        M: Total mass.
-        q: Mass ratio.
-        h_def: Waveform with the default value of true anomaly.
-        sample_rate: Sample rate of waveform.
-        approximant: Approximant to use.
-        opp_method: Method to use to calculate the true anomaly shift of pi, either 'equation' or 'samples'.
-        subsample_interpolation: Whether to use subsample interpolation.
-        taper: Whether to taper start of waveform.
+        n: Number of waveform components.
         
     Returns:
-        Complex combination of plus and cross waveform polarisations.
+        Indexing array.
+    '''
+
+    # Always start with j=0
+    j_order = [0]
+
+    # Add increasing pairs of j and n-j
+    for i in range(1, int((n+1)/2)):
+        j_order.append(i)
+        j_order.append(n-i)
+
+    # Add n/2 if n is even
+    if n%2 == 0:
+        j_order.append(int(n/2))
+
+    return j_order
+
+def get_h_TD(coeffs, comp_wfs):
     """
-
-    # Gets amount to shift frequency by from equations in order to vary true anomaly by pi
-    s_f_2pi = shifted_f(f_low, e, M, q)
-    s_f_pi_len = 0.5*(f_low - s_f_2pi)
-
-    # Calculates shifted frequency to vary anomaly by pi based on specified opp_method
-    if opp_method == 'equation': # Simply takes result from approximate equations
-        s_f_pi = f_low - s_f_pi_len
-    elif opp_method == 'samples': # Refines result further by minimising match around local minimum
-        args = (f_low, e, M, q, h_def, sample_rate, approximant, subsample_interpolation)
-        bounds = [(f_low - 1.5*s_f_pi_len, f_low - 0.5*s_f_pi_len)]
-        init_guess = f_low - (1.1 + 0.2*np.random.rand())*s_f_pi_len
-        min_match_result = minimize(minimise_match, init_guess, args=args, bounds=bounds, method='Nelder-Mead')
-        s_f_pi = min_match_result['x']
-    else:
-        raise Exception('opp_method not recognised')
-
-    # Generates waveform
-    s_e_pi = shifted_e(s_f_pi, f_low, e)
-    h_opp = gen_wf(s_f_pi, s_e_pi, M, q, sample_rate, approximant)
-
-    # Edits sample times of h_opp to match h_def
-    h_opp = trim_wf(h_opp, h_def)
-
-    # Calculate phase difference and generate in phase h_opp
-    overlap = overlap_cplx_wfs(h_def, h_opp, f_low)
-    phase_angle = -np.angle(overlap)/2
-    h_opp = gen_wf(s_f_pi, s_e_pi, M, q, sample_rate, approximant, phase=phase_angle)
-    h_opp = trim_wf(h_opp, h_def)
-
-    # Tapers start of waveform if requested
-    if taper:
-        h_opp = taper_wf(h_opp)
-
-    return h_opp 
-
-## Overall waveform
-
-def get_h_TD(coeffs, h_ap, h_peri):
-    """
-    Combines waveform components in time domain to form h1, h2 and h as follows:
-    h1 = 0.5*(h_ap + h_peri)
-    h2 = 0.5*(h_ap - h_peri)
-    h = A*h1 + B*h2
+    Combines waveform components in time domain to form h1, ..., hn and h as follows:
 
     Parameters:
-        coeffs: List containing A and B, the coefficients of h1 and h2.
-        h_ap: Waveform starting at apastron.
-        h_peri: Waveform starting at periastron.
+        coeffs: List containing coefficients of h_1, ..., h_n.
+        comp_wfs: Waveform components s_1, ..., s_n.
         
     Returns:
-        All waveform components and combinations: h, h1, h2, h_ap, h_peri
+        All waveform components and combinations: h, h1, ..., h_n, s_1, ..., s_n
     """
 
-    # Calculate h1, h2 components of waveform
-    h1 = 0.5*(h_ap + h_peri)
-    h2 = 0.5*(h_ap - h_peri)
+    # Find first primitive root of unity
+    roots_unity = np.roots([1]+[0]*(len(coeffs)-1)+[-1])
+    prim_root_arg = np.argmin(np.angle(roots_unity)[np.angle(roots_unity)>0])
+    prim_root = roots_unity[np.angle(roots_unity)>0][prim_root_arg]
+    
+    # Build h1, ..., hn
+    hs = []
+    for i in range(len(coeffs)):
+        hs.append((1/len(coeffs))*comp_wfs[0])
+        for j in range(len(coeffs)-1):
+            hs[-1] += (1/len(coeffs))*comp_wfs[j+1]*prim_root**(i*(j+1))
 
-    # Calculates overall waveform using complex coefficients A, B
-    A, B = coeffs
-    h = A*h1 + B*h2
+    # Re-order by dominance rather than natural roots of unity order
+    j_order = get_dominance_order(len(coeffs))
+    hs = [hs[i] for i in j_order]
+
+    # Calculates overall waveform using complex coefficients A, B, C, ...
+    h = coeffs[0]*hs[0]
+    for i in range(len(coeffs)-1):
+        h += coeffs[i+1]*hs[i+1]
     
     # Returns overall waveform and components for testing purposes
-    return h, h1, h2, h_ap, h_peri
+    return h, *hs, *comp_wfs
 
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', opp_method='equation', subsample_interpolation=True, normalisation=True, taper=True):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, normalisation=True, taper=True):
     """
-    Generates a total waveform and components defined by the following equations:
-    h1 = 0.5*(h_ap + h_peri)
-    h2 = 0.5*(h_ap - h_peri)
-    h = A*h1 + B*h2
+    Generates a overall h waveform, h_1,...h_n, and s_1,...,s_n.
 
     Parameters:
-        coeffs: List containing A and B, the coefficients of h1 and h2.
+        coeffs: List containing coefficients of h_1,...,h_n.
         f_low: Starting frequency.
         e: Eccentricity.
         M: Total mass.
         q: Mass ratio.
         sample_rate: Sample rate of waveform.
-        approximant: Approximant to use (deprecated).
-        opp_method: Method to use to calculate the true anomaly shift of pi (deprecated).
+        approximant: Approximant to use.
         subsample_interpolation: Whether to use subsample interpolation.
         normalisation: Whether to normalise h_ap and h_peri components to ensure (h1|h2) = 0.
         taper: Whether to taper start of waveform.
         
     Returns:
-        All waveform components and combinations: h, h1, h2, h_ap, h_peri
+        All waveform components and combinations: h, h1, ..., h_n, s_1, ..., s_n
     """
 
-    # Gets h_def and h_opp components which make up overall waveform
-    h_def = get_h_def(f_low, e, M, q, sample_rate, approximant, taper)
-    h_opp = get_h_opp(f_low, e, M, q, h_def, sample_rate, approximant, opp_method, subsample_interpolation, taper)
+    # Other approximants are deprecated
+    assert approximant == 'TEOBResumS'
 
-    # Identify h_ap and h_peri based on waveform approximant used
-    if approximant=='EccentricTD':
-        h_ap, h_peri = h_opp, h_def
-    elif approximant=='TEOBResumS':
-        h_ap, h_peri = h_def, h_opp
-    else:
-        raise Exception('approximant not recognised')
-
-    # Normalises h_ap and h_peri if required
-    if normalisation:
-        h_ap, h_peri = norm_ap_peri(h_ap, h_peri, f_low)
+    # Gets (normalised) components which make up overall waveform
+    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, normalisation, taper)
 
     # Calculate overall waveform and components in time domain
-    wfs = get_h_TD(coeffs, h_ap, h_peri)
+    wfs = get_h_TD(coeffs, component_wfs)
    
     return wfs
