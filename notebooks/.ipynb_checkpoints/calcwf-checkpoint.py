@@ -7,7 +7,7 @@ from pycbc.waveform import td_approximants, fd_approximants, get_td_waveform, ge
 from pycbc.detector import Detector
 from pycbc.filter import match, optimized_match, overlap_cplx, sigma, sigmasq
 from pycbc.psd import aLIGOZeroDetHighPower
-from pycbc.types import timeseries
+from pycbc.types import timeseries, frequencyseries
 from scipy.optimize import minimize
 from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
@@ -511,6 +511,44 @@ def shifted_e(s_f, f, e):
     return s_e
 
 ## Match waveforms
+
+def gen_psd(h_psd, f_low):
+    """
+    Generates psd required for a real or complex time series.
+
+    Parameters:
+        h_psd: Time series to generate psd for.
+        f_low: Starting frequency of waveform.
+
+    Returns:
+        Psd and high frequency cutoff to use.
+    """
+
+    # Generate the aLIGO ZDHP PSD
+    delta_f = 1.0 / h_psd.duration
+    flen = len(h_psd)//2 + 1
+    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+
+    # If time series is not complex, we are done
+    if h_psd.dtype.kind == 'f':
+        return psd, None
+
+    # Complex PSD
+    cplx_psd = np.zeros(len(h_psd))
+    cplx_psd[:flen] = psd
+    if len(h_psd)%2 == 0:
+        cplx_psd[flen:] = np.flip(psd[1:-1])
+    else:
+        cplx_psd[flen:] = np.flip(psd[1:])
+    cplx_psd[int(len(cplx_psd)/2):int(len(cplx_psd)/2)+1+(len(h_psd)%2)] = cplx_psd[int(len(cplx_psd)/2)-1]
+    cplx_psd = frequencyseries.FrequencySeries(cplx_psd, delta_f=delta_f)
+
+    # High frequency cutoff
+    low_cutoff_ind = int((f_low+3)/cplx_psd.delta_f)
+    high_cutoff_ind = len(h_psd) - (low_cutoff_ind - 1)
+    high_cutoff_freq = high_cutoff_ind*cplx_psd.delta_f
+
+    return cplx_psd, high_cutoff_freq
 
 def ceiltwo(number):
     """
