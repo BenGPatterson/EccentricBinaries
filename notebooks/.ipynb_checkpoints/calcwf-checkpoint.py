@@ -69,9 +69,7 @@ def const_eff_chirp_favata(given_e, given_chirp, e_vals, f_low=10, q=2, average_
         h.resize(ceiltwo(len(h)))
         
         # Generate the aLIGO ZDHP PSD
-        delta_f = 1.0 / h.duration
-        flen = len(h)//2 + 1
-        psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+        psd, _ = gen_psd(h, f_low)
 
         # Sets upper bound of f_ISCO if requested
         if ISCO_upper:
@@ -512,13 +510,14 @@ def shifted_e(s_f, f, e):
 
 ## Match waveforms
 
-def gen_psd(h_psd, f_low):
+def gen_psd(h_psd, f_low, kind='f'):
     """
     Generates psd required for a real or complex time series.
 
     Parameters:
         h_psd: Time series to generate psd for.
         f_low: Starting frequency of waveform.
+        kind: Whether a psd should be made for a float or complex time series.
 
     Returns:
         Psd and high frequency cutoff to use.
@@ -530,8 +529,9 @@ def gen_psd(h_psd, f_low):
     psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
 
     # If time series is not complex, we are done
-    if h_psd.dtype.kind == 'f':
+    if kind == 'f':
         return psd, None
+    assert kind == 'c'
 
     # Complex PSD
     cplx_psd = np.zeros(len(h_psd))
@@ -564,22 +564,23 @@ def ceiltwo(number):
     ceil = math.ceil(np.log2(number))
     return 2**ceil
 
-def resize_wfs(wf_a, wf_b):
+def resize_wfs(wfs):
     """
-    Resizes two input waveforms to both match the next highest power of two.
+    Resizes two or more input waveforms to all match the next highest power of two.
 
     Parameters:
-        wf_a: First input waveform.
+        wfs: List of input waveforms.
         wf_b: Second input waveform.
 
     Returns:
         Resized waveforms.
     """
     
-    tlen = ceiltwo(max(len(wf_a), len(wf_b)))
-    wf_a.resize(tlen)
-    wf_b.resize(tlen)
-    return wf_a, wf_b
+    lengths = [len(i) for i in wfs]
+    tlen = ceiltwo(max(lengths))
+    for wf in wfs:
+        wf.resize(tlen)
+    return wfs
 
 def trim_wf(wf_trim, wf_ref):
     """
@@ -619,6 +620,88 @@ def prepend_zeros(wf_pre, wf_ref):
 
     return wf_pre
 
+def match_hn(wf_hjs_, wf_s, f_low, return_index=False):
+    """
+    Calculates match between fiducial h1 waveform and a trial waveform, and uses the time shift 
+    in this match to compute the complex overlaps between the time-shifted fiducial h2,...,hn waveforms
+    and a trial waveform. This ensures the 'match' is calculated for h1 and h2,...,hn at the same 
+    time.
+
+    Parameters:
+        wf_hjs_: List of fiducial h1,...,hn waveforms.
+        wf_s: Trial waveform.
+        f_low: Starting frequency of waveforms.
+        return_index: Whether to return index shift of h1 match.
+        
+    Returns:
+        Complex matches of trial waveform to h1 and h2 respectively.
+    """
+
+    # Creates new versions of waveforms to avoid editing originals
+    wf_hjs = []
+    for i in range(len(wf_hjs_)):
+        wf_new = timeseries.TimeSeries(wf_hjs_[i].copy(), wf_hjs_[i].delta_t, epoch=wf_hjs_[i].start_time)
+        wf_hjs.append(wf_new)
+    wf_s = timeseries.TimeSeries(wf_s.copy(), wf_s.delta_t, epoch=wf_s.start_time)
+
+    # Resize waveforms to the same length
+    all_wfs = resize_wfs([*wf_hjs, wf_s])
+    wf_hjs = all_wfs[:-1]
+    wf_s = all_wfs[-1]
+
+    # Generate the aLIGO ZDHP PSD
+    psd, _ = gen_psd(wf_hjs[0], f_low)
+
+    # Perform match on h1
+    m_h1_amp, m_index, m_h1_phase = match(wf_hjs[0].real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=True, return_phase=True)
+    m_h1 = m_h1_amp*np.e**(1j*m_h1_phase)
+
+    # Shift fiducial h2,...,hn
+    if m_index <= len(wf_hjs[0])/2:
+        # If fiducial h2,...,hn needs to be shifted forward, prepend zeros to it
+        for i in range(1,len(wf_hjs)):
+            wf_hjs[i].prepend_zeros(int(m_index))
+    else:
+        # If fiducial h2,...,hn needs to be shifted backward, prepend zeros to trial waveform instead
+        wf_s.prepend_zeros(int(len(wf_hjs[0]) - m_index))
+
+    # As subsample_interpolation=True, require interpolation of h2,...,hn to account for non-integer index shift
+    delta_t = wf_hjs[0].delta_t
+    if m_index <= len(wf_hjs[0])/2:
+        # If fiducial h2 needs to be shifted forward, interpolate h2,...,hn waveform forward
+        inter_index = m_index - int(m_index)
+        for i in range(1,len(wf_hjs)):
+            wf_hj_interpolate = interp1d(wf_hjs[i].sample_times, wf_hjs[i], bounds_error=False, fill_value=0)
+            wf_hj_strain = wf_hj_interpolate(wf_hjs[i].sample_times-(inter_index*delta_t))
+            wf_hjs[i] = timeseries.TimeSeries(wf_hj_strain, wf_hjs[i].delta_t, epoch=wf_hjs[i].start_time-(inter_index*delta_t))
+    else:
+        # If fiducial h2 needs to be shifted backward, interpolate h2,...,hn waveform backward
+        inter_index = (len(wf_hjs[0]) - m_index) - int(len(wf_hjs[0]) - m_index)
+        for i in range(1,len(wf_hjs)):
+            wf_hj_interpolate = interp1d(wf_hjs[i].sample_times, wf_hjs[i], bounds_error=False, fill_value=0)
+            wf_hj_strain = wf_hj_interpolate(wf_hjs[i].sample_times+(inter_index*delta_t))
+            wf_hjs[i] = timeseries.TimeSeries(wf_hj_strain, wf_hjs[i].delta_t, epoch=wf_hjs[i].start_time+(inter_index*delta_t))
+
+    # Resize waveforms to the same length
+    all_wfs = resize_wfs([*wf_hjs, wf_s])
+    wf_hjs = all_wfs[:-1]
+    wf_s = all_wfs[-1]
+
+    # Generate the aLIGO ZDHP PSD again as waveform length may have doubled
+    psd, _ = gen_psd(wf_hjs[1], f_low)
+
+    # Perform complex overlap on h2,...,hn
+    matches = [m_h1]
+    for i in range(1,len(wf_hjs)):
+        m = overlap_cplx(wf_hjs[i].real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3)
+        matches.append(m)
+    
+    # Returns index shift if requested
+    if return_index:
+        return *matches, m_index
+    else:
+        return matches
+
 def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, return_index=False):
     """
     Calculates match between fiducial h1 waveform and a trial waveform, and uses the time shift 
@@ -637,64 +720,7 @@ def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, return_index=False):
         Complex matches of trial waveform to h1 and h2 respectively.
     """
 
-    # Creates new versions of waveforms to avoid editing originals
-    wf_h1 = timeseries.TimeSeries(wf_h1.copy(), wf_h1.delta_t, epoch=wf_h1.start_time)
-    wf_h2 = timeseries.TimeSeries(wf_h2.copy(), wf_h2.delta_t, epoch=wf_h2.start_time)
-    wf_s = timeseries.TimeSeries(wf_s.copy(), wf_s.delta_t, epoch=wf_s.start_time)
-
-    # Resize waveforms to the same length
-    assert len(wf_h1) == len(wf_h2)
-    wf_h1, wf_s = resize_wfs(wf_h1, wf_s)
-    wf_h1, wf_h2 = resize_wfs(wf_h1, wf_h2)
-
-    # Generate the aLIGO ZDHP PSD
-    delta_f = 1.0 / wf_h1.duration
-    flen = len(wf_h1)//2 + 1
-    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
-
-    # Perform match on h1
-    m_h1_amp, m_index, m_h1_phase = match(wf_h1.real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=True, return_phase=True)
-    m_h1 = m_h1_amp*np.e**(1j*m_h1_phase)
-
-    # Shift fiducial h2
-    if m_index <= len(wf_h1)/2:
-        # If fiducial h2 needs to be shifted forward, prepend zeros to it
-        wf_h2.prepend_zeros(int(m_index))
-    else:
-        # If fiducial h2 needs to be shifted backward, prepend zeros to trial waveform instead
-        wf_s.prepend_zeros(int(len(wf_h1) - m_index))
-
-    # As subsample_interpolation=True, require interpolation of h2 to account for non-integer index shift
-    delta_t = wf_h1.delta_t
-    if m_index <= len(wf_h1)/2:
-        # If fiducial h2 needs to be shifted forward, interpolate h2 waveform forward
-        inter_index = m_index - int(m_index)
-        wf_h2_interpolate = interp1d(wf_h2.sample_times, wf_h2, bounds_error=False, fill_value=0)
-        wf_h2_strain = wf_h2_interpolate(wf_h2.sample_times-(inter_index*delta_t))
-        wf_h2 = timeseries.TimeSeries(wf_h2_strain, wf_h2.delta_t, epoch=wf_h2.start_time-(inter_index*delta_t))
-    else:
-        # If fiducial h2 needs to be shifted backward, interpolate h2 waveform backward
-        inter_index = (len(wf_h1) - m_index) - int(len(wf_h1) - m_index)
-        wf_h2_interpolate = interp1d(wf_h2.sample_times, wf_h2, bounds_error=False, fill_value=0)
-        wf_h2_strain = wf_h2_interpolate(wf_h2.sample_times+(inter_index*delta_t))
-        wf_h2 = timeseries.TimeSeries(wf_h2_strain, wf_h2.delta_t, epoch=wf_h2.start_time+(inter_index*delta_t))
-
-    # Resize waveforms to the same length
-    wf_h2, wf_s = resize_wfs(wf_h2, wf_s)
-
-    # Generate the aLIGO ZDHP PSD again as waveform length doubled
-    delta_f = 1.0 / wf_h2.duration
-    flen = len(wf_h2)//2 + 1
-    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
-
-    # Perform complex overlap on h2
-    m_h2 = overlap_cplx(wf_h2.real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3)
-    
-    # Returns index shift if requested
-    if return_index:
-        return m_h1, m_h2, m_index
-    else:
-        return m_h1, m_h2
+    return match_hn([wf_h1, wf_h2], wf_s, f_low, return_index=return_index)
     
 
 def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
@@ -713,12 +739,10 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     """
 
     # Resize the waveforms to the same length
-    wf1, wf2 = resize_wfs(wf1, wf2)
+    wf1, wf2 = resize_wfs([wf1, wf2])
 
     # Generate the aLIGO ZDHP PSD
-    delta_f = 1.0 / wf1.duration
-    flen = len(wf1)//2 + 1
-    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+    psd, _ = gen_psd(wf1, f_low)
 
     # Perform match
     m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=subsample_interpolation, return_phase=return_phase)
@@ -757,12 +781,10 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
         wf2 = taper_wf(wf2)
     
     # Resize the waveforms to the same length
-    wf1, wf2 = resize_wfs(wf1, wf2)
+    wf1, wf2 = resize_wfs([wf1, wf2])
 
     # Generate the aLIGO ZDHP PSD
-    delta_f = 1.0 / wf1.duration
-    flen = len(wf1)//2 + 1
-    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+    psd, _ = gen_psd(wf1, f_low)
 
     # Perform complex overlap
     m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=normalized)
@@ -1030,31 +1052,32 @@ def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_me
     # Returns matches
     return matches
 
-def match_true_anomaly(wf_h, f_low, e, M, q, sample_rate, approximant, final_match):
+def match_true_anomaly(wf_h, n, f_low, e, M, q, sample_rate, approximant, final_match):
     """
     Calculates match between two waveforms, maximised over shifted frequency 
-    by calculating the true anomaly using matches to h1, h2 waveforms.
+    by calculating the true anomaly using matches to h1,...,hn waveforms.
 
     Parameters:
         wf_h: Fiducial waveform.
+        n: Number of waveform components to use.
         f_low: Starting frequency of waveforms.
         e: Eccentricity of trial waveform.
         M: Total mass of trial waveform.
         q: Mass ratio of trial waveform.
         sample_rate: Sample rate of trial waveform.
         approximant: Approximant of trial waveform.
-        final_match: Whether to perform final match to TEOBResumS waveform or h1, h2 quad match.
+        final_match: Whether to perform final match to TEOBResumS waveform or h1,...,hn quad match.
         
     Returns:
         Complex match between waveforms maximised over shifted frequency/true anomaly.
     """
 
-    # Calculates matches to h1, h2 at f_low
-    _, wf_h1, wf_h2, _, _ = get_h([1,1], f_low, e, M, q, sample_rate, approximant=approximant)
-    m1, m2 = match_h1_h2(wf_h1, wf_h2, wf_h, f_low)
+    # Calculates matches to h1,...,hn at f_low
+    all_wfs = list(get_h([1]*n, f_low, e, M, q, sample_rate, approximant=approximant))
+    matches = match_hn(all_wfs[1:n+1], wf_h, f_low)
 
     # Gets phase difference
-    phase_diff = np.angle(m1) - np.angle(m2)
+    phase_diff = np.angle(matches[0]) - np.angle(matches[1])
     if phase_diff > 0:
         phase_diff -= 2*np.pi
 
@@ -1069,8 +1092,8 @@ def match_true_anomaly(wf_h, f_low, e, M, q, sample_rate, approximant, final_mat
         m_amp, m_phase =  match_wfs(wf_s_f, wf_h, f_low, True, return_phase=True)
         match = m_amp*np.e**(1j*m_phase)
     elif final_match == 'quad':
-        _, wf_s_f_h1, wf_s_f_h2, _, _ = get_h([1,1], s_f, s_e, M, q, sample_rate, approximant=approximant)
-        match = match_h1_h2(wf_s_f_h1, wf_s_f_h2, wf_h, f_low, return_index=False)
+        all_s_f_wfs = list(get_h([1]*n, s_f, s_e, M, q, sample_rate, approximant=approximant))
+        match = match_hn(all_s_f_wfs[1:n+1], wf_h, f_low)
     else:
         raise Exception('final_match not recognised')
 
@@ -1108,7 +1131,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
         q: Mass ratio.
         sample_rate: Sample rate of waveform.
         approximant: Approximant to use.
-        normalisation: Whether to normalise h_ap and h_peri components to ensure (h1|h2) = 0.
+        comp_normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
         taper: Whether to taper start of waveform.
         
     Returns:
@@ -1154,9 +1177,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
             
             # Generate the aLIGO ZDHP PSD
             h.resize(ceiltwo(len(h))) 
-            delta_f = 1.0 / h.duration
-            flen = len(h)//2 + 1
-            psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+            psd, _ = gen_psd(h, f_low)
         
             # Calculates normalisation factor using sigma function
             sigma_0 = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
@@ -1191,22 +1212,65 @@ def get_dominance_order(n):
 
     return j_order
 
-def get_h_TD(coeffs, comp_wfs):
+def GS_proj(u, v, f_low, psd):
+    '''
+    Performs projection used in Grant-Schmidt orthogonalisation, defined as 
+    u*(v|u)/(u|u).
+    
+    Parameters:
+        u: Waveform u defined above.
+        v: Waveform v defined above.
+        f_low: Starting frequency.
+        psd: Psd to use to weight complex overlap.
+        
+    Returns:
+        Grant-Schmidt orthogonalised h1,...,hn.
+    '''
+
+    numerator = overlap_cplx(v.real(), u.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=False)
+    denominator = overlap_cplx(u.real(), u.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=False)
+
+    return u*numerator/denominator
+
+def GS_orthogonalise(f_low, wfs):
+    '''
+    Performs Grant-Schmidt orthogonalisation on waveforms h1,...,hn to ensure 
+    (hj|hm) = 0 for j!=m.
+    
+    Parameters:
+        f_low: Starting frequency.
+        wfs: Waveforms h1,...,hn.
+        
+    Returns:
+        Grant-Schmidt orthogonalised h1,...,hn.
+    '''
+
+    # Generates psd for use in orthogonalisation
+    psd, _ = gen_psd(wfs[0], f_low)
+
+    # Orthogonalises each waveform in turn
+    for i in range(1,len(wfs)):
+        for j in range(i):
+            wfs[i] = wfs[i] - GS_proj(wfs[j], wfs[i], f_low, psd)
+
+    return wfs
+
+def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation):
     """
     Combines waveform components in time domain to form h1, ..., hn and h as follows:
 
     Parameters:
+        f_low: Starting frequency.
         coeffs: List containing coefficients of h_1, ..., h_n.
         comp_wfs: Waveform components s_1, ..., s_n.
+        GS_normalisation: Whether to perform Grant-Schmidt orthogonalisaton to ensure (hj|hm) = 0 for j!=m.
         
     Returns:
         All waveform components and combinations: h, h1, ..., h_n, s_1, ..., s_n
     """
 
     # Find first primitive root of unity
-    roots_unity = np.roots([1]+[0]*(len(coeffs)-1)+[-1])
-    prim_root_arg = np.argmin(np.angle(roots_unity)[np.angle(roots_unity)>0])
-    prim_root = roots_unity[np.angle(roots_unity)>0][prim_root_arg]
+    prim_root = np.e**(2j*np.pi/len(coeffs))
     
     # Build h1, ..., hn
     hs = []
@@ -1219,6 +1283,10 @@ def get_h_TD(coeffs, comp_wfs):
     j_order = get_dominance_order(len(coeffs))
     hs = [hs[i] for i in j_order]
 
+    # Perform Grant-Schmidt orthogonalisation if requested
+    if GS_normalisation:
+        hs = GS_orthogonalise(f_low, hs)
+
     # Calculates overall waveform using complex coefficients A, B, C, ...
     h = coeffs[0]*hs[0]
     for i in range(len(coeffs)-1):
@@ -1227,7 +1295,7 @@ def get_h_TD(coeffs, comp_wfs):
     # Returns overall waveform and components for testing purposes
     return h, *hs, *comp_wfs
 
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, normalisation=True, taper=True):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, taper=True):
     """
     Generates a overall h waveform, h_1,...h_n, and s_1,...,s_n.
 
@@ -1240,7 +1308,8 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
         sample_rate: Sample rate of waveform.
         approximant: Approximant to use.
         subsample_interpolation: Whether to use subsample interpolation.
-        normalisation: Whether to normalise h_ap and h_peri components to ensure (h1|h2) = 0.
+        GS_normalisation: Whether to perform Grant-Schmidt orthogonalisaton to ensure (hj|hm) = 0 for j!=m.
+        comp_normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
         taper: Whether to taper start of waveform.
         
     Returns:
@@ -1251,9 +1320,9 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
     assert approximant == 'TEOBResumS'
 
     # Gets (normalised) components which make up overall waveform
-    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, normalisation, taper)
+    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, comp_normalisation, taper)
 
     # Calculate overall waveform and components in time domain
-    wfs = get_h_TD(coeffs, component_wfs)
+    wfs = get_h_TD(f_low, coeffs, component_wfs, GS_normalisation)
    
     return wfs
