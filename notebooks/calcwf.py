@@ -1128,7 +1128,7 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation):
     # Returns overall waveform and components for testing purposes
     return h, *hs, *comp_wfs
 
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=True, taper=True):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, taper=True):
     """
     Generates a overall h waveform, h_1,...h_n, and s_1,...,s_n.
 
