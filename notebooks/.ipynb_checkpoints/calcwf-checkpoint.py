@@ -163,7 +163,7 @@ def gen_teob_wf(f_kep, e, M, q, sample_rate, phase):
             'coalescence_angle'  : phase,
             'inclination'        : 0,
             'ecc'                : e,
-            'output_hpc'         : 0,
+            'output_hpc'         : 0
             }
 
     # Calculate waveform and convert to pycbc TimeSeries object
@@ -952,7 +952,7 @@ def taper_wf(wf_taper):
 
     return wf_taper
     
-def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation, taper):
+def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation, phase, taper):
     '''
     Creates n component waveforms used to make h_1,...,h_n, all equally spaced in
     true anomaly.
@@ -964,7 +964,8 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
         q: Mass ratio.
         sample_rate: Sample rate of waveform.
         approximant: Approximant to use.
-        comp_normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
+        normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
+        phase: Initial phase of s_1,...,s_n components.
         taper: Whether to taper start of waveform.
         
     Returns:
@@ -981,7 +982,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
     for i, (s_f, s_e) in enumerate(zip(s_f_vals, s_e_vals)):
 
         # Create waveform
-        h = gen_wf(s_f, s_e, M, q, sample_rate, approximant, phase=0)
+        h = gen_wf(s_f, s_e, M, q, sample_rate, approximant, phase=phase)
         
         if i > 0:
 
@@ -989,7 +990,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
             h = trim_wf(h, comp_wfs[0])
             overlap = overlap_cplx_wfs(h, comp_wfs[0], f_low)
             phase_angle = np.angle(overlap)/2
-            h = gen_wf(s_f, s_e, M, q, sample_rate, approximant, phase=phase_angle)
+            h = gen_wf(s_f, s_e, M, q, sample_rate, approximant, phase=phase+phase_angle)
             h = trim_wf(h, comp_wfs[0])
 
             # Tapers if requested
@@ -1002,18 +1003,18 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
                 h *= sigma_0/sigma_h
                 
         # Work out normalisation of first waveform        
-        elif normalisation:
+        elif i == 0:
 
             # Tapers if requested
             if taper:
                 h = taper_wf(h)
-            
-            # Generate the aLIGO ZDHP PSD
-            h.resize(ceiltwo(len(h))) 
-            psd, _ = gen_psd(h, f_low)
         
             # Calculates normalisation factor using sigma function
-            sigma_0 = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
+            if normalisation:
+                # Generate the aLIGO ZDHP PSD
+                h.resize(ceiltwo(len(h))) 
+                psd, _ = gen_psd(h, f_low)
+                sigma_0 = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
 
         comp_wfs.append(h)
 
@@ -1128,7 +1129,7 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation):
     # Returns overall waveform and components for testing purposes
     return h, *hs, *comp_wfs
 
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, taper=True):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, comp_phase=0, taper=True):
     """
     Generates a overall h waveform, h_1,...h_n, and s_1,...,s_n.
 
@@ -1143,6 +1144,7 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
         subsample_interpolation: Whether to use subsample interpolation.
         GS_normalisation: Whether to perform Grant-Schmidt orthogonalisaton to ensure (hj|hm) = 0 for j!=m.
         comp_normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
+        comp_phase: Initial phase of s_1,...,s_n components.
         taper: Whether to taper start of waveform.
         
     Returns:
@@ -1153,7 +1155,7 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
     assert approximant == 'TEOBResumS'
 
     # Gets (normalised) components which make up overall waveform
-    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, comp_normalisation, taper)
+    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, comp_normalisation, comp_phase, taper)
 
     # Calculate overall waveform and components in time domain
     wfs = get_h_TD(f_low, coeffs, component_wfs, GS_normalisation)
