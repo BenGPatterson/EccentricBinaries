@@ -1017,7 +1017,6 @@ def get_comp_shifts(h, f_low, e, M, q, n, sample_rate, approximant, shift_corr):
         min_range_time = wf_min_times[0] - wf0_min_time1
         peak_orb_ev_factor = (2*wf_peak_times[0] - wf0_peak_time1 - wf0_peak_time3)/n
         min_orb_ev_factor = (2*wf_min_times[0] - wf0_min_time1 - wf0_min_time3)/n
-        print(peak_orb_ev_factor*sample_rate, min_orb_ev_factor*sample_rate)
 
         # Calculates correction factor for each component
         corr_factors = []
