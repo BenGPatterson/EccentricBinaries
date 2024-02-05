@@ -336,8 +336,8 @@ def shifted_e(s_f, f, e):
 
     Returns:
         Shifted starting eccentricity.
-    """
-    
+    """  
+
     s_e = e*(s_f/f)**(-19/18)
     return s_e
 
@@ -951,8 +951,98 @@ def taper_wf(wf_taper):
     wf_taper = wf_taper_p - 1j*wf_taper_c
 
     return wf_taper
+
+def get_comp_shifts(h, f_low, e, M, q, n, sample_rate, approximant, shift_corr):
+    '''
+    Calculates shifted frequency and eccentricity required to create each component
+    waveform (beyond first).
+
+    Parameters:
+        h: First (unshifted) component waveform.
+        f_low: Starting frequency.
+        e: Eccentricity.
+        M: Total mass.
+        q: Mass ratio.
+        n: Number of waveform components.
+        sample_rate: Sample rate of waveform.
+        approximant: Approximant to use.
+        shift_corr: Whether to use trial waveforms to correct shifting of component waveforms.
+
+    Returns:
+        Shifted frequency and eccentricity for all components beyond first.
+    '''
+
+    # Finds shifted frequency and eccentricity without correction
+    max_s_f = shifted_f(f_low, e, M, q)
+    s_f_vals = np.linspace(f_low, max_s_f, n, endpoint=False)[1:]
+    s_e_vals = shifted_e(s_f_vals, f_low, e)
+
+    # Corrects this by generating trial component waveforms if requested
+    if shift_corr:
+
+        # Generates trial waveforms and find time of each peak
+        wfs = [h]
+        for s_f, s_e in zip(s_f_vals, s_e_vals):
+            wf = gen_wf(s_f, s_e, M, q, sample_rate, approximant)
+            wfs.append(wf)
+
+        # Find peak and min times
+        est_2pi_ind = (wfs[0].sample_times[0] - wfs[-1].sample_times[0])*sample_rate*n/(n-1)
+        wf_peak_times = []
+        wf_min_times = []
+        for i, wf in enumerate(wfs):
+
+            # Peak times
+            peak_ind = np.argmax(abs(wf[int(est_2pi_ind):int(2*est_2pi_ind)]))+int(est_2pi_ind)
+            peak_time = wf.sample_times[peak_ind]
+            wf_peak_times.append(peak_time)
+
+            # Min times
+            min_ind = np.argmin(abs(wf[int(3*est_2pi_ind/2):int(5*est_2pi_ind/2)]))+int(3*est_2pi_ind/2)
+            min_time = wf.sample_times[min_ind]
+            wf_min_times.append(min_time)
+
+        # Add first and third peak/min of first component waveform
+        peak_ind1 = np.argmax(abs(wfs[0][0:int(est_2pi_ind)]))
+        wf0_peak_time1 = wfs[0].sample_times[peak_ind1]
+        peak_ind3 = np.argmax(abs(wfs[0][int(2*est_2pi_ind):int(3*est_2pi_ind)]))+int(2*est_2pi_ind)
+        wf0_peak_time3 = wfs[0].sample_times[peak_ind3]
+        min_ind1 = np.argmin(abs(wfs[0][int(est_2pi_ind/2):int(3*est_2pi_ind/2)]))+int(est_2pi_ind/2)
+        wf0_min_time1 = wfs[0].sample_times[min_ind1]
+        min_ind3 = np.argmin(abs(wfs[0][5*int(est_2pi_ind/2):int(7*est_2pi_ind/2)]))+int(5*est_2pi_ind/2)
+        wf0_min_time3 = wfs[0].sample_times[min_ind3]
+
+        # Calculate time ranges and orbital evolution factors
+        peak_range_time = wf_peak_times[0] - wf0_peak_time1
+        min_range_time = wf_min_times[0] - wf0_min_time1
+        peak_orb_ev_factor = (2*wf_peak_times[0] - wf0_peak_time1 - wf0_peak_time3)/n
+        min_orb_ev_factor = (2*wf_min_times[0] - wf0_min_time1 - wf0_min_time3)/n
+        print(peak_orb_ev_factor*sample_rate, min_orb_ev_factor*sample_rate)
+
+        # Calculates correction factor for each component
+        corr_factors = []
+        for i in range(1, n):
+
+            # Calculate target time shift taking orbital evolution into account
+            peak_orb_ev_corr = peak_orb_ev_factor*(n-i)*i/(2*n)
+            peak_target_time = peak_range_time*i/n - peak_orb_ev_corr
+            min_orb_ev_corr = min_orb_ev_factor*(n-i)*i/(2*n)
+            min_target_time = min_range_time*i/n - min_orb_ev_corr
+
+            # Calculate corresponding correction factors
+            peak_corr_factor = peak_target_time/(wf_peak_times[0] - wf_peak_times[i])
+            min_corr_factor = min_target_time/(wf_min_times[0] - wf_min_times[i])
+            corr_factors.append(np.mean([peak_corr_factor, min_corr_factor]))
     
-def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation, phase, taper):
+        # Calculates corrected shifted frequencies and eccentricities
+        shift_f_dist = f_low - s_f_vals
+        corr_shift_f_dist = shift_f_dist*np.array(corr_factors)
+        s_f_vals = f_low - corr_shift_f_dist
+        s_e_vals = shifted_e(s_f_vals, f_low, e)
+
+    return s_f_vals, s_e_vals
+
+def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation, phase, shift_corr, taper):
     '''
     Creates n component waveforms used to make h_1,...,h_n, all equally spaced in
     true anomaly.
@@ -962,59 +1052,56 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
         e: Eccentricity.
         M: Total mass.
         q: Mass ratio.
+        n: Number of waveform components.
         sample_rate: Sample rate of waveform.
         approximant: Approximant to use.
         normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
         phase: Initial phase of s_1,...,s_n components.
+        shift_corr: Whether to use trial waveforms to correct shifting of component waveforms.
         taper: Whether to taper start of waveform.
         
     Returns:
         Component waveforms.
     '''
 
-    # Generate shifted frequency, eccentricity, phase values
-    max_s_f = shifted_f(f_low, e, M, q)
-    s_f_vals = np.linspace(f_low, max_s_f, n, endpoint=False)
-    s_e_vals = shifted_e(s_f_vals, f_low, e)
+    # Generates first (unshifted) component waveform and shifts required for others
+    h = gen_wf(f_low, e, M, q, sample_rate, approximant, phase=phase)
+    s_f_vals, s_e_vals = get_comp_shifts(h, f_low, e, M, q, n, sample_rate, approximant, shift_corr)
 
-    comp_wfs = []
+    # Tapers first waveform if requested
+    if taper:
+        h = taper_wf(h)
+
+    # Calculates normalisation factor using sigma function
+    if normalisation:
+        # Generate the aLIGO ZDHP PSD
+        h.resize(ceiltwo(len(h))) 
+        psd, _ = gen_psd(h, f_low)
+        sigma_0 = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
+
+    comp_wfs = [h]
+    
     # Generate all component waveforms
-    for i, (s_f, s_e) in enumerate(zip(s_f_vals, s_e_vals)):
+    for i in range(n-1):
 
         # Create waveform
-        h = gen_wf(s_f, s_e, M, q, sample_rate, approximant, phase=phase)
+        h = gen_wf(s_f_vals[i], s_e_vals[i], M, q, sample_rate, approximant, phase=phase)
+
+        # Trim waveform to same size as first (shortest), and corrects phase
+        h = trim_wf(h, comp_wfs[0])
+        overlap = overlap_cplx_wfs(h, comp_wfs[0], f_low)
+        phase_angle = np.angle(overlap)/2
+        h = gen_wf(s_f_vals[i], s_e_vals[i], M, q, sample_rate, approximant, phase=phase+phase_angle)
+        h = trim_wf(h, comp_wfs[0])
+
+        # Tapers if requested
+        if taper:
+            h = taper_wf(h)
         
-        if i > 0:
-
-            # Trim waveform to same size as first (shortest), and corrects phase
-            h = trim_wf(h, comp_wfs[0])
-            overlap = overlap_cplx_wfs(h, comp_wfs[0], f_low)
-            phase_angle = np.angle(overlap)/2
-            h = gen_wf(s_f, s_e, M, q, sample_rate, approximant, phase=phase+phase_angle)
-            h = trim_wf(h, comp_wfs[0])
-
-            # Tapers if requested
-            if taper:
-                h = taper_wf(h)
-            
-            # Normalises waveform if requested
-            if normalisation:
-                sigma_h = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
-                h *= sigma_0/sigma_h
-                
-        # Work out normalisation of first waveform        
-        elif i == 0:
-
-            # Tapers if requested
-            if taper:
-                h = taper_wf(h)
-        
-            # Calculates normalisation factor using sigma function
-            if normalisation:
-                # Generate the aLIGO ZDHP PSD
-                h.resize(ceiltwo(len(h))) 
-                psd, _ = gen_psd(h, f_low)
-                sigma_0 = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
+        # Normalises waveform if requested
+        if normalisation:
+            sigma_h = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
+            h *= sigma_0/sigma_h
 
         comp_wfs.append(h)
 
@@ -1129,7 +1216,7 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation):
     # Returns overall waveform and components for testing purposes
     return h, *hs, *comp_wfs
 
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, comp_phase=0, taper=True):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, comp_phase=0, comp_shift_corr=False, taper=True):
     """
     Generates a overall h waveform, h_1,...h_n, and s_1,...,s_n.
 
@@ -1145,6 +1232,7 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
         GS_normalisation: Whether to perform Grant-Schmidt orthogonalisaton to ensure (hj|hm) = 0 for j!=m.
         comp_normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
         comp_phase: Initial phase of s_1,...,s_n components.
+        comp_shift_corr: Whether to use trial waveforms to correct shifting of component waveforms.
         taper: Whether to taper start of waveform.
         
     Returns:
@@ -1155,7 +1243,7 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
     assert approximant == 'TEOBResumS'
 
     # Gets (normalised) components which make up overall waveform
-    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, comp_normalisation, comp_phase, taper)
+    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, comp_normalisation, comp_phase, comp_shift_corr, taper)
 
     # Calculate overall waveform and components in time domain
     wfs = get_h_TD(f_low, coeffs, component_wfs, GS_normalisation)
