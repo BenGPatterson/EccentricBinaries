@@ -860,7 +860,7 @@ def match_s_f_max(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, max_me
     over true anomaly/shifted frequency using the specified method.
 
     Parameters:
-        wf_h1: Fiducial h1 w_anomalyaveform.
+        wf_h1: Fiducial h1 waveform.
         wf_h2: Fiducial h2 waveform.
         f_low: Starting frequency of waveforms.
         e: Eccentricity of trial waveform.
