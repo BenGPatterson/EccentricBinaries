@@ -467,7 +467,7 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False):
         return_index: Whether to return index shift of h1 match.
         
     Returns:
-        Complex matches of trial waveform to h1 and h2 respectively.
+        Complex matches of trial waveform to h1,...,hn.
     """
 
     # Creates new versions of waveforms to avoid editing originals
@@ -702,7 +702,7 @@ def sine_model(x, A, B, C):
 
     return m
 
-def quad_sine_model(x, A_1, B_1, C_1, A_2, B_2, C_2, sign=1):
+def quad_sine_model(x, A_1, B_1, C_1, A_2, B_2, C_2):
     """
     Calculates quadrature sum of two sinusoids modelled as m_quad(x) = sqrt(m_1^2(x) + m_2^2(x)) 
     where m_n(x) = A_n*sin(x+B_n)+C_n for n=1,2 at a given value of x.
@@ -807,7 +807,7 @@ def s_f_max_sine_approx(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, 
     wf_quad_max = gen_wf(s_f_quad_max, s_e_quad_max, M, q, sample_rate, approximant)
     matches = match_h1_h2(wf_h1, wf_h2, wf_quad_max, f_low)
 
-    # Additionall returns coefficients if requested
+    # Additionally returns coefficients if requested
     if return_coeffs:
         return matches, list(coeffs_h1) + list(coeffs_h2)
     else:
