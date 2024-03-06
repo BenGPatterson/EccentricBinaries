@@ -1,0 +1,2 @@
+dataslot_0: 10, 24 chirp mass test run
+dataslot_1: 24 chirp mass test with steepened degen line to test effect of inaccurate degen line
