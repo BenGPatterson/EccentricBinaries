@@ -36,11 +36,11 @@ def favata_et_al_avg(given_e, given_chirp, e_vals, f_low=10, q=2):
 
     return chirp_vals
 
-def single_match(e_chirp, s_f_e, wf_hjs, q, f_low, approximant='TEOBResumS'):
+def single_match(s_f_e, e_chirp, wf_hjs, q, f_low, approximant='TEOBResumS'):
 
     # Unpack values and generate waveform
-    e, chirp = e_chirp
     s_f, s_e = s_f_e
+    e, chirp = e_chirp
     s = gen_wf(s_f, s_e, chirp2total(chirp, q), q, sample_rate, approximant=approximant)
 
     # Calculate matches
@@ -70,7 +70,8 @@ def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, fid_M, q, f_low, app
     # Generate param values along line of degeneracy
     e_vals = param_vals
     chirp_vals = favata_et_al_avg(fid_e, fid_M, e_vals, f_low=f_low, q=q)
-    e_chirp_vals = list(map(list, zip(e_vals, chirp_vals)))*len(MA_vals)
+    e_chirp_vals = list(map(list, zip(e_vals, chirp_vals)))
+    e_chirp_vals = list(np.repeat(e_chirp_vals, len(MA_vals), axis=0))
 
     s_f_e_vals = []
     # Loop over chirp mass values
@@ -84,7 +85,7 @@ def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, fid_M, q, f_low, app
 
     # Calculate all matches in parallel
     partial_single_match = partial(single_match, wf_hjs=wf_hjs, q=q, f_low=f_low, approximant=approximant)
-    match_arr = np.array(p_tqdm.p_map(partial_single_match, e_chirp_vals, s_f_e_vals))
+    match_arr = np.array(p_tqdm.p_map(partial_single_match, s_f_e_vals, e_chirp_vals))
 
     # Put match arrays into appropriate dictionary keys
     matches = {}
@@ -93,6 +94,7 @@ def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, fid_M, q, f_low, app
         matches[f'h{i+1}_phase'] = match_arr[:,2*i+1].reshape(-1, len(MA_vals))
     matches['diff_phase'] = match_arr[:,2*n].reshape(-1, len(MA_vals))
     matches['quad'] = match_arr[:,2*n+1].reshape(-1, len(MA_vals))
+    matches['h2_h1'] = np.array(matches['h2'])/np.array(matches['h1'])
 
     return matches
 
