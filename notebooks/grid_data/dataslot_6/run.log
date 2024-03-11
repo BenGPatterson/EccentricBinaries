@@ -1,0 +1,47 @@
+000 (17263642.000.000) 2024-03-11 04:49:57 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618+[fde1-53ba-e9a0-de11-c925-65-8543-e173]-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_444802_c0e0>
+...
+022 (17263642.000.000) 2024-03-11 06:01:52 Job disconnected, attempting to reconnect
+    Socket between submit and execute hosts closed unexpectedly
+    Trying to reconnect to slot1_2@node2302.cluster.ldas.cit <10.14.10.52:9618?addrs=10.14.10.52-9618&alias=node2302.cluster.ldas.cit&noUDP&sock=startd_3896_e911>
+...
+024 (17263642.000.000) 2024-03-11 06:01:52 Job reconnection failed
+    Job disconnected too long: JobLeaseDuration (2400 seconds) expired
+    Can not reconnect to slot1_2@node2302.cluster.ldas.cit, rescheduling job
+...
+001 (17263642.000.000) 2024-03-11 06:04:57 Job executing on host: <10.14.3.1:9618?addrs=10.14.3.1-9618&alias=node501.cluster.ldas.cit&noUDP&sock=startd_8554_e936>
+	SlotName: slot1_1@node501.cluster.ldas.cit
+	AvailableGPUs = {  }
+	CondorScratchDir = "/local/condor/execute/dir_1543670"
+	Cpus = 16
+	Disk = 1117637
+	GPUs = 0
+	Memory = 16384
+...
+006 (17263642.000.000) 2024-03-11 06:05:06 Image size of job updated: 197384
+	193  -  MemoryUsage of job (MB)
+	197380  -  ResidentSetSize of job (KB)
+...
+006 (17263642.000.000) 2024-03-11 06:09:23 Image size of job updated: 976372
+	193  -  MemoryUsage of job (MB)
+	197380  -  ResidentSetSize of job (KB)
+...
+005 (17263642.000.000) 2024-03-11 06:09:24 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 01:28:03, Sys 0 00:00:48  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 01:28:03, Sys 0 00:00:48  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                16        16 
+	   Disk (KB)            :    17500  1048576   1117637 
+	   GPUs                 :                           0 
+	   Memory (MB)          :      193    16384     16384 
+	   TimeExecute (s)      :      267                    
+	   TimeSlotBusy (s)     :      268                    
+
+	Job terminated of its own accord at 2024-03-11T13:09:23Z with exit-code 0.
+...
