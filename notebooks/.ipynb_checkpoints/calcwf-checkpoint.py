@@ -82,9 +82,52 @@ def total2chirp(total, q):
 
     return chirp
 
+def favata_et_al_avg(given_e, given_chirp, e_vals, sample_rate, f_low=10, q=2):
+    """
+    Converts array of eccentricity values to chirp mass along a line of constant 
+    effective chirp mass, as given by equation 1.1 in Favata et al. 
+    https://arxiv.org/pdf/2108.05861.pdf, with e_0 evaluated at an frequency
+    averaged over the psd. *IMPROVE EXPLANATION*.
+
+    Parameters:
+        given_e: Value of eccentricity for given point on line of constant effective chirp mass.
+        given_chirp: Value of chirp mass for given point on line of constant effective chirp mass.
+        e_vals: Frequency values to be converted.
+        f_low: Starting frequency.
+        q: Mass ratio.
+
+    Returns:
+        Converted chirp mass values.
+    """
+
+    # Generate waveform at given point to use in sigmasq
+    h = gen_wf(f_low, given_e, chirp2total(given_chirp, q), q, sample_rate, 'TEOBResumS')
+    h.resize(ceiltwo(len(h)))
+
+    # Generate the aLIGO ZDHP PSD
+    psd, _ = gen_psd(h, f_low)
+
+    # Calculate both integrals using sigmasq
+    h = h.real().to_frequencyseries()
+    ss = sigmasq(h, psd=psd, low_frequency_cutoff=f_low+3)
+    ssf = sigmasq(h*h.sample_frequencies**(-7/3), psd=psd, low_frequency_cutoff=f_low+3)
+
+    # Use average frequency to evolve eccentricities
+    avg_f = (ssf/ss)**(-3/14)
+    s_given_e = shifted_e(avg_f, f_low, given_e)
+    s_e_vals = shifted_e(avg_f, f_low, e_vals)
+
+    # Find effective chirp mass of given point
+    eff_chirp = given_chirp/(1-(157/24)*s_given_e**2)**(3/5)
+
+    # Convert to chirp mass values
+    chirp_vals = eff_chirp*(1-(157/24)*s_e_vals**2)**(3/5)
+
+    return chirp_vals
+
 ## Generating waveform
 
-def gen_e_td_wf(f_low, e, M, q, sample_rate, phase):
+def gen_e_td_wf(f_low, e, M, q, sample_rate, phase, distance):
     """
     Generates EccentricTD waveform with chosen parameters.
 
@@ -95,6 +138,7 @@ def gen_e_td_wf(f_low, e, M, q, sample_rate, phase):
         q: Mass ratio.
         sample_rate: Sampling rate of waveform to be generated.
         phase: Phase of signal.
+        distance: Luminosity distance to binary in Mpc.
 
     Returns:
         Plus and cross polarisation of EccentricTD waveform.
@@ -107,6 +151,7 @@ def gen_e_td_wf(f_low, e, M, q, sample_rate, phase):
                                      mass2=m2,
                                      eccentricity=e,
                                      coa_phase=phase,
+                                     distance=distance,
                                      delta_t=1.0/sample_rate,
                                      f_lower=f_low)
     return e_td_p, e_td_c
@@ -124,7 +169,7 @@ def modes_to_k(modes):
     
     return [int(x[0]*(x[0]-1)/2 + x[1]-2) for x in modes]
 
-def gen_teob_wf(f_kep, e, M, q, sample_rate, phase):
+def gen_teob_wf(f_kep, e, M, q, sample_rate, phase, distance):
     """
     Generates TEOBResumS waveform with chosen parameters.
 
@@ -135,6 +180,7 @@ def gen_teob_wf(f_kep, e, M, q, sample_rate, phase):
         q: Mass ratio.
         sample_rate: Sampling rate of waveform to be generated.
         phase: Phase of signal.
+        distance: Luminosity distance to binary in Mpc.
 
     Returns:
         Plus and cross polarisation of TEOBResumS waveform.
@@ -159,7 +205,7 @@ def gen_teob_wf(f_kep, e, M, q, sample_rate, phase):
             'use_geometric_units': 0,            # Output quantities in geometric units. Default = 1
             'initial_frequency'  : f_avg,        # in Hz if use_geometric_units = 0, else in geometric units
             'interp_uniform_grid': 1,            # Interpolate mode by mode on a uniform grid. Default = 0 (no interpolation)
-            'distance'           : 1,
+            'distance'           : distance,
             'coalescence_angle'  : phase,
             'inclination'        : 0,
             'ecc'                : e,
@@ -176,7 +222,7 @@ def gen_teob_wf(f_kep, e, M, q, sample_rate, phase):
     
     return teob_p, teob_c
 
-def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0):
+def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1):
     """
     Generates waveform with chosen parameters.
 
@@ -188,6 +234,7 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0):
         sample_rate: Sampling rate of waveform to be generated.
         approximant: Approximant to use to generate the waveform.
         phase: Phase of signal.
+        distance: Luminosity distance to binary in Mpc.
 
     Returns:
         Complex combination of plus and cross waveform polarisations.
@@ -195,9 +242,9 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0):
 
     # Chooses specified approximant
     if approximant=='EccentricTD':
-        hp, hc = gen_e_td_wf(f_low, e, M, q, sample_rate, phase)
+        hp, hc = gen_e_td_wf(f_low, e, M, q, sample_rate, phase, distance)
     elif approximant=='TEOBResumS':
-        hp, hc = gen_teob_wf(f_low, e, M, q, sample_rate, phase)
+        hp, hc = gen_teob_wf(f_low, e, M, q, sample_rate, phase, distance)
     else:
         raise Exception('approximant not recognised')
 
@@ -356,10 +403,13 @@ def gen_psd(h_psd, f_low, kind='f'):
         Psd and high frequency cutoff to use.
     """
 
+    # Resize wf to next highest power of two
+    h_psd.resize(ceiltwo(len(h_psd)))
+
     # Generate the aLIGO ZDHP PSD
     delta_f = 1.0 / h_psd.duration
     flen = len(h_psd)//2 + 1
-    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low+3)
+    psd = aLIGOZeroDetHighPower(flen, delta_f, f_low)
 
     # If time series is not complex, we are done
     if kind == 'f':
@@ -377,7 +427,7 @@ def gen_psd(h_psd, f_low, kind='f'):
     cplx_psd = frequencyseries.FrequencySeries(cplx_psd, delta_f=delta_f)
 
     # High frequency cutoff
-    low_cutoff_ind = int((f_low+3)/cplx_psd.delta_f)
+    low_cutoff_ind = int((f_low)/cplx_psd.delta_f)
     high_cutoff_ind = len(h_psd) - (low_cutoff_ind - 1)
     high_cutoff_freq = high_cutoff_ind*cplx_psd.delta_f
 
@@ -403,7 +453,6 @@ def resize_wfs(wfs):
 
     Parameters:
         wfs: List of input waveforms.
-        wf_b: Second input waveform.
 
     Returns:
         Resized waveforms.
@@ -467,7 +516,7 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False):
         return_index: Whether to return index shift of h1 match.
         
     Returns:
-        Complex matches of trial waveform to h1 and h2 respectively.
+        Complex matches of trial waveform to h1,...,hn.
     """
 
     # Creates new versions of waveforms to avoid editing originals
@@ -702,7 +751,7 @@ def sine_model(x, A, B, C):
 
     return m
 
-def quad_sine_model(x, A_1, B_1, C_1, A_2, B_2, C_2, sign=1):
+def quad_sine_model(x, A_1, B_1, C_1, A_2, B_2, C_2):
     """
     Calculates quadrature sum of two sinusoids modelled as m_quad(x) = sqrt(m_1^2(x) + m_2^2(x)) 
     where m_n(x) = A_n*sin(x+B_n)+C_n for n=1,2 at a given value of x.
@@ -807,7 +856,7 @@ def s_f_max_sine_approx(wf_h1, wf_h2, f_low, e, M, q, sample_rate, approximant, 
     wf_quad_max = gen_wf(s_f_quad_max, s_e_quad_max, M, q, sample_rate, approximant)
     matches = match_h1_h2(wf_h1, wf_h2, wf_quad_max, f_low)
 
-    # Additionall returns coefficients if requested
+    # Additionally returns coefficients if requested
     if return_coeffs:
         return matches, list(coeffs_h1) + list(coeffs_h2)
     else:
