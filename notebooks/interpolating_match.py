@@ -39,6 +39,11 @@ def create_2D_interps(data, param_vals=np.linspace(0, 0.2, 101)):
     """
 
     interp_objs = []
+
+    # Get param vals from the data if available
+    first_chirp = list(data.keys())[0]
+    if 'e_vals' in data[first_chirp].keys():
+        param_vals = data[first_chirp]['e_vals']
     
     # Loop over h0, h1, h1/h0:
     for key in ['h1', 'h2', 'h2_h1']:
@@ -101,7 +106,7 @@ def find_ecc_range(match, chirp, interps, slope='increasing', max_ecc=0.2):
     # Find eccentricities corresponding to max and min lines
     for i in range(2):
         if line_eccs[i] is None:
-            max_result = minimize(lambda x: abs(interps[i](chirp, x) - match), max_ecc/2, bounds=[(0, max_ecc)], method='Nelder-Mead')
+            max_result = minimize(lambda x: abs(interps[i](chirp, x) - match), max_ecc/2, bounds=[(0, max_ecc)], method='Powell')
             line_eccs[i] = max_result['x'][0]
     
     # Identify low and high of eccentricity range
