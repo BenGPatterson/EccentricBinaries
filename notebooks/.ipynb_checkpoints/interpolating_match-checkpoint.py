@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.interpolate import LinearNDInterpolator
+from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
 
 def find_min_max(data):
@@ -114,3 +114,42 @@ def find_ecc_range(match, chirp, interps, slope='increasing', max_ecc=0.2):
     min_ecc = np.min(line_eccs)
 
     return min_ecc, max_ecc
+
+def find_ecc_range_samples(matches, chirp, interps, slope='increasing', max_ecc=0.2):
+    """
+    Find range of eccentricities corresponding to match values of samples. Assumes
+    slope is increasing.
+
+    Parameters:
+        matches: Match values.
+        chirp: Chirp mass at e_10=0.1.
+        interps: Interpolation objects to use.
+        max_ecc: Maximum value of eccentricity used to create interpolation objects.
+
+    Returns:
+        min_ecc: Minimum eccentricity.
+        max_ecc: Maximum eccentricity.
+    """
+
+    # Ensure matches is numpy array
+    matches = np.array(matches)
+
+    # Create reverse interpolation object to get the eccentricity from match value
+    ecc_range = np.arange(0, max_ecc+0.001, 0.001)
+    max_interp_arr = interps[0](chirp, ecc_range)
+    min_interp_arr = interps[1](chirp, ecc_range)
+    max_interp = interp1d(max_interp_arr, ecc_range)
+    min_interp = interp1d(min_interp_arr, ecc_range)
+
+    # Check whether in range of each interp, deal with edge cases
+    ecc_arr = np.array([np.full_like(matches, 5)]*2)
+    ecc_arr[0][matches<np.min(max_interp_arr)] = 0
+    ecc_arr[0][matches>np.max(max_interp_arr)] = ecc_range[np.argmax(max_interp_arr)]
+    ecc_arr[1][matches<np.min(min_interp_arr)] = ecc_range[np.argmin(min_interp_arr)]
+    ecc_arr[1][matches>np.max(min_interp_arr)] = 1
+    
+    # Find eccentricities corresponding to max and min lines
+    ecc_arr[0][ecc_arr[0]==5] = max_interp(matches[ecc_arr[0]==5])
+    ecc_arr[1][ecc_arr[1]==5] = min_interp(matches[ecc_arr[1]==5])
+
+    return ecc_arr
