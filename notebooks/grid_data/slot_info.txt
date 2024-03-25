@@ -8,3 +8,4 @@ dataslot_6: 24.25 chirp mass test run
 dataslot_7: 21 chirp mass test run
 dataslot_8: (22, 24, 26, 28) chirp mass test run
 dataslot_9: (20, 22.5, 25, 27.5, 30) chirp mass test run up to e=0.5
+dataslot_10: (20, 22.5, 25, 27.5, 30) chirp mass test run up to e=0.5 with fiducial e=0.2
