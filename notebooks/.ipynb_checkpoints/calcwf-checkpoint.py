@@ -372,9 +372,11 @@ def shifted_f(f, e, M, q):
     n_orbit = num_orbits(P, e, M)
     return f - delta_f_orbit*n_orbit
 
-def shifted_e(s_f, f, e):
+def shifted_e_approx(s_f, f, e):
     """
-    Calculates how to shift eccentricity to match shifted frequency in such a way that the original frequency and eccentricity are recovered after one true anomaly cycle of 2pi.
+    Calculates how to shift eccentricity to match shifted frequency in such a way that the
+    original frequency and eccentricity are recovered after one true anomaly cycle of 2pi.
+    Taylor expansion to lowest order in e.
 
     Parameters:
         s_f: Shifted starting frequency.
@@ -386,6 +388,49 @@ def shifted_e(s_f, f, e):
     """  
 
     s_e = e*(s_f/f)**(-19/18)
+    return s_e
+
+def shifted_e_const(f, e):
+    """
+    Calculates constant of proportionality between gw frequency and function of eccentricity.
+
+    Parameters:
+        f: Gravitational wave frequency.
+        e: Eccentricity.
+
+    Returns:
+        Proportionality constant.
+    """
+
+    constant = f*e**(18/19)*(1+(121/304)*e**2)**(1305/2299)*(1-e**2)**(-3/2)
+
+    return constant
+
+def shifted_e(s_f, f, e):
+    """
+    Calculates how to shift eccentricity to match shifted frequency in such a way that the
+    original frequency and eccentricity are recovered after one true anomaly cycle of 2pi.
+
+    Parameters:
+        s_f: Shifted starting frequency.
+        f: Original starting frequency.
+        e: Starting eccentricity.
+
+    Returns:
+        Shifted starting eccentricity.
+    """ 
+
+    # Ensure inputs are arrays
+    s_f = np.array(s_f).flatten()
+    e = np.array(e).flatten()
+
+    # Compute shifted eccentricity
+    constant = shifted_e_const(f, e)
+    init_guess = shifted_e_approx(s_f, f, e)
+    bounds = [(0, 0.999)]
+    best_fit = minimize(lambda x: np.sum(abs(shifted_e_const(s_f, x)-constant)), init_guess, bounds=bounds)
+    s_e = np.array(best_fit['x'])
+
     return s_e
 
 ## Match waveforms
