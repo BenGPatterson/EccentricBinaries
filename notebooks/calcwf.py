@@ -114,8 +114,8 @@ def favata_et_al_avg(given_e, given_chirp, e_vals, sample_rate, f_low=10, q=2):
 
     # Use average frequency to evolve eccentricities
     avg_f = (ssf/ss)**(-3/14)
-    s_given_e = shifted_e(avg_f, f_low, given_e)
-    s_e_vals = shifted_e(avg_f, f_low, e_vals)
+    s_given_e = shifted_e_approx(avg_f, f_low, given_e)
+    s_e_vals = shifted_e_approx(avg_f, f_low, e_vals)
 
     # Find effective chirp mass of given point
     eff_chirp = given_chirp/(1-(157/24)*s_given_e**2)**(3/5)

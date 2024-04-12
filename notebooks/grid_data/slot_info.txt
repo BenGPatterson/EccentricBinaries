@@ -10,3 +10,8 @@ dataslot_8: (22, 24, 26, 28) chirp mass test run
 dataslot_9: (20, 22.5, 25, 27.5, 30) chirp mass test run up to e=0.5
 dataslot_10: (20, 22.5, 25, 27.5, 30) chirp mass test run up to e=0.5 with fiducial e=0.2
 dataslot_11: (10, 15, 20) chirp mass test run
+dataslot_12: (20, 30) chirp mass test run up to e=0.5 with approximate shifted_e() and varying MA over 4pi
+dataslot_13: (20, 30) chirp mass test run up to e=0.5 with exact shifted_e() only on trial wfs
+dataslot_14: (20, 30) chirp mass test run up to e=0.5 with approx shifted_e() only in favata_et_al_avg()
+dataslot_15: (20, 30) chirp mass test run up to e=0.5 with exact shifted_e() everywhere
+dataslot_16: (20, 30) dataslot_14 and varying MA over 3pi
