@@ -15,3 +15,4 @@ dataslot_13: (20, 30) chirp mass test run up to e=0.5 with exact shifted_e() onl
 dataslot_14: (20, 30) chirp mass test run up to e=0.5 with approx shifted_e() only in favata_et_al_avg()
 dataslot_15: (20, 30) chirp mass test run up to e=0.5 with exact shifted_e() everywhere
 dataslot_16: (20, 30) dataslot_14 and varying MA over 3pi
+dataslot_17: (20, 22.5, 25, 27.5, 30, 32.5, 35, 37.5, 40) chirp mass test run
