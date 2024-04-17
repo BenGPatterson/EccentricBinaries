@@ -110,10 +110,11 @@ def favata_et_al_avg(given_e, given_chirp, e_vals, sample_rate, f_low=10, q=2):
     # Calculate both integrals using sigmasq
     h = h.real().to_frequencyseries()
     ss = sigmasq(h, psd=psd, low_frequency_cutoff=f_low+3)
-    ssf = sigmasq(h*h.sample_frequencies**(-7/3), psd=psd, low_frequency_cutoff=f_low+3)
+    ssff = sigmasq(h*h.sample_frequencies**(-7/3), psd=psd, low_frequency_cutoff=f_low+3)
+    ssf = sigmasq(h*h.sample_frequencies**(-7/6), psd=psd, low_frequency_cutoff=f_low+3)
 
     # Use average frequency to evolve eccentricities
-    avg_f = (ssf/ss)**(-3/14)
+    avg_f = (ssff/ss-(ssf/ss)**2)**(-3/14)
     s_given_e = shifted_e_approx(avg_f, f_low, given_e)
     s_e_vals = shifted_e_approx(avg_f, f_low, e_vals)
 

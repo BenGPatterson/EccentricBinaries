@@ -1,0 +1,47 @@
+000 (18302674.000.000) 2024-04-17 08:40:57 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618+[fde1-53ba-e9a0-de11-c925-65-8543-e173]-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_15451_ade7>
+...
+001 (18302674.000.000) 2024-04-17 08:43:09 Job executing on host: <10.14.3.45:9618?addrs=10.14.3.45-9618&alias=node545.cluster.ldas.cit&noUDP&sock=startd_2554_68f8>
+	SlotName: slot1_4@node545.cluster.ldas.cit
+	AvailableGPUs = {  }
+	CondorScratchDir = "/local/condor/execute/dir_2478749"
+	Cpus = 16
+	Disk = 1117637
+	GPUs = 0
+	Memory = 16384
+...
+006 (18302674.000.000) 2024-04-17 08:43:18 Image size of job updated: 239544
+	234  -  MemoryUsage of job (MB)
+	239544  -  ResidentSetSize of job (KB)
+...
+006 (18302674.000.000) 2024-04-17 08:48:18 Image size of job updated: 1323856
+	1254  -  MemoryUsage of job (MB)
+	1284092  -  ResidentSetSize of job (KB)
+...
+006 (18302674.000.000) 2024-04-17 08:53:18 Image size of job updated: 1336828
+	1255  -  MemoryUsage of job (MB)
+	1284212  -  ResidentSetSize of job (KB)
+...
+006 (18302674.000.000) 2024-04-17 08:58:19 Image size of job updated: 1374852
+	1255  -  MemoryUsage of job (MB)
+	1284212  -  ResidentSetSize of job (KB)
+...
+005 (18302674.000.000) 2024-04-17 09:07:40 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 06:11:14, Sys 0 00:03:58  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 06:11:14, Sys 0 00:03:58  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :    18.37       16        16 
+	   Disk (KB)            : 17500     1048576   1117637 
+	   GPUs                 :                           0 
+	   Memory (MB)          :  1255       16384     16384 
+	   TimeExecute (s)      :  1471                       
+	   TimeSlotBusy (s)     :  1471                       
+
+	Job terminated of its own accord at 2024-04-17T16:07:40Z with exit-code 0.
+...
