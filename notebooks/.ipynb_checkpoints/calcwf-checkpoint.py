@@ -252,7 +252,7 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1):
     # Returns waveform as complex timeseries
     return hp - 1j*hc
 
-## Varying true anomaly
+## Varying mean anomaly
 
 def m1_m2_from_M_q(M, q):
     """
