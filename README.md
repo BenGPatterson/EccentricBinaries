@@ -1,0 +1,25 @@
+# Notebook descriptions:
+- **complex_fft_tests.ipynb**: tests with complex fourier transforms
+- **degeneracy_ecc_chirp.ipynb**: investigating finding line of degeneracy between eccentricity and chirp mass
+- **e_sqrd_chirp_plots.ipynb**: contour plots of match values to a fiducial waveform over a grid of eccentricity squared and chirp mass
+- **eccentric_decomposition.ipynb**: initial attempts to decompose eccentric waveforms into two harmonics
+- **fluctuating_shifted_freq_tests.ipynb**: diagnosing bug whereby small changes in MA could cause rapidly oscillating match values
+- **interpolating_grids.ipynb**: attempts to interpolate grid of match values at varying MA/along degeneracy line to arbitrary chirp mass
+- **interpolating_min_max.ipynb**: attempts to interpolate max/min lines of grid in **interpolating_grids.ipynb** to arbitrary chirp mass
+- **match_filter_example.ipynb**: example of match filtering simulated event in zero noise to recover eccentricity posterior
+- **match_h1_h2.ipynb**: testing consistent match of two harmonics to waveform, and investigating effect of shifting MA
+- **match_pycbc_tests.ipynb**: exploring pycbc matching functions
+- **match_vs_chirp_mass.ipynb**: exploring how match varies as chirp mass varies, and along line of degeneracy with eccentricity
+- **multi_degen.ipynb**: tests of degeneracy line between eccentricity and chirp mass for multiple parameter sets
+- **multi_svd.ipynb**: SVD performed on multiple parameter sets
+- **n_component_decomposition.ipynb**: generalising eccentric decomposition to n harmonics
+- **param_estimation.ipynb**: basic attempt to find non-eccentric max likelihood point
+- **peak_params_simple_pe.ipynb** initial attempts to use simple-pe to find max likelihood point
+- **phase_MA_match.ipynb**: contour plots showing how match varies with value of phase and MA
+- **phase_shifted_frequency.ipynb**: investigating how to find MA of eccentric waveform from matches with our harmonics
+- **principal_component_analysis.ipynb**: singular value decomposition of eccentric waveforms
+- **shifting_h1_h2.ipynb**: testing effect of shifting MA of component waveforms that make up our harmonics
+- **simple-pe_tests.ipynb**: exploring simple-pe functions
+- **stripe_investigation.ipynb**: investigation into origin of 'stripes' in plots like in **e_sqrd_chirp_plots.ipynb**
+- **teobresums_eccentric_tests.ipynb**: exploring eccentric teobresums waveform
+- **teobresums_f_ref.ipynb**: investigating how to convert to teobresums' frequency definition
