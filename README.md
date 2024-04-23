@@ -23,3 +23,4 @@
 - **stripe_investigation.ipynb**: investigation into origin of 'stripes' in plots like in **e_sqrd_chirp_plots.ipynb**
 - **teobresums_eccentric_tests.ipynb**: exploring eccentric teobresums waveform
 - **teobresums_f_ref.ipynb**: investigating how to convert to teobresums' frequency definition
+- **freq_harmonics.ipynb**: investigating how the frequency of each harmonic evolves w.r.t. fundamental
