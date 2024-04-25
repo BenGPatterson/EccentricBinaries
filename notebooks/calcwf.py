@@ -422,6 +422,9 @@ def shifted_e(s_f, f, e):
     """ 
 
     # Ensure inputs are arrays
+    array = False
+    if len(np.shape(s_f)) > 0:
+        array = True
     s_f = np.array(s_f).flatten()
     e = np.array(e).flatten()
 

@@ -4,6 +4,8 @@
 - **e_sqrd_chirp_plots.ipynb**: contour plots of match values to a fiducial waveform over a grid of eccentricity squared and chirp mass
 - **eccentric_decomposition.ipynb**: initial attempts to decompose eccentric waveforms into two harmonics
 - **fluctuating_shifted_freq_tests.ipynb**: diagnosing bug whereby small changes in MA could cause rapidly oscillating match values
+- **freq_harmonics.ipynb**: investigating how the frequency of each harmonic evolves w.r.t. fundamental
+- **h4_search_SVD.ipynb**: searching for h4 harmonic (very low frequency) in SVD
 - **interpolating_grids.ipynb**: attempts to interpolate grid of match values at varying MA/along degeneracy line to arbitrary chirp mass
 - **interpolating_min_max.ipynb**: attempts to interpolate max/min lines of grid in **interpolating_grids.ipynb** to arbitrary chirp mass
 - **match_filter_example.ipynb**: example of match filtering simulated event in zero noise to recover eccentricity posterior
@@ -23,4 +25,4 @@
 - **stripe_investigation.ipynb**: investigation into origin of 'stripes' in plots like in **e_sqrd_chirp_plots.ipynb**
 - **teobresums_eccentric_tests.ipynb**: exploring eccentric teobresums waveform
 - **teobresums_f_ref.ipynb**: investigating how to convert to teobresums' frequency definition
-- **freq_harmonics.ipynb**: investigating how the frequency of each harmonic evolves w.r.t. fundamental
+
