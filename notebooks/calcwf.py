@@ -431,7 +431,8 @@ def shifted_e(s_f, f, e):
     # Compute shifted eccentricity
     constant = shifted_e_const(f, e)
     bounds = [(0, 0.999)]
-    init_guess = np.min([shifted_e_approx(s_f, f, e), np.full(len(s_f), bounds[0][1])], axis=0)
+    s_e_approx = shifted_e_approx(s_f, f, e)
+    init_guess = np.min([s_e_approx, np.full(len(s_e_approx), bounds[0][1])], axis=0)
     best_fit = minimize(lambda x: np.sum(abs(shifted_e_const(s_f, x)-constant)), init_guess, bounds=bounds, method='Powell')
     s_e = np.array(best_fit['x'])
     if not array:
