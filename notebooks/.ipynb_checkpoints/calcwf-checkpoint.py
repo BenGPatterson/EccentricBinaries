@@ -423,7 +423,7 @@ def shifted_e(s_f, f, e):
 
     # Ensure inputs are arrays
     array = False
-    if len(np.shape(s_f)) > 0:
+    if len(np.shape(s_f))+len(np.shape(e)) > 0:
         array = True
     s_f = np.array(s_f).flatten()
     e = np.array(e).flatten()
@@ -433,7 +433,7 @@ def shifted_e(s_f, f, e):
     bounds = [(0, 0.999)]
     s_e_approx = shifted_e_approx(s_f, f, e)
     init_guess = np.min([s_e_approx, np.full(len(s_e_approx), bounds[0][1])], axis=0)
-    best_fit = minimize(lambda x: np.sum(abs(shifted_e_const(s_f, x)-constant)), init_guess, bounds=bounds, method='Powell')
+    best_fit = minimize(lambda x: np.sum(abs(shifted_e_const(s_f, x)-constant)), init_guess, bounds=bounds)
     s_e = np.array(best_fit['x'])
     if not array:
         s_e = s_e[0]

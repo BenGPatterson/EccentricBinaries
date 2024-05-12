@@ -1,0 +1,38 @@
+000 (18788533.000.000) 2024-05-12 09:36:53 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618+[fde1-53ba-e9a0-de11-c925-65-8543-e173]-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_15451_ade7>
+...
+001 (18788533.000.000) 2024-05-12 09:38:22 Job executing on host: <10.14.9.77:9618?addrs=10.14.9.77-9618&alias=node2077.cluster.ldas.cit&noUDP&sock=startd_3662_67e8>
+	SlotName: slot1_25@node2077.cluster.ldas.cit
+	CondorScratchDir = "/local/condor/execute/dir_538986"
+	Cpus = 16
+	Disk = 1150180
+	GPUs = 0
+	Memory = 16384
+...
+006 (18788533.000.000) 2024-05-12 09:38:31 Image size of job updated: 207392
+	203  -  MemoryUsage of job (MB)
+	206908  -  ResidentSetSize of job (KB)
+...
+006 (18788533.000.000) 2024-05-12 09:42:49 Image size of job updated: 3219240
+	203  -  MemoryUsage of job (MB)
+	206908  -  ResidentSetSize of job (KB)
+...
+005 (18788533.000.000) 2024-05-12 09:42:49 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:38:08, Sys 0 00:00:49  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:38:08, Sys 0 00:00:49  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :    15.54       16        16 
+	   Disk (KB)            : 17500     1048576   1150180 
+	   GPUs                 :                           0 
+	   Memory (MB)          :   203       16384     16384 
+	   TimeExecute (s)      :   267                       
+	   TimeSlotBusy (s)     :   267                       
+
+	Job terminated of its own accord at 2024-05-12T16:42:49Z with exit-code 0.
+...
