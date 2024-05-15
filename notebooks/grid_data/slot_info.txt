@@ -19,3 +19,4 @@ dataslot_17: (20, 22.5, 25, 27.5, 30, 32.5, 35, 37.5, 40) chirp mass test run
 dataslot_18: (20, 30) chirp mass test run up to e=0.5 with exact shifted_e() everywhere, both freq terms in favata_et_al_avg()
 dataslot_19: (20, 30) chirp mass test run up to e=0.5 with both freq terms in favata_et_al_avg()
 dataslot_20: (20, 30) chirp mass test run up to e=0.5 with exact shifted_e() + eff chirp mass, -10/3 in favata_et_al_avg()
+dataslot_21: (20, 22.5, 25, 27.5, 30) effective chirp mass test run
