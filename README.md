@@ -8,6 +8,7 @@
 - **h4_search_SVD.ipynb**: searching for h4 harmonic (very low frequency) in SVD
 - **interpolating_grids.ipynb**: attempts to interpolate grid of match values at varying MA/along degeneracy line to arbitrary chirp mass
 - **interpolating_min_max.ipynb**: attempts to interpolate max/min lines of grid in **interpolating_grids.ipynb** to arbitrary chirp mass
+- **mapping_distribution.ipynb**: looking at how to sample between min/max lines when mapping SNR ratio samples to eccentricity
 - **match_filter_example.ipynb**: example of match filtering simulated event in zero noise to recover eccentricity posterior
 - **match_h1_h2.ipynb**: testing consistent match of two harmonics to waveform, and investigating effect of shifting MA
 - **match_pycbc_tests.ipynb**: exploring pycbc matching functions

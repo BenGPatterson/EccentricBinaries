@@ -1,2 +1,3 @@
 dataslot_0: test run with 11x11 grids
 dataslot_1: run with 301 ecc points equally spaced between e=0^2 and 0.5^2, and 101 chirp mass points
+dataslot_2: version with non-eccentric teob wf as fiducial for poster plot
