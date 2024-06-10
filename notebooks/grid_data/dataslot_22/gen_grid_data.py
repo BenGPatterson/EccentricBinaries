@@ -34,12 +34,13 @@ def single_match(s_f_e, e_chirp, wf_hjs, q, f_low, approximant='TEOBResumS'):
 
     return *wf_matches, phase_diff, np.sqrt(match_quad_sqrd)
 
-def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, eff_chirp, q, f_low, approximant='TEOBResumS'):
+def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, zero_ecc_chirp, q, f_low, approximant='TEOBResumS'):
 
     # Generate param values along line of degeneracy
-    fid_chirp = favata_et_al_avg(0, eff_chirp, fid_e, sample_rate, f_low=f_low, q=q)
-    e_vals = param_vals
-    chirp_vals = favata_et_al_avg(0, eff_chirp, e_vals, sample_rate, f_low=f_low, q=q)
+    all_e_vals = np.array([fid_e, *param_vals]).flatten()
+    all_chirp_vals = chirp_degeneracy_line(zero_ecc_chirp, all_e_vals, sample_rate, f_low=f_low, q=q)
+    fid_e, e_vals = all_e_vals[0], all_e_vals[1:]
+    fid_chirp, chirp_vals = all_chirp_vals[0], all_chirp_vals[1:]
     e_chirp_vals = list(map(list, zip(e_vals, chirp_vals)))
     e_chirp_vals = list(np.repeat(e_chirp_vals, len(MA_vals), axis=0))
 
@@ -64,24 +65,23 @@ def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, eff_chirp, q, f_low,
     # Put match arrays into appropriate dictionary keys
     matches = {}
     for i in range(n):
-        k=int((i+1)/2)*(i%2*2-1)
-        matches[f'h{k}'] = match_arr[:,2*i].reshape(-1, len(MA_vals))
-        matches[f'h{k}_phase'] = match_arr[:,2*i+1].reshape(-1, len(MA_vals))
+        matches[f'h{i+1}'] = match_arr[:,2*i].reshape(-1, len(MA_vals))
+        matches[f'h{i+1}_phase'] = match_arr[:,2*i+1].reshape(-1, len(MA_vals))
     matches['diff_phase'] = match_arr[:,2*n].reshape(-1, len(MA_vals))
     matches['quad'] = match_arr[:,2*n+1].reshape(-1, len(MA_vals))
-    matches['h1_h0'] = np.array(matches['h1'])/np.array(matches['h0'])
+    matches['h2_h1'] = np.array(matches['h2'])/np.array(matches['h1'])
     matches['e_vals'] = e_vals
 
     return matches
 
-def gen_grid_data(eff_chirp, param_vals, MA_vals, n, fid_e_vals, q, f_low, approximant='TEOBResumS'):
+def gen_grid_data(zero_ecc_chirp, param_vals, MA_vals, n, fid_e_vals, q, f_low, approximant='TEOBResumS'):
 
     all_matches = {}
 
     # Calculate grid for each chirp mass
     for fid_e in fid_e_vals:
         start = time.time()
-        all_matches[fid_e] = chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, eff_chirp, q, f_low, approximant=approximant)
+        all_matches[fid_e] = chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, zero_ecc_chirp, q, f_low, approximant=approximant)
         end = time.time()
         print(f'Fiducial eccentricity {fid_e}: Completed in {end-start} seconds.')
 
@@ -94,4 +94,4 @@ if __name__ == "__main__":
     sample_rate = 4096
 
     # Generate and save grid data to desired data slot
-    gen_grid_data(30, np.linspace(0,0.4,201), np.linspace(0, 2*np.pi, 32, endpoint=False), 4, np.linspace(0, 0.15, 16), 2, 10, approximant='TEOBResumS')
+    gen_grid_data(30, np.linspace(0,0.5,201), np.linspace(0, 2*np.pi, 32, endpoint=False), 4, np.linspace(0, 0.15, 16), 2, 10, approximant='TEOBResumS')

@@ -82,49 +82,80 @@ def total2chirp(total, q):
 
     return chirp
 
-def favata_et_al_avg(given_e, given_chirp, e_vals, sample_rate, f_low=10, q=2):
+def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2):
     """
-    Converts array of eccentricity values to chirp mass along a line of constant 
-    effective chirp mass, as given by equation 1.1 in Favata et al. 
-    https://arxiv.org/pdf/2108.05861.pdf, with e_0 evaluated at an frequency
-    averaged over the psd. *IMPROVE EXPLANATION*.
+    Calculates chirp masses corresponding to input eccentricities along a line of degeneracy
+    defined by a given chirp mass at zero eccentricity.
 
     Parameters:
-        given_e: Value of eccentricity for given point on line of constant effective chirp mass.
-        given_chirp: Value of chirp mass for given point on line of constant effective chirp mass.
-        e_vals: Frequency values to be converted.
+        zero_ecc_chirp: Chirp mass of the degeneracy line at zero eccentricity.
+        ecc: Eccentricities to find corresponding chirp masses for.
+        sample_rate: Sampling rate to use when generating waveform.
         f_low: Starting frequency.
         q: Mass ratio.
 
     Returns:
-        Converted chirp mass values.
+        Chirp mass corresponding to each eccentricity.
     """
 
-    # Generate waveform at given point to use in sigmasq
-    h = gen_wf(f_low, given_e, chirp2total(given_chirp, q), q, sample_rate, 'TEOBResumS')
+    # Generate waveform at non-eccentric point to use in sigmasq
+    h = gen_wf(f_low, 0, chirp2total(zero_ecc_chirp, q), q, 4096, 'TEOBResumS')
     h.resize(ceiltwo(len(h)))
 
     # Generate the aLIGO ZDHP PSD
     psd = gen_psd(h, f_low)
 
-    # Calculate both integrals using sigmasq
+    # Convert to frequency series
     h = h.real().to_frequencyseries()
-    ss = sigmasq(h, psd=psd, low_frequency_cutoff=f_low+3)
-    ssff = sigmasq(h*h.sample_frequencies**(-7/3), psd=psd, low_frequency_cutoff=f_low+3)
-    ssf = sigmasq(h*h.sample_frequencies**(-7/6), psd=psd, low_frequency_cutoff=f_low+3)
 
-    # Use average frequency to evolve eccentricities
-    avg_f = (ssff/ss-(ssf/ss)**2)**(-3/14)
-    s_given_e = shifted_e_approx(avg_f, f_low, given_e)
-    s_e_vals = shifted_e_approx(avg_f, f_low, e_vals)
+    # Handle array of eccentricities as input
+    array = False
+    if len(np.shape(ecc)) > 0:
+        array = True
+    ecc = np.array(ecc).flatten()
 
-    # Find effective chirp mass of given point
-    eff_chirp = given_chirp/(1-(157/24)*s_given_e**2)**(3/5)
+    ssfs = np.zeros(len(ecc))
+    ssffs = np.zeros(len(ecc))
+    sskfs = np.zeros(len(ecc))
+    sskffs = np.zeros(len(ecc))
+    # Loop over each eccentricity
+    for i, e in enumerate(ecc):
 
-    # Convert to chirp mass values
-    chirp_vals = eff_chirp*(1-(157/24)*s_e_vals**2)**(3/5)
+        # Calculate a few shifted es exactly
+        sparse_s_fs = np.linspace(f_low, np.max([f_low*10,100]), 11)
+        sparse_s_es = shifted_e(sparse_s_fs, f_low, e)
 
-    return chirp_vals
+        # For low eccentricities use much faster approximate shifted e
+        if sparse_s_fs[-1] < h.sample_frequencies[-1]:
+            approx_s_fs = np.arange(sparse_s_fs[-1], h.sample_frequencies[-1], h.delta_f)+h.delta_f
+            approx_s_es = shifted_e_approx(approx_s_fs, f_low, e)
+            sparse_s_fs = np.concatenate([sparse_s_fs, approx_s_fs])
+            sparse_s_es = np.concatenate([sparse_s_es, approx_s_es])
+
+        # Interpolate to all frequencies
+        s_e_interp = interp1d(sparse_s_fs, sparse_s_es, kind='cubic', fill_value='extrapolate')
+        s_es = s_e_interp(h.sample_frequencies)
+
+        # Calculate k values
+        ks_sqrt = np.sqrt(2355*s_es**2/1462)
+
+        # Calculate and normalise integrals
+        ss = sigmasq(h, psd=psd, low_frequency_cutoff=f_low+3)
+        ssf = sigmasq(h*h.sample_frequencies**(-5/6), psd=psd, low_frequency_cutoff=f_low+3)
+        ssff = sigmasq(h*h.sample_frequencies**(-5/3), psd=psd, low_frequency_cutoff=f_low+3)
+        sskf = -sigmasq(h*ks_sqrt*h.sample_frequencies**(-5/6), psd=psd, low_frequency_cutoff=f_low+3)
+        sskff = -sigmasq(h*ks_sqrt*h.sample_frequencies**(-5/3), psd=psd, low_frequency_cutoff=f_low+3)
+        ssfs[i], ssffs[i], sskfs[i], sskffs[i] = np.array([ssf, ssff, sskf, sskff])/ss
+
+    # Calculate chirp mass
+    delta_m = - (sskffs - ssfs*sskfs)/(ssffs - ssfs**2)
+    chirp = zero_ecc_chirp*(1+delta_m)**(-3/5)
+
+    # If array not passed then turn back into float
+    if not array:
+        chirp = chirp[0]
+
+    return chirp
 
 ## Generating waveform
 
