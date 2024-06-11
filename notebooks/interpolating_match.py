@@ -71,6 +71,45 @@ def create_2D_interps(data, param_vals=np.linspace(0, 0.2, 101)):
 
     return interp_objs
 
+def scaled_2D_interps(data, key):
+    """
+    Create interpolation objects which give the min and max match value at 
+    arbitrary chirp mass and point in parameter space on line of degeneracy.
+    These are normalised to account for different fiducial eccentricities.
+
+    Parameters:
+        data: Dictionary containing matches.
+        key: Key of dictionary (e.g. h1_h0) to calculate interpolation object for.
+
+    Returns:
+        interp_objs: Created interpolation objects.
+    """
+
+    max_vals_arr = []
+    min_vals_arr = []
+    ecc_vals_arr = []
+    
+    # Loop over each chirp mass grid to get all max/min match values
+    for chirp in data.keys():
+
+        # Find normalisation in both directions
+        fid_e = data[chirp]['fid_e']
+        ecc_vals = data[chirp]['e_vals']/fid_e
+        max_1d_interp = interpolate.interp1d(ecc_vals, data[chirp][f'{key}_max'])
+        min_1d_interp = interpolate.interp1d(ecc_vals, data[chirp][f'{key}_max'])
+        match_norm = (max_1d_interp(1)+min_1d_interp(1))/2
+        max_vals = data[chirp][f'{key}_max']/match_norm
+        min_vals = data[chirp][f'{key}_min']/match_norm
+        
+        # Add to interpolation data points
+        max_vals_arr += max_vals
+        min_vals_arr += min_vals
+        ecc_vals_arr += ecc_vals
+    
+    # Create max/min interpolation objects
+
+    return max_interp, min_interp
+
 def find_ecc_range(match, chirp, interps, slope='increasing', max_ecc=0.2):
     """
     Find range of eccentricities corresponding to match value.

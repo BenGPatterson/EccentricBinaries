@@ -65,11 +65,11 @@ def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, zero_ecc_chirp, q, f
     # Put match arrays into appropriate dictionary keys
     matches = {}
     for i in range(n):
-        matches[f'h{i+1}'] = match_arr[:,2*i].reshape(-1, len(MA_vals))
-        matches[f'h{i+1}_phase'] = match_arr[:,2*i+1].reshape(-1, len(MA_vals))
+        matches[f'h{i}'] = match_arr[:,2*i].reshape(-1, len(MA_vals))
+        matches[f'h{i}_phase'] = match_arr[:,2*i+1].reshape(-1, len(MA_vals))
     matches['diff_phase'] = match_arr[:,2*n].reshape(-1, len(MA_vals))
     matches['quad'] = match_arr[:,2*n+1].reshape(-1, len(MA_vals))
-    matches['h2_h1'] = np.array(matches['h2'])/np.array(matches['h1'])
+    matches['h1_h0'] = np.array(matches['h1'])/np.array(matches['h0'])
     matches['e_vals'] = e_vals
 
     return matches
