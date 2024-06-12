@@ -107,6 +107,8 @@ def scaled_2D_interps(data, key):
         ecc_vals_arr += ecc_vals
     
     # Create max/min interpolation objects
+    max_interp = LinearNDInterpolator(list(zip(chirp_vals, ecc_vals)), max_vals)
+    min_interp = LinearNDInterpolator(list(zip(chirp_vals, ecc_vals)), min_vals)
 
     return max_interp, min_interp
 
