@@ -71,6 +71,41 @@ def create_2D_interps(data, param_vals=np.linspace(0, 0.2, 101)):
 
     return interp_objs
 
+def fid_e2zero_ecc_chirp(fid_e, scaling_norms=[10, 0.03]):
+    """
+    Convert a fiducial eccentricity to corresponding non-eccentric chirp
+    mass.
+
+    Parameters:
+        fid_e: Fiducial eccentricity.
+        scaling_norms: Non-eccentric chirp mass and fiducial eccentricity used 
+        to normalise relationship.
+
+    Returns:
+        zero_ecc_chirp: Non-eccentric chirp mass.
+    """
+    
+    zero_ecc_chirp = fid_e**(6/5)*scaling_norms[0]/(scaling_norms[1]**(6/5))
+    
+    return zero_ecc_chirp
+
+def zero_ecc_chirp2fid_e(zero_ecc_chirp, scaling_norms=[10, 0.03]):
+    """
+    Convert a non-eccentric chirp mass to a corresponding fiducial eccentricity.
+
+    Parameters:
+        zero_ecc_chirp: Non-eccentric chirp mass.
+        scaling_norms: Non-eccentric chirp mass and fiducial eccentricity used 
+        to normalise relationship.
+
+    Returns:
+        fid_e: Fiducial eccentricity.
+    """
+    
+    fid_e = zero_ecc_chirp**(5/6)*scaling_norms[1]/(scaling_norms[0]**(5/6))
+    
+    return fid_e
+
 def scaled_2D_interps(data, key):
     """
     Create interpolation objects which give the min and max match value at 
@@ -82,12 +117,13 @@ def scaled_2D_interps(data, key):
         key: Key of dictionary (e.g. h1_h0) to calculate interpolation object for.
 
     Returns:
-        interp_objs: Created interpolation objects.
+        max_interp, min_interp: Created interpolation objects.
     """
 
     max_vals_arr = []
     min_vals_arr = []
     ecc_vals_arr = []
+    fid_e_vals_arr = []
     
     # Loop over each chirp mass grid to get all max/min match values
     for chirp in data.keys():
@@ -105,10 +141,12 @@ def scaled_2D_interps(data, key):
         max_vals_arr += max_vals
         min_vals_arr += min_vals
         ecc_vals_arr += ecc_vals
+        fid_e_vals = [fid_e]*len(e_vals)
+        fid_e_vals_arr += fid_e_vals
     
     # Create max/min interpolation objects
-    max_interp = LinearNDInterpolator(list(zip(chirp_vals, ecc_vals)), max_vals)
-    min_interp = LinearNDInterpolator(list(zip(chirp_vals, ecc_vals)), min_vals)
+    max_interp = LinearNDInterpolator(list(zip(fid_e_vals_arr, ecc_vals_arr)), max_vals_arr)
+    min_interp = LinearNDInterpolator(list(zip(fid_e_vals_arr, ecc_vals_arr)), min_vals_arr)
 
     return max_interp, min_interp
 

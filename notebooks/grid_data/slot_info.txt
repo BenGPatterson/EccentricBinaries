@@ -26,3 +26,6 @@ dataslot_23: (0, 0.01, 0.02, ..., 0.10) fiducial eccentricity values for 10 chir
 dataslot_24: (0, 0.01, 0.02, ..., 0.10) fiducial eccentricity values for 18 chirp mass test run
 dataslot_25: (0.07, 0.0725, 0.075, ..., 0.10) fiducial eccentricity values for 30 chirp mass test run
 dataslot_26: (0.02, 0.0225, 0.025, ..., 0.04) fiducial eccentricity values for 10 chirp mass test run
+dataslot_27: (0.02, 0.03, 0.04, ..., 0.15) fiducial eccentricity values for scaled chirp masses test run. normalisation of [10, 0.03]
+dataslot_28: (0.02, 0.03, 0.04, ..., 0.15) fiducial eccentricity values for scaled chirp masses test run. normalisation of [10, 0.0325]
+dataslot_29: (0.02, 0.03, 0.04, ..., 0.15) fiducial eccentricity values for scaled chirp masses test run. normalisation of [10, 0.035]
