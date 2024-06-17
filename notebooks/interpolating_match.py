@@ -71,7 +71,7 @@ def create_2D_interps(data, param_vals=np.linspace(0, 0.2, 101)):
 
     return interp_objs
 
-def fid_e2zero_ecc_chirp(fid_e, scaling_norms=[10, 0.03]):
+def fid_e2zero_ecc_chirp(fid_e, scaling_norms=[10, 0.035]):
     """
     Convert a fiducial eccentricity to corresponding non-eccentric chirp
     mass.
@@ -89,7 +89,7 @@ def fid_e2zero_ecc_chirp(fid_e, scaling_norms=[10, 0.03]):
     
     return zero_ecc_chirp
 
-def zero_ecc_chirp2fid_e(zero_ecc_chirp, scaling_norms=[10, 0.03]):
+def zero_ecc_chirp2fid_e(zero_ecc_chirp, scaling_norms=[10, 0.035]):
     """
     Convert a non-eccentric chirp mass to a corresponding fiducial eccentricity.
 
@@ -128,20 +128,17 @@ def scaled_2D_interps(data, key):
     # Loop over each chirp mass grid to get all max/min match values
     for chirp in data.keys():
 
-        # Find normalisation in both directions
+        # Get values to build interpolation, normalising eccentricity
         fid_e = data[chirp]['fid_e']
         ecc_vals = data[chirp]['e_vals']/fid_e
-        max_1d_interp = interpolate.interp1d(ecc_vals, data[chirp][f'{key}_max'])
-        min_1d_interp = interpolate.interp1d(ecc_vals, data[chirp][f'{key}_max'])
-        match_norm = (max_1d_interp(1)+min_1d_interp(1))/2
-        max_vals = data[chirp][f'{key}_max']/match_norm
-        min_vals = data[chirp][f'{key}_min']/match_norm
+        max_vals = data[chirp][f'{key}_max']
+        min_vals = data[chirp][f'{key}_min']
         
         # Add to interpolation data points
-        max_vals_arr += max_vals
-        min_vals_arr += min_vals
-        ecc_vals_arr += ecc_vals
-        fid_e_vals = [fid_e]*len(e_vals)
+        max_vals_arr += list(max_vals)
+        min_vals_arr += list(min_vals)
+        ecc_vals_arr += list(ecc_vals)
+        fid_e_vals = [fid_e]*len(ecc_vals)
         fid_e_vals_arr += fid_e_vals
     
     # Create max/min interpolation objects
@@ -150,29 +147,34 @@ def scaled_2D_interps(data, key):
 
     return max_interp, min_interp
 
-def find_ecc_range(match, chirp, interps, slope='increasing', max_ecc=0.2):
+def find_ecc_range(match, chirp, interps, max_ecc, slope='increasing', scaling_norms=[10, 0.035]):
     """
     Find range of eccentricities corresponding to match value.
 
     Parameters:
         match: Match value.
-        chirp: Chirp mass at e_10=0.1.
+        chirp: Chirp mass at zero eccentricity.
         interps: Interpolation objects to use.
+        max_ecc: Maximum value of eccentricity for this chirp mass.
         slope: Slope direction of match against ecc along degeneracy line.
-        max_ecc: Maximum value of eccentricity used to create interpolation objects.
+        scaling_norms: Non-eccentric chirp mass and fiducial eccentricity used 
+        to normalise relationship.
 
     Returns:
         min_ecc: Minimum eccentricity.
         max_ecc: Maximum eccentricity.
     """
 
+    # Get corresponding fiducial eccentricity value
+    fid_e = zero_ecc_chirp2fid_e(chirp, scaling_norms=scaling_norms)
+    
     # Check whether in range of each interp, deal with edge cases
     ecc_range = np.arange(0, max_ecc+0.001, 0.001)
     line_eccs = [0,0]
     slope_dict = {'increasing': 0, 'decreasing': 1, None: 2}
     slope_ind = slope_dict[slope]
     for i in range(2):
-        interp_arr = interps[i](chirp, ecc_range)
+        interp_arr = interps[i](fid_e, ecc_range/fid_e)
         edge_cases = [[[ecc_range[np.argmax(interp_arr)],0,None],[ecc_range[np.argmax(interp_arr)],1,None],[None, None, None]],
                       [[1,ecc_range[np.argmin(interp_arr)],None],[0,ecc_range[np.argmin(interp_arr)],None],[None, None, None]]]
         if match > np.max(interp_arr):
@@ -186,7 +188,7 @@ def find_ecc_range(match, chirp, interps, slope='increasing', max_ecc=0.2):
     # Find eccentricities corresponding to max and min lines
     for i in range(2):
         if line_eccs[i] is None:
-            max_result = minimize(lambda x: abs(interps[i](chirp, x) - match), max_ecc/2, bounds=[(0, max_ecc)], method='Powell')
+            max_result = minimize(lambda x: abs(interps[i](fid_e, x/fid_e) - match), max_ecc/2, bounds=[(0, max_ecc)], method='Powell')
             line_eccs[i] = max_result['x'][0]
     
     # Identify low and high of eccentricity range
@@ -195,16 +197,18 @@ def find_ecc_range(match, chirp, interps, slope='increasing', max_ecc=0.2):
 
     return min_ecc, max_ecc
 
-def find_ecc_range_samples(matches, chirp, interps, max_ecc=0.2):
+def find_ecc_range_samples(matches, chirp, interps, max_ecc, scaling_norms=[10, 0.035]):
     """
     Find range of eccentricities corresponding to match values of samples. Assumes
     slope is increasing.
 
     Parameters:
         matches: Match values.
-        chirp: Chirp mass at e_10=0.1.
+        chirp: Chirp mass at zero_eccentricity.
         interps: Interpolation objects to use.
-        max_ecc: Maximum value of eccentricity used to create interpolation objects.
+        max_ecc: Maximum value of eccentricity for this chirp mass.
+        scaling_norms: Non-eccentric chirp mass and fiducial eccentricity used 
+        to normalise relationship.
 
     Returns:
         min_ecc: Minimum eccentricity.
@@ -214,14 +218,22 @@ def find_ecc_range_samples(matches, chirp, interps, max_ecc=0.2):
     # Ensure matches is numpy array
     matches = np.array(matches)
 
+    # Get corresponding fiducial eccentricity value
+    fid_e = zero_ecc_chirp2fid_e(chirp, scaling_norms=scaling_norms)
+
     # Create reverse interpolation object to get the eccentricity from match value
     ecc_range = np.arange(0, max_ecc+0.001, 0.001)
-    max_interp_arr = interps[0](chirp, ecc_range)
-    min_interp_arr = interps[1](chirp, ecc_range)
+    max_interp_arr = interps[0](fid_e, ecc_range/fid_e)
+    min_interp_arr = interps[1](fid_e, ecc_range/fid_e)
+    max_nans = np.sum(np.isnan(max_interp_arr))
+    min_nans = np.sum(np.isnan(min_interp_arr))
+    max_interp_arr = max_interp_arr[:-np.max([max_nans, min_nans])]
+    min_interp_arr = min_interp_arr[:-np.max([max_nans, min_nans])]
+    ecc_range = ecc_range[:-np.max([max_nans, min_nans])]
     max_interp = interp1d(max_interp_arr, ecc_range)
     min_interp = interp1d(min_interp_arr, ecc_range)
 
-    # Check whether in range of each interp, deal with edge cases
+    # Check whether in range of each interp, deal with edge cases4
     ecc_arr = np.array([np.full_like(matches, 5)]*2)
     ecc_arr[0][matches<np.min(max_interp_arr)] = 0
     ecc_arr[0][matches>np.max(max_interp_arr)] = ecc_range[np.argmax(max_interp_arr)]
@@ -232,4 +244,4 @@ def find_ecc_range_samples(matches, chirp, interps, max_ecc=0.2):
     ecc_arr[0][ecc_arr[0]==5] = max_interp(matches[ecc_arr[0]==5])
     ecc_arr[1][ecc_arr[1]==5] = min_interp(matches[ecc_arr[1]==5])
 
-    return ecc_arr
+    return ecc_arr, ecc_range[-1]
