@@ -2,7 +2,7 @@ import numpy as np
 from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
 
-def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h1_h-1_h0']):
+def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0']):
     """
     Finds minimum and maximum match of various match quantities across varying mean anomaly.
 
@@ -24,6 +24,8 @@ def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h1_h-1_h0']):
                     data[chirp]['h1_h0'] = data[chirp]['h1']/data[chirp]['h0']
                 elif key == 'h-1_h0':
                     data[chirp]['h-1_h0'] = data[chirp]['h-1']/data[chirp]['h0']
+                elif key == 'h2_h0':
+                    data[chirp]['h2_h0'] = data[chirp]['h2']/data[chirp]['h0']
                 elif key == 'h1_h-1_h0':
                     num = np.sqrt(data[chirp]['h1']**2+data[chirp]['h-1']**2)
                     data[chirp]['h1_h-1_h0'] = num/data[chirp]['h0']

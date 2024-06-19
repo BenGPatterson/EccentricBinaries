@@ -65,8 +65,9 @@ def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, zero_ecc_chirp, q, f
     # Put match arrays into appropriate dictionary keys
     matches = {}
     for i in range(n):
-        matches[f'h{i}'] = match_arr[:,2*i].reshape(-1, len(MA_vals))
-        matches[f'h{i}_phase'] = match_arr[:,2*i+1].reshape(-1, len(MA_vals))
+        k = (-1)**(i+1)*int((i+1)/2)
+        matches[f'h{k}'] = match_arr[:,2*i].reshape(-1, len(MA_vals))
+        matches[f'h{k}_phase'] = match_arr[:,2*i+1].reshape(-1, len(MA_vals))
     matches['diff_phase'] = match_arr[:,2*n].reshape(-1, len(MA_vals))
     matches['quad'] = match_arr[:,2*n+1].reshape(-1, len(MA_vals))
     matches['h1_h0'] = np.array(matches['h1'])/np.array(matches['h0'])
@@ -99,4 +100,4 @@ if __name__ == "__main__":
     sample_rate = 4096
 
     # Generate and save grid data to desired data slot
-    gen_grid_data([10, 0.035], np.linspace(0, 20/3, 201), np.linspace(0, 2*np.pi, 32, endpoint=False), 4, np.linspace(0.15, 0.02, 14), 2, 10, 0.5, approximant='TEOBResumS')
+    gen_grid_data([10, 0.035], np.linspace(0, 20/3, 201), np.linspace(0, 2*np.pi, 32, endpoint=False), 4, np.linspace(0.02, 0.15, 14), 2, 10, 0.5, approximant='TEOBResumS')
