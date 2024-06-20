@@ -2,7 +2,98 @@ import numpy as np
 from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
 
-def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0']):
+def tot_SNR_sqrd(params, rhos, betas, harms):
+    """
+    Calculate total SNR squared of a set of harmonics in a phase consistent way.
+
+    Parameters:
+        params: Free parameters describing expected phases of matches.
+        rhos: Magnitudes of matches with each harmonic.
+        betas: Phases of matches with each harmonic.
+        harms: Which harmonics are included.
+
+    Returns:
+        tot: Total SNR squared.
+    """
+
+    tot = 0
+    alpha, phi = params
+
+    # Add each harmonic in turn
+    for i in range(len(harms)):
+        tot += np.cos(alpha+harms[i]*phi-betas[i])*rhos[i]**2
+
+    return tot
+
+def comb_harm_consistent(rhos, betas, harms=[0,1,-1]):
+    """
+    Combine match of higher harmonics in phase consistent way for 
+    grid of points.
+
+    Parameters:
+        data: Dictionary containing matches for given chirp mass.
+        harms: Which harmonics to include.
+
+    Returns:
+        num: Combined match.
+    """
+
+    # Add fundamental to harmonic list
+    if 0 not in harms:
+        harms.insert(0,0)
+
+    # Maximise total SNR
+    bounds = [(-np.pi, np.pi), (-np.pi, np.pi)]
+    init_guess = [betas[0], betas[1]-betas[1]]
+    init_guess[1] = (init_guess[1]+np.pi)%(2*np.pi) - np.pi
+    best_fit = minimize(lambda x: -tot_SNR_sqrd(x, rhos, betas, harms), init_guess, bounds=bounds)
+
+    # Compute combined SNR of higher harmonics
+    alpha, phi = best_fit['x']
+    num_sqrd = 0
+    for i in range(len(harms)):
+        if harms[i] == 0:
+            continue
+        num_sqrd += np.cos(alpha+harms[i]*phi-betas[i])*rhos[i]**2
+    num = np.sqrt(num_sqrd)
+
+    return num
+
+
+def comb_harm_consistent_grid(data, harms=[0,1,-1]):
+    """
+    Combine match of higher harmonics in phase consistent way for 
+    grid of points.
+
+    Parameters:
+        data: Dictionary containing matches for given chirp mass.
+        harms: Which harmonics to include.
+
+    Returns:
+        nums: Combined match.
+    """
+
+    # Add fundamental to harmonic list
+    if 0 not in harms:
+        harms.insert(0,0)
+
+    # Get all magnitudes and phases of matches
+    all_rhos = []
+    all_betas = []
+    for harm in harms:
+        all_rhos.append(data[f'h{harm}'])
+        all_betas.append(data[f'h{harm}_phase'])
+    all_rhos = np.rollaxis(np.array(all_rhos),0,3)
+    all_betas = np.rollaxis(np.array(all_betas),0,3)
+
+    # Find num for each grid point
+    nums = np.zeros(np.shape(all_rhos)[:2])
+    for iy, ix in np.ndindex(np.shape(nums)):
+        nums[iy, ix] = comb_harm_consistent(all_rhos[iy][ix], all_betas[iy][ix], harms)
+
+    return nums
+
+def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_h-1_h0_pca', 'h1_h-1_h0_pcn']):
     """
     Finds minimum and maximum match of various match quantities across varying mean anomaly.
 
@@ -29,14 +120,21 @@ def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0']):
                 elif key == 'h1_h-1_h0':
                     num = np.sqrt(data[chirp]['h1']**2+data[chirp]['h-1']**2)
                     data[chirp]['h1_h-1_h0'] = num/data[chirp]['h0']
+                elif key == 'h1_h-1_h0_pca':
+                    angle = 2*data[chirp]['h0_phase']-data[chirp]['h1_phase']-data[chirp]['h-1_phase']
+                    num = np.sqrt(data[chirp]['h1']**2+np.cos(angle)*data[chirp]['h-1']**2)
+                    data[chirp]['h1_h-1_h0_pca'] = num/data[chirp]['h0']
+                elif key == 'h1_h-1_h0_pcn':
+                    num = comb_harm_consistent_grid(data[chirp], harms=[1,-1])
+                    data[chirp]['h1_h-1_h0_pcn'] = num/data[chirp]['h0']
                 
         # Calculate min and max of each key
         for key in list(data[chirp].keys()):
             
             # Find min/max vals and add to grid
             if key[0] == 'h' or key=='quad':
-                data[chirp][f'{key}_max'] = np.max(np.array(data[chirp][key]), axis=1)
-                data[chirp][f'{key}_min'] = np.min(np.array(data[chirp][key]), axis=1)
+                data[chirp][f'{key}_max'] = np.nanmax(np.array(data[chirp][key]), axis=1)
+                data[chirp][f'{key}_min'] = np.nanmin(np.array(data[chirp][key]), axis=1)
 
     return data
 
