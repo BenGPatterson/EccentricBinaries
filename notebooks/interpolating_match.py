@@ -93,7 +93,7 @@ def comb_harm_consistent_grid(data, harms=[0,1,-1]):
 
     return nums
 
-def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_h-1_h0_pca', 'h1_h-1_h0_pcn']):
+def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_h-1_h0_pca']):
     """
     Finds minimum and maximum match of various match quantities across varying mean anomaly.
 
