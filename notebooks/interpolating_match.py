@@ -2,14 +2,14 @@ import numpy as np
 from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
 
-def tot_SNR_sqrd(params, rhos, betas, harms):
+def comb_log_L(params, A_primes, phi_primes, harms):
     """
-    Calculate total SNR squared of a set of harmonics in a phase consistent way.
+    Calculate log likelihood of a set of harmonics in a phase consistent way.
 
     Parameters:
-        params: Free parameters describing expected phases of matches.
-        rhos: Magnitudes of matches with each harmonic.
-        betas: Phases of matches with each harmonic.
+        params: Free parameters describing estimated amplitudes and phases of matches.
+        A_primes: Magnitudes of matches with each harmonic.
+        phi_primes: Phases of matches with each harmonic.
         harms: Which harmonics are included.
 
     Returns:
@@ -17,25 +17,28 @@ def tot_SNR_sqrd(params, rhos, betas, harms):
     """
 
     tot = 0
-    alpha, phi = params
+    As = params[:-2]
+    alpha, beta = params[-2:]
 
     # Add each harmonic in turn
     for i in range(len(harms)):
-        tot += np.cos(alpha+harms[i]*phi-betas[i])*rhos[i]**2
+        tot += A_primes[i]*As[i]*np.cos(alpha+harms[i]*beta-phi_primes[i]) - 0.5*As[i]**2
 
     return tot
 
-def comb_harm_consistent(rhos, betas, harms=[0,1,-1]):
+def comb_harm_consistent(A_primes, phi_primes, harms=[0,1,-1], return_denom=False):
     """
     Combine match of higher harmonics in phase consistent way for 
-    grid of points.
+    a single point.
 
     Parameters:
-        data: Dictionary containing matches for given chirp mass.
+        A_primes: Magnitudes of matches with each harmonic.
+        phi_primes: Phases of matches with each harmonic.
         harms: Which harmonics to include.
+        return_denom: Whether to return the denominator of the fraction.
 
     Returns:
-        num: Combined match.
+        frac: Combined match relative to h0.
     """
 
     # Add fundamental to harmonic list
@@ -43,21 +46,29 @@ def comb_harm_consistent(rhos, betas, harms=[0,1,-1]):
         harms.insert(0,0)
 
     # Maximise total SNR
-    bounds = [(-np.pi, np.pi), (-np.pi, np.pi)]
-    init_guess = [betas[0], betas[1]-betas[1]]
-    init_guess[1] = (init_guess[1]+np.pi)%(2*np.pi) - np.pi
-    best_fit = minimize(lambda x: -tot_SNR_sqrd(x, rhos, betas, harms), init_guess, bounds=bounds)
+    bounds = [(0, None)]*len(harms) + [(-np.pi, np.pi), (-np.pi, np.pi)]
+    init_guess = list(A_primes) + [phi_primes[harms.index(0)], phi_primes[harms.index(1)]-phi_primes[harms.index(0)]]
+    init_guess[-1] = (init_guess[-1]+np.pi)%(2*np.pi) - np.pi
+    best_fit = minimize(lambda x: -comb_log_L(x, A_primes, phi_primes, harms), init_guess, bounds=bounds)
 
     # Compute combined SNR of higher harmonics
-    alpha, phi = best_fit['x']
+    As = best_fit['x'][:-2]
+    alpha, beta = best_fit['x'][-2:]
     num_sqrd = 0
     for i in range(len(harms)):
         if harms[i] == 0:
+            #denom_sqrd = A_primes[i]*As[i]*np.cos(alpha+phi_primes[i])
+            denom_sqrd = As[i]**2
             continue
-        num_sqrd += np.cos(alpha+harms[i]*phi-betas[i])*rhos[i]**2
-    num = np.sqrt(num_sqrd)
+        #num_sqrd += A_primes[i]*As[i]*np.cos(alpha+harms[i]*beta-phi_primes[i])
+        num_sqrd += As[i]**2
+    frac = np.sqrt(num_sqrd/denom_sqrd)
 
-    return num
+    # Returns denominator if requested
+    if return_denom:
+        return frac, np.sqrt(denom_sqrd)
+    else:
+        return frac
 
 
 def comb_harm_consistent_grid(data, harms=[0,1,-1]):
@@ -70,7 +81,7 @@ def comb_harm_consistent_grid(data, harms=[0,1,-1]):
         harms: Which harmonics to include.
 
     Returns:
-        nums: Combined match.
+        fracs: Combined match relative to h0.
     """
 
     # Add fundamental to harmonic list
@@ -78,20 +89,20 @@ def comb_harm_consistent_grid(data, harms=[0,1,-1]):
         harms.insert(0,0)
 
     # Get all magnitudes and phases of matches
-    all_rhos = []
-    all_betas = []
+    all_A_primes = []
+    all_phi_primes = []
     for harm in harms:
-        all_rhos.append(data[f'h{harm}'])
-        all_betas.append(data[f'h{harm}_phase'])
-    all_rhos = np.rollaxis(np.array(all_rhos),0,3)
-    all_betas = np.rollaxis(np.array(all_betas),0,3)
+        all_A_primes.append(data[f'h{harm}'])
+        all_phi_primes.append(data[f'h{harm}_phase'])
+    all_A_primes = np.rollaxis(np.array(all_A_primes),0,3)
+    all_phi_primes = np.rollaxis(np.array(all_phi_primes),0,3)
 
     # Find num for each grid point
-    nums = np.zeros(np.shape(all_rhos)[:2])
-    for iy, ix in np.ndindex(np.shape(nums)):
-        nums[iy, ix] = comb_harm_consistent(all_rhos[iy][ix], all_betas[iy][ix], harms)
+    fracs = np.zeros(np.shape(all_A_primes)[:2])
+    for iy, ix in np.ndindex(np.shape(fracs)):
+        fracs[iy, ix] = comb_harm_consistent(all_A_primes[iy][ix], all_phi_primes[iy][ix], harms)
 
-    return nums
+    return fracs
 
 def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_h-1_h0_pca']):
     """
@@ -120,13 +131,17 @@ def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_
                 elif key == 'h1_h-1_h0':
                     num = np.sqrt(data[chirp]['h1']**2+data[chirp]['h-1']**2)
                     data[chirp]['h1_h-1_h0'] = num/data[chirp]['h0']
+                elif key == 'h1_h-1_h2_h0':
+                    num = np.sqrt(data[chirp]['h1']**2+data[chirp]['h-1']**2+data[chirp]['h2']**2)
+                    data[chirp]['h1_h-1_h2_h0'] = num/data[chirp]['h0']
                 elif key == 'h1_h-1_h0_pca':
                     angle = 2*data[chirp]['h0_phase']-data[chirp]['h1_phase']-data[chirp]['h-1_phase']
                     num = np.sqrt(data[chirp]['h1']**2+np.cos(angle)*data[chirp]['h-1']**2)
                     data[chirp]['h1_h-1_h0_pca'] = num/data[chirp]['h0']
                 elif key == 'h1_h-1_h0_pcn':
-                    num = comb_harm_consistent_grid(data[chirp], harms=[1,-1])
-                    data[chirp]['h1_h-1_h0_pcn'] = num/data[chirp]['h0']
+                    data[chirp]['h1_h-1_h0_pcn'] = comb_harm_consistent_grid(data[chirp], harms=[1,-1])
+                elif key == 'h1_h-1_h2_h0_pcn':
+                    data[chirp]['h1_h-1_h2_h0_pcn'] = comb_harm_consistent_grid(data[chirp], harms=[1,-1,2])
                 
         # Calculate min and max of each key
         for key in list(data[chirp].keys()):
