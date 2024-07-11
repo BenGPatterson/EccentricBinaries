@@ -201,47 +201,56 @@ def modes_to_k(modes):
     
     return [int(x[0]*(x[0]-1)/2 + x[1]-2) for x in modes]
 
-def gen_teob_wf(f_kep, e, M, q, sample_rate, phase, distance):
+def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, freq_type):
     """
     Generates TEOBResumS waveform with chosen parameters.
 
     Parameters:
-        f_kep: Starting (Keplerian) frequency.
+        f: Starting frequency.
         e: Eccentricity.
         M: Total mass.
         q: Mass ratio.
         sample_rate: Sampling rate of waveform to be generated.
         phase: Phase of signal.
         distance: Luminosity distance to binary in Mpc.
+        TA: Initial true anomaly.
+        freq_type: How the frequency has been specified.
 
     Returns:
         Plus and cross polarisation of TEOBResumS waveform.
     """
 
-    # Gets average frequency quantity used by TEOBResumS
-    f_avg = f_kep2avg(f_kep, e)
+    # Gets appropriate frequency quantity
+    if freq_type == 'average':
+        f_avg = f_kep2avg(f, e)
+        freq_type_id = 1
+    elif freq_type == 'orbitaveraged':
+        f_avg = f
+        freq_type_id = 3
+    else:
+        raise Exception('freq_type not recognised')
 
     # Define parameters
     k = modes_to_k([[2,2]])
     pars = {
             'M'                  : M,
-            'q'                  : q,
-            'Lambda1'            : 0.,
-            'Lambda2'            : 0.,     
+            'q'                  : q,    
             'chi1'               : 0.,
             'chi2'               : 0.,
             'domain'             : 0,            # TD
-            'arg_out'            : 0,            # Output hlm/hflm. Default = 0
+            'arg_out'            : 'no',         # Output hlm/hflm. Default = 0
             'use_mode_lm'        : k,            # List of modes to use/output through EOBRunPy
             'srate_interp'       : sample_rate,  # srate at which to interpolate. Default = 4096.
-            'use_geometric_units': 0,            # Output quantities in geometric units. Default = 1
+            'use_geometric_units': 'no',         # Output quantities in geometric units. Default = 1
             'initial_frequency'  : f_avg,        # in Hz if use_geometric_units = 0, else in geometric units
-            'interp_uniform_grid': 1,            # Interpolate mode by mode on a uniform grid. Default = 0 (no interpolation)
+            'interp_uniform_grid': 'yes',        # Interpolate mode by mode on a uniform grid. Default = 0 (no interpolation)
             'distance'           : distance,
             'coalescence_angle'  : phase,
             'inclination'        : 0,
             'ecc'                : e,
-            'output_hpc'         : 0
+            'output_hpc'         : 'no',
+            'ecc_freq'           : freq_type_id,
+            'anomaly'            : TA
             }
 
     # Calculate waveform and convert to pycbc TimeSeries object
@@ -254,7 +263,7 @@ def gen_teob_wf(f_kep, e, M, q, sample_rate, phase, distance):
     
     return teob_p, teob_c
 
-def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1):
+def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.pi, freq_type='average'):
     """
     Generates waveform with chosen parameters.
 
@@ -267,6 +276,8 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1):
         approximant: Approximant to use to generate the waveform.
         phase: Phase of signal.
         distance: Luminosity distance to binary in Mpc.
+        TA: Initial true anomaly (TEOBResumS only).
+        freq_type: How the frequency has been specified (TEOBResumS only).
 
     Returns:
         Complex combination of plus and cross waveform polarisations.
@@ -276,7 +287,7 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1):
     if approximant=='EccentricTD':
         hp, hc = gen_e_td_wf(f_low, e, M, q, sample_rate, phase, distance)
     elif approximant=='TEOBResumS':
-        hp, hc = gen_teob_wf(f_low, e, M, q, sample_rate, phase, distance)
+        hp, hc = gen_teob_wf(f_low, e, M, q, sample_rate, phase, distance, TA, freq_type)
     else:
         raise Exception('approximant not recognised')
 
