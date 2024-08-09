@@ -1144,8 +1144,8 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
         # Trim waveform to same size as first (shortest), and corrects phase
         h = trim_wf(h, comp_wfs[0])
         overlap = overlap_cplx_wfs(h, comp_wfs[0], f_low)
-        phase_angle = np.angle(overlap)/2
-        h = gen_wf(s_f_vals[i], s_e_vals[i], M, q, sample_rate, approximant, phase=phase+phase_angle)
+        phase_angle = -np.angle(overlap)/2
+        h *= np.exp(2*1j*phase_angle)
         h = trim_wf(h, comp_wfs[0])
 
         # Tapers
