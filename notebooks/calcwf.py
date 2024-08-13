@@ -82,7 +82,7 @@ def total2chirp(total, q):
 
     return chirp
 
-def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2):
+def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2, return_delta_m=False):
     """
     Calculates chirp masses corresponding to input eccentricities along a line of degeneracy 
     defined by a given chirp mass at zero eccentricity.
@@ -93,6 +93,7 @@ def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2):
         sample_rate: Sampling rate to use when generating waveform.
         f_low: Starting frequency.
         q: Mass ratio.
+        return_delta_m: Whether to also return delta m values.
 
     Returns:
         Chirp mass corresponding to each eccentricity.
@@ -154,8 +155,12 @@ def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2):
     # If array not passed then turn back into float
     if not array:
         chirp = chirp[0]
+        delta_m = delta_m[0]
 
-    return chirp    
+    if return_delta_m:
+        return chirp, delta_m
+    else:
+        return chirp    
 
 ## Generating waveform
 
