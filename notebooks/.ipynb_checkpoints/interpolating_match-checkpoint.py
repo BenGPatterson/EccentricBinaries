@@ -1,6 +1,46 @@
 import numpy as np
 from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
+from pycbc.filter import match, optimized_match
+from calcwf import gen_psd
+
+def estimate_coeffs(rhos, ovlps, ovlps_perp):
+    """
+    Estimate coefficients of harmonics in data from match filter SNR and overlaps
+    between harmonics.
+
+    Parameters:
+        rhos: Match filter SNR of each harmonic.
+        ovlps: Overlaps of unorthogonalised harmonics.
+        ovlps_perp: Overlaps of orthogonalised harmonics with themselves.
+
+    Returns:
+        est_coeffs: Coefficient estimates.
+    """
+    
+    n = len(rhos)
+    adjust = {}
+    est_coeffs = {}
+    for i in range(n-1, -1, -1):
+        adjust[i] = 0
+        for j in range(1,n-i):
+            prod = 1
+            ms = np.zeros(j+2, dtype='int')
+            ms[0] = i
+            ms[-1] = n
+            for k in range(1, j+1):
+                ovlp_sum = 0
+                for l in range(ms[k-1]+1, n+k-j):
+                    ms[k] = l
+                    if k == j:
+                        ovlp_sum += est_coeffs[l]*ovlps[l][ms[k-1]]
+                    else:
+                        ovlp_sum += ovlps[l][ms[k-1]]
+                prod *= ovlp_sum
+            adjust[i] += prod
+        est_coeffs[i] = np.conj(rhos[i])/ovlps_perp[i] - adjust[i]
+
+    return est_coeffs
 
 def comb_log_L(params, A_primes, phi_primes, harms):
     """
@@ -104,13 +144,14 @@ def comb_harm_consistent_grid(data, harms=[0,1,-1]):
 
     return fracs
 
-def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_h-1_h0_pca']):
+def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_h-1_h0_pca'], ovlps=None):
     """
     Finds minimum and maximum match of various match quantities across varying mean anomaly.
 
     Parameters:
         data: Dictionary containing matches.
         extra_keys: Extra match-related quantities to compute.
+        ovlps: Optionally use overlaps between harmonics to improve SNR estimate.
 
     Returns:
         data: Dictionary containing matches with min/max matches added.

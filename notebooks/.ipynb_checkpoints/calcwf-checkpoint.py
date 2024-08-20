@@ -1234,7 +1234,51 @@ def GS_orthogonalise(f_low, wfs):
 
     return wfs
 
-def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation):
+def get_ortho_ovlps(h_wfs, f_low):
+    """
+    Calculate overlaps between unorthogonalised set of harmonics, and 
+    compute the overlap of orthogonalised harmonics with themselves.
+
+    Parameters:
+        h_wfs: Unorthogonalised harmonics.
+        f_low: Starting frequency.
+
+    Returns:
+        ovlps: Overlaps of unorthogonalised harmonics.
+        ovlps_perp: Overlaps of orthogonalised harmonics with themselves.
+    """
+
+    # Calculate psd
+    psd = gen_psd(h_wfs[0], f_low)
+
+    # Normalise wfs
+    for i in range(len(h_wfs)):
+        h_wf_f = h_wfs[i].real().to_frequencyseries()
+        h_wfs[i] /= sigma(h_wf_f, psd, low_frequency_cutoff=f_low, high_frequency_cutoff=psd.sample_frequencies[-1])
+
+    # Calculate all overlap combinations
+    n = len(h_wfs)
+    ovlps = {}
+    for i in range(1,n):
+        ovlps[i] = {}
+        for j in range(i):
+            ovlps[i][j] = overlap_cplx(h_wfs[i].real(), h_wfs[j].real(), psd=psd, low_frequency_cutoff=f_low, normalized=False)
+            
+    # Compute orthogonal overlaps
+    ovlps_perp = {}
+    for i in range(n):
+        abs_sqrd = 0
+        for j in range(i):
+            abs_sqrd += np.abs(ovlps[i][j])**2
+        triple_ovlps = 0
+        for j in range(i):
+            for k in range(j):
+                triple_ovlps += ovlps[i][j]*np.conj(ovlps[i][k])*ovlps[j][k]
+        ovlps_perp[i] = 1 - abs_sqrd + 2*np.real(triple_ovlps)
+
+    return ovlps, ovlps_perp
+
+def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation, return_ovlps=False):
     """
     Combines waveform components in time domain to form h1, ..., hn and h as follows:
 
@@ -1243,6 +1287,7 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation):
         coeffs: List containing coefficients of h_1, ..., h_n.
         comp_wfs: Waveform components s_1, ..., s_n.
         GS_normalisation: Whether to perform Grant-Schmidt orthogonalisaton to ensure (hj|hm) = 0 for j!=m.
+        return_ovlps: Whether to return overlaps between all unorthogonalised harmonics.
         
     Returns:
         All waveform components and combinations: h, h1, ..., h_n, s_1, ..., s_n
@@ -1262,6 +1307,11 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation):
     j_order = get_dominance_order(len(coeffs))
     hs = [hs[i] for i in j_order]
 
+    # Calculates overlaps if requested
+    ovlps, ovlps_perp = None, None
+    if return_ovlps:
+        ovlps, ovlps_perp = get_ortho_ovlps(hs, f_low)
+
     # Perform Grant-Schmidt orthogonalisation if requested
     if GS_normalisation:
         hs = GS_orthogonalise(f_low, hs)
@@ -1272,9 +1322,9 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation):
         h += coeffs[i+1]*hs[i+1]
     
     # Returns overall waveform and components for testing purposes
-    return h, *hs, *comp_wfs
+    return [h, *hs, *comp_wfs], ovlps, ovlps_perp
 
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, comp_phase=0):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, comp_phase=0, return_ovlps=False):
     """
     Generates a overall h waveform, h_1,...h_n, and s_1,...,s_n.
 
@@ -1290,6 +1340,7 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
         GS_normalisation: Whether to perform Grant-Schmidt orthogonalisaton to ensure (hj|hm) = 0 for j!=m.
         comp_normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
         comp_phase: Initial phase of s_1,...,s_n components.
+        return_ovlps: Whether to return overlaps between all unorthogonalised harmonics.
         
     Returns:
         All waveform components and combinations: h, h1, ..., h_n, s_1, ..., s_n
@@ -1302,6 +1353,9 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
     component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, comp_normalisation, comp_phase)
 
     # Calculate overall waveform and components in time domain
-    wfs = get_h_TD(f_low, coeffs, component_wfs, GS_normalisation)
-   
-    return wfs
+    wfs, ovlps, ovlps_perp = get_h_TD(f_low, coeffs, component_wfs, GS_normalisation, return_ovlps=return_ovlps)
+
+    if return_ovlps:
+        return wfs, ovlps, ovlps_perp
+    else:    
+        return wfs

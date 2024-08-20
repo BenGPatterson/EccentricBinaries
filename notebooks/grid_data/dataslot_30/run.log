@@ -1,0 +1,46 @@
+000 (023.000.000) 2024-08-19 17:37:07 Job submitted from host: <10.14.0.65:9618?addrs=10.14.0.65-9618&alias=jupyter4.ligo.caltech.edu&noUDP&sock=schedd_42024_8c0c>
+...
+001 (023.000.000) 2024-08-19 17:38:16 Job executing on host: <10.14.4.44:9618?addrs=10.14.4.44-9618&alias=node794.cluster.ldas.cit&noUDP&sock=startd_2607_c37d>
+	SlotName: slot1_29@node794.cluster.ldas.cit
+	CondorScratchDir = "/local/condor/execute/dir_1409507"
+	Cpus = 16
+	Disk = 1049600
+	GPUs = 0
+	Memory = 16384
+...
+006 (023.000.000) 2024-08-19 17:38:24 Image size of job updated: 118656
+	116  -  MemoryUsage of job (MB)
+	118656  -  ResidentSetSize of job (KB)
+...
+006 (023.000.000) 2024-08-19 17:43:24 Image size of job updated: 1571928
+	1518  -  MemoryUsage of job (MB)
+	1553564  -  ResidentSetSize of job (KB)
+...
+006 (023.000.000) 2024-08-19 17:48:25 Image size of job updated: 2848540
+	2782  -  MemoryUsage of job (MB)
+	2848448  -  ResidentSetSize of job (KB)
+...
+006 (023.000.000) 2024-08-19 17:49:08 Image size of job updated: 3790828
+	2783  -  MemoryUsage of job (MB)
+	2848900  -  ResidentSetSize of job (KB)
+...
+005 (023.000.000) 2024-08-19 17:49:08 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 03:42:45, Sys 0 00:14:43  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 03:42:45, Sys 0 00:14:43  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :    21.56       16        16 
+	   Disk (KB)            : 17500     1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :  2783       16384     16384 
+	   TimeExecute (s)      :   652                       
+	   TimeSlotBusy (s)     :   652                       
+
+	Job terminated of its own accord at 2024-08-20T00:49:08Z with exit-code 0.
+...
