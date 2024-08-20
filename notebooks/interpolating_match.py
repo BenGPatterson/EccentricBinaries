@@ -16,18 +16,17 @@ def estimate_coeffs(rhos, ovlps, ovlps_perp):
 
     Returns:
         est_coeffs: Coefficient estimates.
-    """
-    
+    """  
     n = len(rhos)
     adjust = {}
     est_coeffs = {}
     for i in range(n-1, -1, -1):
+        count = 0
         adjust[i] = 0
         for j in range(1,n-i):
             prod = 1
-            ms = np.zeros(j+2, dtype='int')
+            ms = np.zeros(j+1, dtype='int')
             ms[0] = i
-            ms[-1] = n
             for k in range(1, j+1):
                 ovlp_sum = 0
                 for l in range(ms[k-1]+1, n+k-j):
@@ -37,6 +36,8 @@ def estimate_coeffs(rhos, ovlps, ovlps_perp):
                     else:
                         ovlp_sum += ovlps[l][ms[k-1]]
                 prod *= ovlp_sum
+                count+=1
+                print(i, count, ms)
             adjust[i] += prod
         est_coeffs[i] = np.conj(rhos[i])/ovlps_perp[i] - adjust[i]
 

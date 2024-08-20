@@ -36,8 +36,8 @@ def single_match(s_f_e, e_chirp, wf_hjs, q, f_low, ovlps, ovlps_perp, harm_ids, 
         if i > 1:
             num = 0
             for j in range(1,i+1):
-                num += match_cplx[j]**2
-            match_quantities.append(np.sqrt(num/match_cplx[0]**2)) # Naive multiple harmonics
+                num += np.abs(match_cplx[j])**2
+            match_quantities.append(np.sqrt(num/np.abs(match_cplx[0]**2))) # Naive multiple harmonics
             pc_frac = comb_harm_consistent(np.abs(match_cplx[:i+1]), np.angle(match_cplx[:i+1]), harms=harm_ids[:i+1])
             match_quantities.append(pc_frac) # Phase consistent multiple harmonics
 
@@ -48,8 +48,8 @@ def single_match(s_f_e, e_chirp, wf_hjs, q, f_low, ovlps, ovlps_perp, harm_ids, 
         if i > 1:
             num = 0
             for j in range(1,i+1):
-                num += coeff_cplx[j]**2
-            coeff_quantities.append(np.sqrt(num/coeff_cplx[0]**2)) # Naive multiple harmonics
+                num += np.abs(coeff_cplx[j])**2
+            coeff_quantities.append(np.sqrt(num/np.abs(coeff_cplx[0])**2)) # Naive multiple harmonics
             pc_frac = comb_harm_consistent(np.abs(coeff_cplx[:i+1]), np.angle(coeff_cplx[:i+1]), harms=harm_ids[:i+1])
             coeff_quantities.append(pc_frac) # Phase consistent multiple harmonics
 
