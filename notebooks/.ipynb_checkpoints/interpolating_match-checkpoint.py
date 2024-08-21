@@ -1,3 +1,4 @@
+import itertools
 import numpy as np
 from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
@@ -21,24 +22,14 @@ def estimate_coeffs(rhos, ovlps, ovlps_perp):
     adjust = {}
     est_coeffs = {}
     for i in range(n-1, -1, -1):
-        count = 0
         adjust[i] = 0
         for j in range(1,n-i):
-            prod = 1
-            ms = np.zeros(j+1, dtype='int')
-            ms[0] = i
-            for k in range(1, j+1):
-                ovlp_sum = 0
-                for l in range(ms[k-1]+1, n+k-j):
-                    ms[k] = l
-                    if k == j:
-                        ovlp_sum += est_coeffs[l]*ovlps[l][ms[k-1]]
-                    else:
-                        ovlp_sum += ovlps[l][ms[k-1]]
-                prod *= ovlp_sum
-                count+=1
-                print(i, count, ms)
-            adjust[i] += prod
+            for comb in itertools.combinations(np.arange(i+1,n), j):
+                comb = [i] + list(comb)
+                prod = est_coeffs[comb[-1]]
+                for k in range(1,len(comb)):
+                    prod *= ovlps[comb[k]][comb[k-1]]
+                adjust[i] += prod
         est_coeffs[i] = np.conj(rhos[i])/ovlps_perp[i] - adjust[i]
 
     return est_coeffs
