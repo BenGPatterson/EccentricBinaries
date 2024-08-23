@@ -525,19 +525,21 @@ def ceiltwo(number):
     ceil = math.ceil(np.log2(number))
     return 2**ceil
 
-def resize_wfs(wfs):
+def resize_wfs(wfs, tlen=None):
     """
     Resizes two or more input waveforms to all match the next highest power of two.
 
     Parameters:
         wfs: List of input waveforms.
+        tlen: Length to resize to.
 
     Returns:
         Resized waveforms.
     """
-    
-    lengths = [len(i) for i in wfs]
-    tlen = ceiltwo(max(lengths))
+
+    if tlen is None:
+        lengths = [len(i) for i in wfs]
+        tlen = ceiltwo(max(lengths))
     for wf in wfs:
         wf.resize(tlen)
     return wfs
@@ -580,7 +582,7 @@ def prepend_zeros(wf_pre, wf_ref):
 
     return wf_pre
 
-def match_hn(wf_hjs_, wf_s, f_low, return_index=False):
+def match_hn(wf_hjs_, wf_s, f_low, return_index=False, psd=None):
     """
     Calculates match between fiducial h1 waveform and a trial waveform, and uses the time shift 
     in this match to compute the complex overlaps between the time-shifted fiducial h2,...,hn waveforms
@@ -592,6 +594,7 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False):
         wf_s: Trial waveform.
         f_low: Starting frequency of waveforms.
         return_index: Whether to return index shift of h1 match.
+        psd: psd to use.
         
     Returns:
         Complex matches of trial waveform to h1,...,hn.
@@ -604,13 +607,15 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False):
         wf_hjs.append(wf_new)
     wf_s = timeseries.TimeSeries(wf_s.copy(), wf_s.delta_t, epoch=wf_s.start_time)
 
-    # Resize waveforms to the same length
-    all_wfs = resize_wfs([*wf_hjs, wf_s])
+    # Resize waveforms to the next highest power of two
+    all_wfs = resize_wfs([*wf_hjs, wf_s], tlen=ceiltwo(len(wf_hjs[0])+1))
     wf_hjs = all_wfs[:-1]
     wf_s = all_wfs[-1]
+    wf_len = len(wf_hjs[0])
 
     # Generate the aLIGO ZDHP PSD
-    psd = gen_psd(wf_hjs[0], f_low)
+    if psd is None:
+        psd = gen_psd(wf_hjs[0], f_low)
 
     # Perform match on h1
     m_h1_amp, m_index, m_h1_phase = match(wf_hjs[0].real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=True, return_phase=True)
@@ -621,9 +626,11 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False):
         # If fiducial h2,...,hn needs to be shifted forward, prepend zeros to it
         for i in range(1,len(wf_hjs)):
             wf_hjs[i].prepend_zeros(int(m_index))
+            wf_hjs[i].resize(wf_len)
     else:
         # If fiducial h2,...,hn needs to be shifted backward, prepend zeros to trial waveform instead
         wf_s.prepend_zeros(int(len(wf_hjs[0]) - m_index))
+        wf_s.resize(wf_len)
 
     # As subsample_interpolation=True, require interpolation of h2,...,hn to account for non-integer index shift
     delta_t = wf_hjs[0].delta_t
@@ -641,14 +648,6 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False):
             wf_hj_interpolate = interp1d(wf_hjs[i].sample_times, wf_hjs[i], bounds_error=False, fill_value=0)
             wf_hj_strain = wf_hj_interpolate(wf_hjs[i].sample_times+(inter_index*delta_t))
             wf_hjs[i] = timeseries.TimeSeries(wf_hj_strain, wf_hjs[i].delta_t, epoch=wf_hjs[i].start_time+(inter_index*delta_t))
-
-    # Resize waveforms to the same length
-    all_wfs = resize_wfs([*wf_hjs, wf_s])
-    wf_hjs = all_wfs[:-1]
-    wf_s = all_wfs[-1]
-
-    # Generate the aLIGO ZDHP PSD again as waveform length may have doubled
-    psd = gen_psd(wf_hjs[1], f_low)
 
     # Perform complex overlap on h2,...,hn
     matches = [m_h1]

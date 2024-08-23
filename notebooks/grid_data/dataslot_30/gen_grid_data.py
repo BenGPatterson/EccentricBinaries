@@ -10,7 +10,7 @@ import p_tqdm
 from calcwf import *
 from interpolating_match import *
 
-def single_match(s_f_e, e_chirp, wf_hjs, q, f_low, ovlps, ovlps_perp, harm_ids, approximant='TEOBResumS'):
+def single_match(s_f_e, e_chirp, wf_hjs, q, f_low, ovlps, ovlps_perp, harm_ids, psd, approximant='TEOBResumS'):
 
     # Unpack values and generate waveform
     s_f, s_e = s_f_e
@@ -18,7 +18,7 @@ def single_match(s_f_e, e_chirp, wf_hjs, q, f_low, ovlps, ovlps_perp, harm_ids, 
     s = gen_wf(s_f, s_e, chirp2total(chirp, q), q, sample_rate, approximant=approximant)
 
     # Calculate matches
-    match_cplx = match_hn(wf_hjs, s, f_low)
+    match_cplx = match_hn(wf_hjs, s, f_low, psd=psd)
 
     # Remove orthogonal components
     match_dict = {}
@@ -79,8 +79,14 @@ def chirp_match_MA_grid_data(param_vals, MA_vals, n, fid_e, zero_ecc_chirp, q, f
         s_e_vals = shifted_e(s_f_vals, f_low, e)
         s_f_e_vals += list(map(list, zip(s_f_vals, s_e_vals)))
 
+    # Resize fiducial waveforms to longest possible waveform, and calculate psd
+    long_wf = gen_wf(s_f_e_vals[len(MA_vals)-1][0], s_f_e_vals[len(MA_vals)-1][1], chirp2total(chirp_vals[0], q), q, sample_rate, approximant)
+    wf_hjs = resize_wfs(wf_hjs, tlen=ceiltwo(len(long_wf)))
+    h_psd = timeseries.TimeSeries(list(wf_hjs[0].copy())+[0], wf_hjs[0].delta_t, epoch=wf_hjs[0].start_time)
+    psd = gen_psd(h_psd, f_low)
+
     # Calculate all matches in parallel
-    partial_single_match = partial(single_match, wf_hjs=wf_hjs, q=q, f_low=f_low, ovlps=ovlps, ovlps_perp=ovlps_perp, harm_ids=harm_ids, approximant=approximant)
+    partial_single_match = partial(single_match, wf_hjs=wf_hjs, q=q, f_low=f_low, ovlps=ovlps, ovlps_perp=ovlps_perp, harm_ids=harm_ids, psd=psd, approximant=approximant)
     match_arr = np.array(p_tqdm.p_map(partial_single_match, s_f_e_vals, e_chirp_vals))
 
     # Put match arrays into appropriate dictionary keys

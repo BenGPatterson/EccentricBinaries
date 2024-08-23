@@ -1,42 +1,39 @@
-000 (026.000.000) 2024-08-21 10:30:53 Job submitted from host: <10.14.0.65:9618?addrs=10.14.0.65-9618&alias=jupyter4.ligo.caltech.edu&noUDP&sock=schedd_2823_ebf2>
+000 (20123913.000.000) 2024-08-23 06:44:22 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618+[fde1-53ba-e9a0-de11-c925-65-8543-e173]-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7662_12bb>
 ...
-001 (026.000.000) 2024-08-21 10:31:55 Job executing on host: <10.14.4.81:9618?addrs=10.14.4.81-9618&alias=node831.cluster.ldas.cit&noUDP&sock=startd_2602_5584>
-	SlotName: slot1_10@node831.cluster.ldas.cit
-	CondorScratchDir = "/local/condor/execute/dir_3076068"
+001 (20123913.000.000) 2024-08-23 06:44:33 Job executing on host: <10.14.0.201:9618?addrs=10.14.0.201-9618&alias=deepclean.ldas.cit&noUDP&sock=startd_4849_96d2>
+	SlotName: slot1_7@deepclean.ldas.cit
+	AvailableGPUs = {  }
+	CondorScratchDir = "/local/condor/execute/dir_3030463"
 	Cpus = 16
-	Disk = 1049600
+	Disk = 1049653
 	GPUs = 0
 	Memory = 16384
 ...
-006 (026.000.000) 2024-08-21 10:32:03 Image size of job updated: 264756
-	259  -  MemoryUsage of job (MB)
-	264756  -  ResidentSetSize of job (KB)
+006 (20123913.000.000) 2024-08-23 06:44:42 Image size of job updated: 344620
+	335  -  MemoryUsage of job (MB)
+	342948  -  ResidentSetSize of job (KB)
 ...
-006 (026.000.000) 2024-08-21 10:37:04 Image size of job updated: 1832664
-	1745  -  MemoryUsage of job (MB)
-	1786632  -  ResidentSetSize of job (KB)
+006 (20123913.000.000) 2024-08-23 06:48:09 Image size of job updated: 4090580
+	335  -  MemoryUsage of job (MB)
+	342948  -  ResidentSetSize of job (KB)
 ...
-006 (026.000.000) 2024-08-21 10:40:33 Image size of job updated: 4245732
-	1746  -  MemoryUsage of job (MB)
-	1787904  -  ResidentSetSize of job (KB)
-...
-005 (026.000.000) 2024-08-21 10:40:33 Job terminated.
+005 (20123913.000.000) 2024-08-23 06:48:09 Job terminated.
 	(1) Normal termination (return value 0)
-		Usr 0 03:57:13, Sys 0 00:17:41  -  Run Remote Usage
+		Usr 0 03:37:49, Sys 0 00:12:17  -  Run Remote Usage
 		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
-		Usr 0 03:57:13, Sys 0 00:17:41  -  Total Remote Usage
+		Usr 0 03:37:49, Sys 0 00:12:17  -  Total Remote Usage
 		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
 	0  -  Run Bytes Sent By Job
 	0  -  Run Bytes Received By Job
 	0  -  Total Bytes Sent By Job
 	0  -  Total Bytes Received By Job
 	Partitionable Resources :    Usage  Request Allocated 
-	   Cpus                 :    31.01       16        16 
-	   Disk (KB)            : 17500     1048576   1049600 
+	   Cpus                 :     0.89       16        16 
+	   Disk (KB)            : 17500     1048576   1049653 
 	   GPUs                 :                           0 
-	   Memory (MB)          :  1746       16384     16384 
-	   TimeExecute (s)      :   518                       
-	   TimeSlotBusy (s)     :   518                       
+	   Memory (MB)          :   335       16384     16384 
+	   TimeExecute (s)      :   216                       
+	   TimeSlotBusy (s)     :   216                       
 
-	Job terminated of its own accord at 2024-08-21T17:40:33Z with exit-code 0.
+	Job terminated of its own accord at 2024-08-23T13:48:09Z with exit-code 0.
 ...
