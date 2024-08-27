@@ -82,7 +82,7 @@ def total2chirp(total, q):
 
     return chirp
 
-def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2, return_delta_m=False):
+def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2, f_match=20, return_delta_m=False):
     """
     Calculates chirp masses corresponding to input eccentricities along a line of degeneracy 
     defined by a given chirp mass at zero eccentricity.
@@ -93,6 +93,7 @@ def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2, 
         sample_rate: Sampling rate to use when generating waveform.
         f_low: Starting frequency.
         q: Mass ratio.
+        f_match: Low frequency cutoff to use.
         return_delta_m: Whether to also return delta m values.
 
     Returns:
@@ -141,11 +142,11 @@ def chirp_degeneracy_line(zero_ecc_chirp, ecc, sample_rate=4096, f_low=10, q=2, 
         ks_sqrt = np.sqrt(2355*s_es**2/1462)
     
         # Calculate and normalise integrals
-        ss = sigmasq(h, psd=psd, low_frequency_cutoff=f_low+3)
-        ssf = sigmasq(h*h.sample_frequencies**(-5/6), psd=psd, low_frequency_cutoff=f_low+3)
-        ssff = sigmasq(h*h.sample_frequencies**(-5/3), psd=psd, low_frequency_cutoff=f_low+3)
-        sskf = -sigmasq(h*ks_sqrt*h.sample_frequencies**(-5/6), psd=psd, low_frequency_cutoff=f_low+3)
-        sskff = -sigmasq(h*ks_sqrt*h.sample_frequencies**(-5/3), psd=psd, low_frequency_cutoff=f_low+3)
+        ss = sigmasq(h, psd=psd, low_frequency_cutoff=f_match)
+        ssf = sigmasq(h*h.sample_frequencies**(-5/6), psd=psd, low_frequency_cutoff=f_match)
+        ssff = sigmasq(h*h.sample_frequencies**(-5/3), psd=psd, low_frequency_cutoff=f_match)
+        sskf = -sigmasq(h*ks_sqrt*h.sample_frequencies**(-5/6), psd=psd, low_frequency_cutoff=f_match)
+        sskff = -sigmasq(h*ks_sqrt*h.sample_frequencies**(-5/3), psd=psd, low_frequency_cutoff=f_match)
         ssfs[i], ssffs[i], sskfs[i], sskffs[i] = np.array([ssf, ssff, sskf, sskff])/ss
 
     # Calculate chirp mass
@@ -582,7 +583,7 @@ def prepend_zeros(wf_pre, wf_ref):
 
     return wf_pre
 
-def match_hn(wf_hjs_, wf_s, f_low, return_index=False, psd=None):
+def match_hn(wf_hjs_, wf_s, f_low, f_match=20, return_index=False, psd=None):
     """
     Calculates match between fiducial h1 waveform and a trial waveform, and uses the time shift 
     in this match to compute the complex overlaps between the time-shifted fiducial h2,...,hn waveforms
@@ -593,6 +594,7 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False, psd=None):
         wf_hjs_: List of fiducial h1,...,hn waveforms.
         wf_s: Trial waveform.
         f_low: Starting frequency of waveforms.
+        f_match: Low frequency cutoff to use. 
         return_index: Whether to return index shift of h1 match.
         psd: psd to use.
         
@@ -618,7 +620,7 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False, psd=None):
         psd = gen_psd(wf_hjs[0], f_low)
 
     # Perform match on h1
-    m_h1_amp, m_index, m_h1_phase = match(wf_hjs[0].real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=True, return_phase=True)
+    m_h1_amp, m_index, m_h1_phase = match(wf_hjs[0].real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_match, subsample_interpolation=True, return_phase=True)
     m_h1 = m_h1_amp*np.e**(1j*m_h1_phase)
 
     # Shift fiducial h2,...,hn
@@ -652,7 +654,7 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False, psd=None):
     # Perform complex overlap on h2,...,hn
     matches = [m_h1]
     for i in range(1,len(wf_hjs)):
-        m = overlap_cplx(wf_hjs[i].real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_low+3)
+        m = overlap_cplx(wf_hjs[i].real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_match)
         matches.append(m)
     
     # Returns index shift if requested
@@ -661,7 +663,7 @@ def match_hn(wf_hjs_, wf_s, f_low, return_index=False, psd=None):
     else:
         return matches
 
-def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, return_index=False):
+def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, f_match=20, return_index=False):
     """
     Calculates match between fiducial h1 waveform and a trial waveform, and uses the time shift 
     in this match to compute the complex overlap between the time-shifted fiducial h2 waveform 
@@ -673,16 +675,17 @@ def match_h1_h2(wf_h1, wf_h2, wf_s, f_low, return_index=False):
         wf_h2: Fiducial h2 waveform.
         wf_s: Trial waveform
         f_low: Starting frequency of waveforms.
+        f_match: Low frequency cutoff to use.
         return_index: Whether to return index shift of h1 match.
         
     Returns:
         Complex matches of trial waveform to h1 and h2 respectively.
     """
 
-    return match_hn([wf_h1, wf_h2], wf_s, f_low, return_index=return_index)
+    return match_hn([wf_h1, wf_h2], wf_s, f_low, f_match=f_match, return_index=return_index)
     
 
-def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
+def match_wfs(wf1, wf2, f_low, subsample_interpolation, f_match=20, return_phase=False):
     """
     Calculates match (overlap maximised over time and phase) between two input waveforms.
 
@@ -691,6 +694,7 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
         wf2: Second input waveform.
         f_low: Lower bound of frequency integral.
         subsample_interpolation: Whether to use subsample interpolation.
+        f_match: Low frequency cutoff to use.
         return_phase: Whether to return phase of maximum match.
         
     Returns:
@@ -704,7 +708,7 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     psd = gen_psd(wf1, f_low)
 
     # Perform match
-    m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, subsample_interpolation=subsample_interpolation, return_phase=return_phase)
+    m = match(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_match, subsample_interpolation=subsample_interpolation, return_phase=return_phase)
 
     # Additionally returns phase required to match waveforms up if requested
     if return_phase:
@@ -712,7 +716,7 @@ def match_wfs(wf1, wf2, f_low, subsample_interpolation, return_phase=False):
     else:
         return m[0]
 
-def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
+def overlap_cplx_wfs(wf1, wf2, f_low, f_match=20, normalized=True):
     """
     Calculates complex overlap (overlap maximised over phase) between two input waveforms.
 
@@ -720,6 +724,7 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
         wf1: First input waveform.
         wf2: Second input waveform.
         f_low: Starting frequency of waveforms.
+        f_match: Low frequency cutoff to use.
         normalized: Whether to normalise result between 0 and 1.
         
     Returns:
@@ -746,7 +751,7 @@ def overlap_cplx_wfs(wf1, wf2, f_low, normalized=True):
     psd = gen_psd(wf1, f_low)
 
     # Perform complex overlap
-    m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=normalized)
+    m = overlap_cplx(wf1.real(), wf2.real(), psd=psd, low_frequency_cutoff=f_match, normalized=normalized)
 
     return m
 
@@ -1103,7 +1108,7 @@ def get_comp_shifts(f_low, e, M, q, n, sample_rate, approximant):
 
     return s_f_vals, s_e_vals
 
-def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation, phase):
+def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation, phase, f_match):
     '''
     Creates n component waveforms used to make h_1,...,h_n, all equally spaced in
     true anomaly.
@@ -1118,6 +1123,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
         approximant: Approximant to use.
         normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
         phase: Initial phase of s_1,...,s_n components.
+        f_match: Low frequency cutoff to use.
         
     Returns:
         Component waveforms.
@@ -1135,7 +1141,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
         # Generate the aLIGO ZDHP PSD
         h.resize(ceiltwo(len(h))) 
         psd = gen_psd(h, f_low)
-        sigma_0 = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
+        sigma_0 = sigma(h.real(), psd=psd, low_frequency_cutoff=f_match)
 
     comp_wfs = [h]
     
@@ -1147,7 +1153,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
 
         # Trim waveform to same size as first (shortest), and corrects phase
         h = trim_wf(h, comp_wfs[0])
-        overlap = overlap_cplx_wfs(h, comp_wfs[0], f_low)
+        overlap = overlap_cplx_wfs(h, comp_wfs[0], f_low, f_match=f_match)
         phase_angle = -np.angle(overlap)/2
         h *= np.exp(2*1j*phase_angle)
         h = trim_wf(h, comp_wfs[0])
@@ -1157,7 +1163,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
         
         # Normalises waveform if requested
         if normalisation:
-            sigma_h = sigma(h.real(), psd=psd, low_frequency_cutoff=f_low+3)
+            sigma_h = sigma(h.real(), psd=psd, low_frequency_cutoff=f_match)
             h *= sigma_0/sigma_h
 
         comp_wfs.append(h)
@@ -1190,7 +1196,7 @@ def get_dominance_order(n):
 
     return j_order
 
-def GS_proj(u, v, f_low, psd):
+def GS_proj(u, v, f_low, f_match, psd):
     '''
     Performs projection used in Grant-Schmidt orthogonalisation, defined as 
     u*(v|u)/(u|u).
@@ -1199,24 +1205,26 @@ def GS_proj(u, v, f_low, psd):
         u: Waveform u defined above.
         v: Waveform v defined above.
         f_low: Starting frequency.
+        f_match: Low frequency cutoff to use.
         psd: Psd to use to weight complex overlap.
         
     Returns:
         Grant-Schmidt orthogonalised h1,...,hn.
     '''
 
-    numerator = overlap_cplx(v.real(), u.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=False)
-    denominator = overlap_cplx(u.real(), u.real(), psd=psd, low_frequency_cutoff=f_low+3, normalized=False)
+    numerator = overlap_cplx(v.real(), u.real(), psd=psd, low_frequency_cutoff=f_match, normalized=False)
+    denominator = overlap_cplx(u.real(), u.real(), psd=psd, low_frequency_cutoff=f_match, normalized=False)
 
     return u*numerator/denominator
 
-def GS_orthogonalise(f_low, wfs):
+def GS_orthogonalise(f_low, f_match, wfs):
     '''
     Performs Grant-Schmidt orthogonalisation on waveforms h1,...,hn to ensure 
     (hj|hm) = 0 for j!=m.
     
     Parameters:
         f_low: Starting frequency.
+        f_match: Low frequency cutoff to use.
         wfs: Waveforms h1,...,hn.
         
     Returns:
@@ -1229,11 +1237,11 @@ def GS_orthogonalise(f_low, wfs):
     # Orthogonalises each waveform in turn
     for i in range(1,len(wfs)):
         for j in range(i):
-            wfs[i] = wfs[i] - GS_proj(wfs[j], wfs[i], f_low, psd)
+            wfs[i] = wfs[i] - GS_proj(wfs[j], wfs[i], f_low, f_match, psd)
 
     return wfs
 
-def get_ortho_ovlps(h_wfs, f_low):
+def get_ortho_ovlps(h_wfs, f_low, f_match=20):
     """
     Calculate overlaps between unorthogonalised set of harmonics, and 
     compute the overlap of orthogonalised harmonics with themselves.
@@ -1241,6 +1249,7 @@ def get_ortho_ovlps(h_wfs, f_low):
     Parameters:
         h_wfs: Unorthogonalised harmonics.
         f_low: Starting frequency.
+        f_match: Low frequency cutoff to use.
 
     Returns:
         ovlps: Overlaps of unorthogonalised harmonics.
@@ -1253,7 +1262,7 @@ def get_ortho_ovlps(h_wfs, f_low):
     # Normalise wfs
     for i in range(len(h_wfs)):
         h_wf_f = h_wfs[i].real().to_frequencyseries()
-        h_wfs[i] /= sigma(h_wf_f, psd, low_frequency_cutoff=f_low, high_frequency_cutoff=psd.sample_frequencies[-1])
+        h_wfs[i] /= sigma(h_wf_f, psd, low_frequency_cutoff=f_match, high_frequency_cutoff=psd.sample_frequencies[-1])
 
     # Calculate all overlap combinations
     n = len(h_wfs)
@@ -1261,7 +1270,7 @@ def get_ortho_ovlps(h_wfs, f_low):
     for i in range(1,n):
         ovlps[i] = {}
         for j in range(i):
-            ovlps[i][j] = overlap_cplx(h_wfs[i].real(), h_wfs[j].real(), psd=psd, low_frequency_cutoff=f_low, normalized=False)
+            ovlps[i][j] = overlap_cplx(h_wfs[i].real(), h_wfs[j].real(), psd=psd, low_frequency_cutoff=f_match, normalized=False)
             
     # Compute orthogonal overlaps
     ovlps_perp = {}
@@ -1277,7 +1286,7 @@ def get_ortho_ovlps(h_wfs, f_low):
 
     return ovlps, ovlps_perp
 
-def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation, return_ovlps=False):
+def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation, f_match, return_ovlps=False):
     """
     Combines waveform components in time domain to form h1, ..., hn and h as follows:
 
@@ -1286,6 +1295,7 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation, return_ovlps=False):
         coeffs: List containing coefficients of h_1, ..., h_n.
         comp_wfs: Waveform components s_1, ..., s_n.
         GS_normalisation: Whether to perform Grant-Schmidt orthogonalisaton to ensure (hj|hm) = 0 for j!=m.
+        f_match: Low frequency cutoff to use.
         return_ovlps: Whether to return overlaps between all unorthogonalised harmonics.
         
     Returns:
@@ -1309,11 +1319,11 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation, return_ovlps=False):
     # Calculates overlaps if requested
     ovlps, ovlps_perp = None, None
     if return_ovlps:
-        ovlps, ovlps_perp = get_ortho_ovlps(hs, f_low)
+        ovlps, ovlps_perp = get_ortho_ovlps(hs, f_low, f_match=f_match)
 
     # Perform Grant-Schmidt orthogonalisation if requested
     if GS_normalisation:
-        hs = GS_orthogonalise(f_low, hs)
+        hs = GS_orthogonalise(f_low, f_match, hs)
 
     # Calculates overall waveform using complex coefficients A, B, C, ...
     h = coeffs[0]*hs[0]
@@ -1323,7 +1333,7 @@ def get_h_TD(f_low, coeffs, comp_wfs, GS_normalisation, return_ovlps=False):
     # Returns overall waveform and components for testing purposes
     return [h, *hs, *comp_wfs], ovlps, ovlps_perp
 
-def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, comp_phase=0, return_ovlps=False):
+def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', f_match=20, subsample_interpolation=True, GS_normalisation=True, comp_normalisation=False, comp_phase=0, return_ovlps=False):
     """
     Generates a overall h waveform, h_1,...h_n, and s_1,...,s_n.
 
@@ -1335,6 +1345,7 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
         q: Mass ratio.
         sample_rate: Sample rate of waveform.
         approximant: Approximant to use.
+        f_match: Low frequency cutoff to use.
         subsample_interpolation: Whether to use subsample interpolation.
         GS_normalisation: Whether to perform Grant-Schmidt orthogonalisaton to ensure (hj|hm) = 0 for j!=m.
         comp_normalisation: Whether to normalise s_1,...,s_n components to ensure (sj|sj) is constant.
@@ -1349,10 +1360,10 @@ def get_h(coeffs, f_low, e, M, q, sample_rate, approximant='TEOBResumS', subsamp
     assert approximant == 'TEOBResumS'
 
     # Gets (normalised) components which make up overall waveform
-    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, comp_normalisation, comp_phase)
+    component_wfs = gen_component_wfs(f_low, e, M, q, len(coeffs), sample_rate, approximant, comp_normalisation, comp_phase, f_match)
 
     # Calculate overall waveform and components in time domain
-    wfs, ovlps, ovlps_perp = get_h_TD(f_low, coeffs, component_wfs, GS_normalisation, return_ovlps=return_ovlps)
+    wfs, ovlps, ovlps_perp = get_h_TD(f_low, coeffs, component_wfs, GS_normalisation, f_match, return_ovlps=return_ovlps)
 
     if return_ovlps:
         return wfs, ovlps, ovlps_perp

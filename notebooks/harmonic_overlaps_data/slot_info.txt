@@ -1,0 +1,1 @@
+dataslot_0: harmonic overlaps at 10, 24, 50 chirp mass with [0, 0.05, 0.1, 0.15, 0.2] e_10 values 
