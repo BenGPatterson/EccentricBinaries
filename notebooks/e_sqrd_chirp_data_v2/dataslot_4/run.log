@@ -1,0 +1,54 @@
+000 (20148897.000.000) 2024-08-27 08:24:33 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618+[fde1-53ba-e9a0-de11-c925-65-8543-e173]-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7662_12bb>
+...
+001 (20148897.000.000) 2024-08-27 08:26:27 Job executing on host: <10.14.10.60:9618?addrs=10.14.10.60-9618&alias=node2310.cluster.ldas.cit&noUDP&sock=startd_2744_bbf7>
+	SlotName: slot1_12@node2310.cluster.ldas.cit
+	CondorScratchDir = "/local/condor/execute/dir_4095187"
+	Cpus = 16
+	Disk = 1049600
+	GPUs = 0
+	Memory = 16384
+...
+006 (20148897.000.000) 2024-08-27 08:26:35 Image size of job updated: 352292
+	345  -  MemoryUsage of job (MB)
+	352288  -  ResidentSetSize of job (KB)
+...
+006 (20148897.000.000) 2024-08-27 08:31:35 Image size of job updated: 6074724
+	5905  -  MemoryUsage of job (MB)
+	6045900  -  ResidentSetSize of job (KB)
+...
+006 (20148897.000.000) 2024-08-27 09:36:41 Image size of job updated: 6504020
+	6350  -  MemoryUsage of job (MB)
+	6502128  -  ResidentSetSize of job (KB)
+...
+006 (20148897.000.000) 2024-08-27 09:41:42 Image size of job updated: 6563364
+	6407  -  MemoryUsage of job (MB)
+	6560740  -  ResidentSetSize of job (KB)
+...
+006 (20148897.000.000) 2024-08-27 09:46:43 Image size of job updated: 6579648
+	6424  -  MemoryUsage of job (MB)
+	6578008  -  ResidentSetSize of job (KB)
+...
+006 (20148897.000.000) 2024-08-27 09:51:12 Image size of job updated: 6593960
+	6424  -  MemoryUsage of job (MB)
+	6578008  -  ResidentSetSize of job (KB)
+...
+005 (20148897.000.000) 2024-08-27 09:51:12 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 2 07:55:14, Sys 0 13:55:46  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 2 07:55:14, Sys 0 13:55:46  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :    48.34       16        16 
+	   Disk (KB)            : 17500     1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :  6424       16384     16384 
+	   TimeExecute (s)      :  5085                       
+	   TimeSlotBusy (s)     :  5085                       
+
+	Job terminated of its own accord at 2024-08-27T16:51:12Z with exit-code 0.
+...

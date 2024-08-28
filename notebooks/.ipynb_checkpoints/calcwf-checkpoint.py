@@ -609,15 +609,19 @@ def match_hn(wf_hjs_, wf_s, f_low, f_match=20, return_index=False, psd=None):
         wf_hjs.append(wf_new)
     wf_s = timeseries.TimeSeries(wf_s.copy(), wf_s.delta_t, epoch=wf_s.start_time)
 
-    # Resize waveforms to the next highest power of two
-    all_wfs = resize_wfs([*wf_hjs, wf_s], tlen=ceiltwo(len(wf_hjs[0])+1))
-    wf_hjs = all_wfs[:-1]
-    wf_s = all_wfs[-1]
-    wf_len = len(wf_hjs[0])
-
     # Generate the aLIGO ZDHP PSD
     if psd is None:
-        psd = gen_psd(wf_hjs[0], f_low)
+        if len(wf_hjs[0]) > len(wf_s):
+            psd = gen_psd(wf_hjs[0], f_low)
+        else:
+            psd = gen_psd(wf_s, f_Low)
+
+    # Resize waveforms to the length of the psd
+    tlen = (len(psd)-1)*2
+    all_wfs = resize_wfs([*wf_hjs, wf_s], tlen=tlen)
+    wf_hjs = all_wfs[:-1]
+    wf_s = all_wfs[-1]
+    wf_len = len(wf_s)
 
     # Perform match on h1
     m_h1_amp, m_index, m_h1_phase = match(wf_hjs[0].real(), wf_s.real(), psd=psd, low_frequency_cutoff=f_match, subsample_interpolation=True, return_phase=True)

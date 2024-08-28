@@ -30,3 +30,4 @@ dataslot_27: (0.02, 0.03, 0.04, ..., 0.15) fiducial eccentricity values for scal
 dataslot_28: (0.02, 0.03, 0.04, ..., 0.15) fiducial eccentricity values for scaled chirp masses test run. normalisation of [10, 0.0325]
 dataslot_29: (0.02, 0.03, 0.04, ..., 0.15) fiducial eccentricity values for scaled chirp masses test run. normalisation of [10, 0.035]
 dataslot_30: (0.07) fiducial eccentricity value, igwn_eccentric, removing orthogonal SNR, phase consistent inclusion of higher modes, all quantities computed
+dataslot_31: rerun with low_frequency_cutoff of 20Hz (increased from 13Hz)
