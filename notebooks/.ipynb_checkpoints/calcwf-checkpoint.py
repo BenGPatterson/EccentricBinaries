@@ -256,7 +256,7 @@ def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, freq_type):
             'ecc'                : e,
             'output_hpc'         : 'no',
             'ecc_freq'           : freq_type_id,
-            'anomaly'            : TA
+            'anomaly'            : TA       
             }
 
     # Calculate waveform and convert to pycbc TimeSeries object
