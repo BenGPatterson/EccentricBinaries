@@ -31,3 +31,8 @@ dataslot_28: (0.02, 0.03, 0.04, ..., 0.15) fiducial eccentricity values for scal
 dataslot_29: (0.02, 0.03, 0.04, ..., 0.15) fiducial eccentricity values for scaled chirp masses test run. normalisation of [10, 0.035]
 dataslot_30: (0.07) fiducial eccentricity value, igwn_eccentric, removing orthogonal SNR, phase consistent inclusion of higher modes, all quantities computed
 dataslot_31: rerun with low_frequency_cutoff of 20Hz (increased from 13Hz)
+dataslot_32: test fid_es of np.linspace(0.015, 0.04, 11) for chirp mass of 10
+dataslot_33: test fid_es of np.linspace(0.035, 0.085, 11) for chirp mass of 24
+dataslot_34: test fid_es of np.linspace(0.065, 0.14, 11) for chirp mass of 50
+dataslot_35: (0.06) fiducial eccentricity value with low_frequency_cutoff=20 and new fid e scaling of [10, 0.03]
+dataslot_36: (0.02, 0.03, ...., 0.15) fiducial eccentricity values with low_frequency_cutoff=20 and new fid e scaling of [10, 0.03]

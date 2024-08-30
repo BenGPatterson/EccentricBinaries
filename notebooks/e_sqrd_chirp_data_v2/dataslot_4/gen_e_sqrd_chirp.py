@@ -132,4 +132,4 @@ if __name__ == "__main__":
     sample_rate = 4096
 
     # Generate and save grid data to desired data slot
-    gen_e_sqrd_chirp_data([0, 0.05, 0.1, 0.15, 0.2], [24, 50], np.sqrt(np.linspace(0, 0.5**2, 301)), [np.linspace(21,25,101), np.linspace(44,56,101)], 4, 2, 10, approximant='TEOBResumS')
+    gen_e_sqrd_chirp_data([0, 0.05, 0.1, 0.15, 0.2], [10, 24, 50], np.sqrt(np.linspace(0, 0.5**2, 301)), [np.linspace(9.1,10.1,101), np.linspace(21,25,101), np.linspace(44,56,101)], 4, 2, 10, approximant='TEOBResumS')

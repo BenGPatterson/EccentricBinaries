@@ -207,7 +207,7 @@ def modes_to_k(modes):
     
     return [int(x[0]*(x[0]-1)/2 + x[1]-2) for x in modes]
 
-def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, freq_type):
+def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, inclination, freq_type):
     """
     Generates TEOBResumS waveform with chosen parameters.
 
@@ -220,6 +220,7 @@ def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, freq_type):
         phase: Phase of signal.
         distance: Luminosity distance to binary in Mpc.
         TA: Initial true anomaly.
+        inclination: Inclination.
         freq_type: How the frequency has been specified.
 
     Returns:
@@ -256,7 +257,8 @@ def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, freq_type):
             'ecc'                : e,
             'output_hpc'         : 'no',
             'ecc_freq'           : freq_type_id,
-            'anomaly'            : TA       
+            'anomaly'            : TA,
+            'inclination'        : inclination
             }
 
     # Calculate waveform and convert to pycbc TimeSeries object
@@ -269,7 +271,7 @@ def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, freq_type):
     
     return teob_p, teob_c
 
-def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.pi, freq_type='average'):
+def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.pi, inclination=0, freq_type='average'):
     """
     Generates waveform with chosen parameters.
 
@@ -283,6 +285,7 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.
         phase: Phase of signal.
         distance: Luminosity distance to binary in Mpc.
         TA: Initial true anomaly (TEOBResumS only).
+        inclination: Inclination (TEOBResumS only).
         freq_type: How the frequency has been specified (TEOBResumS only).
 
     Returns:
@@ -293,7 +296,7 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.
     if approximant=='EccentricTD':
         hp, hc = gen_e_td_wf(f_low, e, M, q, sample_rate, phase, distance)
     elif approximant=='TEOBResumS':
-        hp, hc = gen_teob_wf(f_low, e, M, q, sample_rate, phase, distance, TA, freq_type)
+        hp, hc = gen_teob_wf(f_low, e, M, q, sample_rate, phase, distance, TA, inclination, freq_type)
     else:
         raise Exception('approximant not recognised')
 
