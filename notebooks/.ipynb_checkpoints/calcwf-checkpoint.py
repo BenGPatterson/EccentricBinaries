@@ -617,7 +617,7 @@ def match_hn(wf_hjs_, wf_s, f_low, f_match=20, return_index=False, psd=None):
         if len(wf_hjs[0]) > len(wf_s):
             psd = gen_psd(wf_hjs[0], f_low)
         else:
-            psd = gen_psd(wf_s, f_Low)
+            psd = gen_psd(wf_s, f_low)
 
     # Resize waveforms to the length of the psd
     tlen = (len(psd)-1)*2
