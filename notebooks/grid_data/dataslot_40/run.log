@@ -1,0 +1,46 @@
+000 (20364147.000.000) 2024-09-05 09:27:13 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618+[fde1-53ba-e9a0-de11-c925-65-8543-e173]-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7741_42b7>
+...
+001 (20364147.000.000) 2024-09-05 09:27:40 Job executing on host: <10.14.4.63:9618?addrs=10.14.4.63-9618&alias=node813.cluster.ldas.cit&noUDP&sock=startd_2598_9723>
+	SlotName: slot1_3@node813.cluster.ldas.cit
+	CondorScratchDir = "/local/condor/execute/dir_3292676"
+	Cpus = 16
+	Disk = 1049600
+	GPUs = 0
+	Memory = 16384
+...
+006 (20364147.000.000) 2024-09-05 09:27:48 Image size of job updated: 146352
+	143  -  MemoryUsage of job (MB)
+	146032  -  ResidentSetSize of job (KB)
+...
+006 (20364147.000.000) 2024-09-05 09:32:48 Image size of job updated: 2102288
+	1885  -  MemoryUsage of job (MB)
+	1929432  -  ResidentSetSize of job (KB)
+...
+006 (20364147.000.000) 2024-09-05 09:37:48 Image size of job updated: 4508472
+	4314  -  MemoryUsage of job (MB)
+	4417476  -  ResidentSetSize of job (KB)
+...
+006 (20364147.000.000) 2024-09-05 09:42:49 Image size of job updated: 4508472
+	4317  -  MemoryUsage of job (MB)
+	4419628  -  ResidentSetSize of job (KB)
+...
+005 (20364147.000.000) 2024-09-05 11:17:41 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 1 22:24:37, Sys 0 03:18:12  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 1 22:24:37, Sys 0 03:18:12  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :    31.24       16        16 
+	   Disk (KB)            : 17500     1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :  4317       16384     16384 
+	   TimeExecute (s)      :  6601                       
+	   TimeSlotBusy (s)     :  6602                       
+
+	Job terminated of its own accord at 2024-09-05T18:17:41Z with exit-code 0.
+...

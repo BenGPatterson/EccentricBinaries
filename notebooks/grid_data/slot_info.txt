@@ -38,3 +38,6 @@ dataslot_35: (0.06) fiducial eccentricity value with low_frequency_cutoff=20 and
 dataslot_36: (0.02, 0.03, ...., 0.15) fiducial eccentricity values with low_frequency_cutoff=20 and new fid e scaling of [10, 0.03]
 dataslot_37: 24 zero_ecc_chirp, corresponding fid e, values of n between 3 and 8
 dataslot_38: 24 zero_ecc_chirp, fid e of 0.15, values of n between 3 and 8
+dataslot_39: test fid_es of np.linspace(0.025, 0.07, 10) for chirp mass of 10, n=6
+dataslot_40: test fid_es corresponding to above for chirp mass of 24, n=6
+dataslot_41: test fid_es corresponding to above for chirp mass of 50, n=6
