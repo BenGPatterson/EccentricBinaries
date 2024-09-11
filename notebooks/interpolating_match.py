@@ -92,10 +92,8 @@ def comb_harm_consistent(A_primes, phi_primes, harms=[0,1,-1], return_denom=Fals
     num_sqrd = 0
     for i in range(len(harms)):
         if harms[i] == 0:
-            #denom_sqrd = A_primes[i]*As[i]*np.cos(alpha+phi_primes[i])
             denom_sqrd = As[i]**2
             continue
-        #num_sqrd += A_primes[i]*As[i]*np.cos(alpha+harms[i]*beta-phi_primes[i])
         num_sqrd += As[i]**2
     frac = np.sqrt(num_sqrd/denom_sqrd)
 
