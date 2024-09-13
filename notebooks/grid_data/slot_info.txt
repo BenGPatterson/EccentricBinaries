@@ -43,3 +43,7 @@ dataslot_40: test fid_es corresponding to above for chirp mass of 24, n=6
 dataslot_41: test fid_es corresponding to above for chirp mass of 50, n=6
 dataslot_42: (0.02, 0.03, ...., 0.15) fiducial eccentricity values with fid e scaling of [10, 0.035]
 dataslot_43: min/max lines corresponding to (24 chirp, 0.2 ecc) event
+dataslot_44: same as above with additional runs at zero_ecc_chirps of +[0.1,0.2,0.3,0.4] solar masses
+dataslot_45: min/max lines corresponding to more examples around 24 chirp mass with n_gen=6
+dataslot_46: min/max lines corresponding to (24 chirp, 0.2 ecc) event with n_gen=6
+dataslot_47: (0.02, 0.03, ...., 0.15) fiducial eccentricity values with fid e scaling of [10, 0.035] with n_gen=6

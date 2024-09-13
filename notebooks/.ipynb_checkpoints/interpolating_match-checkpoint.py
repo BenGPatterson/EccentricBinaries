@@ -336,11 +336,12 @@ def find_ecc_range_samples(matches, chirp, interps, max_ecc=0.4, scaling_norms=[
     min_interp = interp1d(min_interp_arr, ecc_range)
 
     # Check whether in range of each interp, deal with edge cases
-    ecc_arr = np.array([np.full_like(matches, 5)]*2)
+    ecc_arr = np.array([np.full_like(matches, 5)]*2, dtype='float')
     ecc_arr[0][matches<np.min(max_interp_arr)] = 0
     ecc_arr[0][matches>np.max(max_interp_arr)] = ecc_range[np.argmax(max_interp_arr)]
     ecc_arr[1][matches<np.min(min_interp_arr)] = ecc_range[np.argmin(min_interp_arr)]
     ecc_arr[1][matches>np.max(min_interp_arr)] = 1
+    # Known issue: matches equal or above 1 do not get the correct lower bound above
     
     # Find eccentricities corresponding to max and min lines
     ecc_arr[0][ecc_arr[0]==5] = max_interp(matches[ecc_arr[0]==5])
@@ -405,12 +406,13 @@ def find_ecc_CI(CI_bounds, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035
 
     return min_ecc, max_ecc
 
-def SNR_samples(obs_SNR, n):
+def SNR_samples(obs_SNR, df, n):
     """
     Generates SNR samples.
 
     Parameters:
         obs_SNR: Observed SNR.
+        df: Degrees of freedom.
         n: Number of samples to generate.
 
     Returns:
@@ -420,9 +422,9 @@ def SNR_samples(obs_SNR, n):
     # Define distribution class
     class SNR_rv():
         def pdf(self, x):
-            return ncx2.pdf(x**2, 2, obs_SNR**2)
+            return ncx2.pdf(x**2, df, obs_SNR**2)
         def cdf(self, x):
-            return ncx2.cdf(x**2, 2, obs_SNR**2)
+            return ncx2.cdf(x**2, df, obs_SNR**2)
 
     # Generate samples
     rv = SNR_rv()
@@ -509,7 +511,7 @@ def gen_zero_noise_data(zero_ecc_chirp, fid_e, ecc, f_low, f_match, MA_shift, to
 
     return data, psds, t_start, t_end, fid_chirp
 
-def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, zero_ecc_chirp, fid_e, f_low, f_match, match_key, ifos, verbose=False):
+def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_gen, zero_ecc_chirp, fid_e, f_low, f_match, match_key, ifos, verbose=False):
     """
     Generates samples on SNR and eccentricity.
 
@@ -521,7 +523,7 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, 
         fid_chirp: Fiducial chirp mass.
         interps: Interpolation objects of min/max lines.
         max_ecc: Maximum eccentricity.
-        n: Number of harmonics to use.
+        n_gen: Number of harmonics to generate.
         zero_ecc_chirp: Chirp mass at zero eccentricity.
         fid_e: Fiducial eccentricity.
         f_low: Waveform starting frequency.
@@ -537,7 +539,7 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, 
 
     # Generates fiducial waveforms in frequency domain
     start = time.time()
-    all_wfs = list(get_h([1]*n, f_low, fid_e, chirp2total(fid_chirp, 2), 2, 4096))
+    all_wfs = list(get_h([1]*n_gen, f_low, fid_e, chirp2total(fid_chirp, 2), 2, 4096))
     h0, h1, hn1, h2 = all_wfs[1:5]
     h0_f, h1_f, hn1_f, h2_f = [wf.real().to_frequencyseries() for wf in [h0, h1, hn1, h2]]
     h = {'h0': h0_f, 'h1': h1_f, 'h-1': hn1_f, 'h2': h2_f}
@@ -563,10 +565,18 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, 
     
     # Draw SNR samples and convert to eccentricity samples
     num_sqrd = 0
+    n_hms = 0
     for mode in rss_snr.keys():
         if mode != 'h0' and mode in match_key:
+            n_hms += 1
             num_sqrd += rss_snr[mode]**2
-    match_samples = SNR_samples(np.sqrt(num_sqrd), n=10**6)/rss_snr['h0']
+    if 'pc' in match_key:
+        df = n_hms + 1
+    else:
+        df = 2*n_hms
+    if verbose:
+        print(f'{df} degrees of freedom')
+    match_samples = SNR_samples(np.sqrt(num_sqrd), df, 10**6)/rss_snr['h0']
     ecc_samples = SNR2ecc(match_samples, zero_ecc_chirp, interps, max_ecc=max_ecc, scaling_norms=[fid_chirp, fid_e], upper_lenience=0.05)
     
     # Compute 90% confidence bounds on SNR
