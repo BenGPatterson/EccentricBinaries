@@ -341,7 +341,6 @@ def find_ecc_range_samples(matches, chirp, interps, max_ecc=0.4, scaling_norms=[
     ecc_arr[0][matches>np.max(max_interp_arr)] = ecc_range[np.argmax(max_interp_arr)]
     ecc_arr[1][matches<np.min(min_interp_arr)] = ecc_range[np.argmin(min_interp_arr)]
     ecc_arr[1][matches>np.max(min_interp_arr)] = 1
-    # Known issue: matches equal or above 1 do not get the correct lower bound above
     
     # Find eccentricities corresponding to max and min lines
     ecc_arr[0][ecc_arr[0]==5] = max_interp(matches[ecc_arr[0]==5])
@@ -406,30 +405,49 @@ def find_ecc_CI(CI_bounds, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035
 
     return min_ecc, max_ecc
 
-def SNR_samples(obs_SNR, df, n):
+def calc_weights(proposals, obs_SNR, df):
     """
-    Generates SNR samples.
+    Calculates the pdf value of an observed SNR value at proposed non central 
+    parameter values. Used in rejection sampling to obtain samples on true SNR.
+
+    Parameters:
+        proposals: Proposed non central parameter values.
+        obs_SNR: Observed SNR.
+        df: Degrees of freedom.
+
+    Returns:
+        samples: SNR samples.
+    """
+    return ncx2.pdf(obs_SNR**2, df, proposals**2)
+
+def SNR_samples(obs_SNR, df, n, bound_tol=10**-3):
+    """
+    Generates samples of the true SNR using rejection sampling.
 
     Parameters:
         obs_SNR: Observed SNR.
         df: Degrees of freedom.
         n: Number of samples to generate.
+        bound_tol: Minimum weight to generate proposal samples for.
 
     Returns:
         samples: SNR samples.
     """
 
-    # Define distribution class
-    class SNR_rv():
-        def pdf(self, x):
-            return ncx2.pdf(x**2, df, obs_SNR**2)
-        def cdf(self, x):
-            return ncx2.cdf(x**2, df, obs_SNR**2)
+    # Calculate maximum possible weight and upper bound
+    max_weight_result = minimize(lambda x: -calc_weights(x, obs_SNR, df), obs_SNR)
+    max_weight = -max_weight_result['fun']
+    max_weight_nc_sqrt = max_weight_result['x'][0]
+    upper_bound = minimize(lambda x: np.abs(calc_weights(x, obs_SNR, df)/max_weight - bound_tol)/bound_tol, max_weight_nc_sqrt+1, bounds=[(0,None)])['x'][0]
 
-    # Generate samples
-    rv = SNR_rv()
-    sample_gen = sampling.NumericalInversePolynomial(rv, center=obs_SNR, domain=(0.000001, np.inf))
-    samples = sample_gen.rvs(size=n)
+    # Generate proposal samples and calculate respective weights
+    proposals = np.linspace(0, upper_bound, n)
+    weights = calc_weights(proposals, obs_SNR, df)/max_weight
+
+    # Accept or reject weights according to weights
+    accepts = np.random.uniform(size=n)
+    samples = proposals[weights>=accepts]
+
     return samples
 
 def SNR2ecc(matches, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035], upper_lenience=0):
@@ -564,16 +582,21 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
             print(f'rho_{mode[1:]} = ' + str(rss_snr[mode]))
     
     # Draw SNR samples and convert to eccentricity samples
-    num_sqrd = 0
-    n_hms = 0
-    for mode in rss_snr.keys():
-        if mode != 'h0' and mode in match_key:
-            n_hms += 1
-            num_sqrd += rss_snr[mode]**2
     if 'pc' in match_key:
-        df = n_hms + 1
+        harms = [int(x[1:]) for x in match_key.split('_')[:-1]]
+        df = len(harms)
+        snrs = []
+        for harm in harms:
+            snrs.append(rss_snr[f'h{harm}'])
+        frac, denom = comb_harm_consistent(np.abs(snrs), np.angle(snrs), harms=harms, return_denom=True)
+        num_sqrd = (frac*denom)**2
     else:
-        df = 2*n_hms
+        num_sqrd = 0
+        df = 0
+        for mode in rss_snr.keys():
+            if mode != 'h0' and mode in match_key:
+                df += 2
+                num_sqrd += rss_snr[mode]**2
     if verbose:
         print(f'{df} degrees of freedom')
     match_samples = SNR_samples(np.sqrt(num_sqrd), df, 10**6)/rss_snr['h0']

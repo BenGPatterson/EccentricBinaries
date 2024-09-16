@@ -63,11 +63,11 @@ def single_sample(counter):
     return *rss_snr.values(), h1_hn1_pc_SNR, h1_hn1_h2_pc_SNR
 
 # Generate samples
-SNR_arr = np.array(p_tqdm.p_map(single_sample, np.arange(10**5))).T
+SNR_arr = np.array(p_tqdm.p_map(single_sample, np.arange(10**6))).T
 
 # Unpack SNRs
 SNRs = {'gaussian': {}, 'modes_only': {}}
-for i, key in enumerate(['h0', 'h1', 'h-1', 'h2', 'h0_h1_h-1_pc', 'h0_h1_h-1_h2_pc']):
+for i, key in enumerate(['h0', 'h1', 'h-1', 'h2', 'h1_h-1_pc', 'h1_h-1_h2_pc']):
     SNRs['gaussian'][key] = SNR_arr[i]
 
 # Calculate SNRs with modes only
