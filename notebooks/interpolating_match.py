@@ -5,6 +5,7 @@ from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
 from scipy.stats import ncx2, sampling
 from pycbc.filter import match, optimized_match, sigma
+from pycbc.noise import frequency_noise_from_psd
 from calcwf import chirp2total, chirp_degeneracy_line, gen_wf, shifted_f, shifted_e, gen_psd, resize_wfs, get_h
 from simple_pe.waveforms import calculate_mode_snr, network_mode_snr
 
@@ -529,7 +530,7 @@ def gen_zero_noise_data(zero_ecc_chirp, fid_e, ecc, f_low, f_match, MA_shift, to
 
     return data, psds, t_start, t_end, fid_chirp
 
-def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_gen, zero_ecc_chirp, fid_e, f_low, f_match, match_key, ifos, verbose=False):
+def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_gen, zero_ecc_chirp, fid_e, f_low, f_match, match_key, ifos, seed=None, verbose=False):
     """
     Generates samples on SNR and eccentricity.
 
@@ -548,10 +549,12 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
         f_match: Low frequency cutoff to use.
         match_key: Which harmonics to use in min/max line.
         ifos: Detectors to use.
+        seed: Seed of gaussian noise.
         verbose: Whether to print out information.
 
     Returns:
         match_samples, ecc_samples: Samples on SNR and eccentricity.
+        observed: Observed match ratio in higher harmonics.
         
     """
 
@@ -565,6 +568,9 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
     # Loop over detectors
     z = {}
     for ifo in ifos:
+
+        # Add gaussian noise to data
+        data[ifo] += frequency_noise_from_psd(psds[ifo], seed=seed)
     
         # Normalise waveform modes
         h_perp = {}
@@ -579,17 +585,20 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
     rss_snr, _ = network_mode_snr(z, ifos, z[ifos[0]].keys(), dominant_mode='h0')
     if verbose:
         for mode in rss_snr:
-            print(f'rho_{mode[1:]} = ' + str(rss_snr[mode]))
+            print(f'rho_{mode[1:]} = {rss_snr[mode]}')
+            print(f'rho_{mode[1:]} angle = {np.angle(z[ifos[0]][mode])}')
+            
     
     # Draw SNR samples and convert to eccentricity samples
     if 'pc' in match_key:
+        assert len(ifos) == 1
         harms = [int(x[1:]) for x in match_key.split('_')[:-1]]
         df = len(harms)
         snrs = []
         for harm in harms:
-            snrs.append(rss_snr[f'h{harm}'])
-        frac, denom = comb_harm_consistent(np.abs(snrs), np.angle(snrs), harms=harms, return_denom=True)
-        num_sqrd = (frac*denom)**2
+            snrs.append(z[ifos[0]][f'h{harm}'])
+        frac, _ = comb_harm_consistent(np.abs(snrs), np.angle(snrs), harms=harms, return_denom=True)
+        num_sqrd = (frac*rss_snr['h0'])**2
     else:
         num_sqrd = 0
         df = 0
@@ -598,6 +607,7 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
                 df += 2
                 num_sqrd += rss_snr[mode]**2
     if verbose:
+        print(f'Higher harmonics SNR: {np.sqrt(num_sqrd)}')
         print(f'{df} degrees of freedom')
     match_samples = SNR_samples(np.sqrt(num_sqrd), df, 10**6)/rss_snr['h0']
     ecc_samples = SNR2ecc(match_samples, zero_ecc_chirp, interps, max_ecc=max_ecc, scaling_norms=[fid_chirp, fid_e], upper_lenience=0.05)
@@ -615,4 +625,4 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
     if verbose:
         print(f'Eccentricity range of approximately {ecc_CI_bounds[0]:.3f} to {ecc_CI_bounds[1]:.3f} computed in {end-start:.3f} seconds.')
 
-    return match_samples, ecc_samples
+    return match_samples, ecc_samples, np.sqrt(num_sqrd)/rss_snr['h0']

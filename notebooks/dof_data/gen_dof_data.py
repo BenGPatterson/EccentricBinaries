@@ -44,7 +44,7 @@ mode_data_f = mode_data.real().to_frequencyseries()
 def single_sample(counter):
 
     # Create noise and add modes to boost SNR
-    gaussian_data = mode_data_f + frequency_noise_from_psd(psd)
+    gaussian_data = mode_data_f + frequency_noise_from_psd(psd, seed=counter)
 
     # Calculate mode SNRs
     mode_SNRs, _ = calculate_mode_snr(gaussian_data, psd, h_perp_f, 16-1/8192, 16, f_match, h_perp.keys(), dominant_mode='h0')
