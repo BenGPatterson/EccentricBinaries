@@ -38,105 +38,38 @@ def estimate_coeffs(rhos, ovlps, ovlps_perp):
 
     return est_coeffs
 
-def comb_log_L(params, A_primes, phi_primes, harms):
-    """
-    Calculate log likelihood of a set of harmonics in a phase consistent way.
-
-    Parameters:
-        params: Free parameters describing estimated amplitudes and phases of matches.
-        A_primes: Magnitudes of matches with each harmonic.
-        phi_primes: Phases of matches with each harmonic.
-        harms: Which harmonics are included.
-
-    Returns:
-        tot: Total SNR squared.
-    """
-
-    tot = 0
-    As = params[:-2]
-    alpha, beta = params[-2:]
-
-    # Add each harmonic in turn
-    for i in range(len(harms)):
-        tot += A_primes[i]*As[i]*np.cos(alpha+harms[i]*beta-phi_primes[i]) - 0.5*As[i]**2
-
-    return tot
-
-def comb_harm_consistent(A_primes, phi_primes, harms=[0,1,-1], return_denom=False):
+def comb_harm_consistent(abs_SNRs, ang_SNRs, harms=[0,1,-1]):
     """
     Combine match of higher harmonics in phase consistent way for 
     a single point.
 
     Parameters:
-        A_primes: Magnitudes of matches with each harmonic.
-        phi_primes: Phases of matches with each harmonic.
+        abs_SNRs: Magnitudes of matches with each harmonic.
+        ang_SNRs: Phases of matches with each harmonic.
         harms: Which harmonics to include.
-        return_denom: Whether to return the denominator of the fraction.
 
     Returns:
-        frac: Combined match relative to h0.
+        frac: Combined match relative to fundamental SNR.
     """
 
-    # Add fundamental to harmonic list
-    if 0 not in harms:
-        harms.insert(0,0)
+    # Sort harmonics to 0,1,-1 ordering
+    harm_ids = [harms.index(x) for x in [0,1,-1]]
+    abs_SNRs = [abs_SNRs[x] for x in harm_ids]
+    ang_SNRs = [ang_SNRs[x] for x in harm_ids]
 
-    # Maximise total SNR
-    bounds = [(0, None)]*len(harms) + [(-np.pi, np.pi), (-np.pi, np.pi)]
-    init_guess = list(A_primes) + [phi_primes[harms.index(0)], phi_primes[harms.index(1)]-phi_primes[harms.index(0)]]
-    init_guess[-1] = (init_guess[-1]+np.pi)%(2*np.pi) - np.pi
-    best_fit = minimize(lambda x: -comb_log_L(x, A_primes, phi_primes, harms), init_guess, bounds=bounds)
+    # Check if inconsistent by more than pi/2 radians
+    angle_arg = 2*ang_SNRs[0]-ang_SNRs[1]-ang_SNRs[2]
+    condition = np.abs(angle_arg - np.round(angle_arg/(2*np.pi),0)*2*np.pi) <= np.pi/2
 
-    # Compute combined SNR of higher harmonics
-    As = best_fit['x'][:-2]
-    alpha, beta = best_fit['x'][-2:]
-    num_sqrd = 0
-    for i in range(len(harms)):
-        if harms[i] == 0:
-            denom_sqrd = As[i]**2
-            continue
-        num_sqrd += As[i]**2
-    frac = np.sqrt(num_sqrd/denom_sqrd)
-
-    # Returns denominator if requested
-    if return_denom:
-        return frac, np.sqrt(denom_sqrd)
+    # Calculate SNR in higher harmonics
+    if condition:
+        cross_term_sqrd = abs_SNRs[1]**4 + 2*abs_SNRs[1]**2*abs_SNRs[-1]**2*np.cos(2*angle_arg) + abs_SNRs[-1]**4
+        log_L = (1/4)*(abs_SNRs[1]**2+abs_SNRs[-1]**2+np.sqrt(cross_term_sqrd))
     else:
-        return frac
-
-
-def comb_harm_consistent_grid(data, harms=[0,1,-1]):
-    """
-    Combine match of higher harmonics in phase consistent way for 
-    grid of points.
-
-    Parameters:
-        data: Dictionary containing matches for given chirp mass.
-        harms: Which harmonics to include.
-
-    Returns:
-        fracs: Combined match relative to h0.
-    """
-
-    # Add fundamental to harmonic list
-    if 0 not in harms:
-        harms.insert(0,0)
-
-    # Get all magnitudes and phases of matches
-    all_A_primes = []
-    all_phi_primes = []
-    for harm in harms:
-        all_A_primes.append(data[f'h{harm}'])
-        all_phi_primes.append(data[f'h{harm}_phase'])
-    all_A_primes = np.rollaxis(np.array(all_A_primes),0,3)
-    all_phi_primes = np.rollaxis(np.array(all_phi_primes),0,3)
-
-    # Find num for each grid point
-    fracs = np.zeros(np.shape(all_A_primes)[:2])
-    for iy, ix in np.ndindex(np.shape(fracs)):
-        fracs[iy, ix] = comb_harm_consistent(all_A_primes[iy][ix], all_phi_primes[iy][ix], harms)
-
-    return fracs
+        log_L = (1/2)*np.max([abs_SNRs[1]**2, abs_SNRs[-1]**2])
+    higher_SNR = np.sqrt(2*log_L)
+    
+    return higher_SNR/abs_SNRs[0]
 
 def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_h-1_h0_pca'], ovlps=None):
     """
@@ -597,7 +530,7 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
         snrs = []
         for harm in harms:
             snrs.append(z[ifos[0]][f'h{harm}'])
-        frac, _ = comb_harm_consistent(np.abs(snrs), np.angle(snrs), harms=harms, return_denom=True)
+        frac = comb_harm_consistent(np.abs(snrs), np.angle(snrs), harms=harms)
         num_sqrd = (frac*rss_snr['h0'])**2
     else:
         num_sqrd = 0

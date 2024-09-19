@@ -47,3 +47,5 @@ dataslot_44: same as above with additional runs at zero_ecc_chirps of +[0.1,0.2,
 dataslot_45: min/max lines corresponding to more examples around 24 chirp mass with n_gen=6
 dataslot_46: min/max lines corresponding to (24 chirp, 0.2 ecc) event with n_gen=6
 dataslot_47: (0.02, 0.03, ...., 0.15) fiducial eccentricity values with fid e scaling of [10, 0.035] with n_gen=6
+dataslot_48: min/max lines corresponding to ([10,24,40] chirp, 0.2 ecc) events with analytic phase consistency
+dataslot_49: (0.02, 0.03, ...., 0.15) fiducial eccentricity values with fid e scaling of [10, 0.035] with analytic phase consistency
