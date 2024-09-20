@@ -5,6 +5,7 @@ from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
 from scipy.stats import ncx2, sampling
 from pycbc.filter import match, optimized_match, sigma
+from pycbc.noise import frequency_noise_from_psd
 from calcwf import chirp2total, chirp_degeneracy_line, gen_wf, shifted_f, shifted_e, gen_psd, resize_wfs, get_h
 from simple_pe.waveforms import calculate_mode_snr, network_mode_snr
 
@@ -37,105 +38,38 @@ def estimate_coeffs(rhos, ovlps, ovlps_perp):
 
     return est_coeffs
 
-def comb_log_L(params, A_primes, phi_primes, harms):
-    """
-    Calculate log likelihood of a set of harmonics in a phase consistent way.
-
-    Parameters:
-        params: Free parameters describing estimated amplitudes and phases of matches.
-        A_primes: Magnitudes of matches with each harmonic.
-        phi_primes: Phases of matches with each harmonic.
-        harms: Which harmonics are included.
-
-    Returns:
-        tot: Total SNR squared.
-    """
-
-    tot = 0
-    As = params[:-2]
-    alpha, beta = params[-2:]
-
-    # Add each harmonic in turn
-    for i in range(len(harms)):
-        tot += A_primes[i]*As[i]*np.cos(alpha+harms[i]*beta-phi_primes[i]) - 0.5*As[i]**2
-
-    return tot
-
-def comb_harm_consistent(A_primes, phi_primes, harms=[0,1,-1], return_denom=False):
+def comb_harm_consistent(abs_SNRs, ang_SNRs, harms=[0,1,-1]):
     """
     Combine match of higher harmonics in phase consistent way for 
     a single point.
 
     Parameters:
-        A_primes: Magnitudes of matches with each harmonic.
-        phi_primes: Phases of matches with each harmonic.
+        abs_SNRs: Magnitudes of matches with each harmonic.
+        ang_SNRs: Phases of matches with each harmonic.
         harms: Which harmonics to include.
-        return_denom: Whether to return the denominator of the fraction.
 
     Returns:
-        frac: Combined match relative to h0.
+        frac: Combined match relative to fundamental SNR.
     """
 
-    # Add fundamental to harmonic list
-    if 0 not in harms:
-        harms.insert(0,0)
+    # Sort harmonics to 0,1,-1 ordering
+    harm_ids = [harms.index(x) for x in [0,1,-1]]
+    abs_SNRs = [abs_SNRs[x] for x in harm_ids]
+    ang_SNRs = [ang_SNRs[x] for x in harm_ids]
 
-    # Maximise total SNR
-    bounds = [(0, None)]*len(harms) + [(-np.pi, np.pi), (-np.pi, np.pi)]
-    init_guess = list(A_primes) + [phi_primes[harms.index(0)], phi_primes[harms.index(1)]-phi_primes[harms.index(0)]]
-    init_guess[-1] = (init_guess[-1]+np.pi)%(2*np.pi) - np.pi
-    best_fit = minimize(lambda x: -comb_log_L(x, A_primes, phi_primes, harms), init_guess, bounds=bounds)
+    # Check if inconsistent by more than pi/2 radians
+    angle_arg = 2*ang_SNRs[0]-ang_SNRs[1]-ang_SNRs[2]
+    condition = np.abs(angle_arg - np.round(angle_arg/(2*np.pi),0)*2*np.pi) <= np.pi/2
 
-    # Compute combined SNR of higher harmonics
-    As = best_fit['x'][:-2]
-    alpha, beta = best_fit['x'][-2:]
-    num_sqrd = 0
-    for i in range(len(harms)):
-        if harms[i] == 0:
-            denom_sqrd = As[i]**2
-            continue
-        num_sqrd += As[i]**2
-    frac = np.sqrt(num_sqrd/denom_sqrd)
-
-    # Returns denominator if requested
-    if return_denom:
-        return frac, np.sqrt(denom_sqrd)
+    # Calculate SNR in higher harmonics
+    if condition:
+        cross_term_sqrd = abs_SNRs[1]**4 + 2*abs_SNRs[1]**2*abs_SNRs[-1]**2*np.cos(2*angle_arg) + abs_SNRs[-1]**4
+        log_L = (1/4)*(abs_SNRs[1]**2+abs_SNRs[-1]**2+np.sqrt(cross_term_sqrd))
     else:
-        return frac
-
-
-def comb_harm_consistent_grid(data, harms=[0,1,-1]):
-    """
-    Combine match of higher harmonics in phase consistent way for 
-    grid of points.
-
-    Parameters:
-        data: Dictionary containing matches for given chirp mass.
-        harms: Which harmonics to include.
-
-    Returns:
-        fracs: Combined match relative to h0.
-    """
-
-    # Add fundamental to harmonic list
-    if 0 not in harms:
-        harms.insert(0,0)
-
-    # Get all magnitudes and phases of matches
-    all_A_primes = []
-    all_phi_primes = []
-    for harm in harms:
-        all_A_primes.append(data[f'h{harm}'])
-        all_phi_primes.append(data[f'h{harm}_phase'])
-    all_A_primes = np.rollaxis(np.array(all_A_primes),0,3)
-    all_phi_primes = np.rollaxis(np.array(all_phi_primes),0,3)
-
-    # Find num for each grid point
-    fracs = np.zeros(np.shape(all_A_primes)[:2])
-    for iy, ix in np.ndindex(np.shape(fracs)):
-        fracs[iy, ix] = comb_harm_consistent(all_A_primes[iy][ix], all_phi_primes[iy][ix], harms)
-
-    return fracs
+        log_L = (1/2)*np.max([abs_SNRs[1]**2, abs_SNRs[-1]**2])
+    higher_SNR = np.sqrt(2*log_L)
+    
+    return higher_SNR/abs_SNRs[0]
 
 def find_min_max(data, extra_keys=['h1_h0', 'h-1_h0', 'h2_h0', 'h1_h-1_h0', 'h1_h-1_h0_pca'], ovlps=None):
     """
@@ -336,7 +270,7 @@ def find_ecc_range_samples(matches, chirp, interps, max_ecc=0.4, scaling_norms=[
     min_interp = interp1d(min_interp_arr, ecc_range)
 
     # Check whether in range of each interp, deal with edge cases
-    ecc_arr = np.array([np.full_like(matches, 5)]*2)
+    ecc_arr = np.array([np.full_like(matches, 5)]*2, dtype='float')
     ecc_arr[0][matches<np.min(max_interp_arr)] = 0
     ecc_arr[0][matches>np.max(max_interp_arr)] = ecc_range[np.argmax(max_interp_arr)]
     ecc_arr[1][matches<np.min(min_interp_arr)] = ecc_range[np.argmin(min_interp_arr)]
@@ -405,29 +339,49 @@ def find_ecc_CI(CI_bounds, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035
 
     return min_ecc, max_ecc
 
-def SNR_samples(obs_SNR, n):
+def calc_weights(proposals, obs_SNR, df):
     """
-    Generates SNR samples.
+    Calculates the pdf value of an observed SNR value at proposed non central 
+    parameter values. Used in rejection sampling to obtain samples on true SNR.
+
+    Parameters:
+        proposals: Proposed non central parameter values.
+        obs_SNR: Observed SNR.
+        df: Degrees of freedom.
+
+    Returns:
+        samples: SNR samples.
+    """
+    return ncx2.pdf(obs_SNR**2, df, proposals**2)
+
+def SNR_samples(obs_SNR, df, n, bound_tol=10**-3):
+    """
+    Generates samples of the true SNR using rejection sampling.
 
     Parameters:
         obs_SNR: Observed SNR.
+        df: Degrees of freedom.
         n: Number of samples to generate.
+        bound_tol: Minimum weight to generate proposal samples for.
 
     Returns:
         samples: SNR samples.
     """
 
-    # Define distribution class
-    class SNR_rv():
-        def pdf(self, x):
-            return ncx2.pdf(x**2, 2, obs_SNR**2)
-        def cdf(self, x):
-            return ncx2.cdf(x**2, 2, obs_SNR**2)
+    # Calculate maximum possible weight and upper bound
+    max_weight_result = minimize(lambda x: -calc_weights(x, obs_SNR, df), obs_SNR)
+    max_weight = -max_weight_result['fun']
+    max_weight_nc_sqrt = max_weight_result['x'][0]
+    upper_bound = minimize(lambda x: np.abs(calc_weights(x, obs_SNR, df)/max_weight - bound_tol)/bound_tol, max_weight_nc_sqrt+1, bounds=[(0,None)])['x'][0]
 
-    # Generate samples
-    rv = SNR_rv()
-    sample_gen = sampling.NumericalInversePolynomial(rv, center=obs_SNR, domain=(0.000001, np.inf))
-    samples = sample_gen.rvs(size=n)
+    # Generate proposal samples and calculate respective weights
+    proposals = np.linspace(0, upper_bound, n)
+    weights = calc_weights(proposals, obs_SNR, df)/max_weight
+
+    # Accept or reject weights according to weights
+    accepts = np.random.uniform(size=n)
+    samples = proposals[weights>=accepts]
+
     return samples
 
 def SNR2ecc(matches, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035], upper_lenience=0):
@@ -509,7 +463,7 @@ def gen_zero_noise_data(zero_ecc_chirp, fid_e, ecc, f_low, f_match, MA_shift, to
 
     return data, psds, t_start, t_end, fid_chirp
 
-def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, zero_ecc_chirp, fid_e, f_low, f_match, match_key, ifos, verbose=False):
+def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_gen, zero_ecc_chirp, fid_e, f_low, f_match, match_key, ifos, seed=None, verbose=False):
     """
     Generates samples on SNR and eccentricity.
 
@@ -521,23 +475,25 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, 
         fid_chirp: Fiducial chirp mass.
         interps: Interpolation objects of min/max lines.
         max_ecc: Maximum eccentricity.
-        n: Number of harmonics to use.
+        n_gen: Number of harmonics to generate.
         zero_ecc_chirp: Chirp mass at zero eccentricity.
         fid_e: Fiducial eccentricity.
         f_low: Waveform starting frequency.
         f_match: Low frequency cutoff to use.
         match_key: Which harmonics to use in min/max line.
         ifos: Detectors to use.
+        seed: Seed of gaussian noise.
         verbose: Whether to print out information.
 
     Returns:
         match_samples, ecc_samples: Samples on SNR and eccentricity.
+        observed: Observed match ratio in higher harmonics.
         
     """
 
     # Generates fiducial waveforms in frequency domain
     start = time.time()
-    all_wfs = list(get_h([1]*n, f_low, fid_e, chirp2total(fid_chirp, 2), 2, 4096))
+    all_wfs = list(get_h([1]*n_gen, f_low, fid_e, chirp2total(fid_chirp, 2), 2, 4096))
     h0, h1, hn1, h2 = all_wfs[1:5]
     h0_f, h1_f, hn1_f, h2_f = [wf.real().to_frequencyseries() for wf in [h0, h1, hn1, h2]]
     h = {'h0': h0_f, 'h1': h1_f, 'h-1': hn1_f, 'h2': h2_f}
@@ -545,6 +501,9 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, 
     # Loop over detectors
     z = {}
     for ifo in ifos:
+
+        # Add gaussian noise to data
+        data[ifo] += frequency_noise_from_psd(psds[ifo], seed=seed)
     
         # Normalise waveform modes
         h_perp = {}
@@ -559,14 +518,31 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, 
     rss_snr, _ = network_mode_snr(z, ifos, z[ifos[0]].keys(), dominant_mode='h0')
     if verbose:
         for mode in rss_snr:
-            print(f'rho_{mode[1:]} = ' + str(rss_snr[mode]))
+            print(f'rho_{mode[1:]} = {rss_snr[mode]}')
+            print(f'rho_{mode[1:]} angle = {np.angle(z[ifos[0]][mode])}')
+            
     
     # Draw SNR samples and convert to eccentricity samples
-    num_sqrd = 0
-    for mode in rss_snr.keys():
-        if mode != 'h0' and mode in match_key:
-            num_sqrd += rss_snr[mode]**2
-    match_samples = SNR_samples(np.sqrt(num_sqrd), n=10**6)/rss_snr['h0']
+    if 'pc' in match_key:
+        assert len(ifos) == 1
+        harms = [int(x[1:]) for x in match_key.split('_')[:-1]]
+        df = len(harms)
+        snrs = []
+        for harm in harms:
+            snrs.append(z[ifos[0]][f'h{harm}'])
+        frac = comb_harm_consistent(np.abs(snrs), np.angle(snrs), harms=harms)
+        num_sqrd = (frac*rss_snr['h0'])**2
+    else:
+        num_sqrd = 0
+        df = 0
+        for mode in rss_snr.keys():
+            if mode != 'h0' and mode in match_key:
+                df += 2
+                num_sqrd += rss_snr[mode]**2
+    if verbose:
+        print(f'Higher harmonics SNR: {np.sqrt(num_sqrd)}')
+        print(f'{df} degrees of freedom')
+    match_samples = SNR_samples(np.sqrt(num_sqrd), df, 10**6)/rss_snr['h0']
     ecc_samples = SNR2ecc(match_samples, zero_ecc_chirp, interps, max_ecc=max_ecc, scaling_norms=[fid_chirp, fid_e], upper_lenience=0.05)
     
     # Compute 90% confidence bounds on SNR
@@ -582,4 +558,4 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n, 
     if verbose:
         print(f'Eccentricity range of approximately {ecc_CI_bounds[0]:.3f} to {ecc_CI_bounds[1]:.3f} computed in {end-start:.3f} seconds.')
 
-    return match_samples, ecc_samples
+    return match_samples, ecc_samples, np.sqrt(num_sqrd)/rss_snr['h0']

@@ -55,19 +55,17 @@ def single_sample(counter):
 
     # Calculate phase consistent combinations
     cplx_SNRs = [mode_SNRs['h0'], mode_SNRs['h1'], mode_SNRs['h-1'], mode_SNRs['h2']]
-    frac, denom = comb_harm_consistent(np.abs(cplx_SNRs[:-1]), np.angle(cplx_SNRs[:-1]), harms=[0,1,-1], return_denom=True)
-    h1_hn1_pc_SNR = frac*denom
-    frac, denom = comb_harm_consistent(np.abs(cplx_SNRs), np.angle(cplx_SNRs), harms=[0,1,-1,2], return_denom=True)
-    h1_hn1_h2_pc_SNR = frac*denom
+    frac = comb_harm_consistent(np.abs(cplx_SNRs[:-1]), np.angle(cplx_SNRs[:-1]), harms=[0,1,-1])
+    h1_hn1_pc_SNR = frac*np.abs(mode_SNRs['h0'])
 
-    return *rss_snr.values(), h1_hn1_pc_SNR, h1_hn1_h2_pc_SNR
+    return *rss_snr.values(), h1_hn1_pc_SNR
 
 # Generate samples
 SNR_arr = np.array(p_tqdm.p_map(single_sample, np.arange(10**6))).T
 
 # Unpack SNRs
 SNRs = {'gaussian': {}, 'modes_only': {}}
-for i, key in enumerate(['h0', 'h1', 'h-1', 'h2', 'h1_h-1_pc', 'h1_h-1_h2_pc']):
+for i, key in enumerate(['h0', 'h1', 'h-1', 'h2', 'h1_h-1_pc']):
     SNRs['gaussian'][key] = SNR_arr[i]
 
 # Calculate SNRs with modes only

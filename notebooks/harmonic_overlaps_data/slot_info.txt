@@ -2,3 +2,4 @@ dataslot_0: harmonic overlaps at 10, 24, 50 chirp mass with [0, 0.05, 0.1, 0.15,
 dataslot_1: rerun with low_frequency_cutoff of 20Hz (increased from 13Hz)
 dataslot_2: rerun with n=20 for waveform generation
 dataslot_3: appropriately scaled fid e and zero ecc chirp mass for (24 chirp, 0.2 ecc) event
+dataslot_4: running with 10, 24, 40 chirp mass
