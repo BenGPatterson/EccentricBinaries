@@ -1,0 +1,3 @@
+dataslot_0: First test with 6 points on each axis and 10 MA vals
+dataslot_1: Increased to 101 points on each axis and 40 MA vals
+dataslot_2: Fixing distance instead of total SNR, and corrected psd generation bug
