@@ -402,7 +402,7 @@ def SNR2ecc(matches, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035], upp
     """
 
     # Find upper and lower bounds on eccentricity for each sample
-    ecc_arr = find_ecc_range_samples(matches, chirp, interps, max_ecc=max_ecc)
+    ecc_arr = find_ecc_range_samples(matches, chirp, interps, max_ecc=max_ecc, scaling_norms=scaling_norms)
 
     # Put upper bound at max_ecc
     max_ecc *= 1+upper_lenience
