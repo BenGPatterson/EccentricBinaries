@@ -3,7 +3,7 @@ import time
 import numpy as np
 from scipy.interpolate import interp1d, LinearNDInterpolator
 from scipy.optimize import curve_fit, minimize
-from scipy.stats import ncx2, sampling
+from scipy.stats import ncx2, sampling, gaussian_kde
 from pycbc.filter import match, optimized_match, sigma
 from pycbc.noise import frequency_noise_from_psd
 from calcwf import chirp2total, chirp_degeneracy_line, gen_wf, shifted_f, shifted_e, gen_psd, resize_wfs, get_h
@@ -51,6 +51,9 @@ def comb_harm_consistent(abs_SNRs, ang_SNRs, harms=[0,1,-1]):
     Returns:
         frac: Combined match relative to fundamental SNR.
     """
+
+    # Only works for 0,1,-1 harmonics
+    assert set(harms) == set([0,1,-1])
 
     # Sort harmonics to 0,1,-1 ordering
     harm_ids = [harms.index(x) for x in [0,1,-1]]
@@ -384,7 +387,28 @@ def SNR_samples(obs_SNR, df, n, bound_tol=10**-3):
 
     return samples
 
-def SNR2ecc(matches, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035], upper_lenience=0):
+def ecc2SNR(eccs, interps, max_ecc=0.4, max_match=1):
+    """
+    Maps eccentricity samples to SNR samples.
+
+    Parameters:
+        eccs: Eccentricity samples.
+        max_ecc: Maximum value of eccentricity.
+        max_match: Maximum match value.
+
+    Returns:
+        SNR_samples: SNR samples.
+    """
+
+    upper_SNR = np.real(interps[0](eccs))
+    lower_SNR = np.real(interps[1](eccs))
+    upper_SNR[eccs>max_ecc] = max_match
+    lower_SNR[eccs>max_ecc] = np.real(interps[1](max_ecc))
+    SNR_samples = np.random.uniform(size=len(eccs))*(upper_SNR-lower_SNR)+lower_SNR
+        
+    return SNR_samples
+
+def SNR2ecc(matches, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035], upper_lenience=0, max_match=1):
     """
     Maps SNR samples to eccentricity samples.
 
@@ -396,23 +420,77 @@ def SNR2ecc(matches, chirp, interps, max_ecc=0.4, scaling_norms=[10, 0.035], upp
         scaling_norms: Non-eccentric chirp mass and fiducial eccentricity used 
         to normalise relationship.
         upper_lenience: Allow upper bound of eccentricity samples to be higher than max_ecc.
+        max_match: Maximum match value.
 
     Returns:
-        eccs: Eccentricity samples.
+        ecc_samples: Eccentricity samples.
     """
 
-    # Find upper and lower bounds on eccentricity for each sample
-    ecc_arr = find_ecc_range_samples(matches, chirp, interps, max_ecc=max_ecc, scaling_norms=scaling_norms)
+    # Put upper bound at max_ecc (with some lenience to allow for higher bins when railing)
+    lenient_max_ecc = max_ecc*(1+upper_lenience)
 
-    # Put upper bound at max_ecc
-    max_ecc *= 1+upper_lenience
-    inds = ecc_arr>max_ecc
-    ecc_arr[inds] = max_ecc
+    # Build 'inverse widths' for each ecc trial value
+    ecc_trials = np.linspace(0, lenient_max_ecc, 10**3)
+    SNR_maxs = np.real(interps[0](ecc_trials))
+    SNR_mins = np.real(interps[1](ecc_trials))
+    SNR_maxs[ecc_trials>max_ecc] = max_match
+    SNR_mins[ecc_trials>max_ecc] = np.real(interps[1](max_ecc))
+    iwidth_arr = 1/(SNR_maxs-SNR_mins)
+    iwidth_interp = interp1d(ecc_trials, iwidth_arr)
 
-    # Uniformly draw random value between these bounds for each sample
-    eccs = np.random.rand(len(matches))*(ecc_arr[1]-ecc_arr[0]) + ecc_arr[0]
+    # Find max inverse width for each SNR
+    ecc_bounds = find_ecc_range_samples(matches, chirp, interps, max_ecc=max_ecc, scaling_norms=scaling_norms)
+    max_iwidths = []
+    for i in range(len(matches)):
+        inds = np.asarray(np.logical_and(ecc_trials >= ecc_bounds[0][i], ecc_trials <= ecc_bounds[1][i])).nonzero()
+        max_iwidths.append(np.max(iwidth_arr[inds]))
+    max_iwidths = np.array(max_iwidths)
+    inds = ecc_bounds>lenient_max_ecc
+    ecc_bounds[inds] = lenient_max_ecc
 
-    return eccs
+    # Draw ecc samples for each SNR using rejection sampling
+    need_sample = np.full(len(matches), True)
+    ecc_samples = []
+    while True in need_sample:
+        ecc_proposals = np.random.uniform(size=np.sum(need_sample))*(ecc_bounds[1][need_sample]-ecc_bounds[0][need_sample])+ecc_bounds[0][need_sample]
+        accepts = np.random.uniform(size=np.sum(need_sample))
+        weights = iwidth_interp(ecc_proposals)/max_iwidths[need_sample]
+        ecc_samples += list(ecc_proposals[weights>=accepts])
+        need_sample[need_sample] = weights<accepts
+
+    return np.array(ecc_samples)
+
+def comb_match_prior(ncx2_samples, prior_samples, kde_prefactor=0.5):
+    """
+    Multiplies prior and likelihood of match using rejection sampling to get
+    overall distribution.
+
+    Parameters:
+        ncx2_samples: Likelihood samples.
+        prior_samples: Prior samples.
+        kde_prefactor: Scales bw_method of scipy.stats.gaussian_kde().
+
+    Returns:
+        match_samples: Overall distribution.
+    """
+
+    # Create kde on ncx2 distribution
+    ncx2_builders = list(ncx2_samples) + list(-ncx2_samples)
+    kde_factor = kde_prefactor*len(ncx2_samples)**(-1./5)
+    ncx2_kde = gaussian_kde(ncx2_builders, bw_method=kde_factor)
+
+    # Generate weights
+    prior_range = np.linspace(np.min(prior_samples), np.max(prior_samples), 10**3)
+    sparse_weights = ncx2_kde.pdf(prior_range)
+    weight_interp = interp1d(prior_range, sparse_weights)
+    weights = weight_interp(prior_samples)
+    weights /= np.max(weights)
+
+    # Perform rejection sampling
+    accepts = np.random.uniform(size=len(prior_samples))
+    match_samples = prior_samples[weights>=accepts]
+
+    return match_samples
 
 def gen_zero_noise_data(zero_ecc_chirp, fid_e, ecc, f_low, f_match, MA_shift, total_SNR, ifos):
     """
@@ -463,7 +541,7 @@ def gen_zero_noise_data(zero_ecc_chirp, fid_e, ecc, f_low, f_match, MA_shift, to
 
     return data, psds, t_start, t_end, fid_chirp
 
-def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_gen, zero_ecc_chirp, fid_e, f_low, f_match, match_key, ifos, seed=None, verbose=False):
+def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_gen, zero_ecc_chirp, fid_e, f_low, f_match, match_key, ifos, flat_ecc_prior=True, seed=None, verbose=False, upper_lenience=0.05, max_match=1, kde_prefactor=0.5):
     """
     Generates samples on SNR and eccentricity.
 
@@ -482,13 +560,17 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
         f_match: Low frequency cutoff to use.
         match_key: Which harmonics to use in min/max line.
         ifos: Detectors to use.
+        flat_ecc_prior: Whether to enforce flat prior on eccentricity.
         seed: Seed of gaussian noise.
         verbose: Whether to print out information.
+        upper_lenience: Allow upper bound of eccentricity samples to be higher than max_ecc.
+        max_match: Maximum match value.
+        kde_prefactor: Scales bw_method of scipy.stats.gaussian_kde().
 
     Returns:
-        match_samples, ecc_samples: Samples on SNR and eccentricity.
         observed: Observed match ratio in higher harmonics.
-        
+        match_samples, ecc_samples: Samples on SNR and eccentricity.
+        match_prior, ncx2_samples: Prior and likelihood samples on SNR (if flat_ecc_prior).
     """
 
     # Generates fiducial waveforms in frequency domain
@@ -542,15 +624,21 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
     if verbose:
         print(f'Higher harmonics SNR: {np.sqrt(num_sqrd)}')
         print(f'{df} degrees of freedom')
-    match_samples = SNR_samples(np.sqrt(num_sqrd), df, 10**6)/rss_snr['h0']
-    ecc_samples = SNR2ecc(match_samples, zero_ecc_chirp, interps, max_ecc=max_ecc, scaling_norms=[fid_chirp, fid_e], upper_lenience=0.05)
+    ncx2_samples = SNR_samples(np.sqrt(num_sqrd), df, 10**5)/rss_snr['h0']
+    if flat_ecc_prior:
+        ecc_prior = np.linspace(0, max_ecc*(1+upper_lenience), 10**6)
+        match_prior = ecc2SNR(ecc_prior, interps, max_ecc=max_ecc, max_match=max_match)
+        match_samples = comb_match_prior(ncx2_samples, match_prior, kde_prefactor=kde_prefactor)
+    else:
+        match_samples = ncx2_samples
+    ecc_samples = SNR2ecc(match_samples, zero_ecc_chirp, interps, max_ecc=max_ecc, scaling_norms=[fid_chirp, fid_e], upper_lenience=upper_lenience, max_match=max_match)
     
-    # Compute 90% confidence bounds on SNR
+    # Estimate 90% confidence bounds on SNR
     rv = ncx2(2, num_sqrd)
     h1_CI_bounds = dist_min_CI(rv)
     h1_h0_CI_bounds = h1_CI_bounds/rss_snr['h0']
     
-    # Compute 90% eccentric CI
+    # Estimate 90% eccentric CI
     ecc_CI_bounds = find_ecc_CI(h1_h0_CI_bounds, zero_ecc_chirp, interps, max_ecc=max_ecc, scaling_norms=[fid_chirp, fid_e])
     
     # Output time taken
@@ -558,4 +646,7 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
     if verbose:
         print(f'Eccentricity range of approximately {ecc_CI_bounds[0]:.3f} to {ecc_CI_bounds[1]:.3f} computed in {end-start:.3f} seconds.')
 
-    return match_samples, ecc_samples, np.sqrt(num_sqrd)/rss_snr['h0']
+    if flat_ecc_prior:
+        return np.sqrt(num_sqrd)/rss_snr['h0'], match_samples, ecc_samples, match_prior, ncx2_samples
+    else:
+        return np.sqrt(num_sqrd)/rss_snr['h0'], match_samples, ecc_samples
