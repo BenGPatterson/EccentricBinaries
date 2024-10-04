@@ -207,7 +207,7 @@ def modes_to_k(modes):
     
     return [int(x[0]*(x[0]-1)/2 + x[1]-2) for x in modes]
 
-def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, inclination, freq_type):
+def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, inclination, freq_type, mode_list):
     """
     Generates TEOBResumS waveform with chosen parameters.
 
@@ -222,6 +222,7 @@ def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, inclination, freq_
         TA: Initial true anomaly.
         inclination: Inclination.
         freq_type: How the frequency has been specified.
+        mode_list: Modes to include.
 
     Returns:
         Plus and cross polarisation of TEOBResumS waveform.
@@ -238,12 +239,12 @@ def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, inclination, freq_
         raise Exception('freq_type not recognised')
 
     # Define parameters
-    k = modes_to_k([[2,2]])
+    k = modes_to_k(mode_list)
     pars = {
             'M'                  : M,
             'q'                  : q,    
-            'chi1'               : 0.,
-            'chi2'               : 0.,
+            'chi1'               : 0,
+            'chi2'               : 0,
             'domain'             : 0,            # TD
             'arg_out'            : 'no',         # Output hlm/hflm. Default = 0
             'use_mode_lm'        : k,            # List of modes to use/output through EOBRunPy
@@ -271,7 +272,7 @@ def gen_teob_wf(f, e, M, q, sample_rate, phase, distance, TA, inclination, freq_
     
     return teob_p, teob_c
 
-def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.pi, inclination=0, freq_type='average'):
+def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.pi, inclination=0, freq_type='average', mode_list=[[2,2]]):
     """
     Generates waveform with chosen parameters.
 
@@ -287,6 +288,7 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.
         TA: Initial true anomaly (TEOBResumS only).
         inclination: Inclination (TEOBResumS only).
         freq_type: How the frequency has been specified (TEOBResumS only).
+        mode_list: Modes to include (TEOBResumS only).
 
     Returns:
         Complex combination of plus and cross waveform polarisations.
@@ -296,7 +298,7 @@ def gen_wf(f_low, e, M, q, sample_rate, approximant, phase=0, distance=1, TA=np.
     if approximant=='EccentricTD':
         hp, hc = gen_e_td_wf(f_low, e, M, q, sample_rate, phase, distance)
     elif approximant=='TEOBResumS':
-        hp, hc = gen_teob_wf(f_low, e, M, q, sample_rate, phase, distance, TA, inclination, freq_type)
+        hp, hc = gen_teob_wf(f_low, e, M, q, sample_rate, phase, distance, TA, inclination, freq_type, mode_list)
     else:
         raise Exception('approximant not recognised')
 
