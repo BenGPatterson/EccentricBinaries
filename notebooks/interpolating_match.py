@@ -571,6 +571,7 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
         observed: Observed match ratio in higher harmonics.
         match_samples, ecc_samples: Samples on SNR and eccentricity.
         match_prior, ncx2_samples: Prior and likelihood samples on SNR (if flat_ecc_prior).
+        ecc_prior: Prior samples on eccentricity (if flat_ecc_prior).
     """
 
     # Generates fiducial waveforms in frequency domain
@@ -647,6 +648,6 @@ def gen_ecc_samples(data, psds, t_start, t_end, fid_chirp, interps, max_ecc, n_g
         print(f'Eccentricity range of approximately {ecc_CI_bounds[0]:.3f} to {ecc_CI_bounds[1]:.3f} computed in {end-start:.3f} seconds.')
 
     if flat_ecc_prior:
-        return np.sqrt(num_sqrd)/rss_snr['h0'], match_samples, ecc_samples, match_prior, ncx2_samples
+        return np.sqrt(num_sqrd)/rss_snr['h0'], match_samples, ecc_samples, match_prior, ncx2_samples, ecc_prior
     else:
         return np.sqrt(num_sqrd)/rss_snr['h0'], match_samples, ecc_samples
