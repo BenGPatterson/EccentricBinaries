@@ -1,0 +1,46 @@
+000 (1079826.000.000) 2024-10-16 12:44:06 Job submitted from host: <10.14.0.65:9618?addrs=10.14.0.65-9618&alias=jupyter4.ligo.caltech.edu&noUDP&sock=schedd_2516_585f>
+...
+001 (1079826.000.000) 2024-10-16 12:49:58 Job executing on host: <10.14.10.18:9618?addrs=10.14.10.18-9618&alias=node2268.cluster.ldas.cit&noUDP&sock=startd_4919_9a73>
+	SlotName: slot1_7@node2268.cluster.ldas.cit
+	CondorScratchDir = "/local/condor/execute/dir_1814507"
+	Cpus = 16
+	Disk = 1049600
+	GPUs = 0
+	Memory = 16384
+...
+006 (1079826.000.000) 2024-10-16 12:50:06 Image size of job updated: 1249436
+	1220  -  MemoryUsage of job (MB)
+	1249216  -  ResidentSetSize of job (KB)
+...
+006 (1079826.000.000) 2024-10-16 12:55:06 Image size of job updated: 2077948
+	1967  -  MemoryUsage of job (MB)
+	2014200  -  ResidentSetSize of job (KB)
+...
+006 (1079826.000.000) 2024-10-16 13:00:07 Image size of job updated: 3441412
+	2838  -  MemoryUsage of job (MB)
+	2905508  -  ResidentSetSize of job (KB)
+...
+006 (1079826.000.000) 2024-10-16 13:05:07 Image size of job updated: 3441412
+	2947  -  MemoryUsage of job (MB)
+	3017176  -  ResidentSetSize of job (KB)
+...
+005 (1079826.000.000) 2024-10-16 13:12:36 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 20:10:09, Sys 0 00:05:27  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 20:10:09, Sys 0 00:05:27  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :    54.83       16        16 
+	   Disk (KB)            : 17500     1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :  2947       16384     16384 
+	   TimeExecute (s)      :  1358                       
+	   TimeSlotBusy (s)     :  1358                       
+
+	Job terminated of its own accord at 2024-10-16T20:12:36Z with exit-code 0.
+...
