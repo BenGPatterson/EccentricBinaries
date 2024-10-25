@@ -1092,7 +1092,7 @@ def taper_wf(wf_taper):
 
     return wf_taper
 
-def get_comp_shifts(f_low, e, M, q, n, sample_rate, approximant):
+def get_comp_shifts(f_low, e, M, q, n):
     '''
     Calculates shifted frequency and eccentricity required to create each component
     waveform (beyond first).
@@ -1103,8 +1103,6 @@ def get_comp_shifts(f_low, e, M, q, n, sample_rate, approximant):
         M: Total mass.
         q: Mass ratio.
         n: Number of waveform components.
-        sample_rate: Sample rate of waveform.
-        approximant: Approximant to use.
 
     Returns:
         Shifted frequency and eccentricity for all components beyond first.
@@ -1140,7 +1138,7 @@ def gen_component_wfs(f_low, e, M, q, n, sample_rate, approximant, normalisation
 
     # Generates first (unshifted) component waveform and shifts required for others
     h = gen_wf(f_low, e, M, q, sample_rate, approximant, phase=phase)
-    s_f_vals, s_e_vals = get_comp_shifts(f_low, e, M, q, n, sample_rate, approximant)
+    s_f_vals, s_e_vals = get_comp_shifts(f_low, e, M, q, n)
 
     # Tapers first waveform
     h = taper_wf(h)
