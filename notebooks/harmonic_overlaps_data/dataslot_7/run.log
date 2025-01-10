@@ -1,0 +1,43 @@
+000 (26918359.000.000) 2025-01-09 09:24:15 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7658_545a>
+...
+001 (26918359.000.000) 2025-01-09 09:25:27 Job executing on host: <10.14.0.201:9618?addrs=10.14.0.201-9618&alias=deepclean.ldas.cit&noUDP&sock=startd_4147_1356>
+	SlotName: slot1_2@deepclean.ldas.cit
+	AvailableGPUs = {  }
+	CondorScratchDir = "/var/lib/condor/execute/dir_2023557"
+	Cpus = 16
+	Disk = 1049864
+	GPUs = 0
+	Memory = 32768
+...
+006 (26918359.000.000) 2025-01-09 09:25:35 Image size of job updated: 194836
+	191  -  MemoryUsage of job (MB)
+	194836  -  ResidentSetSize of job (KB)
+...
+006 (26918359.000.000) 2025-01-09 09:30:35 Image size of job updated: 21132148
+	20637  -  MemoryUsage of job (MB)
+	21132148  -  ResidentSetSize of job (KB)
+...
+006 (26918359.000.000) 2025-01-09 09:35:36 Image size of job updated: 21132148
+	20641  -  MemoryUsage of job (MB)
+	21135808  -  ResidentSetSize of job (KB)
+...
+005 (26918359.000.000) 2025-01-09 12:56:48 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 11 04:27:30, Sys 0 02:26:42  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 11 04:27:30, Sys 0 02:26:42  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :    56.33       16        16 
+	   Disk (KB)            : 17500     1048576   1049864 
+	   GPUs                 :                           0 
+	   Memory (MB)          : 20641       32768     32768 
+	   TimeExecute (s)      : 12681                       
+	   TimeSlotBusy (s)     : 12682                       
+
+	Job terminated of its own accord at 2025-01-09T20:56:48Z with exit-code 0.
+...
