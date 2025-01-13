@@ -6,3 +6,4 @@ dataslot_4: running with 10, 24, 40 chirp mass
 dataslot_5: copy of dataslot_4 with updated .py scripts for EccentricHarmonics repo
 dataslot_6: copy of dataslot_4 with .py scripts and venv for EccentricHarmonics repo (current slot in repo)
 dataslot_7: 10, 24, 40 chirp mass with numerical correction to shifting component waveforms back
+dataslot_8: copy of dataslot_8 without this numerical correction for better comparison
