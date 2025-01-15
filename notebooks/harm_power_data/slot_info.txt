@@ -3,3 +3,6 @@ dataslot_1: Increased to 101 points on each axis and 40 MA vals
 dataslot_2: Fixing distance instead of total SNR, and corrected psd generation bug
 dataslot_3: Calculate SNR with overlap instead of match filtering
 dataslot_4: As above but bug fixed such that overlap computed at right time (i.e. mergers at same index)
+dataslot_5: Copy of dataslot_2 with updated .py scripts for EccentricHarmonics repo
+dataslot_6: Copy of dataslot_2 with .py scripts and venv for EccentricHarmonics repo
+dataslot_7: Copy of dataslot_6 with minor code fixes (current slot in repo)

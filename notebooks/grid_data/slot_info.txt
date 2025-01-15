@@ -49,3 +49,6 @@ dataslot_46: min/max lines corresponding to (24 chirp, 0.2 ecc) event with n_gen
 dataslot_47: (0.02, 0.03, ...., 0.15) fiducial eccentricity values with fid e scaling of [10, 0.035] with n_gen=6
 dataslot_48: min/max lines corresponding to ([10,24,40] chirp, 0.2 ecc) events with analytic phase consistency
 dataslot_49: (0.02, 0.03, ...., 0.15) fiducial eccentricity values with fid e scaling of [10, 0.035] with analytic phase consistency
+dataslot_50: copy of dataslot_48 with updated .py scripts for EccentricHarmonics repo
+dataslot_51: copy of dataslot_48 with .py scripts and venv for EccentricHarmonics repo
+dataslot_52: copy of dataslot_51 with minor code fixes (current slot in repo)

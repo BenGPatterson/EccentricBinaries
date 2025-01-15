@@ -4,6 +4,7 @@ dataslot_2: rerun with n=20 for waveform generation
 dataslot_3: appropriately scaled fid e and zero ecc chirp mass for (24 chirp, 0.2 ecc) event
 dataslot_4: running with 10, 24, 40 chirp mass
 dataslot_5: copy of dataslot_4 with updated .py scripts for EccentricHarmonics repo
-dataslot_6: copy of dataslot_4 with .py scripts and venv for EccentricHarmonics repo (current slot in repo)
+dataslot_6: copy of dataslot_4 with .py scripts and venv for EccentricHarmonics repo
 dataslot_7: 10, 24, 40 chirp mass with numerical correction to shifting component waveforms back
 dataslot_8: copy of dataslot_8 without this numerical correction for better comparison
+dataslot_9: copy of dataslot_6 with minor code fixes (current slot in repo)
