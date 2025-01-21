@@ -1,0 +1,9 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+e, chirp slice finished in 522.5129189491272 seconds
+e, q slice finished in 472.2949643135071 seconds
+e, chi1 slice finished in 518.4686150550842 seconds
+chirp, q slice finished in 555.968896150589 seconds
+chirp, chi1 slice finished in 593.9365766048431 seconds
+q, chi1 slice finished in 569.61776471138 seconds

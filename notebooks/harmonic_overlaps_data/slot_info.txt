@@ -8,3 +8,4 @@ dataslot_6: copy of dataslot_4 with .py scripts and venv for EccentricHarmonics 
 dataslot_7: 10, 24, 40 chirp mass with numerical correction to shifting component waveforms back
 dataslot_8: copy of dataslot_8 without this numerical correction for better comparison
 dataslot_9: copy of dataslot_6 with minor code fixes (current slot in repo)
+dataslot_10: shift_regen=True and pycbc shifting in match_hn for sub-dominant harmonics
