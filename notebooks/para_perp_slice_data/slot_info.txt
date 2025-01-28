@@ -1,0 +1,1 @@
+dataslot_0: first try with manually estimated parallel/perpendicular directions

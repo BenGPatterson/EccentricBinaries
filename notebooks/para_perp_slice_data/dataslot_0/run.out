@@ -1,0 +1,5 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+para slice finished in 1007.6324474811554 seconds
+perp slice finished in 1069.6412799358368 seconds
