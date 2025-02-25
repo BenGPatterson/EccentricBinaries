@@ -1,0 +1,1 @@
+dataslot_0: first test run calculating degen line and grid data for 24 chirp mass, no spin, 2:1 mass ratio
