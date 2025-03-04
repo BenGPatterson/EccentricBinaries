@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import numpy as np
+import logging
 import time
 import pickle
 from functools import partial
-import p_tqdm
+from multiprocessing import get_context
+import tqdm
 from simple_pe.waveforms import generate_eccentric_waveform, calculate_eccentric_harmonics, calc_f_gen
 from simple_pe.param_est import find_metric_and_eigendirections
 from pesummary.gw.conversions.mass import component_masses_from_mchirp_q, q_from_eta
@@ -12,7 +14,7 @@ from pycbc import psd as psd_func
 from calcwf import *
 from interpolating_match import *
 
-def single_match(params, wf_hjs, f_gen, f_low, psd, tlen):
+def single_match(params, wf_hjs, f_gen, f_low, psd, tlen, sample_rate):
 
     # Unpack values and generate waveform
     s_f = params['s_f']
@@ -20,7 +22,7 @@ def single_match(params, wf_hjs, f_gen, f_low, psd, tlen):
     M = params['total_mass']
     q = params['inverted_mass_ratio']
     chi_eff = params['chi_eff']
-    s = generate_eccentric_waveform(M, q, e, chi_eff, chi_eff, s_f, sample_rate, f_ref_e=f_gen, t_len=tlen, to_fs=False)[0]
+    s = generate_eccentric_waveform(M, q, e, chi_eff, chi_eff, s_f, sample_rate, f_ref_e=f_gen, tlen=tlen, to_fs=False)[0]
 
     # Calculate matches
     match_cplx = match_hn(wf_hjs, s, f_gen, psd=psd, f_match=f_low)
@@ -43,7 +45,7 @@ def single_match(params, wf_hjs, f_gen, f_low, psd, tlen):
 
     return *match_cplx, np.linalg.norm(match_cplx), *match_quantities
 
-def degen_line_grid_data(base_dict, fid_dict, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low):
+def degen_line_grid_data(base_dict, fid_dict, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low, sample_rate):
 
     # Calculate harmonic ordering
     harm_ids = [0,1]
@@ -75,9 +77,9 @@ def degen_line_grid_data(base_dict, fid_dict, e_vals, MA_vals, n_ecc_harms, n_ec
         s_f_2pi = f_gen - shifted_f(f_gen, param_vals['ecc_gen'][i], param_vals['total_mass'][i], param_vals['inverted_mass_ratio'][i])
         s_f_vals = f_gen - MA_vals*s_f_2pi/(2*np.pi)
         for s_f in s_f_vals:
-            param_list.append({'s_f': s_f, 'total_mass': param_vals['total_mass'][i], 
+            param_list.append({'s_f': s_f, 'total_mass': param_vals['total_mass'][i],
                                'ecc_gen': param_vals['ecc_gen'][i],
-                               'inverted_mass_ratio': param_vals['inverted_mass_ratio'][i], 
+                               'inverted_mass_ratio': param_vals['inverted_mass_ratio'][i],
                                'chi_eff': param_vals['chi_eff'][i]})
 
     # Generate longest possible waveform and psd
@@ -95,15 +97,16 @@ def degen_line_grid_data(base_dict, fid_dict, e_vals, MA_vals, n_ecc_harms, n_ec
 
     # Generate fiducial harmonics
     wf_dict = calculate_eccentric_harmonics(fid_M, fid_q, fid_dict['ecc10sqrd']**0.5, fid_dict['chi_eff'], fid_dict['chi_eff'], f_low,
-                                           sample_rate, t_len=tlen, f_ref_e=10, n_ecc_harms=n_ecc_harms, n_ecc_gen=n_ecc_gen)
+                                           sample_rate, tlen=tlen, f_ref_e=10, n_ecc_harms=n_ecc_harms, n_ecc_gen=n_ecc_gen)
     wf_hjs = []
     for id in harm_ids:
         wf_hjs.append(wf_dict[id].to_timeseries())
     del wf_dict
 
     # Calculate all matches in parallel
-    partial_single_match = partial(single_match, wf_hjs=wf_hjs, f_gen=f_gen, f_low=f_low, psd=psd, tlen=tlen)
-    match_arr = np.array(p_tqdm.p_map(partial_single_match, param_list))
+    partial_single_match = partial(single_match, wf_hjs=wf_hjs, f_gen=f_gen, f_low=f_low, psd=psd, tlen=tlen, sample_rate=sample_rate)
+    with get_context('spawn').Pool() as pool:
+        match_arr = np.array(list(tqdm.tqdm(pool.imap(partial_single_match, param_list), total=len(param_list))))
 
     # Put match arrays into appropriate dictionary keys
     matches = {}
@@ -145,7 +148,7 @@ def const_mm_point(metric, mm, target_par, base_vals, direction=1):
     keys = list(metric.dxs.keys())
     target_ind = keys.index(target_par)
     A = metric.metric[target_ind][target_ind]
-    
+
     # Find B
     param_keys = [key for key in keys if key != target_par]
     B = np.array([metric.metric[target_ind][k] for k in range(len(keys)) if k != target_ind])
@@ -156,9 +159,8 @@ def const_mm_point(metric, mm, target_par, base_vals, direction=1):
     C_inv = np.linalg.inv(C)
 
     # Find change in target parameter to reach mismatch
-    term_1 = -2*np.matmul(B, np.matmul(C_inv, B))
-    term_2 = np.matmul(B, np.matmul(C_inv, np.matmul(C, np.matmul(C_inv, B))))
-    d_target = direction*np.sqrt(mm/(A+term_1+term_2))
+    BC_term = -np.matmul(B, np.matmul(C_inv, B))
+    d_target = direction*np.sqrt(mm/(A+BC_term))
 
     # Find extreme point at specified mismatch
     dxs = -1*np.matmul(C_inv, B) * d_target
@@ -171,7 +173,6 @@ def const_mm_point(metric, mm, target_par, base_vals, direction=1):
 def find_fid_point(pars, mismatch, f_low):
 
     # Disable pesummary warnings
-    import logging
     _logger = logging.getLogger('PESummary')
     _logger.setLevel(logging.CRITICAL + 10)
 
@@ -184,40 +185,43 @@ def find_fid_point(pars, mismatch, f_low):
             }
     snr = 18
     psds['delta_f'] = 1. / psds['length']
-    approximant = 'TEOBResumS-Dali'
-    
+    approximant = 'TEOBResumS-Dali-Harms'
+
     # Calculates PSD
     pycbc_psd = {}
     for ifo in ifos:
         pycbc_psd[ifo] = psd_func.analytical.from_string(psds[ifo], psds['length'] * psds['f_high'] + 1, psds['delta_f'],
                                                          psds['f_low'])
     pycbc_psd['harm'] = 1. / sum([1. / pycbc_psd[ifo] for ifo in ifos])
-    
+
     # Uses simple-pe to calculate approx. of posterior dist. using metric, eigendirections
     pars['f_ref'] = 20
     par_dirs = ['ecc10sqrd', 'chirp_mass', 'symmetric_mass_ratio', 'chi_eff']
-    
+
     # Calculate metric and find fiducial point
-    metric = find_metric_and_eigendirections(pars, par_dirs, snr=snr, f_low=psds['f_low'], 
-                                             psd=pycbc_psd['harm'], approximant=approximant)
+    metric = find_metric_and_eigendirections(pars, par_dirs, snr=snr, f_low=psds['f_low'], psd=pycbc_psd['harm'],
+                                             approximant=approximant, max_iter=2)
     fid_dict = const_mm_point(metric, mismatch, 'ecc10sqrd', pars)
-    
+
+    # Add in base values of parameters not included
+    for key in pars.keys():
+        if key not in fid_dict.keys() and key != 'f_ref':
+            fid_dict[key] = pars[key]
+
     return fid_dict
 
-def pipeline(base_dict, mismatch, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low):
+def pipeline(base_dict, mismatch, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low, sample_rate=4096):
 
     # Find fiducial point along degeneracy line
-#    start = time.time()
-#    fid_dict = find_fid_point(base_dict, mismatch, f_low)
-#    end = time.time()
-#    print(f'Fiducial point found in {end-start} seconds.')
-#    print(fid_dict)
-
-    fid_dict = {'ecc10sqrd': 0.001492995527326486, 'chirp_mass': 24.00586155148526, 'symmetric_mass_ratio': 0.22170230887101425, 'chi_eff': 0.003640339888444757}
+    start = time.time()
+    fid_dict = find_fid_point(base_dict, mismatch, f_low)
+    end = time.time()
+    print(f'Fiducial point found in {end-start} seconds.')
+    print(fid_dict)
 
     # Generate grid data
     start = time.time()
-    all_matches = degen_line_grid_data(base_dict, fid_dict, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low)
+    all_matches = degen_line_grid_data(base_dict, fid_dict, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low, sample_rate)
     end = time.time()
     print(f'Generated grid in {end-start} seconds.')
 

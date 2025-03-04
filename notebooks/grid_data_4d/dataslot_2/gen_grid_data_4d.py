@@ -199,8 +199,8 @@ def find_fid_point(pars, mismatch, f_low):
     par_dirs = ['ecc10sqrd', 'chirp_mass', 'symmetric_mass_ratio']
 
     # Calculate metric and find fiducial point
-    metric = find_metric_and_eigendirections(pars, par_dirs, snr=snr, f_low=psds['f_low'],
-                                             psd=pycbc_psd['harm'], approximant=approximant)
+    metric = find_metric_and_eigendirections(pars, par_dirs, snr=snr, f_low=psds['f_low'], psd=pycbc_psd['harm'],
+                                             approximant=approximant, max_iter=2)
     fid_dict = const_mm_point(metric, mismatch, 'ecc10sqrd', pars)
 
     # Add in base values of parameters not included

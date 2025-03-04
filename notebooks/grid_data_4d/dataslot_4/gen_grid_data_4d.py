@@ -212,22 +212,36 @@ def find_fid_point(pars, mismatch, f_low):
 
 def pipeline(base_dict, mismatch, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low, sample_rate=4096):
 
-    # Find fiducial point along degeneracy line
-    start = time.time()
-    fid_dict = find_fid_point(base_dict, mismatch, f_low)
-    end = time.time()
-    print(f'Fiducial point found in {end-start} seconds.')
-    print(fid_dict)
+    # # Find fiducial point along degeneracy line
+    # start = time.time()
+    # fid_dict = find_fid_point(base_dict, mismatch, f_low)
+    # end = time.time()
+    # print(f'Fiducial point found in {end-start} seconds.')
+    # print(fid_dict)
 
-    # Generate grid data
-    start = time.time()
-    all_matches = degen_line_grid_data(base_dict, fid_dict, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low, sample_rate)
-    end = time.time()
-    print(f'Generated grid in {end-start} seconds.')
+    fid_dict = {'ecc10sqrd': 0.009961434775270773, 'chirp_mass': 23.952359125409874,
+                'symmetric_mass_ratio': 0.2222222222222222, 'chi_eff': 0}
 
-    # Save grid data
-    with open('all_matches', 'wb') as fp:
-        pickle.dump(all_matches, fp)
+    # Get fiducial values at e=0.1, 0.2, 0.3
+    fid_dict_list = []
+    for e in [0.1, 0.2, 0.3]:
+        fid_dict_list.append({'ecc10sqrd': e**2})
+        line_dist = (fid_dict_list[-1]['ecc10sqrd']-base_dict['ecc10sqrd'])/(fid_dict['ecc10sqrd']-base_dict['ecc10sqrd'])
+        for param in ['chirp_mass', 'symmetric_mass_ratio', 'chi_eff']:
+            fid_dict_list[-1][param] = line_dist*(fid_dict[param]-base_dict[param])+base_dict[param]
+
+    # Loop over each eccentricity
+    for i, fid_dict in enumerate(fid_dict_list):
+
+        # Generate grid data
+        start = time.time()
+        all_matches = degen_line_grid_data(base_dict, fid_dict, e_vals, MA_vals, n_ecc_harms, n_ecc_gen, f_low, sample_rate)
+        end = time.time()
+        print(f'Generated grid in {end-start} seconds.')
+
+        # Save grid data
+        with open(f'all_matches_{i+1}', 'wb') as fp:
+            pickle.dump(all_matches, fp)
 
 if __name__ == "__main__":
 

@@ -1,34 +1,38 @@
-000 (27465113.000.000) 2025-03-03 13:59:30 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_15213_6e5d>
+000 (27466750.000.000) 2025-03-04 05:17:59 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_15213_6e5d>
 ...
-001 (27465113.000.000) 2025-03-03 14:02:58 Job executing on host: <10.14.9.127:9618?addrs=10.14.9.127-9618&alias=node2127.cluster.ldas.cit&noUDP&sock=startd_3529_2dcf>
-	SlotName: slot1_10@node2127.cluster.ldas.cit
-	CondorScratchDir = "/var/lib/condor/execute/dir_1786753"
+001 (27466750.000.000) 2025-03-04 05:19:28 Job executing on host: <10.14.9.91:9618?addrs=10.14.9.91-9618&alias=node2091.cluster.ldas.cit&noUDP&sock=startd_9677_3211>
+	SlotName: slot1_13@node2091.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_1676097"
 	Cpus = 16
 	Disk = 1049600
 	GPUs = 0
 	Memory = 16384
 ...
-006 (27465113.000.000) 2025-03-03 14:03:07 Image size of job updated: 142356
-	140  -  MemoryUsage of job (MB)
-	142356  -  ResidentSetSize of job (KB)
+006 (27466750.000.000) 2025-03-04 05:19:37 Image size of job updated: 138940
+	136  -  MemoryUsage of job (MB)
+	138940  -  ResidentSetSize of job (KB)
 ...
-006 (27465113.000.000) 2025-03-03 14:08:08 Image size of job updated: 493992
-	417  -  MemoryUsage of job (MB)
-	426768  -  ResidentSetSize of job (KB)
+006 (27466750.000.000) 2025-03-04 05:24:38 Image size of job updated: 484812
+	435  -  MemoryUsage of job (MB)
+	444572  -  ResidentSetSize of job (KB)
 ...
-006 (27465113.000.000) 2025-03-03 14:13:08 Image size of job updated: 11997700
-	11717  -  MemoryUsage of job (MB)
-	11997700  -  ResidentSetSize of job (KB)
+006 (27466750.000.000) 2025-03-04 05:29:39 Image size of job updated: 9549468
+	9326  -  MemoryUsage of job (MB)
+	9549468  -  ResidentSetSize of job (KB)
 ...
-006 (27465113.000.000) 2025-03-03 14:14:46 Image size of job updated: 12027264
-	11717  -  MemoryUsage of job (MB)
-	11997700  -  ResidentSetSize of job (KB)
+006 (27466750.000.000) 2025-03-04 05:34:39 Image size of job updated: 12134572
+	11851  -  MemoryUsage of job (MB)
+	12134572  -  ResidentSetSize of job (KB)
 ...
-005 (27465113.000.000) 2025-03-03 14:14:46 Job terminated.
+006 (27466750.000.000) 2025-03-04 05:35:04 Image size of job updated: 12158892
+	11851  -  MemoryUsage of job (MB)
+	12134572  -  ResidentSetSize of job (KB)
+...
+005 (27466750.000.000) 2025-03-04 05:35:04 Job terminated.
 	(1) Normal termination (return value 0)
-		Usr 0 02:40:54, Sys 0 00:07:49  -  Run Remote Usage
+		Usr 0 02:28:36, Sys 0 00:07:37  -  Run Remote Usage
 		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
-		Usr 0 02:40:54, Sys 0 00:07:49  -  Total Remote Usage
+		Usr 0 02:28:36, Sys 0 00:07:37  -  Total Remote Usage
 		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
 	0  -  Run Bytes Sent By Job
 	0  -  Run Bytes Received By Job
@@ -38,9 +42,9 @@
 	   Cpus                 :                16        16 
 	   Disk (KB)            :    17500  1048576   1049600 
 	   GPUs                 :                           0 
-	   Memory (MB)          :    11717    16384     16384 
-	   TimeExecute (s)      :      708                    
-	   TimeSlotBusy (s)     :      708                    
+	   Memory (MB)          :    11851    16384     16384 
+	   TimeExecute (s)      :      936                    
+	   TimeSlotBusy (s)     :      936                    
 
-	Job terminated of its own accord at 2025-03-03T22:14:46Z with exit-code 0.
+	Job terminated of its own accord at 2025-03-04T13:35:04Z with exit-code 0.
 ...

@@ -1,24 +1,6 @@
 lal.MSUN_SI != Msun
 __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Initial frequency too high. Set f0 to 1.37e-02 
-Fiducial point found in 760.9087431430817 seconds.
-{'ecc10sqrd': 0.010470491217120827, 'chirp_mass': 23.871780478691825, 'symmetric_mass_ratio': 0.21962932226951618, 'chi_eff': 0}
 lal.MSUN_SI != Msun
 __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
@@ -163,6 +145,17 @@ __package__= gwsurrogate.new
 lal.MSUN_SI != Msun
 __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
+Generated grid in 392.92847537994385 seconds.
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Generated grid in 394.9402060508728 seconds.
 lal.MSUN_SI != Msun
 __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
@@ -208,4 +201,103 @@ __package__= gwsurrogate.new
 lal.MSUN_SI != Msun
 __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
-Generated grid in 186.05998063087463 seconds.
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Generated grid in 355.99941873550415 seconds.

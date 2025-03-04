@@ -1,0 +1,50 @@
+000 (27470088.000.000) 2025-03-04 05:25:42 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_15213_6e5d>
+...
+001 (27470088.000.000) 2025-03-04 05:26:16 Job executing on host: <10.14.9.88:9618?addrs=10.14.9.88-9618&alias=node2088.cluster.ldas.cit&noUDP&sock=startd_9932_1ab7>
+	SlotName: slot1_7@node2088.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_2036846"
+	Cpus = 16
+	Disk = 1049600
+	GPUs = 0
+	Memory = 16384
+...
+006 (27470088.000.000) 2025-03-04 05:26:25 Image size of job updated: 139428
+	137  -  MemoryUsage of job (MB)
+	139428  -  ResidentSetSize of job (KB)
+...
+006 (27470088.000.000) 2025-03-04 05:31:26 Image size of job updated: 11681872
+	11409  -  MemoryUsage of job (MB)
+	11681872  -  ResidentSetSize of job (KB)
+...
+006 (27470088.000.000) 2025-03-04 05:36:26 Image size of job updated: 11948508
+	11669  -  MemoryUsage of job (MB)
+	11948508  -  ResidentSetSize of job (KB)
+...
+006 (27470088.000.000) 2025-03-04 05:41:27 Image size of job updated: 11978536
+	11669  -  MemoryUsage of job (MB)
+	11948508  -  ResidentSetSize of job (KB)
+...
+006 (27470088.000.000) 2025-03-04 05:45:45 Image size of job updated: 12048276
+	11669  -  MemoryUsage of job (MB)
+	11948508  -  ResidentSetSize of job (KB)
+...
+005 (27470088.000.000) 2025-03-04 05:45:45 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 06:40:14, Sys 0 00:19:22  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 06:40:14, Sys 0 00:19:22  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                16        16 
+	   Disk (KB)            :    17500  1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :    11669    16384     16384 
+	   TimeExecute (s)      :     1169                    
+	   TimeSlotBusy (s)     :     1169                    
+
+	Job terminated of its own accord at 2025-03-04T13:45:45Z with exit-code 0.
+...

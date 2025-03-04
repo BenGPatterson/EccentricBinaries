@@ -1,0 +1,18 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Fiducial point found in 429.7383725643158 seconds.
+{'ecc10sqrd': 0.009961434775270773, 'chirp_mass': 23.952359125409874, 'symmetric_mass_ratio': 0.2222222222222222, 'chi_eff': 0}
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Generated grid in 259.2897527217865 seconds.
