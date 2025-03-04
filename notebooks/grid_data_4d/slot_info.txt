@@ -1,3 +1,4 @@
 dataslot_0: first test run calculating degen line and grid data for 24 chirp mass, no spin, 2:1 mass ratio
 dataslot_1: dataslot_0 but in 2d chirp-e^2 space with fixed symmetric mass ratio and spins
-dataslot_1: dataslot_0 but in 3d chirp-e^2-eta space with fixed spins
+dataslot_2: dataslot_0 but in 3d chirp-e^2-eta space with fixed spins
+dataslot_3: first attempt at 'bouncing' up and down degen line to find best point
