@@ -1,0 +1,46 @@
+000 (27557610.000.000) 2025-03-10 16:25:52 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_15209_affc>
+...
+001 (27557610.000.000) 2025-03-10 16:27:35 Job executing on host: <10.14.10.54:9618?addrs=10.14.10.54-9618&alias=node2304.cluster.ldas.cit&noUDP&sock=startd_2238764_7856>
+	SlotName: slot1_10@node2304.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_943662"
+	Cpus = 16
+	Disk = 1049600
+	GPUs = 0
+	Memory = 16384
+...
+006 (27557610.000.000) 2025-03-10 16:27:44 Image size of job updated: 142460
+	140  -  MemoryUsage of job (MB)
+	142460  -  ResidentSetSize of job (KB)
+...
+006 (27557610.000.000) 2025-03-10 16:32:45 Image size of job updated: 489416
+	449  -  MemoryUsage of job (MB)
+	459456  -  ResidentSetSize of job (KB)
+...
+006 (27557610.000.000) 2025-03-10 16:37:46 Image size of job updated: 498336
+	449  -  MemoryUsage of job (MB)
+	459456  -  ResidentSetSize of job (KB)
+...
+006 (27557610.000.000) 2025-03-10 16:46:12 Image size of job updated: 3187852
+	449  -  MemoryUsage of job (MB)
+	459456  -  ResidentSetSize of job (KB)
+...
+005 (27557610.000.000) 2025-03-10 16:46:12 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:51:34, Sys 0 00:05:03  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:51:34, Sys 0 00:05:03  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                16        16 
+	   Disk (KB)            :    17500  1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :      449    16384     16384 
+	   TimeExecute (s)      :     1117                    
+	   TimeSlotBusy (s)     :     1117                    
+
+	Job terminated of its own accord at 2025-03-10T23:46:12Z with exit-code 0.
+...
