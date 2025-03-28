@@ -4,3 +4,4 @@ dataslot_2: dataslot_0 but in 3d chirp-e^2-eta space with fixed spins
 dataslot_3: first attempt at 'bouncing' up and down degen line to find best point
 dataslot_4: (roughly) same degen line as dataslot_1 but match grids at e=0.1, 0.2, 0.3 for visual (plotted) comparison
 dataslot_5: hardcoded 4d degen line testing using phase information to remove width from mapping lines
+dataslot_6: added peak finder at start of pipeline using 'scipy' method
