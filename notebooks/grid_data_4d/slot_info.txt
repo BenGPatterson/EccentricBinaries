@@ -5,3 +5,5 @@ dataslot_3: first attempt at 'bouncing' up and down degen line to find best poin
 dataslot_4: (roughly) same degen line as dataslot_1 but match grids at e=0.1, 0.2, 0.3 for visual (plotted) comparison
 dataslot_5: hardcoded 4d degen line testing using phase information to remove width from mapping lines
 dataslot_6: added peak finder at start of pipeline using 'scipy' method
+dataslot_7: multiprocessed metric calculation and saving phase of combined h1, h-1 snr
+dataslot_8: as above with parameter samples automatically created and plot saved
