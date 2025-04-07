@@ -171,7 +171,7 @@ def const_mm_point(metric, mm, target_par, base_vals, direction=1):
 def find_fid_point(pars, mismatch, snr, approximant, f_low, psd):
 
     # Uses simple-pe to calculate approx. of posterior dist. using metric, eigendirections
-    pars['f_ref'] = 20
+    pars['f_ref'] = f_low
     par_dirs = ['ecc10sqrd', 'chirp_mass', 'symmetric_mass_ratio', 'chi_eff']
 
     # Calculate metric and find fiducial point
@@ -236,9 +236,9 @@ def pipeline(data, init_guess, t_bounds, mismatch, e_vals, MA_vals, n_ecc_harms,
     for key in fid_harms.keys():
         fid_perp[key] = fid_harms[key] / sigma(fid_harms[key], psd[ifos[0]], low_frequency_cutoff=f_low,
                                                 high_frequency_cutoff=psd[ifos[0]].sample_frequencies[-1])
-        mode_SNRs, _ = calculate_mode_snr(data[ifos[0]], psd[ifos[0]], fid_perp, data[ifos[0]].sample_times[0],
-                                          data[ifos[0]].sample_times[-1], f_low, fid_perp.keys(), dominant_mode=0)
-        z[ifos[0]] = mode_SNRs
+    mode_SNRs, _ = calculate_mode_snr(data[ifos[0]], psd[ifos[0]], fid_perp, data[ifos[0]].sample_times[0],
+                                      data[ifos[0]].sample_times[-1], f_low, fid_perp.keys(), dominant_mode=0)
+    z[ifos[0]] = mode_SNRs
     print(f'Single detector SNRs calculated:')
     for key in z[ifos[0]].keys():
         print(f'rho_{key}: {np.abs(z[ifos[0]][key]):.2f}')
@@ -256,8 +256,8 @@ def pipeline(data, init_guess, t_bounds, mismatch, e_vals, MA_vals, n_ecc_harms,
         pickle.dump(param_samples, fp)
 
     # Plot parameter samples
-    plot_SNR2ecc(all_matches, param_samples['samples']['e'], param_samples['samples']['SNR'],
-                 param_samples['prior']['e'], param_samples['prior']['SNR'], param_samples['likeL']['SNR'],
+    plot_SNR2ecc(all_matches, param_samples['samples']['ecc10'], param_samples['samples']['SNR'],
+                 param_samples['prior']['ecc10'], param_samples['prior']['SNR'], param_samples['likeL']['SNR'],
                  true_e=true_e, meas_SNR=param_samples['SNR']['SNR'])
     plt.savefig('param_samples.png', dpi=450)
 
