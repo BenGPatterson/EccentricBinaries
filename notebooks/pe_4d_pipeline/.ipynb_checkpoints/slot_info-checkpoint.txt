@@ -1,0 +1,2 @@
+dataslot_0: 24 chirp mass, e_10=0.2, no spin, 2:1 mass ratio
+dataslot_1: 16 chirp mass, e_10=0.3, no spin, 2:1 mass ratio
