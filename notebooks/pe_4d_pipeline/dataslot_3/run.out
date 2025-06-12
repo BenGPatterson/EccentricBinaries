@@ -1,0 +1,169 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Analysing data with SNR of 20.
+{'ecc10sqrd': 0.09, 'chirp_mass': 16, 'symmetric_mass_ratio': 0.1875, 'chi_eff': -0.1}
+Peak SNR of 18.835883327122097 found in 8.41238808631897 seconds.
+{'chirp_mass': 16.71092374060985, 'symmetric_mass_ratio': 0.2142376656926909, 'chi_eff': -0.11363120345842502, 'ecc10sqrd': 0}
+Fiducial point found in 467.28632855415344 seconds.
+{'ecc10sqrd': 0.02894123443487294, 'chirp_mass': 16.486100136416784, 'symmetric_mass_ratio': 0.20618863647723074, 'chi_eff': -0.11757542812539663}
+Eccentric peak SNR of 19.797616061138623 found in 34.027761936187744 seconds.
+Peak parameters:
+{'distance': Array([1]), 'ecc10sqrd': Array([0.06692999]), 'chirp_mass': Array([16.19099284]), 'symmetric_mass_ratio': Array([0.19562334]), 'chi_eff': Array([-0.12275268]), 'MA': 2.407839939430792}
+Harmonic SNR of
+rho_0: 18.51, phi_0: -1.68
+rho_1: 5.53, phi_1: 0.81
+rho_-1: 2.98, phi_-1: 2.52
+rho_2: 0.85, phi_2: -2.88
+Generated new metric and samples in 943.0712099075317 seconds.
+Enforcing prior reduces samples from 10000000 to 10090.
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Calculated interpolation grid and performed rejection sampling in 247.4225251674652 seconds.
+Mean eccentricity found to be 0.303 with 90% credible interval of 0.230 - 0.347.
+1343 samples remaining after rejection sampling.
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new

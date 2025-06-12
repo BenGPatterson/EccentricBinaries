@@ -1,0 +1,7 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Analysing data with SNR of 20.
+{'ecc10sqrd': 0.0225, 'chirp_mass': 40, 'symmetric_mass_ratio': 0.25, 'chi_eff': 0.3}
+Peak SNR of 19.66565727568922 found in 7.3252410888671875 seconds.
+{'chirp_mass': 42.94125775374239, 'symmetric_mass_ratio': 0.24999884904859696, 'chi_eff': 0.4287237827006824, 'ecc10sqrd': 0}

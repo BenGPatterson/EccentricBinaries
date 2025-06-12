@@ -1,0 +1,56 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version '2.8.4' or newer of 'numexpr' (version '2.7.3' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
+  e_term_1 = e_interps**(-18/19)
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version '2.8.4' or newer of 'numexpr' (version '2.7.3' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
+  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
+/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:460: RuntimeWarning: invalid value encountered in multiply
+  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
+  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
+/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:460: RuntimeWarning: invalid value encountered in multiply
+  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
+  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
+/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:460: RuntimeWarning: invalid value encountered in multiply
+  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
+  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
+/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:460: RuntimeWarning: invalid value encountered in multiply
+  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
+  e_term_1 = e_interps**(-18/19)
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
+  e_term_1 = e_interps**(-18/19)
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
+  e_term_1 = e_interps**(-18/19)
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
+  e_term_1 = e_interps**(-18/19)
+GSL function failed: function value is not finite (errnum=9)
+XLAL Error - <GSL function> (bisection.c:55): Generic failure
+GSL function failed: invalid hstart (errnum=4)
+XLAL Error - <GSL function> (driver.c:92): Generic failure
+GSL function failed: failed to allocate driver object (errnum=8)
+XLAL Error - <GSL function> (driver.c:167): Generic failure
+GSL function failed: function value is not finite (errnum=9)
+XLAL Error - <GSL function> (bisection.c:55): Generic failure
+GSL function failed: invalid hstart (errnum=4)
+XLAL Error - <GSL function> (driver.c:92): Generic failure
+GSL function failed: failed to allocate driver object (errnum=8)
+XLAL Error - <GSL function> (driver.c:167): Generic failure
+GSL function failed: function value is not finite (errnum=9)
+XLAL Error - <GSL function> (bisection.c:55): Generic failure
+GSL function failed: invalid hstart (errnum=4)
+XLAL Error - <GSL function> (driver.c:92): Generic failure
+GSL function failed: failed to allocate driver object (errnum=8)
+XLAL Error - <GSL function> (driver.c:167): Generic failure
+GSL function failed: function value is not finite (errnum=9)
+XLAL Error - <GSL function> (bisection.c:55): Generic failure
+GSL function failed: invalid hstart (errnum=4)
+XLAL Error - <GSL function> (driver.c:92): Generic failure
+GSL function failed: failed to allocate driver object (errnum=8)
+XLAL Error - <GSL function> (driver.c:167): Generic failure

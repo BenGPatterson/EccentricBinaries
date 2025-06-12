@@ -1,0 +1,18 @@
+000 (33025094.000.000) 2025-06-12 15:05:42 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_7306_e304>
+...
+001 (33025094.000.000) 2025-06-12 15:13:35 Job executing on host: <10.14.10.32:9618?addrs=10.14.10.32-9618&alias=node2282.cluster.ldas.cit&noUDP&sock=startd_7533_9704>
+	SlotName: slot1_13@node2282.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_2554298"
+	Cpus = 16
+	Disk = 1049600
+	GPUs = 0
+	Memory = 16384
+...
+006 (33025094.000.000) 2025-06-12 15:13:44 Image size of job updated: 133188
+	131  -  MemoryUsage of job (MB)
+	133188  -  ResidentSetSize of job (KB)
+...
+006 (33025094.000.000) 2025-06-12 15:18:45 Image size of job updated: 545824
+	534  -  MemoryUsage of job (MB)
+	545824  -  ResidentSetSize of job (KB)
+...
