@@ -3,5 +3,34 @@ __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
 Analysing data with SNR of 20.
 {'ecc10sqrd': 0.0225, 'chirp_mass': 40, 'symmetric_mass_ratio': 0.25, 'chi_eff': 0.3}
-Peak SNR of 19.66565727568922 found in 7.3252410888671875 seconds.
-{'chirp_mass': 42.94125775374239, 'symmetric_mass_ratio': 0.24999884904859696, 'chi_eff': 0.4287237827006824, 'ecc10sqrd': 0}
+Peak SNR of 19.664888904555486 found in 8.244922637939453 seconds.
+{'chirp_mass': 42.93678551419538, 'symmetric_mass_ratio': 0.24985685792399245, 'chi_eff': 0.4295669225082764, 'ecc10sqrd': 0}
+Calculating metric at eta=0.24 instead of 0.24985685792399245
+Adjusting fiducial eta from 0.25934382834361175 to 0.2498582185709198 to prevent unphysical degeneracy line
+Fiducial point found in 66.42746877670288 seconds.
+{'ecc10sqrd': 0.009505569328785407, 'chirp_mass': 42.85185682441321, 'symmetric_mass_ratio': 0.2498582185709198, 'chi_eff': 0.429917524599759}
+[0.1050812] [0.24985844] [1.04875194]
+[0.11033525] [0.2498586] [1.04872336]
+[0.11558931] [0.24985877] [1.04869336]
+[0.12084337] [0.24985895] [1.04866195]
+[0.13135149] [0.24985933] [1.04859488]
+[0.11558931] [0.24985877] [1.04869336]
+[0.12609743] [0.24985913] [1.04862913]
+[0.1234704] [0.24985904] [1.04864572]
+[0.11821634] [0.24985886] [1.04867784]
+Eccentric peak SNR of 19.89000453747076 found in 10.967585802078247 seconds.
+Peak parameters:
+{'distance': Array([1]), 'ecc10sqrd': Array([0.01460312]), 'chirp_mass': Array([42.80631211]), 'symmetric_mass_ratio': Array([0.24985895]), 'chi_eff': Array([0.43010554]), 'MA': 6.036632360245214}
+Harmonic SNR of
+rho_0: 19.69, phi_0: 1.33
+rho_1: 1.76, phi_1: 1.08
+rho_-1: 0.85, phi_-1: -2.45
+rho_2: 0.31, phi_2: 2.17
+Generated new metric and samples in 218.6596179008484 seconds.
+Enforcing prior reduces samples from 10000000 to 40246.
+Calculated interpolation grid and performed rejection sampling in 258.11529779434204 seconds.
+Mean eccentricity found to be 0.169 with 90% credible interval of 0.062 - 0.256.
+21418 samples remaining after rejection sampling.
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new

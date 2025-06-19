@@ -27,6 +27,7 @@ def test_ecc_point(e10, data, base_dict, fid_dict, ecc_harms, target_MA, f_low, 
 
     # Create  trial waveform
     params['inverted_mass_ratio'] = 1/q_from_eta(params['symmetric_mass_ratio'])
+    print(e10, params['symmetric_mass_ratio'], params['inverted_mass_ratio'])
     params['total_mass'] = np.sum(component_masses_from_mchirp_q(params['chirp_mass'], params['inverted_mass_ratio']))
     trial_wf = generate_eccentric_waveform_MA(params['total_mass'], params['inverted_mass_ratio'],
                                               params['ecc10sqrd']**0.5, params['chi_eff'], params['chi_eff'],
@@ -119,17 +120,35 @@ def find_fid_point(pars, mismatch, snr, approximant, f_low, psd):
 
     # Uses simple-pe to calculate approx. of posterior dist. using metric, eigendirections
     pars['f_ref'] = f_low
+    eta_max = 0.24
+    base_pars = pars.copy()
+    if pars['symmetric_mass_ratio'] > eta_max:
+        print(f'Calculating metric at eta={eta_max} instead of {pars["symmetric_mass_ratio"]}')
+        eta_diff = pars['symmetric_mass_ratio'] - eta_max
+        base_pars['symmetric_mass_ratio'] = eta_max
+    else:
+        eta_diff = 0
     par_dirs = ['ecc10sqrd', 'chirp_mass', 'symmetric_mass_ratio', 'chi_eff']
 
     # Calculate metric and find fiducial point
-    metric = find_metric_and_eigendirections(pars, par_dirs, snr=snr, f_low=f_low, psd=psd['harm'],
-                                             approximant=approximant, max_iter=2, multiprocessing=True)
+    metric = find_metric_and_eigendirections(base_pars, par_dirs, snr=snr, f_low=f_low, psd=psd['harm'],
+                                             approximant=approximant, max_iter=0, multiprocessing=True)
     fid_dict = const_mm_point(metric, mismatch, 'ecc10sqrd', pars)
 
     # Add in base values of parameters not included
     for key in pars.keys():
         if key not in fid_dict.keys() and key != 'f_ref':
             fid_dict[key] = pars[key]
+    fid_dict['symmetric_mass_ratio'] += eta_diff
+
+    # Ensure degeneracy line does not give eta>0.25
+    dist = 1/fid_dict['ecc10sqrd']
+    max_e_eta = (fid_dict['symmetric_mass_ratio']-pars['symmetric_mass_ratio'])*dist+pars['symmetric_mass_ratio']
+    if max_e_eta > 0.25:
+        new_eta = (0.25-pars['symmetric_mass_ratio'])/dist + pars['symmetric_mass_ratio']
+        print(f'Adjusting fiducial eta from {fid_dict["symmetric_mass_ratio"]} to {new_eta} to prevent '
+        + 'unphysical degeneracy line')
+        fid_dict['symmetric_mass_ratio'] = new_eta
 
     return fid_dict
 

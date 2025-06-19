@@ -123,7 +123,7 @@ def find_fid_point(pars, mismatch, snr, approximant, f_low, psd):
 
     # Calculate metric and find fiducial point
     metric = find_metric_and_eigendirections(pars, par_dirs, snr=snr, f_low=f_low, psd=psd['harm'],
-                                             approximant=approximant, max_iter=2, multiprocessing=True)
+                                             approximant=approximant, max_iter=0, multiprocessing=True)
     fid_dict = const_mm_point(metric, mismatch, 'ecc10sqrd', pars)
 
     # Add in base values of parameters not included

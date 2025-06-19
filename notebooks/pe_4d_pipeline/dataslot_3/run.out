@@ -3,20 +3,35 @@ __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
 Analysing data with SNR of 20.
 {'ecc10sqrd': 0.09, 'chirp_mass': 16, 'symmetric_mass_ratio': 0.1875, 'chi_eff': -0.1}
-Peak SNR of 18.835883327122097 found in 8.41238808631897 seconds.
+Peak SNR of 18.835883327122097 found in 12.590964078903198 seconds.
 {'chirp_mass': 16.71092374060985, 'symmetric_mass_ratio': 0.2142376656926909, 'chi_eff': -0.11363120345842502, 'ecc10sqrd': 0}
-Fiducial point found in 467.28632855415344 seconds.
-{'ecc10sqrd': 0.02894123443487294, 'chirp_mass': 16.486100136416784, 'symmetric_mass_ratio': 0.20618863647723074, 'chi_eff': -0.11757542812539663}
-Eccentric peak SNR of 19.797616061138623 found in 34.027761936187744 seconds.
+Fiducial point found in 205.89470887184143 seconds.
+{'ecc10sqrd': 0.004259750765450127, 'chirp_mass': 16.691931845365165, 'symmetric_mass_ratio': 0.21413482597839736, 'chi_eff': -0.11513227535164103}
+Eccentric peak SNR of 19.712626894134303 found in 39.25415372848511 seconds.
 Peak parameters:
-{'distance': Array([1]), 'ecc10sqrd': Array([0.06692999]), 'chirp_mass': Array([16.19099284]), 'symmetric_mass_ratio': Array([0.19562334]), 'chi_eff': Array([-0.12275268]), 'MA': 2.407839939430792}
+{'distance': Array([1]), 'ecc10sqrd': Array([0.06516982]), 'chirp_mass': Array([16.4203672]), 'symmetric_mass_ratio': Array([0.21266432]), 'chi_eff': Array([-0.13659607]), 'MA': 4.431135388217912}
 Harmonic SNR of
-rho_0: 18.51, phi_0: -1.68
-rho_1: 5.53, phi_1: 0.81
-rho_-1: 2.98, phi_-1: 2.52
-rho_2: 0.85, phi_2: -2.88
-Generated new metric and samples in 943.0712099075317 seconds.
-Enforcing prior reduces samples from 10000000 to 10090.
+rho_0: 18.67, phi_0: 1.67
+rho_1: 5.25, phi_1: -0.13
+rho_-1: 1.60, phi_-1: -2.04
+rho_2: 1.12, phi_2: -1.41
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Generated new metric and samples in 949.3057804107666 seconds.
+Enforcing prior reduces samples from 10000000 to 13141.
 lal.MSUN_SI != Msun
 __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
@@ -161,9 +176,9 @@ __package__= gwsurrogate.new
 lal.MSUN_SI != Msun
 __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new
-Calculated interpolation grid and performed rejection sampling in 247.4225251674652 seconds.
-Mean eccentricity found to be 0.303 with 90% credible interval of 0.230 - 0.347.
-1343 samples remaining after rejection sampling.
+Calculated interpolation grid and performed rejection sampling in 962.6579356193542 seconds.
+Mean eccentricity found to be 0.278 with 90% credible interval of 0.189 - 0.342.
+2429 samples remaining after rejection sampling.
 lal.MSUN_SI != Msun
 __name__ = gwsurrogate.new.spline_evaluation
 __package__= gwsurrogate.new

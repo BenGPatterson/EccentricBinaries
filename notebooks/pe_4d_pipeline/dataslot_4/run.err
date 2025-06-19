@@ -1,56 +1,5 @@
-/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version '2.8.4' or newer of 'numexpr' (version '2.7.3' currently installed).
-  from pandas.core.computation.check import NUMEXPR_INSTALLED
 /home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
   return self._data.__rtruediv__(other)
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
-  e_term_1 = e_interps**(-18/19)
-/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pandas/core/computation/expressions.py:21: UserWarning: Pandas requires version '2.8.4' or newer of 'numexpr' (version '2.7.3' currently installed).
-  from pandas.core.computation.check import NUMEXPR_INSTALLED
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
-  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
-/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:460: RuntimeWarning: invalid value encountered in multiply
-  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
-  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
-/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:460: RuntimeWarning: invalid value encountered in multiply
-  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
-  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
-/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:460: RuntimeWarning: invalid value encountered in multiply
-  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
-  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
-/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:460: RuntimeWarning: invalid value encountered in multiply
-  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
-  e_term_1 = e_interps**(-18/19)
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
-  e_term_1 = e_interps**(-18/19)
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
-  e_term_1 = e_interps**(-18/19)
-/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/eccentric.py:198: RuntimeWarning: divide by zero encountered in power
-  e_term_1 = e_interps**(-18/19)
-GSL function failed: function value is not finite (errnum=9)
-XLAL Error - <GSL function> (bisection.c:55): Generic failure
-GSL function failed: invalid hstart (errnum=4)
-XLAL Error - <GSL function> (driver.c:92): Generic failure
-GSL function failed: failed to allocate driver object (errnum=8)
-XLAL Error - <GSL function> (driver.c:167): Generic failure
-GSL function failed: function value is not finite (errnum=9)
-XLAL Error - <GSL function> (bisection.c:55): Generic failure
-GSL function failed: invalid hstart (errnum=4)
-XLAL Error - <GSL function> (driver.c:92): Generic failure
-GSL function failed: failed to allocate driver object (errnum=8)
-XLAL Error - <GSL function> (driver.c:167): Generic failure
-GSL function failed: function value is not finite (errnum=9)
-XLAL Error - <GSL function> (bisection.c:55): Generic failure
-GSL function failed: invalid hstart (errnum=4)
-XLAL Error - <GSL function> (driver.c:92): Generic failure
-GSL function failed: failed to allocate driver object (errnum=8)
-XLAL Error - <GSL function> (driver.c:167): Generic failure
-GSL function failed: function value is not finite (errnum=9)
-XLAL Error - <GSL function> (bisection.c:55): Generic failure
-GSL function failed: invalid hstart (errnum=4)
-XLAL Error - <GSL function> (driver.c:92): Generic failure
-GSL function failed: failed to allocate driver object (errnum=8)
-XLAL Error - <GSL function> (driver.c:167): Generic failure
+Calculating the metric | iteration 0 < 0| error 0.0093 > 0.0005Failed to achieve requested tolerance.  Requested: 0.0005achieved 0.0093: Failed to achieve requested tolerance.  Requested: 0.0005achieved 0.0093: 
+Calculating the metric | iteration 0 < 2| error 0.0094 > 0.0001Calculating the metric | iteration 1 < 2| error 0.0028 > 0.0001: Calculating the metric | iteration 1 < 2| error 0.0028 > 0.0001: Calculating the metric | iteration 2 < 2| error 0.0037 > 0.0001: Calculating the metric | iteration 2 < 2| error 0.0037 > 0.0001: Failed to achieve requested tolerance.  Requested: 0.0001achieved 0.0037: Failed to achieve requested tolerance.  Requested: 0.0001achieved 0.0037: 
+  0%|          | 0/625 [00:00<?, ?it/s]  0%|          | 1/625 [00:09<1:38:03,  9.43s/it]  0%|          | 3/625 [00:11<33:53,  3.27s/it]    1%|          | 4/625 [00:13<28:16,  2.73s/it]  2%|▏         | 10/625 [00:14<08:40,  1.18it/s]  4%|▎         | 22/625 [00:14<02:48,  3.58it/s]  4%|▍         | 27/625 [00:16<03:01,  3.29it/s]  6%|▌         | 36/625 [00:17<01:53,  5.18it/s]  6%|▌         | 39/625 [00:18<02:28,  3.96it/s]  8%|▊         | 49/625 [00:19<01:43,  5.56it/s]  8%|▊         | 51/625 [00:28<06:09,  1.55it/s]  9%|▊         | 54/625 [00:30<06:05,  1.56it/s] 10%|█         | 64/625 [00:31<03:38,  2.56it/s] 11%|█         | 69/625 [00:32<03:30,  2.64it/s] 13%|█▎        | 80/625 [00:33<02:05,  4.35it/s] 14%|█▎        | 85/625 [00:34<01:59,  4.54it/s] 14%|█▍        | 90/625 [00:35<01:58,  4.53it/s] 15%|█▌        | 94/625 [00:35<01:43,  5.11it/s] 16%|█▌        | 98/625 [00:38<02:37,  3.35it/s] 16%|█▌        | 101/625 [00:42<04:41,  1.86it/s] 17%|█▋        | 108/625 [00:44<03:40,  2.34it/s] 18%|█▊        | 110/625 [00:46<04:12,  2.04it/s] 18%|█▊        | 115/625 [00:49<04:44,  1.79it/s] 20%|█▉        | 123/625 [00:51<03:20,  2.50it/s] 20%|█▉        | 124/625 [00:52<03:38,  2.29it/s] 23%|██▎       | 142/625 [00:52<01:19,  6.11it/s] 23%|██▎       | 146/625 [00:54<01:35,  4.99it/s] 24%|██▍       | 153/625 [00:57<02:08,  3.66it/s] 25%|██▍       | 155/625 [00:57<02:04,  3.76it/s] 25%|██▌       | 158/625 [00:58<01:57,  3.98it/s] 25%|██▌       | 159/625 [00:59<02:53,  2.69it/s] 26%|██▌       | 163/625 [01:00<02:22,  3.24it/s] 26%|██▌       | 164/625 [01:03<04:19,  1.78it/s] 27%|██▋       | 170/625 [01:05<03:13,  2.35it/s] 29%|██▉       | 184/625 [01:06<01:34,  4.65it/s] 30%|██▉       | 186/625 [01:06<01:35,  4.62it/s] 30%|███       | 189/625 [01:09<02:23,  3.04it/s] 32%|███▏      | 197/625 [01:10<01:44,  4.09it/s] 32%|███▏      | 198/625 [01:10<01:42,  4.18it/s] 32%|███▏      | 200/625 [01:12<02:37,  2.70it/s] 32%|███▏      | 201/625 [01:12<02:26,  2.90it/s] 33%|███▎      | 204/625 [01:13<02:08,  3.27it/s] 33%|███▎      | 207/625 [01:14<02:07,  3.29it/s] 34%|███▎      | 210/625 [01:16<03:21,  2.06it/s] 36%|███▌      | 224/625 [01:21<02:28,  2.69it/s] 38%|███▊      | 235/625 [01:21<01:28,  4.41it/s] 38%|███▊      | 237/625 [01:21<01:27,  4.41it/s] 38%|███▊      | 240/625 [01:23<01:48,  3.54it/s] 39%|███▉      | 245/625 [01:27<02:44,  2.30it/s] 40%|███▉      | 247/625 [01:28<02:58,  2.11it/s] 41%|████▏     | 258/625 [01:29<01:35,  3.86it/s] 42%|████▏     | 263/625 [01:30<01:17,  4.70it/s] 43%|████▎     | 268/625 [01:32<01:36,  3.71it/s] 43%|████▎     | 271/625 [01:33<01:36,  3.68it/s] 44%|████▎     | 272/625 [01:33<01:40,  3.50it/s] 45%|████▍     | 280/625 [01:34<01:14,  4.64it/s] 45%|████▍     | 281/625 [01:34<01:12,  4.77it/s] 45%|████▌     | 282/625 [01:36<02:17,  2.50it/s] 45%|████▌     | 284/625 [01:38<03:00,  1.89it/s] 46%|████▌     | 288/625 [01:39<02:25,  2.32it/s] 48%|████▊     | 300/625 [01:42<01:28,  3.68it/s] 48%|████▊     | 302/625 [01:44<01:57,  2.74it/s] 50%|█████     | 315/625 [01:46<01:25,  3.63it/s] 51%|█████     | 316/625 [01:48<01:44,  2.96it/s] 51%|█████     | 319/625 [01:49<02:00,  2.54it/s] 52%|█████▏    | 325/625 [01:50<01:35,  3.15it/s] 54%|█████▍    | 337/625 [01:51<00:48,  5.97it/s] 55%|█████▍    | 341/625 [01:52<01:00,  4.66it/s] 55%|█████▍    | 343/625 [01:54<01:20,  3.50it/s] 55%|█████▌    | 345/625 [01:55<01:35,  2.93it/s] 56%|█████▌    | 348/625 [01:57<01:43,  2.67it/s] 56%|█████▌    | 351/625 [01:57<01:21,  3.36it/s] 56%|█████▋    | 353/625 [01:58<01:30,  3.01it/s] 58%|█████▊    | 360/625 [02:00<01:27,  3.03it/s] 59%|█████▉    | 370/625 [02:04<01:32,  2.75it/s] 59%|█████▉    | 371/625 [02:05<01:33,  2.72it/s] 60%|██████    | 375/625 [02:06<01:24,  2.95it/s] 62%|██████▏   | 386/625 [02:06<00:48,  4.93it/s] 62%|██████▏   | 388/625 [02:07<00:52,  4.53it/s] 63%|██████▎   | 392/625 [02:08<00:43,  5.33it/s] 63%|██████▎   | 395/625 [02:09<00:53,  4.31it/s] 64%|██████▍   | 400/625 [02:11<01:12,  3.11it/s] 65%|██████▍   | 404/625 [02:12<01:05,  3.40it/s] 65%|██████▍   | 406/625 [02:13<01:02,  3.51it/s] 66%|██████▌   | 412/625 [02:13<00:37,  5.70it/s] 66%|██████▌   | 414/625 [02:15<01:18,  2.69it/s] 67%|██████▋   | 416/625 [02:17<01:30,  2.31it/s] 67%|██████▋   | 419/625 [02:18<01:31,  2.25it/s] 68%|██████▊   | 426/625 [02:20<01:04,  3.10it/s] 68%|██████▊   | 427/625 [02:21<01:25,  2.33it/s] 70%|██████▉   | 436/625 [02:22<00:52,  3.60it/s] 70%|███████   | 438/625 [02:23<00:51,  3.67it/s] 71%|███████   | 441/625 [02:24<00:51,  3.61it/s] 72%|███████▏  | 450/625 [02:29<01:12,  2.42it/s] 76%|███████▌  | 473/625 [02:32<00:35,  4.33it/s] 76%|███████▋  | 477/625 [02:35<00:45,  3.24it/s] 77%|███████▋  | 482/625 [02:35<00:36,  3.88it/s] 77%|███████▋  | 483/625 [02:37<00:45,  3.14it/s] 78%|███████▊  | 486/625 [02:38<00:43,  3.17it/s] 79%|███████▉  | 495/625 [02:39<00:29,  4.35it/s] 80%|███████▉  | 499/625 [02:42<00:44,  2.83it/s] 82%|████████▏ | 512/625 [02:43<00:24,  4.65it/s] 83%|████████▎ | 518/625 [02:44<00:23,  4.56it/s] 84%|████████▍ | 525/625 [02:46<00:24,  4.06it/s] 84%|████████▍ | 526/625 [02:47<00:25,  3.91it/s] 84%|████████▍ | 527/625 [02:47<00:24,  3.99it/s] 85%|████████▍ | 529/625 [02:49<00:34,  2.76it/s] 86%|████████▌ | 536/625 [02:51<00:30,  2.97it/s] 87%|████████▋ | 543/625 [02:53<00:25,  3.18it/s] 88%|████████▊ | 550/625 [02:53<00:15,  4.85it/s] 88%|████████▊ | 552/625 [02:55<00:20,  3.49it/s] 89%|████████▊ | 554/625 [02:55<00:21,  3.33it/s] 89%|████████▉ | 556/625 [02:57<00:28,  2.40it/s] 90%|█████████ | 563/625 [02:57<00:14,  4.33it/s] 90%|█████████ | 565/625 [02:58<00:12,  4.86it/s] 91%|█████████ | 567/625 [03:00<00:22,  2.59it/s] 91%|█████████ | 569/625 [03:01<00:22,  2.53it/s] 92%|█████████▏| 576/625 [03:01<00:10,  4.69it/s] 92%|█████████▏| 578/625 [03:03<00:14,  3.22it/s] 94%|█████████▎| 585/625 [03:04<00:11,  3.52it/s] 95%|█████████▍| 591/625 [03:05<00:08,  4.05it/s] 95%|█████████▌| 596/625 [03:06<00:06,  4.71it/s] 97%|█████████▋| 608/625 [03:07<00:02,  6.49it/s] 98%|█████████▊| 610/625 [03:08<00:02,  6.33it/s] 98%|█████████▊| 613/625 [03:08<00:01,  6.25it/s]100%|██████████| 625/625 [03:08<00:00,  3.31it/s]
