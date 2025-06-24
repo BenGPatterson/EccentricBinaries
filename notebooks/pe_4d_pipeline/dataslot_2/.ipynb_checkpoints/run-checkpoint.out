@@ -1,0 +1,175 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Analysing data with SNR of 20.
+{'ecc10sqrd': 0.04000000000000001, 'chirp_mass': 24, 'symmetric_mass_ratio': 0.2222222222222222, 'chi_eff': 0}
+Peak SNR of 19.57096228921468 found in 4.543444871902466 seconds.
+{'chirp_mass': 24.544884822297536, 'symmetric_mass_ratio': 0.22954846805096585, 'chi_eff': 0.03177723181143176, 'ecc10sqrd': 0}
+Fiducial point found in 89.08924436569214 seconds.
+{'ecc10sqrd': 0.006794251468556274, 'chirp_mass': 24.50557168325234, 'symmetric_mass_ratio': 0.2297333334344479, 'chi_eff': 0.02961062582360772}
+Eccentric peak SNR of 19.89098398991835 found in 17.442057609558105 seconds.
+Peak parameters:
+{'distance': Array([1]), 'ecc10sqrd': Array([0.02459289]), 'chirp_mass': Array([24.40258458]), 'symmetric_mass_ratio': Array([0.23021762]), 'chi_eff': Array([0.02393485]), 'MA': 2.2749381100532506}
+Harmonic SNR of
+rho_0: 19.53, phi_0: 3.10
+rho_1: 3.21, phi_1: -0.96
+rho_-1: 1.08, phi_-1: 0.19
+rho_2: 0.28, phi_2: 0.92
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Generated new metric and samples in 299.760715007782 seconds.
+Enforcing prior reduces samples from 10000000 to 27911.
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Calculated interpolation grid and performed rejection sampling in 240.14419507980347 seconds.
+Mean eccentricity found to be 0.203 with 90% credible interval of 0.095 - 0.282.
+8791 samples remaining after rejection sampling.
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
