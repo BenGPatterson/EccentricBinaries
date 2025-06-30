@@ -1,0 +1,60 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+Calculating the metric | iteration 0 < 0| error 0.0093 > 0.0005Failed to achieve requested tolerance.  Requested: 0.0005achieved 0.0093: Failed to achieve requested tolerance.  Requested: 0.0005achieved 0.0093: 
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
+  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
+/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:466: RuntimeWarning: invalid value encountered in multiply
+  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
+  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
+/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:466: RuntimeWarning: invalid value encountered in multiply
+  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
+  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
+/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:466: RuntimeWarning: invalid value encountered in multiply
+  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform.py:356: RuntimeWarning: divide by zero encountered in divide
+  alpha = min(alpha, (maxs[k] - x0[k]) / (x_prime[k] - x0[k]))
+/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py:466: RuntimeWarning: invalid value encountered in multiply
+  h = waveform.make_offset_waveform(x, dx, s * a[s] * scaling,
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py", line 521, in scale_dx
+    scale = opt.root
+UnboundLocalError: local variable 'opt' referenced before assignment
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py", line 523, in scale_dx
+    raise ValueError("Unable to scale the input vectors")
+ValueError: Unable to scale the input vectors
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/scratch/ben.patterson/pe_4d_pipeline/dataslot_8/pe_4d_pipeline.py", line 317, in <module>
+    pipeline(data, init_guess, t_bounds, 8.76*10**-5, 4, 6, f_low, psd, ifos,
+  File "/scratch/ben.patterson/pe_4d_pipeline/dataslot_8/pe_4d_pipeline.py", line 207, in pipeline
+    pe_result = create_pe_result(peak_dict, peak_SNRs, f_low, psd, ifos)
+  File "/scratch/ben.patterson/pe_4d_pipeline/dataslot_8/ecc4dpe.py", line 79, in create_pe_result
+    pe_result.generate_metric(metric_dirs, dominant_snr=np.abs(SNRs[0]), max_iter=2, multiprocessing=True)
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/result.py", line 104, in generate_metric
+    self._metric = metric.find_metric_and_eigendirections(
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py", line 548, in find_metric_and_eigendirections
+    g = Metric(x, dx_directions, 0, f_low, psd, approximant, tolerance,
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py", line 79, in __init__
+    self.scale_dxs()
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py", line 97, in scale_dxs
+    scale = np.array(list(pool.imap(partial_scale_dx, dxs_list)))
+  File "/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/multiprocessing/pool.py", line 873, in next
+    raise value
+  File "/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/metric.py", line 523, in scale_dx
+    raise ValueError("Unable to scale the input vectors")
+ValueError: Unable to scale the input vectors

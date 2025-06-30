@@ -1,0 +1,25 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Analysing data with SNR of 20.
+{'ecc10sqrd': 0, 'chirp_mass': 24, 'symmetric_mass_ratio': 0.2222222222222222, 'chi_eff': 0}
+Peak SNR of 19.96202042883953 found in 16.818352699279785 seconds.
+{'chirp_mass': 23.78969148641437, 'symmetric_mass_ratio': 0.22220150371678188, 'chi_eff': -0.030346110050645265, 'ecc10sqrd': 0}
+Fiducial point found in 119.17335510253906 seconds.
+{'ecc10sqrd': 0.006871192786439015, 'chirp_mass': 23.752516420947742, 'symmetric_mass_ratio': 0.2223283966047623, 'chi_eff': -0.03218466349415838}
+Eccentric peak SNR of 19.94540010504924 found in 11.350491046905518 seconds.
+Peak parameters:
+{'distance': Array([1]), 'ecc10sqrd': Array([0.00034804]), 'chirp_mass': Array([23.78780849]), 'symmetric_mass_ratio': Array([0.22220793]), 'chi_eff': Array([-0.03043924]), 'MA': 5.037736695258687}
+Harmonic SNR of
+rho_0: 19.95, phi_0: -2.71
+rho_1: 0.13, phi_1: 2.96
+rho_-1: 0.36, phi_-1: -1.40
+rho_2: 0.13, phi_2: 1.00
+Generated new metric and samples in 398.940735578537 seconds.
+Enforcing prior reduces samples from 10000000 to 26723.
+Calculated interpolation grid and performed rejection sampling in 46.77620077133179 seconds.
+Mean eccentricity found to be 0.074 with 90% credible interval of 0.022 - 0.138.
+11459 samples remaining after rejection sampling.
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new

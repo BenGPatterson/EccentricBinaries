@@ -27,7 +27,6 @@ def test_ecc_point(e10, data, base_dict, fid_dict, ecc_harms, target_MA, f_low, 
 
     # Create  trial waveform
     params['inverted_mass_ratio'] = 1/q_from_eta(params['symmetric_mass_ratio'])
-    print(e10, params['symmetric_mass_ratio'], params['inverted_mass_ratio'])
     params['total_mass'] = np.sum(component_masses_from_mchirp_q(params['chirp_mass'], params['inverted_mass_ratio']))
     trial_wf = generate_eccentric_waveform_MA(params['total_mass'], params['inverted_mass_ratio'],
                                               params['ecc10sqrd']**0.5, params['chi_eff'], params['chi_eff'],
