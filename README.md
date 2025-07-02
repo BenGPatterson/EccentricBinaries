@@ -1,11 +1,18 @@
 # Notebook descriptions:
+- **4d_pipeline.ipynb**: computing grid of matches along 4d degeneracy line, and using MA information
+- **4d_samples.ipynb**: working through how to handle 4d samples
 - **analytical_phase_consistency.ipynb**: testing analytical equation for enforcing phase consistency of harmonic SNRs
 - **complex_fft_tests.ipynb**: tests with complex fourier transforms
 - **dali_SVD.ipynb**: testing SVD using TEOBResumS-Dali
+- **degen_function.ipynb**: creating degeneracy line function that also handles railing. Also investigates subsequent issue with eccentric SNR at low SNR values
+- **degen_slices.ipynb**: investigates degeneracy in 4d
 - **degeneracy_ecc_chirp.ipynb**: investigating finding line of degeneracy between eccentricity and chirp mass
 - **dof_investigation.ipynb**: investigating degrees of freedom required after applying phase consistency
 - **e_sqrd_chirp_plots.ipynb**: contour plots of match values to a fiducial waveform over a grid of eccentricity squared and chirp mass
+- **ecc_simplepe_example.ipynb**: example showing generating eccentric harmonics in simple pe
 - **eccentric_decomposition.ipynb**: initial attempts to decompose eccentric waveforms into two harmonics
+- **ellipsoid_simple_pe.ipynb**: creating ellipsoids in various parameter dimensions using simple pe metric
+- **emp_apsidal_advance.ipynb**: looking at implementing s_factor to improve accuracy of shifted_f() and shifted_e()
 - **fid_e_scaling.ipynb**: how the fiducial eccentricity should scale with chirp mass (and resulting min max lines plots)
 - **flat_ecc_prior.ipynb**: calculating prior on SNR ratio that corresponds to a flat prior on eccentricity
 - **fluctuating_shifted_freq_tests.ipynb**: diagnosing bug whereby small changes in MA could cause rapidly oscillating match values
@@ -13,32 +20,41 @@
 - **h4_search_SVD.ipynb**: searching for h-2 harmonic (very low frequency) in SVD
 - **harm_power.ipynb**: looking at power in different harmonics at different points in parameter space
 - **harmonic_match_anomaly.ipynb**: looking at anomaly dependence of match to different harmonics (and patterns between them)
+- **harmonic_overlap_hn1_investigation.ipynb**: looking at structure of h-1 overlap plots
 - **harmonic_overlaps.ipynb**: like **e_sqrd_chirp_plots.ipynb** but matching h0 to h0, h1 to h1, etc.
 - **higher_harmonics.ipynb**: initial attempts at enforcing phase consistency and 'undoing' orthogonalisation when finding coefficients
 - **inclination.ipynb**: looking at effect of inclination on eccentric waveforms/our harmonics
 - **initial_phase_harmonics.ipynb**: verifying the initial phase of each harmonic
+- **interpolate_shifted_e.ipynb**: rewriting shifted_e() to use interpolation method
 - **interpolating_grids.ipynb**: attempts to interpolate grid of match values at varying MA/along degeneracy line to arbitrary chirp mass
 - **interpolating_min_max.ipynb**: attempts to interpolate max/min lines of grid in **interpolating_grids.ipynb** to arbitrary chirp mass
 - **mapping_distribution.ipynb**: looking at how to sample between min/max lines when mapping SNR ratio samples to eccentricity
+- **mapping_with_phase.ipynb**: like **mapping_distribution.ipynb** but including phase information
 - **match2ecc.ipynb**: streamlined plots from **match_filter_example.ipynb**
 - **match_filter_example.ipynb**: example of match filtering simulated event in zero noise to recover eccentricity posterior
 - **match_frequency.ipynb**: effect of using different lower frequency bounds in inner product integrals
 - **match_h1_h2.ipynb**: testing consistent match of two harmonics to waveform, and investigating effect of shifting MA
 - **match_pycbc_tests.ipynb**: exploring pycbc matching functions
 - **match_vs_chirp_mass.ipynb**: exploring how match varies as chirp mass varies, and along line of degeneracy with eccentricity
+- **metrics_in_the_corner.ipynb**: investigating behaviour of metrics when in a corner of parameter space
 - **multi_degen.ipynb**: tests of degeneracy line between eccentricity and chirp mass for multiple parameter sets
 - **multi_svd.ipynb**: SVD performed on multiple parameter sets
+- **multiple_detectors.ipynb**: injecting data into multiple detectors
 - **n_component_decomposition.ipynb**: generalising eccentric decomposition to n harmonics
+- **ncx2_SNR_cutoff.ipynb**: looking at cutoff SNR for different numbers of degrees of freedom
+- **optimising_ecc_peak.ipynb**: optimising alond degeneracy line to find eccentric peak
 - **param_estimation.ipynb**: basic attempt to find non-eccentric max likelihood point
 - **peak_params_simple_pe.ipynb** initial attempts to use simple-pe to find max likelihood point
 - **phase_MA_match.ipynb**: contour plots showing how match varies with value of phase and MA
 - **phase_shifted_frequency.ipynb**: investigating how to find MA of eccentric waveform from matches with our harmonics
+- **pn_apsidal_advance.ipynb**: looking at higher pn equations for apsidal advance
 - **principal_component_analysis.ipynb**: singular value decomposition of eccentric waveforms
 - **rejection_sampling.ipynb**: using rejection sampling to reverse ncx2 distribution
-- **seobnrpe.ipynb**: qtransforms of precessing and eccentric waveforms
+- **shifted_f_optimise.ipynb**: investigating shifted_f() behaviour
 - **shifting_h1_h2.ipynb**: testing effect of shifting MA of component waveforms that make up our harmonics
+- **simple-pe_peak_finder.ipynb**: using simple-pe peak finder in non-eccentric space
 - **simple-pe_tests.ipynb**: exploring simple-pe functions
+- **smoothing_harmonics.ipynb**: looking at different approaches to smooth harmonics
 - **stripe_investigation.ipynb**: investigation into origin of 'stripes' in plots like in **e_sqrd_chirp_plots.ipynb**
 - **teobresums_eccentric_tests.ipynb**: exploring eccentric teobresums waveform
 - **teobresums_f_ref.ipynb**: investigating how to convert to teobresums' frequency definition
-
