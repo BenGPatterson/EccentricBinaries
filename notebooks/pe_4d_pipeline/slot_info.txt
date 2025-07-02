@@ -10,3 +10,4 @@ dataslot_7: dataslot_3 but interpolating ecc_SNR along degeneracy line
 dataslot_8: dataslot_4 but interpolating ecc_SNR along degeneracy line
 dataslot_9: dataslot_4 but interpolating ecc_SNR along degeneracy line
 dataslot_10: dataslot_9 with 16384Hz
+dataslot_11: dataslot_9 with bugfix calculating weights for ecc SNR (true vs measured)
