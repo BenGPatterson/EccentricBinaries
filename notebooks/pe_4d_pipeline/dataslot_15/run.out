@@ -1,0 +1,22 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Analysing data with SNR of 20.
+{'ecc10sqrd': 0.0225, 'chirp_mass': 40, 'symmetric_mass_ratio': 0.25, 'chi_eff': 0.3}
+Peak SNR of 19.66484143653744 found in 3.2313971519470215 seconds.
+{'chirp_mass': 42.94274917985271, 'symmetric_mass_ratio': 0.2499, 'chi_eff': 0.4290260909896138, 'ecc10sqrd': 0}
+Calculating metric at eta=0.24 instead of 0.2499
+Adjusting fiducial eta from 0.259521786973389 to 0.2499009607009797 to prevent unphysical degeneracy line
+Fiducial point found in 62.9084894657135 seconds.
+{'ecc10sqrd': 0.009607009796872538, 'chirp_mass': 42.86138679991702, 'symmetric_mass_ratio': 0.2499009607009797, 'chi_eff': 0.42939159231940244}
+Eccentric peak SNR of 19.888394270141244 found in 11.170051336288452 seconds.
+Peak parameters:
+{'distance': Array([1]), 'ecc10sqrd': Array([0.0139952]), 'chirp_mass': Array([42.82422296]), 'symmetric_mass_ratio': Array([0.2499014]), 'chi_eff': Array([0.42955854]), 'MA': 5.928865373526452}
+Harmonic SNR of
+rho_0: 19.70, phi_0: 1.03
+rho_1: 1.88, phi_1: 0.67
+rho_-1: 0.58, phi_-1: -2.94
+rho_2: 0.07, phi_2: 0.21
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new

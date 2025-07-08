@@ -1,0 +1,55 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+Calculating the metric | iteration 0 < 0| error 0.0095 > 0.00049Failed to achieve requested tolerance.  Requested: 0.00049achieved 0.0095: Failed to achieve requested tolerance.  Requested: 0.00049achieved 0.0095: 
+Calculating the metric | iteration 0 < 2| error 0.0096 > 9.8e-05Calculating the metric | iteration 1 < 2| error 0.0017 > 9.8e-05: Calculating the metric | iteration 1 < 2| error 0.0017 > 9.8e-05: Calculating the metric | iteration 2 < 2| error 0.00087 > 9.8e-05: Calculating the metric | iteration 2 < 2| error 0.00087 > 9.8e-05: Failed to achieve requested tolerance.  Requested: 9.8e-05achieved 0.00087: Failed to achieve requested tolerance.  Requested: 9.8e-05achieved 0.00087: 
+  0%|          | 0/25 [00:00<?, ?it/s][32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-08  06:49:32[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+  4%|▍         | 1/25 [00:02<01:08,  2.87s/it]  8%|▊         | 2/25 [00:06<01:11,  3.11s/it] 12%|█▏        | 3/25 [00:06<00:39,  1.79s/it] 20%|██        | 5/25 [00:07<00:20,  1.01s/it] 24%|██▍       | 6/25 [00:07<00:16,  1.17it/s] 28%|██▊       | 7/25 [00:09<00:18,  1.01s/it] 52%|█████▏    | 13/25 [00:10<00:05,  2.31it/s]100%|██████████| 25/25 [00:10<00:00,  2.44it/s]

@@ -8,6 +8,10 @@ dataslot_5: 24 chirp mass, e_10=0.0, 0 spin, 2:1 mass ratio
 dataslot_6: dataslot_2 but interpolating ecc_SNR along degeneracy line
 dataslot_7: dataslot_3 but interpolating ecc_SNR along degeneracy line
 dataslot_8: dataslot_4 but interpolating ecc_SNR along degeneracy line
-dataslot_9: dataslot_4 but interpolating ecc_SNR along degeneracy line
+dataslot_9: dataslot_5 but interpolating ecc_SNR along degeneracy line
 dataslot_10: dataslot_9 with 16384Hz
 dataslot_11: dataslot_9 with bugfix calculating weights for ecc SNR (true vs measured)
+dataslot_12: dataslot_9 with calculating new sets of harmonics in interpolation stage
+dataslot_13: dataslot_6 with latest changes
+dataslot_14: dataslot_7 with latest changes
+dataslot_15: dataslot_8 with latest changes
