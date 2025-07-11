@@ -11,7 +11,10 @@ dataslot_8: dataslot_4 but interpolating ecc_SNR along degeneracy line
 dataslot_9: dataslot_5 but interpolating ecc_SNR along degeneracy line
 dataslot_10: dataslot_9 with 16384Hz
 dataslot_11: dataslot_9 with bugfix calculating weights for ecc SNR (true vs measured)
-dataslot_12: dataslot_9 with calculating new sets of harmonics in interpolation stage
+dataslot_12: dataslot_11 with calculating new sets of harmonics in interpolation stage
 dataslot_13: dataslot_6 with latest changes
 dataslot_14: dataslot_7 with latest changes
 dataslot_15: dataslot_8 with latest changes
+dataslot_16: dataslot_11 with lower ecc peak bound
+dataslot_17: dataslot_6 with lower ecc peak bound
+dataslot_18: dataslot_7 with lower ecc peak bound

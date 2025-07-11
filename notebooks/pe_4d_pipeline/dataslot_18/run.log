@@ -1,0 +1,52 @@
+000 (40091116.000.000) 2025-07-11 04:03:53 Job submitted from host: <10.14.0.121:9618?addrs=10.14.0.121-9618&alias=ldas-pcdev12.ligo.caltech.edu&noUDP&sock=schedd_14898_5e08>
+...
+001 (40091116.000.000) 2025-07-11 04:04:59 Job executing on host: <10.14.4.96:9618?addrs=10.14.4.96-9618&alias=node846.cluster.ldas.cit&noUDP&sock=startd_8950_88b7>
+	SlotName: slot1_6@node846.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_1288695"
+	Cpus = 4
+	Disk = 1049600
+	GPUs = 0
+	Memory = 16384
+...
+006 (40091116.000.000) 2025-07-11 04:05:08 Image size of job updated: 42176
+	42  -  MemoryUsage of job (MB)
+	42176  -  ResidentSetSize of job (KB)
+...
+006 (40091116.000.000) 2025-07-11 04:10:08 Image size of job updated: 847412
+	720  -  MemoryUsage of job (MB)
+	736652  -  ResidentSetSize of job (KB)
+...
+006 (40091116.000.000) 2025-07-11 04:15:09 Image size of job updated: 930624
+	909  -  MemoryUsage of job (MB)
+	930624  -  ResidentSetSize of job (KB)
+...
+006 (40091116.000.000) 2025-07-11 04:20:09 Image size of job updated: 1045912
+	911  -  MemoryUsage of job (MB)
+	932672  -  ResidentSetSize of job (KB)
+...
+006 (40091116.000.000) 2025-07-11 04:25:09 Image size of job updated: 1045912
+	960  -  MemoryUsage of job (MB)
+	982920  -  ResidentSetSize of job (KB)
+...
+006 (40091116.000.000) 2025-07-11 04:44:17 Image size of job updated: 3678804
+	960  -  MemoryUsage of job (MB)
+	982920  -  ResidentSetSize of job (KB)
+...
+005 (40091116.000.000) 2025-07-11 04:44:18 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 01:10:18, Sys 0 00:01:53  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 01:10:18, Sys 0 00:01:53  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 4         4 
+	   Disk (KB)            :    17500  1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :      960    16384     16384 
+	   TimeExecute (s)      :     2358                    
+	   TimeSlotBusy (s)     :     2375                    
+...

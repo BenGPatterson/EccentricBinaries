@@ -1,0 +1,5 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+Calculating the metric | iteration 0 < 0| error 0.0094 > 0.00049Failed to achieve requested tolerance.  Requested: 0.00049achieved 0.0094: Failed to achieve requested tolerance.  Requested: 0.00049achieved 0.0094: 
+Calculating the metric | iteration 0 < 2| error 0.0096 > 9.8e-05Calculating the metric | iteration 1 < 2| error 0.0063 > 9.8e-05: Calculating the metric | iteration 1 < 2| error 0.0063 > 9.8e-05: Calculating the metric | iteration 2 < 2| error 0.0029 > 9.8e-05: Calculating the metric | iteration 2 < 2| error 0.0029 > 9.8e-05: Failed to achieve requested tolerance.  Requested: 9.8e-05achieved 0.0029: Failed to achieve requested tolerance.  Requested: 9.8e-05achieved 0.0029: 
+  0%|          | 0/25 [00:00<?, ?it/s]  4%|▍         | 1/25 [00:01<00:35,  1.49s/it]  8%|▊         | 2/25 [00:02<00:28,  1.23s/it] 32%|███▏      | 8/25 [00:02<00:03,  4.38it/s] 56%|█████▌    | 14/25 [00:03<00:01,  7.14it/s]100%|██████████| 25/25 [00:03<00:00,  8.03it/s]
