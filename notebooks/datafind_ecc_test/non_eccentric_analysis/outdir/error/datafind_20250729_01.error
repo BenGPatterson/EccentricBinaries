@@ -1,0 +1,73 @@
+2025-07-29  08:44:34 simple-pe INFO    : Generating injection in H1 with parameters using pycbc:
+2025-07-29  08:44:34 simple-pe INFO    : approximant = TEOBResumS-Dali
+2025-07-29  08:44:34 simple-pe INFO    : mass_1 = 40.0
+2025-07-29  08:44:34 simple-pe INFO    : mass_2 = 20.0
+2025-07-29  08:44:34 simple-pe INFO    : spin_1x = 0.0
+2025-07-29  08:44:34 simple-pe INFO    : spin_1y = 0.0
+2025-07-29  08:44:34 simple-pe INFO    : spin_1z = 0.2
+2025-07-29  08:44:34 simple-pe INFO    : spin_2x = 0.0
+2025-07-29  08:44:34 simple-pe INFO    : spin_2y = 0.0
+2025-07-29  08:44:34 simple-pe INFO    : spin_2z = 0.1
+2025-07-29  08:44:34 simple-pe INFO    : ecc10 = 0.2
+2025-07-29  08:44:34 simple-pe INFO    : distance = 814.0
+2025-07-29  08:44:34 simple-pe INFO    : inclination = 0.6
+2025-07-29  08:44:34 simple-pe INFO    : time = 1677672000.0
+2025-07-29  08:44:34 simple-pe INFO    : ra = 1.2
+2025-07-29  08:44:34 simple-pe INFO    : dec = 0.3
+2025-07-29  08:44:34 simple-pe INFO    : psi = 0.5
+2025-07-29  08:44:34 simple-pe INFO    : f_lower = 10
+2025-07-29  08:44:34 simple-pe INFO    : delta_t = 0.00024414062
+2025-07-29  08:44:35 simple-pe INFO    : Generating injection in L1 with parameters using pycbc:
+2025-07-29  08:44:35 simple-pe INFO    : approximant = TEOBResumS-Dali
+2025-07-29  08:44:35 simple-pe INFO    : mass_1 = 40.0
+2025-07-29  08:44:35 simple-pe INFO    : mass_2 = 20.0
+2025-07-29  08:44:35 simple-pe INFO    : spin_1x = 0.0
+2025-07-29  08:44:35 simple-pe INFO    : spin_1y = 0.0
+2025-07-29  08:44:35 simple-pe INFO    : spin_1z = 0.2
+2025-07-29  08:44:35 simple-pe INFO    : spin_2x = 0.0
+2025-07-29  08:44:35 simple-pe INFO    : spin_2y = 0.0
+2025-07-29  08:44:35 simple-pe INFO    : spin_2z = 0.1
+2025-07-29  08:44:35 simple-pe INFO    : ecc10 = 0.2
+2025-07-29  08:44:35 simple-pe INFO    : distance = 814.0
+2025-07-29  08:44:35 simple-pe INFO    : inclination = 0.6
+2025-07-29  08:44:35 simple-pe INFO    : time = 1677672000.0
+2025-07-29  08:44:35 simple-pe INFO    : ra = 1.2
+2025-07-29  08:44:35 simple-pe INFO    : dec = 0.3
+2025-07-29  08:44:35 simple-pe INFO    : psi = 0.5
+2025-07-29  08:44:35 simple-pe INFO    : f_lower = 10
+2025-07-29  08:44:35 simple-pe INFO    : delta_t = 0.00024414062
+2025-07-29  08:44:36 simple-pe INFO    : Generating injection in V1 with parameters using pycbc:
+2025-07-29  08:44:36 simple-pe INFO    : approximant = TEOBResumS-Dali
+2025-07-29  08:44:36 simple-pe INFO    : mass_1 = 40.0
+2025-07-29  08:44:36 simple-pe INFO    : mass_2 = 20.0
+2025-07-29  08:44:36 simple-pe INFO    : spin_1x = 0.0
+2025-07-29  08:44:36 simple-pe INFO    : spin_1y = 0.0
+2025-07-29  08:44:36 simple-pe INFO    : spin_1z = 0.2
+2025-07-29  08:44:36 simple-pe INFO    : spin_2x = 0.0
+2025-07-29  08:44:36 simple-pe INFO    : spin_2y = 0.0
+2025-07-29  08:44:36 simple-pe INFO    : spin_2z = 0.1
+2025-07-29  08:44:36 simple-pe INFO    : ecc10 = 0.2
+2025-07-29  08:44:36 simple-pe INFO    : distance = 814.0
+2025-07-29  08:44:36 simple-pe INFO    : inclination = 0.6
+2025-07-29  08:44:36 simple-pe INFO    : time = 1677672000.0
+2025-07-29  08:44:36 simple-pe INFO    : ra = 1.2
+2025-07-29  08:44:36 simple-pe INFO    : dec = 0.3
+2025-07-29  08:44:36 simple-pe INFO    : psi = 0.5
+2025-07-29  08:44:36 simple-pe INFO    : f_lower = 10
+2025-07-29  08:44:36 simple-pe INFO    : delta_t = 0.00024414062
+2025-07-29  08:44:38 simple-pe INFO    : Saving cache file to: outdir/output/strain_cache.json
+2025-07-29  08:44:38 simple-pe INFO    : Computing multipole and precessing SNRs for injection parameters:
+2025-07-29  08:44:39 simple-pe INFO    : Injected network SNR in 22 multipole = 33.26674887504377
+2025-07-29  08:44:40 simple-pe INFO    : Injected network SNR in 33 multipole = 3.5455340850339674
+2025-07-29  08:44:41 simple-pe INFO    : Injected network SNR in 32 multipole = 0.5638382424223657
+2025-07-29  08:44:42 simple-pe INFO    : Injected network SNR in 21 multipole = 0.8811061483403435
+2025-07-29  08:44:43 simple-pe INFO    : Injected network SNR in 44 multipole = 1.288361335158524
+[32m2025-07-29  08:44:43[0m [34mPESummary[0m [1;30mWARNING :[0m [33mUnequal number of samples for each parameter. Restricting all posterior samples to have 1 samples[0m
+[32m2025-07-29  08:44:43[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-29  08:44:43[0m [34mPESummary[0m [1;30mINFO    :[0m in-plane spins are zero for all samples. Treating this as a non-precessing system
+[32m2025-07-29  08:44:43[0m [34mPESummary[0m [1;30mWARNING :[0m [33mThe redshift is being approximated using interpolation. Bear in mind that this does introduce a small error.[0m
+[32m2025-07-29  08:44:43[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find reference_frequency in input file. Using 20Hz as default[0m
+[32m2025-07-29  08:44:43[0m [34mPESummary[0m [1;30mWARNING :[0m [33mStarting to calculate the precessing SNR. This may take some time[0m
+Calculating rho_p |   0% | 0/1 | 00:00/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pesummary/gw/conversions/angles.py:61: RuntimeWarning: invalid value encountered in divide
+  cos_d = np.cos(phi_jl) * np.sin(theta_jn) / np.sin(inc)
+[32m2025-07-29  08:44:44[0m [34mPESummary[0m [1;30mINFO    :[0m Calculating rho_p | 100% | 1/1 | 00:00[32m2025-07-29  08:44:44[0m [34mPESummary[0m [1;30mINFO    :[0m Calculating rho_p | 100% | 1/1 | 00:00

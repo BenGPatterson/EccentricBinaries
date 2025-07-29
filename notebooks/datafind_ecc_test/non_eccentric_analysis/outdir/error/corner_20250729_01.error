@@ -1,0 +1,20 @@
+2025-07-29  09:08:45 cpnest.utils WARNING : Setting verbosity to 0
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mFailed to find 'log_likelihood' in result file. Setting every sample to have log_likelihood 0[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find delta_f in input file and one was not passed from the command line. Using 0.00390625Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_low in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mThe redshift is being approximated using interpolation. Bear in mind that this does introduce a small error.[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find reference_frequency in input file. Using 20Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mUsing the default load because injection_params.json failed the following checks: is_bilby_json_file, is_tgr_pesummary_json_file, is_pesummary_json_file, is_pesummary_json_file_deprecated[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find delta_f in input file and one was not passed from the command line. Using 0.00390625Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_low in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mINFO    :[0m in-plane spins are zero for all samples. Treating this as a non-precessing system
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mThe redshift is being approximated using interpolation. Bear in mind that this does introduce a small error.[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find reference_frequency in input file. Using 20Hz as default[0m
+[32m2025-07-29  09:08:45[0m [34mPESummary[0m [1;30mWARNING :[0m [33mPhase it not given, we will be assuming that a reference phase of 0 to calculate all the spin angles[0m
+[32m2025-07-29  09:08:46[0m [34mPESummary[0m [1;30mINFO    :[0m Averaging the final spin from the following fits: function bbh_final_spin_precessing_projected_UIB2016 at 0x14db9ed470a0, function bbh_final_spin_precessing_projected_Healyetal at 0x14db9ed46ef0, function bbh_final_spin_precessing_HBR2016 at 0x14db9ed47250
+[32m2025-07-29  09:08:46[0m [34mPESummary[0m [1;30mINFO    :[0m Averaging the peak luminosity from the following fits: function bbh_peak_luminosity_non_precessing_UIB2016 at 0x14db9ed472e0, function bbh_peak_luminosity_non_precessing_Healyetal at 0x14db9ed47370
+[32m2025-07-29  09:08:46[0m [34mPESummary[0m [1;30mINFO    :[0m Averaging the final mass from the following fits: function bbh_final_mass_non_precessing_UIB2016 at 0x14db9ed46830, function bbh_final_mass_non_precessing_Healyetal at 0x14db9ed452d0

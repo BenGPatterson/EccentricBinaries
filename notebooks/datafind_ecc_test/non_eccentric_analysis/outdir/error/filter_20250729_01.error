@@ -1,0 +1,6 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utctai" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
