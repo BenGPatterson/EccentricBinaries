@@ -1,0 +1,119 @@
+000 (16440800.000.000) 2025-07-31 07:44:55 Job submitted from host: <10.14.0.74:9618?addrs=10.14.0.74-9618&alias=ldas-pcdev14.ligo.caltech.edu&noUDP&sock=schedd_3149_87d2>
+    DAG Node: datafind_20250731_01_arg_0
+...
+001 (16440800.000.000) 2025-07-31 07:44:55 Job executing on host: <10.14.0.74:9618?addrs=10.14.0.74-9618&alias=ldas-pcdev14.ligo.caltech.edu&noUDP&sock=starter_954503_7638_25598>
+...
+005 (16440800.000.000) 2025-07-31 07:45:39 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:44, Sys 0 00:00:05  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+...
+000 (16440801.000.000) 2025-07-31 07:45:46 Job submitted from host: <10.14.0.74:9618?addrs=10.14.0.74-9618&alias=ldas-pcdev14.ligo.caltech.edu&noUDP&sock=schedd_3149_87d2>
+    DAG Node: filter_20250731_01_arg_0
+...
+001 (16440801.000.000) 2025-07-31 07:49:41 Job executing on host: <10.14.4.83:9618?addrs=10.14.4.83-9618&alias=node833.cluster.ldas.cit&noUDP&sock=startd_951950_1942>
+	SlotName: slot1_18@node833.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_3319859"
+	Cpus = 1
+	Disk = 1049600
+	GPUs = 0
+	Memory = 8192
+...
+005 (16440801.000.000) 2025-07-31 07:55:45 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:53, Sys 0 00:00:02  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:53, Sys 0 00:00:02  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :        1  1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :      208     8192      8192 
+	   TimeExecute (s)      :      364                    
+	   TimeSlotBusy (s)     :      366                    
+...
+000 (16440804.000.000) 2025-07-31 07:55:51 Job submitted from host: <10.14.0.74:9618?addrs=10.14.0.74-9618&alias=ldas-pcdev14.ligo.caltech.edu&noUDP&sock=schedd_3149_87d2>
+    DAG Node: analysis_20250731_01_arg_0
+...
+001 (16440804.000.000) 2025-07-31 07:55:53 Job executing on host: <10.14.4.83:9618?addrs=10.14.4.83-9618&alias=node833.cluster.ldas.cit&noUDP&sock=startd_951950_1942>
+	SlotName: slot1_18@node833.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_3320127"
+	Cpus = 1
+	Disk = 1049600
+	GPUs = 0
+	Memory = 8192
+...
+005 (16440804.000.000) 2025-07-31 08:02:06 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:02:23, Sys 0 00:00:02  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:02:23, Sys 0 00:00:02  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :        1  1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :      235     8192      8192 
+	   TimeExecute (s)      :      373                    
+	   TimeSlotBusy (s)     :      375                    
+...
+000 (16440805.000.000) 2025-07-31 08:02:12 Job submitted from host: <10.14.0.74:9618?addrs=10.14.0.74-9618&alias=ldas-pcdev14.ligo.caltech.edu&noUDP&sock=schedd_3149_87d2>
+    DAG Node: corner_20250731_01_arg_0
+...
+000 (16440806.000.000) 2025-07-31 08:02:12 Job submitted from host: <10.14.0.74:9618?addrs=10.14.0.74-9618&alias=ldas-pcdev14.ligo.caltech.edu&noUDP&sock=schedd_3149_87d2>
+    DAG Node: postprocessing_20250731_01_arg_0
+...
+001 (16440805.000.000) 2025-07-31 08:02:13 Job executing on host: <10.14.0.74:9618?addrs=10.14.0.74-9618&alias=ldas-pcdev14.ligo.caltech.edu&noUDP&sock=starter_954503_7638_25606>
+...
+001 (16440806.000.000) 2025-07-31 08:02:14 Job executing on host: <10.14.4.83:9618?addrs=10.14.4.83-9618&alias=node833.cluster.ldas.cit&noUDP&sock=startd_951950_1942>
+	SlotName: slot1_18@node833.cluster.ldas.cit
+	CondorScratchDir = "/var/lib/condor/execute/dir_3321184"
+	Cpus = 1
+	Disk = 1049600
+	GPUs = 0
+	Memory = 8192
+...
+005 (16440805.000.000) 2025-07-31 08:02:59 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:40, Sys 0 00:00:05  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+...
+005 (16440806.000.000) 2025-07-31 08:14:01 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:04:19, Sys 0 00:00:07  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:04:19, Sys 0 00:00:07  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :                 1         1 
+	   Disk (KB)            :        1  1048576   1049600 
+	   GPUs                 :                           0 
+	   Memory (MB)          :     1363     8192      8192 
+	   TimeExecute (s)      :      706                    
+	   TimeSlotBusy (s)     :      707                    
+...

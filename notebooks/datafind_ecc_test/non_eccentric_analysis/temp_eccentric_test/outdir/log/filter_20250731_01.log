@@ -1,0 +1,6 @@
+000 (16440817.000.000) 2025-07-31 08:36:43 Job submitted from host: <10.14.0.74:9618?addrs=10.14.0.74-9618&alias=ldas-pcdev14.ligo.caltech.edu&noUDP&sock=schedd_3149_87d2>
+    DAG Node: filter_20250731_01_arg_0
+...
+009 (16440817.000.000) 2025-07-31 08:37:47 Job was aborted.
+	via condor_rm (by user ben.patterson)
+...
