@@ -1,0 +1,169 @@
+2025-08-21  10:36:11 cpnest.utils WARNING : Setting verbosity to 0
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+Drawing samples:   0%|          | 0/1000 [00:00<?, ?it/s]
+Calculating the metric | iteration 0 < 10| error 0.0035 > 3.6e-05[A
+Calculating the metric | iteration 1 < 10| error 0.001 > 3.6e-05: [A
+Calculating the metric | iteration 1 < 10| error 0.001 > 3.6e-05: [A
+Calculating the metric | iteration 2 < 10| error 0.00073 > 3.6e-05: [A
+Calculating the metric | iteration 2 < 10| error 0.00073 > 3.6e-05: [A
+Calculating the metric | iteration 3 < 10| error 0.00046 > 3.6e-05: [A
+Calculating the metric | iteration 3 < 10| error 0.00046 > 3.6e-05: [A
+Calculating the metric | iteration 4 < 10| error 0.0002 > 3.6e-05:  [A
+Calculating the metric | iteration 4 < 10| error 0.0002 > 3.6e-05: [A
+Calculating the metric | iteration 5 < 10| error 9.1e-05 > 3.6e-05: [A
+Calculating the metric | iteration 5 < 10| error 9.1e-05 > 3.6e-05: [A
+Calculating the metric | iteration 6 < 10| error 3.7e-05 > 3.6e-05: [A
+Calculating the metric | iteration 6 < 10| error 3.7e-05 > 3.6e-05: [A
+Calculating the metric | iteration 7 < 10| error 1.7e-05 > 3.6e-05: [A
+Calculating the metric | iteration 7 < 10| error 1.7e-05 > 3.6e-05: [ACalculating the metric | iteration 7 < 10| error 1.7e-05 > 3.6e-05: 
+
+calculating sigma on grid:   0%|          | 0/125 [00:00<?, ?it/s][A
+calculating sigma on grid:   4%|▍         | 5/125 [00:00<00:02, 41.63it/s][A
+calculating sigma on grid:   8%|▊         | 10/125 [00:00<00:02, 41.56it/s][A
+calculating sigma on grid:  12%|█▏        | 15/125 [00:00<00:02, 41.13it/s][A
+calculating sigma on grid:  16%|█▌        | 20/125 [00:00<00:02, 40.89it/s][A
+calculating sigma on grid:  20%|██        | 25/125 [00:00<00:02, 40.75it/s][A
+calculating sigma on grid:  24%|██▍       | 30/125 [00:00<00:02, 41.04it/s][A
+calculating sigma on grid:  28%|██▊       | 35/125 [00:00<00:02, 41.09it/s][A
+calculating sigma on grid:  32%|███▏      | 40/125 [00:00<00:02, 41.00it/s][A
+calculating sigma on grid:  36%|███▌      | 45/125 [00:01<00:01, 40.96it/s][A
+calculating sigma on grid:  40%|████      | 50/125 [00:01<00:01, 40.98it/s][A
+calculating sigma on grid:  44%|████▍     | 55/125 [00:01<00:01, 41.16it/s][A
+calculating sigma on grid:  48%|████▊     | 60/125 [00:01<00:01, 41.37it/s][A
+calculating sigma on grid:  52%|█████▏    | 65/125 [00:01<00:01, 41.65it/s][A
+calculating sigma on grid:  56%|█████▌    | 70/125 [00:01<00:01, 41.66it/s][A
+calculating sigma on grid:  60%|██████    | 75/125 [00:01<00:01, 41.63it/s][A
+calculating sigma on grid:  64%|██████▍   | 80/125 [00:01<00:01, 41.90it/s][A
+calculating sigma on grid:  68%|██████▊   | 85/125 [00:02<00:00, 42.03it/s][A
+calculating sigma on grid:  72%|███████▏  | 90/125 [00:02<00:00, 41.93it/s][A
+calculating sigma on grid:  76%|███████▌  | 95/125 [00:02<00:00, 41.92it/s][A
+calculating sigma on grid:  80%|████████  | 100/125 [00:02<00:00, 41.86it/s][A
+calculating sigma on grid:  84%|████████▍ | 105/125 [00:02<00:00, 42.07it/s][A
+calculating sigma on grid:  88%|████████▊ | 110/125 [00:02<00:00, 42.15it/s][A
+calculating sigma on grid:  92%|█████████▏| 115/125 [00:02<00:00, 42.09it/s][A
+calculating sigma on grid:  96%|█████████▌| 120/125 [00:02<00:00, 41.20it/s][A
+calculating sigma on grid: 100%|██████████| 125/125 [00:03<00:00, 40.05it/s][Acalculating sigma on grid: 100%|██████████| 125/125 [00:03<00:00, 41.29it/s]
+
+calculating alpha_lm on grid:   0%|          | 0/125 [00:00<?, ?it/s][A
+calculating alpha_lm on grid:   2%|▏         | 3/125 [00:00<00:05, 21.61it/s][A
+calculating alpha_lm on grid:   5%|▍         | 6/125 [00:00<00:04, 24.44it/s][A
+calculating alpha_lm on grid:   7%|▋         | 9/125 [00:00<00:04, 25.50it/s][A
+calculating alpha_lm on grid:  10%|▉         | 12/125 [00:00<00:04, 26.10it/s][A
+calculating alpha_lm on grid:  12%|█▏        | 15/125 [00:00<00:04, 26.41it/s][A
+calculating alpha_lm on grid:  14%|█▍        | 18/125 [00:00<00:04, 25.88it/s][A
+calculating alpha_lm on grid:  17%|█▋        | 21/125 [00:00<00:04, 25.42it/s][A
+calculating alpha_lm on grid:  19%|█▉        | 24/125 [00:00<00:04, 25.07it/s][A
+calculating alpha_lm on grid:  22%|██▏       | 27/125 [00:01<00:03, 25.13it/s][A
+calculating alpha_lm on grid:  24%|██▍       | 30/125 [00:01<00:03, 25.29it/s][A
+calculating alpha_lm on grid:  26%|██▋       | 33/125 [00:01<00:03, 25.18it/s][A
+calculating alpha_lm on grid:  29%|██▉       | 36/125 [00:01<00:03, 25.12it/s][A
+calculating alpha_lm on grid:  31%|███       | 39/125 [00:01<00:03, 25.08it/s][A
+calculating alpha_lm on grid:  34%|███▎      | 42/125 [00:01<00:03, 24.99it/s][A
+calculating alpha_lm on grid:  36%|███▌      | 45/125 [00:01<00:03, 24.93it/s][A
+calculating alpha_lm on grid:  38%|███▊      | 48/125 [00:01<00:03, 24.81it/s][A
+calculating alpha_lm on grid:  41%|████      | 51/125 [00:02<00:02, 24.78it/s][A
+calculating alpha_lm on grid:  43%|████▎     | 54/125 [00:02<00:02, 25.02it/s][A
+calculating alpha_lm on grid:  46%|████▌     | 57/125 [00:02<00:02, 25.12it/s][A
+calculating alpha_lm on grid:  48%|████▊     | 60/125 [00:02<00:02, 25.18it/s][A
+calculating alpha_lm on grid:  50%|█████     | 63/125 [00:02<00:02, 25.21it/s][A
+calculating alpha_lm on grid:  53%|█████▎    | 66/125 [00:02<00:02, 25.15it/s][A
+calculating alpha_lm on grid:  55%|█████▌    | 69/125 [00:02<00:02, 25.06it/s][A
+calculating alpha_lm on grid:  58%|█████▊    | 72/125 [00:02<00:02, 24.99it/s][A
+calculating alpha_lm on grid:  60%|██████    | 75/125 [00:02<00:02, 24.94it/s][A
+calculating alpha_lm on grid:  62%|██████▏   | 78/125 [00:03<00:01, 25.20it/s][A
+calculating alpha_lm on grid:  65%|██████▍   | 81/125 [00:03<00:01, 25.40it/s][A
+calculating alpha_lm on grid:  67%|██████▋   | 84/125 [00:03<00:01, 25.45it/s][A
+calculating alpha_lm on grid:  70%|██████▉   | 87/125 [00:03<00:01, 25.25it/s][A
+calculating alpha_lm on grid:  72%|███████▏  | 90/125 [00:03<00:01, 24.94it/s][A
+calculating alpha_lm on grid:  74%|███████▍  | 93/125 [00:03<00:01, 24.60it/s][A
+calculating alpha_lm on grid:  77%|███████▋  | 96/125 [00:03<00:01, 24.26it/s][A
+calculating alpha_lm on grid:  79%|███████▉  | 99/125 [00:03<00:01, 23.93it/s][A
+calculating alpha_lm on grid:  82%|████████▏ | 102/125 [00:04<00:00, 24.00it/s][A
+calculating alpha_lm on grid:  84%|████████▍ | 105/125 [00:04<00:00, 24.19it/s][A
+calculating alpha_lm on grid:  86%|████████▋ | 108/125 [00:04<00:00, 24.20it/s][A
+calculating alpha_lm on grid:  89%|████████▉ | 111/125 [00:04<00:00, 24.10it/s][A
+calculating alpha_lm on grid:  91%|█████████ | 114/125 [00:04<00:00, 24.04it/s][A
+calculating alpha_lm on grid:  94%|█████████▎| 117/125 [00:04<00:00, 24.01it/s][A
+calculating alpha_lm on grid:  96%|█████████▌| 120/125 [00:04<00:00, 23.96it/s][A
+calculating alpha_lm on grid:  98%|█████████▊| 123/125 [00:04<00:00, 24.43it/s][Acalculating alpha_lm on grid: 100%|██████████| 125/125 [00:05<00:00, 24.84it/s]
+
+calculating opening angle on grid:   0%|          | 0/125 [00:00<?, ?it/s][A
+calculating opening angle on grid:   2%|▏         | 3/125 [00:00<00:05, 22.35it/s][A
+calculating opening angle on grid:   5%|▍         | 6/125 [00:00<00:05, 19.84it/s][A
+calculating opening angle on grid:   7%|▋         | 9/125 [00:00<00:06, 18.51it/s][A
+calculating opening angle on grid:   9%|▉         | 11/125 [00:00<00:06, 18.05it/s][A
+calculating opening angle on grid:  10%|█         | 13/125 [00:00<00:06, 18.07it/s][A
+calculating opening angle on grid:  12%|█▏        | 15/125 [00:00<00:06, 18.31it/s][A
+calculating opening angle on grid:  14%|█▍        | 18/125 [00:00<00:05, 19.18it/s][A
+calculating opening angle on grid:  17%|█▋        | 21/125 [00:01<00:05, 19.83it/s][A
+calculating opening angle on grid:  18%|█▊        | 23/125 [00:01<00:05, 19.61it/s][A
+calculating opening angle on grid:  21%|██        | 26/125 [00:01<00:04, 20.02it/s][A
+calculating opening angle on grid:  23%|██▎       | 29/125 [00:01<00:04, 20.14it/s][A
+calculating opening angle on grid:  26%|██▌       | 32/125 [00:01<00:04, 19.36it/s][A
+calculating opening angle on grid:  27%|██▋       | 34/125 [00:01<00:04, 18.92it/s][A
+calculating opening angle on grid:  29%|██▉       | 36/125 [00:01<00:04, 18.76it/s][A
+calculating opening angle on grid:  30%|███       | 38/125 [00:01<00:04, 18.62it/s][A
+calculating opening angle on grid:  32%|███▏      | 40/125 [00:02<00:04, 18.54it/s][A
+calculating opening angle on grid:  34%|███▎      | 42/125 [00:02<00:04, 18.25it/s][A
+calculating opening angle on grid:  35%|███▌      | 44/125 [00:02<00:04, 18.18it/s][A
+calculating opening angle on grid:  37%|███▋      | 46/125 [00:02<00:04, 18.39it/s][A
+calculating opening angle on grid:  38%|███▊      | 48/125 [00:02<00:04, 18.48it/s][A
+calculating opening angle on grid:  40%|████      | 50/125 [00:02<00:04, 18.73it/s][A
+calculating opening angle on grid:  42%|████▏     | 52/125 [00:02<00:03, 18.82it/s][A
+calculating opening angle on grid:  43%|████▎     | 54/125 [00:02<00:03, 18.85it/s][A
+calculating opening angle on grid:  45%|████▍     | 56/125 [00:02<00:03, 18.93it/s][A
+calculating opening angle on grid:  46%|████▋     | 58/125 [00:03<00:03, 18.96it/s][A
+calculating opening angle on grid:  48%|████▊     | 60/125 [00:03<00:03, 18.88it/s][A
+calculating opening angle on grid:  50%|████▉     | 62/125 [00:03<00:03, 18.96it/s][A
+calculating opening angle on grid:  51%|█████     | 64/125 [00:03<00:03, 19.06it/s][A
+calculating opening angle on grid:  53%|█████▎    | 66/125 [00:03<00:03, 19.20it/s][A
+calculating opening angle on grid:  55%|█████▌    | 69/125 [00:03<00:02, 19.78it/s][A
+calculating opening angle on grid:  58%|█████▊    | 72/125 [00:03<00:02, 21.24it/s][A
+calculating opening angle on grid:  60%|██████    | 75/125 [00:03<00:02, 21.73it/s][A
+calculating opening angle on grid:  62%|██████▏   | 78/125 [00:04<00:02, 21.94it/s][A
+calculating opening angle on grid:  65%|██████▍   | 81/125 [00:04<00:02, 21.11it/s][A
+calculating opening angle on grid:  67%|██████▋   | 84/125 [00:04<00:01, 21.13it/s][A
+calculating opening angle on grid:  70%|██████▉   | 87/125 [00:04<00:01, 21.31it/s][A
+calculating opening angle on grid:  72%|███████▏  | 90/125 [00:04<00:01, 21.41it/s][A
+calculating opening angle on grid:  74%|███████▍  | 93/125 [00:04<00:01, 21.61it/s][A
+calculating opening angle on grid:  77%|███████▋  | 96/125 [00:04<00:01, 21.86it/s][A
+calculating opening angle on grid:  79%|███████▉  | 99/125 [00:04<00:01, 22.06it/s][A
+calculating opening angle on grid:  82%|████████▏ | 102/125 [00:05<00:01, 22.19it/s][A
+calculating opening angle on grid:  84%|████████▍ | 105/125 [00:05<00:00, 22.28it/s][A
+calculating opening angle on grid:  86%|████████▋ | 108/125 [00:05<00:00, 22.32it/s][A
+calculating opening angle on grid:  89%|████████▉ | 111/125 [00:05<00:00, 22.32it/s][A
+calculating opening angle on grid:  91%|█████████ | 114/125 [00:05<00:00, 22.31it/s][A
+calculating opening angle on grid:  94%|█████████▎| 117/125 [00:05<00:00, 22.28it/s][A
+calculating opening angle on grid:  96%|█████████▌| 120/125 [00:05<00:00, 22.26it/s][A
+calculating opening angle on grid:  98%|█████████▊| 123/125 [00:06<00:00, 22.26it/s][Acalculating opening angle on grid: 100%|██████████| 125/125 [00:06<00:00, 20.31it/s]
+
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][A/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utcut1" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+
+calculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00,  9.75it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00,  9.72it/s]
+Drawing samples:  15%|█▌        | 150.0/1000 [00:52<04:57,  2.86it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 56.49it/s]
+Drawing samples:  22%|██▏       | 216.0/1000 [00:53<02:50,  4.59it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 60.46it/s]
+Drawing samples:  30%|██▉       | 298.0/1000 [00:53<01:32,  7.60it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 60.01it/s]
+Drawing samples:  38%|███▊      | 377.0/1000 [00:53<00:53, 11.61it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 61.39it/s]
+Drawing samples:  46%|████▌     | 461.0/1000 [00:54<00:30, 17.43it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 60.44it/s]
+Drawing samples:  55%|█████▍    | 548.0/1000 [00:54<00:17, 25.49it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 60.70it/s]
+Drawing samples:  64%|██████▎   | 635.0/1000 [00:55<00:10, 35.99it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 60.28it/s]
+Drawing samples:  71%|███████   | 710.0/1000 [00:55<00:06, 47.07it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 61.03it/s]
+Drawing samples:  78%|███████▊  | 780.0/1000 [00:55<00:03, 59.14it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 61.82it/s]
+Drawing samples:  88%|████████▊ | 883.0/1000 [00:56<00:01, 82.71it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 58.77it/s]
+Drawing samples:  97%|█████████▋| 970.0/1000 [00:56<00:00, 102.39it/s]
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/1 [00:00<?, ?it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 1/1 [00:00<00:00, 61.28it/s]
+Drawing samples: 1056.0it [00:56, 122.51it/s]                         Drawing samples: 1056.0it [00:56, 18.54it/s] 

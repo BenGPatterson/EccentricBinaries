@@ -1,7 +1,0 @@
-lal.MSUN_SI != Msun
-__name__ = gwsurrogate.new.spline_evaluation
-__package__= gwsurrogate.new
-neff and nsamples not provided. Drawing 1000 effective samples as default
-generating theta_jn smaples using left/right snrs
-generating theta_jn smaples using left/right snrs
-Total time taken: 103.43s

@@ -1,0 +1,15 @@
+lal.MSUN_SI != Msun
+__name__ = gwsurrogate.new.spline_evaluation
+__package__= gwsurrogate.new
+Found dominant harmonic peak with SNR = 33.4987
+chirp_mass = 24.6908
+symmetric_mass_ratio = 0.2388
+chi_align = 0.1679
+chi_p = 0.0010
+distance = 1.0000
+mass_ratio = 0.6506
+inverted_mass_ratio = 1.5369
+mass_1 = 35.3231
+mass_2 = 22.9828
+total_mass = 58.3059
+a_1 already in samples, not overwriting
