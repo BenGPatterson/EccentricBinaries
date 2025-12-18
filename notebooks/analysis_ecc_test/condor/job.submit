@@ -1,0 +1,14 @@
+executable = analysis_command.sh
+
+log = run.log
+error = run.err
+output = run.out
+
+request_cpus = 4
+request_disk = 1GB
+request_memory = 16GB
+
+accounting_group = ligo.dev.o4.cbc.pe.lalinference
+accounting_group_user = ben.patterson
+
+queue

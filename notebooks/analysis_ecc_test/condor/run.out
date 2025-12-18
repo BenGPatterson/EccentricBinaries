@@ -1,0 +1,10 @@
+lal.MSUN_SI != Msun
+precession_directions specified for a non-precessing waveform
+setting precession directions to None
+neff and nsamples not provided. Drawing 1000 effective samples as default
+generating theta_jn smaples using left/right snrs
+generating theta_jn smaples using left/right snrs
+generating theta_jn smaples using left/right snrs
+generating theta_jn smaples using left/right snrs
+generating theta_jn smaples using left/right snrs
+Total time taken: 474.61s
