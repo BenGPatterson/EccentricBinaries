@@ -1,0 +1,12 @@
+# Rescue DAG file, created after running
+#   the outdir/submit/simple_pe_20251219_01.dag DAG file
+# Created 12/19/2025 17:36:21 UTC
+# Rescue DAG version: 2.0.1 (partial)
+#
+# Total number of Nodes: 5
+# Nodes premarked DONE: 2
+# Nodes that failed: 1
+#   analysis_20251219_01_arg_0,<ENDLIST>
+
+DONE datafind_20251219_01_arg_0
+DONE filter_20251219_01_arg_0

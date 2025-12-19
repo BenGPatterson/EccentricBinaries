@@ -1,0 +1,1 @@
+simple_pe_corner --posterior /home/ben.patterson/projects/EccentricBinaries/notebooks/analysis_ecc_test/condor/posterior_samples.dat --truth /home/ben.patterson/projects/EccentricBinaries/notebooks/datafind_ecc_test/injection_params.json --parameters chi_align chirp_mass symmetric_mass_ratio theta_jn luminosity_distance ecc10

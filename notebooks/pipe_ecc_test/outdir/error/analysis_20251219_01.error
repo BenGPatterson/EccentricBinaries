@@ -1,0 +1,290 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pykerr/qnm.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+2025-12-19  09:33:18 cpnest.utils WARNING : Setting verbosity to 0
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+Drawing samples:   0%|          | 0/1000 [00:00<?, ?it/s]
+Calculating the metric | iteration 0 < 10| error 0.0027 > 2.8e-05[A
+Calculating the metric | iteration 1 < 10| error 5.8e-05 > 2.8e-05: [A
+Calculating the metric | iteration 1 < 10| error 5.8e-05 > 2.8e-05: [A
+Calculating the metric | iteration 2 < 10| error 1.2e-05 > 2.8e-05: [A
+Calculating the metric | iteration 2 < 10| error 1.2e-05 > 2.8e-05: [ACalculating the metric | iteration 2 < 10| error 1.2e-05 > 2.8e-05: 
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utcut1" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utctai" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+WARNING: Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary. [astropy.coordinates.builtin_frames.utils]
+2025-12-19  09:34:32 astropy WARNING : Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary.
+/home/ben.patterson/projects/simple-pe/simple_pe/localization/loc.py:29: RuntimeWarning: invalid value encountered in sqrt
+  sigma = 1 / np.sqrt(ev + epsilon)
+
+calculating sigma on grid:   0%|          | 0/125 [00:00<?, ?it/s][A
+calculating sigma on grid:   1%|          | 1/125 [00:00<00:30,  4.11it/s][A
+calculating sigma on grid:   2%|▏         | 2/125 [00:00<00:30,  4.07it/s][A
+calculating sigma on grid:   2%|▏         | 3/125 [00:00<00:30,  4.04it/s][A
+calculating sigma on grid:   3%|▎         | 4/125 [00:00<00:30,  4.01it/s][A
+calculating sigma on grid:   4%|▍         | 5/125 [00:01<00:30,  3.98it/s][A
+calculating sigma on grid:   5%|▍         | 6/125 [00:01<00:29,  4.01it/s][A
+calculating sigma on grid:   6%|▌         | 7/125 [00:01<00:29,  4.04it/s][A
+calculating sigma on grid:   6%|▋         | 8/125 [00:01<00:28,  4.10it/s][A
+calculating sigma on grid:   7%|▋         | 9/125 [00:02<00:26,  4.36it/s][A
+calculating sigma on grid:   8%|▊         | 10/125 [00:02<00:25,  4.53it/s][A
+calculating sigma on grid:   9%|▉         | 11/125 [00:02<00:24,  4.66it/s][A
+calculating sigma on grid:  10%|▉         | 12/125 [00:02<00:23,  4.85it/s][A
+calculating sigma on grid:  10%|█         | 13/125 [00:02<00:23,  4.82it/s][A
+calculating sigma on grid:  11%|█         | 14/125 [00:03<00:22,  5.02it/s][A
+calculating sigma on grid:  12%|█▏        | 15/125 [00:03<00:21,  5.01it/s][A
+calculating sigma on grid:  13%|█▎        | 16/125 [00:03<00:22,  4.90it/s][A
+calculating sigma on grid:  14%|█▎        | 17/125 [00:03<00:22,  4.90it/s][A
+calculating sigma on grid:  14%|█▍        | 18/125 [00:03<00:21,  4.95it/s][A
+calculating sigma on grid:  15%|█▌        | 19/125 [00:04<00:21,  4.94it/s][A
+calculating sigma on grid:  16%|█▌        | 20/125 [00:04<00:21,  5.00it/s][A
+calculating sigma on grid:  17%|█▋        | 21/125 [00:04<00:20,  5.12it/s][A
+calculating sigma on grid:  18%|█▊        | 22/125 [00:04<00:20,  4.97it/s][A
+calculating sigma on grid:  18%|█▊        | 23/125 [00:04<00:21,  4.78it/s][A
+calculating sigma on grid:  19%|█▉        | 24/125 [00:05<00:21,  4.79it/s][A
+calculating sigma on grid:  20%|██        | 25/125 [00:05<00:21,  4.63it/s][A
+calculating sigma on grid:  21%|██        | 26/125 [00:05<00:20,  4.80it/s][A
+calculating sigma on grid:  22%|██▏       | 27/125 [00:05<00:21,  4.67it/s][A
+calculating sigma on grid:  22%|██▏       | 28/125 [00:06<00:20,  4.71it/s][A
+calculating sigma on grid:  23%|██▎       | 29/125 [00:06<00:20,  4.73it/s][A
+calculating sigma on grid:  24%|██▍       | 30/125 [00:06<00:19,  4.84it/s][A
+calculating sigma on grid:  25%|██▍       | 31/125 [00:06<00:18,  5.08it/s][A
+calculating sigma on grid:  26%|██▌       | 32/125 [00:06<00:17,  5.18it/s][A
+calculating sigma on grid:  26%|██▋       | 33/125 [00:07<00:17,  5.29it/s][A
+calculating sigma on grid:  27%|██▋       | 34/125 [00:07<00:17,  5.33it/s][A
+calculating sigma on grid:  28%|██▊       | 35/125 [00:07<00:16,  5.53it/s][A
+calculating sigma on grid:  29%|██▉       | 36/125 [00:07<00:16,  5.56it/s][A
+calculating sigma on grid:  30%|██▉       | 37/125 [00:07<00:16,  5.24it/s][A
+calculating sigma on grid:  30%|███       | 38/125 [00:07<00:16,  5.34it/s][A
+calculating sigma on grid:  31%|███       | 39/125 [00:08<00:15,  5.48it/s][A
+calculating sigma on grid:  32%|███▏      | 40/125 [00:08<00:15,  5.57it/s][A
+calculating sigma on grid:  33%|███▎      | 41/125 [00:08<00:15,  5.55it/s][A
+calculating sigma on grid:  34%|███▎      | 42/125 [00:08<00:16,  5.17it/s][A
+calculating sigma on grid:  34%|███▍      | 43/125 [00:08<00:15,  5.13it/s][A
+calculating sigma on grid:  35%|███▌      | 44/125 [00:09<00:15,  5.28it/s][A
+calculating sigma on grid:  36%|███▌      | 45/125 [00:09<00:15,  5.08it/s][A
+calculating sigma on grid:  37%|███▋      | 46/125 [00:09<00:15,  5.21it/s][A
+calculating sigma on grid:  38%|███▊      | 47/125 [00:09<00:14,  5.22it/s][A
+calculating sigma on grid:  38%|███▊      | 48/125 [00:09<00:14,  5.30it/s][A
+calculating sigma on grid:  39%|███▉      | 49/125 [00:10<00:15,  5.06it/s][A
+calculating sigma on grid:  40%|████      | 50/125 [00:10<00:14,  5.10it/s][A
+calculating sigma on grid:  41%|████      | 51/125 [00:10<00:15,  4.90it/s][A
+calculating sigma on grid:  42%|████▏     | 52/125 [00:10<00:14,  5.12it/s][A
+calculating sigma on grid:  42%|████▏     | 53/125 [00:10<00:13,  5.24it/s][A
+calculating sigma on grid:  43%|████▎     | 54/125 [00:11<00:13,  5.09it/s][A
+calculating sigma on grid:  44%|████▍     | 55/125 [00:11<00:13,  5.07it/s][A
+calculating sigma on grid:  45%|████▍     | 56/125 [00:11<00:13,  5.14it/s][A
+calculating sigma on grid:  46%|████▌     | 57/125 [00:11<00:12,  5.29it/s][A
+calculating sigma on grid:  46%|████▋     | 58/125 [00:11<00:13,  5.12it/s][A
+calculating sigma on grid:  47%|████▋     | 59/125 [00:11<00:12,  5.32it/s][A
+calculating sigma on grid:  48%|████▊     | 60/125 [00:12<00:12,  5.07it/s][A
+calculating sigma on grid:  49%|████▉     | 61/125 [00:12<00:12,  5.22it/s][A
+calculating sigma on grid:  50%|████▉     | 62/125 [00:12<00:12,  4.98it/s][A
+calculating sigma on grid:  50%|█████     | 63/125 [00:12<00:12,  5.04it/s][A
+calculating sigma on grid:  51%|█████     | 64/125 [00:12<00:11,  5.10it/s][A
+calculating sigma on grid:  52%|█████▏    | 65/125 [00:13<00:11,  5.19it/s][A
+calculating sigma on grid:  53%|█████▎    | 66/125 [00:13<00:11,  5.26it/s][A
+calculating sigma on grid:  54%|█████▎    | 67/125 [00:13<00:10,  5.34it/s][A
+calculating sigma on grid:  54%|█████▍    | 68/125 [00:13<00:10,  5.25it/s][A
+calculating sigma on grid:  55%|█████▌    | 69/125 [00:13<00:10,  5.29it/s][A
+calculating sigma on grid:  56%|█████▌    | 70/125 [00:14<00:10,  5.34it/s][A
+calculating sigma on grid:  57%|█████▋    | 71/125 [00:14<00:10,  5.28it/s][A
+calculating sigma on grid:  58%|█████▊    | 72/125 [00:14<00:10,  5.19it/s][A
+calculating sigma on grid:  58%|█████▊    | 73/125 [00:14<00:09,  5.25it/s][A
+calculating sigma on grid:  59%|█████▉    | 74/125 [00:14<00:09,  5.39it/s][A
+calculating sigma on grid:  60%|██████    | 75/125 [00:15<00:09,  5.09it/s][A
+calculating sigma on grid:  61%|██████    | 76/125 [00:15<00:09,  5.32it/s][A
+calculating sigma on grid:  62%|██████▏   | 77/125 [00:15<00:08,  5.46it/s][A
+calculating sigma on grid:  62%|██████▏   | 78/125 [00:15<00:08,  5.49it/s][A
+calculating sigma on grid:  63%|██████▎   | 79/125 [00:15<00:08,  5.48it/s][A
+calculating sigma on grid:  64%|██████▍   | 80/125 [00:15<00:08,  5.35it/s][A
+calculating sigma on grid:  65%|██████▍   | 81/125 [00:16<00:08,  5.40it/s][A
+calculating sigma on grid:  66%|██████▌   | 82/125 [00:16<00:07,  5.51it/s][A
+calculating sigma on grid:  66%|██████▋   | 83/125 [00:16<00:08,  5.08it/s][A
+calculating sigma on grid:  67%|██████▋   | 84/125 [00:16<00:08,  4.77it/s][A
+calculating sigma on grid:  68%|██████▊   | 85/125 [00:16<00:08,  4.88it/s][A
+calculating sigma on grid:  69%|██████▉   | 86/125 [00:17<00:07,  5.03it/s][A
+calculating sigma on grid:  70%|██████▉   | 87/125 [00:17<00:07,  5.21it/s][A
+calculating sigma on grid:  70%|███████   | 88/125 [00:17<00:06,  5.41it/s][A
+calculating sigma on grid:  71%|███████   | 89/125 [00:17<00:06,  5.29it/s][A
+calculating sigma on grid:  72%|███████▏  | 90/125 [00:17<00:06,  5.30it/s][A
+calculating sigma on grid:  73%|███████▎  | 91/125 [00:18<00:06,  5.25it/s][A
+calculating sigma on grid:  74%|███████▎  | 92/125 [00:18<00:06,  5.37it/s][A
+calculating sigma on grid:  74%|███████▍  | 93/125 [00:18<00:05,  5.47it/s][A
+calculating sigma on grid:  75%|███████▌  | 94/125 [00:18<00:05,  5.45it/s][A
+calculating sigma on grid:  76%|███████▌  | 95/125 [00:18<00:05,  5.37it/s][A
+calculating sigma on grid:  77%|███████▋  | 96/125 [00:18<00:05,  5.40it/s][A
+calculating sigma on grid:  78%|███████▊  | 97/125 [00:19<00:05,  5.39it/s][A
+calculating sigma on grid:  78%|███████▊  | 98/125 [00:19<00:05,  5.22it/s][A
+calculating sigma on grid:  79%|███████▉  | 99/125 [00:19<00:05,  5.11it/s][A
+calculating sigma on grid:  80%|████████  | 100/125 [00:19<00:05,  4.98it/s][A
+calculating sigma on grid:  81%|████████  | 101/125 [00:19<00:04,  5.19it/s][A
+calculating sigma on grid:  82%|████████▏ | 102/125 [00:20<00:04,  5.37it/s][A
+calculating sigma on grid:  82%|████████▏ | 103/125 [00:20<00:03,  5.56it/s][A
+calculating sigma on grid:  83%|████████▎ | 104/125 [00:20<00:03,  5.52it/s][A
+calculating sigma on grid:  84%|████████▍ | 105/125 [00:20<00:03,  5.39it/s][A
+calculating sigma on grid:  85%|████████▍ | 106/125 [00:20<00:03,  5.48it/s][A
+calculating sigma on grid:  86%|████████▌ | 107/125 [00:21<00:03,  5.59it/s][A
+calculating sigma on grid:  86%|████████▋ | 108/125 [00:21<00:03,  5.46it/s][A
+calculating sigma on grid:  87%|████████▋ | 109/125 [00:21<00:02,  5.49it/s][A
+calculating sigma on grid:  88%|████████▊ | 110/125 [00:21<00:02,  5.68it/s][A
+calculating sigma on grid:  89%|████████▉ | 111/125 [00:21<00:02,  5.77it/s][A
+calculating sigma on grid:  90%|████████▉ | 112/125 [00:21<00:02,  5.58it/s][A
+calculating sigma on grid:  90%|█████████ | 113/125 [00:22<00:02,  5.57it/s][A
+calculating sigma on grid:  91%|█████████ | 114/125 [00:22<00:01,  5.54it/s][A
+calculating sigma on grid:  92%|█████████▏| 115/125 [00:22<00:01,  5.52it/s][A
+calculating sigma on grid:  93%|█████████▎| 116/125 [00:22<00:01,  5.64it/s][A
+calculating sigma on grid:  94%|█████████▎| 117/125 [00:22<00:01,  5.73it/s][A
+calculating sigma on grid:  94%|█████████▍| 118/125 [00:23<00:01,  5.55it/s][A
+calculating sigma on grid:  95%|█████████▌| 119/125 [00:23<00:01,  5.50it/s][A
+calculating sigma on grid:  96%|█████████▌| 120/125 [00:23<00:00,  5.28it/s][A
+calculating sigma on grid:  97%|█████████▋| 121/125 [00:23<00:00,  5.41it/s][A
+calculating sigma on grid:  98%|█████████▊| 122/125 [00:23<00:00,  5.52it/s][A
+calculating sigma on grid:  98%|█████████▊| 123/125 [00:23<00:00,  5.22it/s][A
+calculating sigma on grid:  99%|█████████▉| 124/125 [00:24<00:00,  5.39it/s][A
+calculating sigma on grid: 100%|██████████| 125/125 [00:24<00:00,  5.22it/s][Acalculating sigma on grid: 100%|██████████| 125/125 [00:24<00:00,  5.13it/s]
+
+calculating alpha_lm on grid:   0%|          | 0/125 [00:00<?, ?it/s][A
+calculating alpha_lm on grid:   1%|          | 1/125 [00:00<01:21,  1.52it/s][A
+calculating alpha_lm on grid:   2%|▏         | 2/125 [00:01<01:18,  1.58it/s][A
+calculating alpha_lm on grid:   2%|▏         | 3/125 [00:01<01:16,  1.60it/s][A
+calculating alpha_lm on grid:   3%|▎         | 4/125 [00:02<01:16,  1.59it/s][A
+calculating alpha_lm on grid:   4%|▍         | 5/125 [00:03<01:16,  1.56it/s][A
+calculating alpha_lm on grid:   5%|▍         | 6/125 [00:03<01:12,  1.63it/s][A
+calculating alpha_lm on grid:   6%|▌         | 7/125 [00:04<01:12,  1.62it/s][A
+calculating alpha_lm on grid:   6%|▋         | 8/125 [00:04<01:12,  1.62it/s][A
+calculating alpha_lm on grid:   7%|▋         | 9/125 [00:05<01:12,  1.60it/s][A
+calculating alpha_lm on grid:   8%|▊         | 10/125 [00:06<01:14,  1.54it/s][A
+calculating alpha_lm on grid:   9%|▉         | 11/125 [00:06<01:14,  1.53it/s][A
+calculating alpha_lm on grid:  10%|▉         | 12/125 [00:07<01:12,  1.56it/s][A
+calculating alpha_lm on grid:  10%|█         | 13/125 [00:08<01:10,  1.59it/s][A
+calculating alpha_lm on grid:  11%|█         | 14/125 [00:08<01:09,  1.59it/s][A
+calculating alpha_lm on grid:  12%|█▏        | 15/125 [00:09<01:10,  1.55it/s][A
+calculating alpha_lm on grid:  13%|█▎        | 16/125 [00:10<01:09,  1.57it/s][A
+calculating alpha_lm on grid:  14%|█▎        | 17/125 [00:10<01:08,  1.57it/s][A
+calculating alpha_lm on grid:  14%|█▍        | 18/125 [00:11<01:09,  1.55it/s][A
+calculating alpha_lm on grid:  15%|█▌        | 19/125 [00:12<01:07,  1.57it/s][A
+calculating alpha_lm on grid:  16%|█▌        | 20/125 [00:12<01:10,  1.49it/s][A
+calculating alpha_lm on grid:  17%|█▋        | 21/125 [00:13<01:08,  1.52it/s][A
+calculating alpha_lm on grid:  18%|█▊        | 22/125 [00:14<01:06,  1.56it/s][A
+calculating alpha_lm on grid:  18%|█▊        | 23/125 [00:14<01:05,  1.56it/s][A
+calculating alpha_lm on grid:  19%|█▉        | 24/125 [00:15<01:05,  1.53it/s][A
+calculating alpha_lm on grid:  20%|██        | 25/125 [00:16<01:06,  1.51it/s][A
+calculating alpha_lm on grid:  21%|██        | 26/125 [00:16<01:01,  1.60it/s][A
+calculating alpha_lm on grid:  22%|██▏       | 27/125 [00:17<01:00,  1.62it/s][A
+calculating alpha_lm on grid:  22%|██▏       | 28/125 [00:17<00:58,  1.65it/s][A
+calculating alpha_lm on grid:  23%|██▎       | 29/125 [00:18<00:57,  1.67it/s][A
+calculating alpha_lm on grid:  24%|██▍       | 30/125 [00:18<00:57,  1.64it/s][A
+calculating alpha_lm on grid:  25%|██▍       | 31/125 [00:19<00:56,  1.65it/s][A
+calculating alpha_lm on grid:  26%|██▌       | 32/125 [00:20<00:55,  1.66it/s][A
+calculating alpha_lm on grid:  26%|██▋       | 33/125 [00:20<00:55,  1.67it/s][A
+calculating alpha_lm on grid:  27%|██▋       | 34/125 [00:21<00:53,  1.69it/s][A
+calculating alpha_lm on grid:  28%|██▊       | 35/125 [00:21<00:54,  1.66it/s][A
+calculating alpha_lm on grid:  29%|██▉       | 36/125 [00:22<00:52,  1.69it/s][A
+calculating alpha_lm on grid:  30%|██▉       | 37/125 [00:23<00:52,  1.67it/s][A
+calculating alpha_lm on grid:  30%|███       | 38/125 [00:23<00:52,  1.66it/s][A
+calculating alpha_lm on grid:  31%|███       | 39/125 [00:24<00:51,  1.68it/s][A
+calculating alpha_lm on grid:  32%|███▏      | 40/125 [00:24<00:50,  1.67it/s][A
+calculating alpha_lm on grid:  33%|███▎      | 41/125 [00:25<00:49,  1.70it/s][A
+calculating alpha_lm on grid:  34%|███▎      | 42/125 [00:26<00:49,  1.69it/s][A
+calculating alpha_lm on grid:  34%|███▍      | 43/125 [00:26<00:49,  1.67it/s][A
+calculating alpha_lm on grid:  35%|███▌      | 44/125 [00:27<00:48,  1.67it/s][A
+calculating alpha_lm on grid:  36%|███▌      | 45/125 [00:27<00:48,  1.67it/s][A
+calculating alpha_lm on grid:  37%|███▋      | 46/125 [00:28<00:48,  1.63it/s][A
+calculating alpha_lm on grid:  38%|███▊      | 47/125 [00:29<00:48,  1.60it/s][A
+calculating alpha_lm on grid:  38%|███▊      | 48/125 [00:29<00:48,  1.58it/s][A
+calculating alpha_lm on grid:  39%|███▉      | 49/125 [00:30<00:47,  1.60it/s][A
+calculating alpha_lm on grid:  40%|████      | 50/125 [00:31<00:47,  1.59it/s][A
+calculating alpha_lm on grid:  41%|████      | 51/125 [00:31<00:45,  1.63it/s][A
+calculating alpha_lm on grid:  42%|████▏     | 52/125 [00:32<00:43,  1.67it/s][A
+calculating alpha_lm on grid:  42%|████▏     | 53/125 [00:32<00:42,  1.69it/s][A
+calculating alpha_lm on grid:  43%|████▎     | 54/125 [00:33<00:42,  1.67it/s][A
+calculating alpha_lm on grid:  44%|████▍     | 55/125 [00:33<00:40,  1.73it/s][A
+calculating alpha_lm on grid:  45%|████▍     | 56/125 [00:34<00:39,  1.77it/s][A
+calculating alpha_lm on grid:  46%|████▌     | 57/125 [00:35<00:39,  1.70it/s][A
+calculating alpha_lm on grid:  46%|████▋     | 58/125 [00:35<00:39,  1.72it/s][A
+calculating alpha_lm on grid:  47%|████▋     | 59/125 [00:36<00:38,  1.72it/s][A
+calculating alpha_lm on grid:  48%|████▊     | 60/125 [00:36<00:37,  1.74it/s][A
+calculating alpha_lm on grid:  49%|████▉     | 61/125 [00:37<00:36,  1.73it/s][A
+calculating alpha_lm on grid:  50%|████▉     | 62/125 [00:38<00:36,  1.74it/s][A
+calculating alpha_lm on grid:  50%|█████     | 63/125 [00:38<00:36,  1.69it/s][A
+calculating alpha_lm on grid:  51%|█████     | 64/125 [00:39<00:36,  1.68it/s][A
+calculating alpha_lm on grid:  52%|█████▏    | 65/125 [00:39<00:35,  1.68it/s][A
+calculating alpha_lm on grid:  53%|█████▎    | 66/125 [00:40<00:34,  1.70it/s][A
+calculating alpha_lm on grid:  54%|█████▎    | 67/125 [00:40<00:33,  1.72it/s][A
+calculating alpha_lm on grid:  54%|█████▍    | 68/125 [00:41<00:34,  1.66it/s][A
+calculating alpha_lm on grid:  55%|█████▌    | 69/125 [00:42<00:33,  1.69it/s][A
+calculating alpha_lm on grid:  56%|█████▌    | 70/125 [00:42<00:33,  1.65it/s][A
+calculating alpha_lm on grid:  57%|█████▋    | 71/125 [00:43<00:32,  1.68it/s][A
+calculating alpha_lm on grid:  58%|█████▊    | 72/125 [00:43<00:31,  1.70it/s][A
+calculating alpha_lm on grid:  58%|█████▊    | 73/125 [00:44<00:30,  1.68it/s][A
+calculating alpha_lm on grid:  59%|█████▉    | 74/125 [00:45<00:31,  1.63it/s][A
+calculating alpha_lm on grid:  60%|██████    | 75/125 [00:45<00:31,  1.58it/s][A
+calculating alpha_lm on grid:  61%|██████    | 76/125 [00:46<00:29,  1.64it/s][A
+calculating alpha_lm on grid:  62%|██████▏   | 77/125 [00:47<00:28,  1.66it/s][A
+calculating alpha_lm on grid:  62%|██████▏   | 78/125 [00:47<00:29,  1.62it/s][A
+calculating alpha_lm on grid:  63%|██████▎   | 79/125 [00:48<00:28,  1.63it/s][A
+calculating alpha_lm on grid:  64%|██████▍   | 80/125 [00:48<00:27,  1.65it/s][A
+calculating alpha_lm on grid:  65%|██████▍   | 81/125 [00:49<00:25,  1.71it/s][A
+calculating alpha_lm on grid:  66%|██████▌   | 82/125 [00:50<00:25,  1.70it/s][A
+calculating alpha_lm on grid:  66%|██████▋   | 83/125 [00:50<00:24,  1.72it/s][A
+calculating alpha_lm on grid:  67%|██████▋   | 84/125 [00:51<00:24,  1.70it/s][A
+calculating alpha_lm on grid:  68%|██████▊   | 85/125 [00:51<00:23,  1.72it/s][A
+calculating alpha_lm on grid:  69%|██████▉   | 86/125 [00:52<00:22,  1.71it/s][A
+calculating alpha_lm on grid:  70%|██████▉   | 87/125 [00:52<00:21,  1.74it/s][A
+calculating alpha_lm on grid:  70%|███████   | 88/125 [00:53<00:21,  1.72it/s][A
+calculating alpha_lm on grid:  71%|███████   | 89/125 [00:54<00:21,  1.70it/s][A
+calculating alpha_lm on grid:  72%|███████▏  | 90/125 [00:54<00:21,  1.66it/s][A
+calculating alpha_lm on grid:  73%|███████▎  | 91/125 [00:55<00:19,  1.71it/s][A
+calculating alpha_lm on grid:  74%|███████▎  | 92/125 [00:55<00:20,  1.65it/s][A
+calculating alpha_lm on grid:  74%|███████▍  | 93/125 [00:56<00:19,  1.63it/s][A
+calculating alpha_lm on grid:  75%|███████▌  | 94/125 [00:57<00:19,  1.58it/s][A
+calculating alpha_lm on grid:  76%|███████▌  | 95/125 [00:57<00:19,  1.57it/s][A
+calculating alpha_lm on grid:  77%|███████▋  | 96/125 [00:58<00:18,  1.59it/s][A
+calculating alpha_lm on grid:  78%|███████▊  | 97/125 [00:59<00:17,  1.56it/s][A
+calculating alpha_lm on grid:  78%|███████▊  | 98/125 [00:59<00:17,  1.57it/s][A
+calculating alpha_lm on grid:  79%|███████▉  | 99/125 [01:00<00:16,  1.57it/s][A
+calculating alpha_lm on grid:  80%|████████  | 100/125 [01:01<00:15,  1.58it/s][A
+calculating alpha_lm on grid:  81%|████████  | 101/125 [01:01<00:14,  1.66it/s][A
+calculating alpha_lm on grid:  82%|████████▏ | 102/125 [01:02<00:13,  1.68it/s][A
+calculating alpha_lm on grid:  82%|████████▏ | 103/125 [01:02<00:12,  1.70it/s][A
+calculating alpha_lm on grid:  83%|████████▎ | 104/125 [01:03<00:12,  1.73it/s][A
+calculating alpha_lm on grid:  84%|████████▍ | 105/125 [01:03<00:11,  1.70it/s][A
+calculating alpha_lm on grid:  85%|████████▍ | 106/125 [01:04<00:10,  1.75it/s][A
+calculating alpha_lm on grid:  86%|████████▌ | 107/125 [01:05<00:10,  1.74it/s][A
+calculating alpha_lm on grid:  86%|████████▋ | 108/125 [01:05<00:10,  1.68it/s][A
+calculating alpha_lm on grid:  87%|████████▋ | 109/125 [01:06<00:09,  1.69it/s][A
+calculating alpha_lm on grid:  88%|████████▊ | 110/125 [01:06<00:08,  1.73it/s][A
+calculating alpha_lm on grid:  89%|████████▉ | 111/125 [01:07<00:07,  1.77it/s][A
+calculating alpha_lm on grid:  90%|████████▉ | 112/125 [01:07<00:07,  1.73it/s][A
+calculating alpha_lm on grid:  90%|█████████ | 113/125 [01:08<00:07,  1.70it/s][A
+calculating alpha_lm on grid:  91%|█████████ | 114/125 [01:09<00:06,  1.68it/s][A
+calculating alpha_lm on grid:  92%|█████████▏| 115/125 [01:09<00:05,  1.67it/s][A
+calculating alpha_lm on grid:  93%|█████████▎| 116/125 [01:10<00:05,  1.66it/s][A
+calculating alpha_lm on grid:  94%|█████████▎| 117/125 [01:10<00:04,  1.71it/s][A
+calculating alpha_lm on grid:  94%|█████████▍| 118/125 [01:11<00:04,  1.73it/s][A
+calculating alpha_lm on grid:  95%|█████████▌| 119/125 [01:12<00:03,  1.70it/s][A
+calculating alpha_lm on grid:  96%|█████████▌| 120/125 [01:12<00:02,  1.68it/s][A
+calculating alpha_lm on grid:  97%|█████████▋| 121/125 [01:13<00:02,  1.74it/s][A
+calculating alpha_lm on grid:  98%|█████████▊| 122/125 [01:13<00:01,  1.76it/s][A
+calculating alpha_lm on grid:  98%|█████████▊| 123/125 [01:14<00:01,  1.77it/s][A
+calculating alpha_lm on grid:  99%|█████████▉| 124/125 [01:14<00:00,  1.74it/s][A
+calculating alpha_lm on grid: 100%|██████████| 125/125 [01:15<00:00,  1.75it/s][Acalculating alpha_lm on grid: 100%|██████████| 125/125 [01:15<00:00,  1.65it/s]
+Traceback (most recent call last):
+  File "/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/simple_pe_analysis", line 8, in <module>
+    sys.exit(main())
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/cli/simple_pe_analysis.py", line 265, in main
+    _ = pe_result.generate_samples_from_aligned_spin_template_parameters(
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/result.py", line 430, in generate_samples_from_aligned_spin_template_parameters
+    ecc_snr_grid = self.calculate_ecc_snr_grid(
+  File "/home/ben.patterson/projects/simple-pe/simple_pe/param_est/result.py", line 319, in calculate_ecc_snr_grid
+    e10_arr = np.linspace(0, np.max(samples['ecc10sqrd'])**0.5,
+  File "/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pesummary/utils/samples_dict.py", line 128, in __getitem__
+    return super(SamplesDict, self).__getitem__(key)
+  File "/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pesummary/utils/dict.py", line 208, in __getitem__
+    raise KeyError(
+KeyError: 'ecc10sqrd not in SimplePESamples. The list of available keys are chirp_mass, symmetric_mass_ratio, chi_align, ra, dec'
+Drawing samples:   0%|          | 0/1000 [02:44<?, ?it/s]

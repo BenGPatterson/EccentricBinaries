@@ -1,0 +1,5 @@
+lal.MSUN_SI != Msun
+precession_directions specified for a non-precessing waveform
+setting precession directions to None
+neff and nsamples not provided. Drawing 1000 effective samples as default
+Need to have 'ecc10' or 'ecc10sqrd' in samples

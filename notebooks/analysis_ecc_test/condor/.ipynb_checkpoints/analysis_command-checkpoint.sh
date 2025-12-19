@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+source "/cvmfs/software.igwn.org/conda/etc/profile.d/conda.sh"
+conda activate igwn_eccentric_new
+simple_pe_analysis --asd H1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt L1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt V1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/avirgo_O4high_NEW.txt --peak_parameters /home/ben.patterson/projects/EccentricBinaries/notebooks/filter_ecc_test/ecc_peak/peak_parameters.json --peak_snrs /home/ben.patterson/projects/EccentricBinaries/notebooks/filter_ecc_test/ecc_peak/peak_snrs.json --f_low 20 --f_high 4096 --approximant TEOBResumS-Dali --n_ecc_gen 6 --ecc_prior uniform --multiprocessing
