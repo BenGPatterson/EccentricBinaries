@@ -8,12 +8,12 @@
 # filter
 # PARENTS datafind
 # CHILDREN analysis
-/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/simple_pe_filter --trigger_parameters trigger_params.json --approximant TEOBResumS-Dali --f_low 20.0 --f_high 4096.0 --minimum_data_length 16 --seed 123456789 --peak_finder scipy --n_ecc_gen 6 --n_ecc_gen_low_ecc 6 --strain outdir/output/strain_cache.json --metric_directions chirp_mass symmetric_mass_ratio chi_align --asd H1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt L1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt V1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/avirgo_O4high_NEW.txt --outdir outdir/output
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/simple_pe_filter --trigger_parameters trigger_params.json --approximant TEOBResumS-Dali --f_low 20.0 --f_high 4096.0 --minimum_data_length 16 --seed 123456789 --peak_finder scipy --n_ecc_gen 6 --n_ecc_gen_low_ecc 6 --strain outdir/output/strain_cache.json --asd H1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt L1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt V1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/avirgo_O4high_NEW.txt --outdir outdir/output
 
 # analysis
 # PARENTS filter
 # CHILDREN corner postprocessing
-/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/simple_pe_analysis --approximant TEOBResumS-Dali --f_low 20.0 --delta_f 0.0625 --f_high 4096.0 --minimum_data_length 16 --seed 123456789 --snr_threshold 4 --localization_method fullsky --n_ecc_gen 6 --ecc_prior uniform --metric_directions chirp_mass symmetric_mass_ratio chi_align --precession_directions symmetric_mass_ratio chi_align chi_p --asd H1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt L1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt V1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/avirgo_O4high_NEW.txt --outdir outdir/output --peak_parameters outdir/output/peak_parameters.json --peak_snrs outdir/output/peak_snrs.json
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/simple_pe_analysis --approximant TEOBResumS-Dali --f_low 20.0 --delta_f 0.0625 --f_high 4096.0 --minimum_data_length 16 --seed 123456789 --snr_threshold 4 --localization_method fullsky --n_ecc_gen 6 --ecc_prior uniform --precession_directions symmetric_mass_ratio chi_align chi_p --asd H1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt L1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt V1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/avirgo_O4high_NEW.txt --outdir outdir/output --peak_parameters outdir/output/peak_parameters.json --peak_snrs outdir/output/peak_snrs.json
 
 # postprocessing
 # PARENTS analysis

@@ -1,0 +1,14 @@
+universe = vanilla
+executable = /home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/simple_pe_filter
+request_memory = 8 GB
+request_disk = 1 GB
+request_cpus = 1
+getenv = True
+notification = never
+log = outdir/log/filter_20260119_01.log
+output = outdir/output/filter_20260119_01.output
+error = outdir/error/filter_20260119_01.error
+accounting_group = ligo.dev.o4.cbc.pe.lalinference
+accounting_group_user = ben.patterson
+arguments = $(ARGS)
+queue
