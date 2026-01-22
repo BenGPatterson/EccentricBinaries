@@ -1,0 +1,1 @@
+{"H1": {"strain": "outdir/output/H1-INJECTION.gwf", "channel": "H1:HWINJ_INJECTED"}, "L1": {"strain": "outdir/output/L1-INJECTION.gwf", "channel": "L1:HWINJ_INJECTED"}, "V1": {"strain": "outdir/output/V1-INJECTION.gwf", "channel": "V1:HWINJ_INJECTED"}}

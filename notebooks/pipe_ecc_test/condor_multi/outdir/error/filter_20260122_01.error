@@ -1,0 +1,17 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pykerr/qnm.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utctai" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pykerr/qnm.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+Calculating the metric | iteration 0 < 0| error 0.0034 > 0.00017Failed to achieve requested tolerance.  Requested: 0.00017achieved 0.0034: Failed to achieve requested tolerance.  Requested: 0.00017achieved 0.0034: 
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform_modes.py:487: UserWarning: PyCBC snr interpolation failed for mode 0 with error: index 131072 is out of bounds for axis 0 with size 131072. Falling back to index-based snr peak.
+  warnings.warn(
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform_modes.py:487: UserWarning: PyCBC snr interpolation failed for mode 1 with error: index 131072 is out of bounds for axis 0 with size 131072. Falling back to index-based snr peak.
+  warnings.warn(
+/home/ben.patterson/projects/simple-pe/simple_pe/waveforms/waveform_modes.py:487: UserWarning: PyCBC snr interpolation failed for mode -1 with error: index 131072 is out of bounds for axis 0 with size 131072. Falling back to index-based snr peak.
+  warnings.warn(

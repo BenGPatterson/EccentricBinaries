@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+  <title>Summary Pages</title>
+<!--
+                                    Made by
+            ____  ___________
+           / __ \/ ____/ ___/__  ______ ___  ____ ___  ____ ________  __
+          / /_/ / __/  \__ \/ / / / __ `__ \/ __ `__ \/ __ `/ ___/ / / /
+         / ____/ /___ ___/ / /_/ / / / / / / / / / / / /_/ / /  / /_/ /
+        /_/   /_____//____/\__,_/_/ /_/ /_/_/ /_/ /_/\__,_/_/   \__, /
+                                                               /____/
+
+                                   MIT License
+
+       PESummary was developed by Hoy et al. and source code can be seen
+       here: git.ligo.org/lscsoft/pesummary. If you wish to use PESummary
+   for your own work, please cite PESummary. The following page gives details
+   https://lscsoft.docs.ligo.org/pesummary/stable/citing_pesummary.html.
+                                     Thanks!
+  -->
+<html lang='en'>
+    <title>title</title>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'>
+
+</head>
+<body style='background-color:#F8F8F8; margin-top:5em; min-height: 100%'>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+    <script src='../js/combine_corner.js'></script>
+    <script src='../js/grab.js'></script>
+    <script src='../js/modal.js'></script>
+    <script src='../js/multi_dropbar.js'></script>
+    <script src='../js/multiple_posteriors.js'></script>
+    <script src='../js/search.js'></script>
+    <script src='../js/side_bar.js'></script>
+    <script src='../js/html_to_csv.js'></script>
+    <script src='../js/html_to_json.js'></script>
+    <script src='../js/html_to_shell.js'></script>
+    <script src='../js/expert.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/image_styles.css">
+    <link rel="stylesheet" href="../css/watermark.css">
+    <link rel="stylesheet" href="../css/toggle.css">
+
+<div id='background'>
+<p id='bg-text'>Preliminary Preliminary</p>
+<p id='bg-text'>Preliminary Preliminary</p>
+<p id='bg-text'>Preliminary Preliminary</p>
+</div>
+<h7 hidden>simple_pe</h7>
+<h7 hidden>simple_pe</h7>
+<nav class='navbar navbar-expand-sm fixed-top navbar-custom' style='background-color: #0173b2'>
+  <a class='navbar-brand' href='#' style='color: white'>Navbar</a>
+  <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#collapsibleNavbar'>
+    <span class='navbar-toggler-icon'></span>
+  </button>
+    <div class='collapse navbar-collapse' id='collapsibleNavbar'>
+      <ul class='navbar-nav'>
+        <li class='nav-item'>
+          <a class='nav-link' href='#' onclick='grab_html("home")'>home</a>
+        </li>
+        <li class='nav-item'>
+          <li class='nav-item dropdown'>
+            <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            Result Pages
+            </a>
+            <ul class='dropdown-menu' aria-labelledby='dropdown1'>
+              <li class='dropdown-item' href='#' onclick='grab_html("simple_pe", label="simple_pe")'><a>simple_pe</a></li>
+            </ul>
+          </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='#' onclick='grab_html("Corner", label="simple_pe")'>Corner</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='#' onclick='grab_html("Config", label="simple_pe")'>Config</a>
+        </li>
+        <li class='nav-item'>
+          <li class='nav-item dropdown'>
+            <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            1d Histograms
+            </a>
+            <ul class='dropdown-menu' aria-labelledby='dropdown1'>
+              <li class='dropdown-item' href='#' onclick='grab_html("Custom", label="simple_pe")'><a>Custom</a></li>
+              <li class='dropdown-item' href='#' onclick='grab_html("All", label="simple_pe")'><a>All</a></li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='masses' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>masses</a>
+                <ul class='dropdown-menu' aria-labelledby='masses'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("masses_all", label="simple_pe")'><a>masses_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chirp_mass", label="simple_pe")'><a>chirp_mass</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("inverted_mass_ratio", label="simple_pe")'><a>inverted_mass_ratio</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_1", label="simple_pe")'><a>mass_1</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_2", label="simple_pe")'><a>mass_2</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_ratio", label="simple_pe")'><a>mass_ratio</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("symmetric_mass_ratio", label="simple_pe")'><a>symmetric_mass_ratio</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("total_mass", label="simple_pe")'><a>total_mass</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='source' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>source</a>
+                <ul class='dropdown-menu' aria-labelledby='source'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("source_all", label="simple_pe")'><a>source_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chirp_mass_source", label="simple_pe")'><a>chirp_mass_source</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_1_source", label="simple_pe")'><a>mass_1_source</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_2_source", label="simple_pe")'><a>mass_2_source</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("total_mass_source", label="simple_pe")'><a>total_mass_source</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='remnant' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>remnant</a>
+                <ul class='dropdown-menu' aria-labelledby='remnant'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("remnant_all", label="simple_pe")'><a>remnant_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("final_mass", label="simple_pe")'><a>final_mass</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("final_mass_source", label="simple_pe")'><a>final_mass_source</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("final_spin", label="simple_pe")'><a>final_spin</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='inclination' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>inclination</a>
+                <ul class='dropdown-menu' aria-labelledby='inclination'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("inclination_all", label="simple_pe")'><a>inclination_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("cos_theta_jn", label="simple_pe")'><a>cos_theta_jn</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("theta_jn", label="simple_pe")'><a>theta_jn</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("viewing_angle", label="simple_pe")'><a>viewing_angle</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='spins' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>spins</a>
+                <ul class='dropdown-menu' aria-labelledby='spins'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("spins_all", label="simple_pe")'><a>spins_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("a_1", label="simple_pe")'><a>a_1</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("a_2", label="simple_pe")'><a>a_2</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chi_eff", label="simple_pe")'><a>chi_eff</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chi_p", label="simple_pe")'><a>chi_p</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("spin_1z", label="simple_pe")'><a>spin_1z</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("spin_2z", label="simple_pe")'><a>spin_2z</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='spin_angles' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>spin_angles</a>
+                <ul class='dropdown-menu' aria-labelledby='spin_angles'>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='tidal' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>tidal</a>
+                <ul class='dropdown-menu' aria-labelledby='tidal'>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='location' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>location</a>
+                <ul class='dropdown-menu' aria-labelledby='location'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("location_all", label="simple_pe")'><a>location_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("comoving_distance", label="simple_pe")'><a>comoving_distance</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("dec", label="simple_pe")'><a>dec</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("luminosity_distance", label="simple_pe")'><a>luminosity_distance</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("ra", label="simple_pe")'><a>ra</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("redshift", label="simple_pe")'><a>redshift</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='timings' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>timings</a>
+                <ul class='dropdown-menu' aria-labelledby='timings'>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='SNR' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>SNR</a>
+                <ul class='dropdown-menu' aria-labelledby='SNR'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("SNR_all", label="simple_pe")'><a>SNR_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("left_snr", label="simple_pe")'><a>left_snr</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("right_snr", label="simple_pe")'><a>right_snr</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='calibration' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>calibration</a>
+                <ul class='dropdown-menu' aria-labelledby='calibration'>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='energy' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>energy</a>
+                <ul class='dropdown-menu' aria-labelledby='energy'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("energy_all", label="simple_pe")'><a>energy_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("peak_luminosity", label="simple_pe")'><a>peak_luminosity</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("radiated_energy", label="simple_pe")'><a>radiated_energy</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='others' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>others</a>
+                <ul class='dropdown-menu' aria-labelledby='others'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("others_all", label="simple_pe")'><a>others_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("log_likelihood", label="simple_pe")'><a>log_likelihood</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chi_align", label="simple_pe")'><a>chi_align</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("ecc10sqrd", label="simple_pe")'><a>ecc10sqrd</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("not_left", label="simple_pe")'><a>not_left</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("not_right", label="simple_pe")'><a>not_right</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("f_sig", label="simple_pe")'><a>f_sig</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("alpha_net", label="simple_pe")'><a>alpha_net</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("distance_face_on", label="simple_pe")'><a>distance_face_on</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("ecc10", label="simple_pe")'><a>ecc10</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_33", label="simple_pe")'><a>rho_33</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_not_right", label="simple_pe")'><a>rho_not_right</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_not_left", label="simple_pe")'><a>rho_not_left</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_p", label="simple_pe")'><a>rho_p</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_ecc", label="simple_pe")'><a>rho_ecc</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_33", label="simple_pe")'><a>p_33</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_2pol", label="simple_pe")'><a>p_2pol</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_not_right", label="simple_pe")'><a>p_not_right</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_not_left", label="simple_pe")'><a>p_not_left</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_ecc", label="simple_pe")'><a>p_ecc</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("weights", label="simple_pe")'><a>weights</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("comoving_volume", label="simple_pe")'><a>comoving_volume</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        <li class='nav-item'>
+          <li class='nav-item dropdown'>
+            <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            2d Histograms
+            </a>
+            <ul class='dropdown-menu' aria-labelledby='dropdown1'>
+              <li class='dropdown-item' href='#' onclick='grab_html("masses", label="simple_pe")'><a>masses</a></li>
+              <li class='dropdown-item' href='#' onclick='grab_html("spins", label="simple_pe")'><a>spins</a></li>
+              <li class='dropdown-item' href='#' onclick='grab_html("location", label="simple_pe")'><a>location</a></li>
+              <li class='dropdown-item' href='#' onclick='grab_html("timings", label="simple_pe")'><a>timings</a></li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+    <div class='collapse navbar-collapse' id='collapsibleNavbar'>
+      <ul class='navbar-nav flex-row ml-md-auto d-none d-md-flex'style='margin-right:1em;'>
+  <a class='nav-link' href='#', onclick='grab_html("Downloads")'>Downloads</a>
+  <a class='nav-link' href='#', onclick='grab_html("About")'>About</a>
+      </ul>
+    </div>
+    <input type='text' placeholder='search' id='search'>
+    <button type='submit' onclick='myFunction()'>Search</button>
+</nav>
+  <div class='banner'>
+simple_pe
+</div>
+  <div class='paragraph'>
+The figures below show the plots for simple_pe
+</div>
+<link rel='stylesheet' href='../css/side_bar.css'>
+<div class='w3-sidebar w3-bar-block w3-border-right sidenav' style='display:none' id='mySidebar'>
+  <button onclick='side_bar_close()' class='close'>&times;</button>
+  <input type='checkbox' name='type' value='a_1' id='a_1' style='text-align: center; margin: 0 5px 0;'>a_1<br>
+  <input type='checkbox' name='type' value='a_2' id='a_2' style='text-align: center; margin: 0 5px 0;'>a_2<br>
+  <input type='checkbox' name='type' value='alpha_net' id='alpha_net' style='text-align: center; margin: 0 5px 0;'>alpha_net<br>
+  <input type='checkbox' name='type' value='chi_align' id='chi_align' style='text-align: center; margin: 0 5px 0;'>chi_align<br>
+  <input type='checkbox' name='type' value='chi_eff' id='chi_eff' style='text-align: center; margin: 0 5px 0;'>chi_eff<br>
+  <input type='checkbox' name='type' value='chi_p' id='chi_p' style='text-align: center; margin: 0 5px 0;'>chi_p<br>
+  <input type='checkbox' name='type' value='chirp_mass' id='chirp_mass' style='text-align: center; margin: 0 5px 0;'>chirp_mass<br>
+  <input type='checkbox' name='type' value='chirp_mass_source' id='chirp_mass_source' style='text-align: center; margin: 0 5px 0;'>chirp_mass_source<br>
+  <input type='checkbox' name='type' value='comoving_distance' id='comoving_distance' style='text-align: center; margin: 0 5px 0;'>comoving_distance<br>
+  <input type='checkbox' name='type' value='comoving_volume' id='comoving_volume' style='text-align: center; margin: 0 5px 0;'>comoving_volume<br>
+  <input type='checkbox' name='type' value='cos_theta_jn' id='cos_theta_jn' style='text-align: center; margin: 0 5px 0;'>cos_theta_jn<br>
+  <input type='checkbox' name='type' value='dec' id='dec' style='text-align: center; margin: 0 5px 0;'>dec<br>
+  <input type='checkbox' name='type' value='distance_face_on' id='distance_face_on' style='text-align: center; margin: 0 5px 0;'>distance_face_on<br>
+  <input type='checkbox' name='type' value='ecc10' id='ecc10' style='text-align: center; margin: 0 5px 0;'>ecc10<br>
+  <input type='checkbox' name='type' value='ecc10sqrd' id='ecc10sqrd' style='text-align: center; margin: 0 5px 0;'>ecc10sqrd<br>
+  <input type='checkbox' name='type' value='f_sig' id='f_sig' style='text-align: center; margin: 0 5px 0;'>f_sig<br>
+  <input type='checkbox' name='type' value='final_mass' id='final_mass' style='text-align: center; margin: 0 5px 0;'>final_mass<br>
+  <input type='checkbox' name='type' value='final_mass_source' id='final_mass_source' style='text-align: center; margin: 0 5px 0;'>final_mass_source<br>
+  <input type='checkbox' name='type' value='final_spin' id='final_spin' style='text-align: center; margin: 0 5px 0;'>final_spin<br>
+  <input type='checkbox' name='type' value='inverted_mass_ratio' id='inverted_mass_ratio' style='text-align: center; margin: 0 5px 0;'>inverted_mass_ratio<br>
+  <input type='checkbox' name='type' value='left_snr' id='left_snr' style='text-align: center; margin: 0 5px 0;'>left_snr<br>
+  <input type='checkbox' name='type' value='log_likelihood' id='log_likelihood' style='text-align: center; margin: 0 5px 0;'>log_likelihood<br>
+  <input type='checkbox' name='type' value='luminosity_distance' id='luminosity_distance' style='text-align: center; margin: 0 5px 0;'>luminosity_distance<br>
+  <input type='checkbox' name='type' value='mass_1' id='mass_1' style='text-align: center; margin: 0 5px 0;'>mass_1<br>
+  <input type='checkbox' name='type' value='mass_1_source' id='mass_1_source' style='text-align: center; margin: 0 5px 0;'>mass_1_source<br>
+  <input type='checkbox' name='type' value='mass_2' id='mass_2' style='text-align: center; margin: 0 5px 0;'>mass_2<br>
+  <input type='checkbox' name='type' value='mass_2_source' id='mass_2_source' style='text-align: center; margin: 0 5px 0;'>mass_2_source<br>
+  <input type='checkbox' name='type' value='mass_ratio' id='mass_ratio' style='text-align: center; margin: 0 5px 0;'>mass_ratio<br>
+  <input type='checkbox' name='type' value='not_left' id='not_left' style='text-align: center; margin: 0 5px 0;'>not_left<br>
+  <input type='checkbox' name='type' value='not_right' id='not_right' style='text-align: center; margin: 0 5px 0;'>not_right<br>
+  <input type='checkbox' name='type' value='p_2pol' id='p_2pol' style='text-align: center; margin: 0 5px 0;'>p_2pol<br>
+  <input type='checkbox' name='type' value='p_33' id='p_33' style='text-align: center; margin: 0 5px 0;'>p_33<br>
+  <input type='checkbox' name='type' value='p_ecc' id='p_ecc' style='text-align: center; margin: 0 5px 0;'>p_ecc<br>
+  <input type='checkbox' name='type' value='p_not_left' id='p_not_left' style='text-align: center; margin: 0 5px 0;'>p_not_left<br>
+  <input type='checkbox' name='type' value='p_not_right' id='p_not_right' style='text-align: center; margin: 0 5px 0;'>p_not_right<br>
+  <input type='checkbox' name='type' value='peak_luminosity' id='peak_luminosity' style='text-align: center; margin: 0 5px 0;'>peak_luminosity<br>
+  <input type='checkbox' name='type' value='ra' id='ra' style='text-align: center; margin: 0 5px 0;'>ra<br>
+  <input type='checkbox' name='type' value='radiated_energy' id='radiated_energy' style='text-align: center; margin: 0 5px 0;'>radiated_energy<br>
+  <input type='checkbox' name='type' value='redshift' id='redshift' style='text-align: center; margin: 0 5px 0;'>redshift<br>
+  <input type='checkbox' name='type' value='rho_33' id='rho_33' style='text-align: center; margin: 0 5px 0;'>rho_33<br>
+  <input type='checkbox' name='type' value='rho_ecc' id='rho_ecc' style='text-align: center; margin: 0 5px 0;'>rho_ecc<br>
+  <input type='checkbox' name='type' value='rho_not_left' id='rho_not_left' style='text-align: center; margin: 0 5px 0;'>rho_not_left<br>
+  <input type='checkbox' name='type' value='rho_not_right' id='rho_not_right' style='text-align: center; margin: 0 5px 0;'>rho_not_right<br>
+  <input type='checkbox' name='type' value='rho_p' id='rho_p' style='text-align: center; margin: 0 5px 0;'>rho_p<br>
+  <input type='checkbox' name='type' value='right_snr' id='right_snr' style='text-align: center; margin: 0 5px 0;'>right_snr<br>
+  <input type='checkbox' name='type' value='spin_1z' id='spin_1z' style='text-align: center; margin: 0 5px 0;'>spin_1z<br>
+  <input type='checkbox' name='type' value='spin_2z' id='spin_2z' style='text-align: center; margin: 0 5px 0;'>spin_2z<br>
+  <input type='checkbox' name='type' value='symmetric_mass_ratio' id='symmetric_mass_ratio' style='text-align: center; margin: 0 5px 0;'>symmetric_mass_ratio<br>
+  <input type='checkbox' name='type' value='theta_jn' id='theta_jn' style='text-align: center; margin: 0 5px 0;'>theta_jn<br>
+  <input type='checkbox' name='type' value='total_mass' id='total_mass' style='text-align: center; margin: 0 5px 0;'>total_mass<br>
+  <input type='checkbox' name='type' value='total_mass_source' id='total_mass_source' style='text-align: center; margin: 0 5px 0;'>total_mass_source<br>
+  <input type='checkbox' name='type' value='viewing_angle' id='viewing_angle' style='text-align: center; margin: 0 5px 0;'>viewing_angle<br>
+  <input type='checkbox' name='type' value='weights' id='weights' style='text-align: center; margin: 0 5px 0;'>weights<br>
+</div>
+<div class='row justify-content-center'>
+  <p style='margin-top:2.5em; font-family: Arial-body; font-size:14px'> Input the parameter names that you would like to compare</p>
+</div>
+<div class='row justify-content-center'>
+  <input type='text' placeholder='search' id='corner_search'>
+  <button type='submit' onclick='combines(undefined, label="simple_pe")' style='cursor: pointer'>Submit</button>
+  <button class='w3-button w3-teal w3-xlarge' onclick='side_bar_open()' style='cursor: pointer'>&#8801</button>
+</div>
+<div class='row justify-content-center'>
+  <button type='button' class='btn btn-info' onclick='combines("mass_1, mass_2", label="simple_pe")' style='margin-left:0.25em; margin-right:0.25em; margin-top: 1.0em; cursor: pointer'>mass_1, mass_2</button>
+  <button type='button' class='btn btn-info' onclick='combines("luminosity_distance, theta_jn, ra, dec", label="simple_pe")' style='margin-left:0.25em; margin-right:0.25em; margin-top: 1.0em; cursor: pointer'>luminosity_distance, theta_jn, ra, dec</button>
+  <button type='button' class='btn btn-info' onclick='combines("theta_jn, phi_12, phi_jl, tilt_1, tilt_2", label="simple_pe")' style='margin-left:0.25em; margin-right:0.25em; margin-top: 1.0em; cursor: pointer'>theta_jn, phi_12, phi_jl, tilt_1, tilt_2</button>
+  <button type='button' class='btn btn-info' onclick='combines("masses_all, chirp_mass, inverted_mass_ratio, mass_1, mass_2, mass_ratio, symmetric_mass_ratio, total_mass, source_all, chirp_mass_source, mass_1_source, mass_2_source, total_mass_source, remnant_all, final_mass, final_mass_source, final_spin, inclination_all, cos_theta_jn, theta_jn, viewing_angle, spins_all, a_1, a_2, chi_eff, chi_p, spin_1z, spin_2z, location_all, comoving_distance, dec, luminosity_distance, ra, redshift, SNR_all, left_snr, right_snr, energy_all, peak_luminosity, radiated_energy, others_all, log_likelihood, chi_align, ecc10sqrd, not_left, not_right, f_sig, alpha_net, distance_face_on, ecc10, rho_33, rho_not_right, rho_not_left, rho_p, rho_ecc, p_33, p_2pol, p_not_right, p_not_left, p_ecc, weights, comoving_volume", label="simple_pe")' style='margin-left:0.25em; margin-right:0.25em; margin-top: 1.0em; cursor: pointer'>all</button>
+</div>
+<div class='container' style='margin-top:3em; margin-bottom:5em; background-color:#FFFFFF; box-shadow: 0 0 5px grey; max-width: 1400px'>
+  <div class='row justify-content-center' id='corner_plot'>
+    <canvas id='combines' width='1000' height='1000'></canvas>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+<div class='jumbotron' style='margin-bottom:0; line-height: 0.5;background-color:#989898; bottom:0; position:bottom;width:100%'>
+<div class='container'>
+  <div class='row'>
+    <div class='col-sm-4 icon-bar'>
+      <div class='icon'>
+<a href='https://git.ligo.org/lscsoft/pesummary/tree/v1.3.2' data-toggle='tooltip' title='View PESummary-v1.3.2'><i class='fa fa-code' style='font-size: 30px; color: #E8E8E8; font-weight: 900; padding-right:10px'></i></a>
+<a href='https://git.ligo.org/lscsoft/pesummary/issues' data-toggle='tooltip' title='Open an issue ticket'><i class='fa fa-ticket' style='font-size: 30px; color: #E8E8E8; font-weight: 900; padding-right:10px'></i></a>
+<a href='https://lscsoft.docs.ligo.org/pesummary/' data-toggle='tooltip' title='View the docs!'><i class='fa fa-book' style='font-size: 30px; color: #E8E8E8; font-weight: 900; padding-right:10px'></i></a>
+<a href='https://lscsoft.docs.ligo.org/pesummary/stable/tutorials/make_your_own_page_from_metafile.html' data-toggle='tooltip' title='Make your own page'><i class='fa fa-window-restore' style='font-size: 30px; color: #E8E8E8; font-weight: 900; padding-right:10px'></i></a>
+      </div>
+    </div>
+    <div class='col-sm-7'>
+<p style='color: #E8E8E8; font-weight: bold; font-family: arial-body; margin-top:14px'>This page was produced by ben.patterson at 02:37 on January 22 2026</p>
+    </div>
+  </div>
+</div>
+</div>

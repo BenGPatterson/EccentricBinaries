@@ -1,0 +1,1012 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pykerr/qnm.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+2026-01-22  02:24:33 cpnest.utils WARNING : Setting verbosity to 0
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+Drawing samples:   0%|          | 0/1000 [00:00<?, ?it/s]/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pykerr/qnm.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+
+Calculating the metric | iteration 0 < 2| error 0.0034 > 3.5e-05[A
+Calculating the metric | iteration 1 < 2| error 0.00026 > 3.5e-05: [A
+Calculating the metric | iteration 1 < 2| error 0.00026 > 3.5e-05: [A
+Calculating the metric | iteration 2 < 2| error 1.8e-05 > 3.5e-05: [A
+Calculating the metric | iteration 2 < 2| error 1.8e-05 > 3.5e-05: [ACalculating the metric | iteration 2 < 2| error 1.8e-05 > 3.5e-05: 
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utcut1" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utctai" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+WARNING: Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary. [astropy.coordinates.builtin_frames.utils]
+2026-01-22  02:26:44 astropy WARNING : Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary.
+/home/ben.patterson/projects/simple-pe/simple_pe/localization/loc.py:29: RuntimeWarning: invalid value encountered in sqrt
+  sigma = 1 / np.sqrt(ev + epsilon)
+
+calculating sigma on grid:   0%|          | 0/125 [00:00<?, ?it/s][A
+calculating sigma on grid:   1%|          | 1/125 [00:00<00:50,  2.45it/s][A
+calculating sigma on grid:   2%|▏         | 2/125 [00:00<00:51,  2.37it/s][A
+calculating sigma on grid:   2%|▏         | 3/125 [00:01<00:54,  2.24it/s][A
+calculating sigma on grid:   3%|▎         | 4/125 [00:01<00:55,  2.19it/s][A
+calculating sigma on grid:   4%|▍         | 5/125 [00:02<00:52,  2.27it/s][A
+calculating sigma on grid:   5%|▍         | 6/125 [00:02<00:51,  2.29it/s][A
+calculating sigma on grid:   6%|▌         | 7/125 [00:03<00:51,  2.30it/s][A
+calculating sigma on grid:   6%|▋         | 8/125 [00:03<00:50,  2.33it/s][A
+calculating sigma on grid:   7%|▋         | 9/125 [00:03<00:50,  2.31it/s][A
+calculating sigma on grid:   8%|▊         | 10/125 [00:04<00:50,  2.28it/s][A
+calculating sigma on grid:   9%|▉         | 11/125 [00:04<00:49,  2.29it/s][A
+calculating sigma on grid:  10%|▉         | 12/125 [00:05<00:49,  2.28it/s][A
+calculating sigma on grid:  10%|█         | 13/125 [00:05<00:48,  2.29it/s][A
+calculating sigma on grid:  11%|█         | 14/125 [00:06<00:49,  2.26it/s][A
+calculating sigma on grid:  12%|█▏        | 15/125 [00:06<00:49,  2.20it/s][A
+calculating sigma on grid:  13%|█▎        | 16/125 [00:07<00:48,  2.24it/s][A
+calculating sigma on grid:  14%|█▎        | 17/125 [00:07<00:48,  2.24it/s][A
+calculating sigma on grid:  14%|█▍        | 18/125 [00:07<00:49,  2.17it/s][A
+calculating sigma on grid:  15%|█▌        | 19/125 [00:08<00:49,  2.13it/s][A
+calculating sigma on grid:  16%|█▌        | 20/125 [00:08<00:49,  2.14it/s][A
+calculating sigma on grid:  17%|█▋        | 21/125 [00:09<00:48,  2.14it/s][A
+calculating sigma on grid:  18%|█▊        | 22/125 [00:09<00:47,  2.15it/s][A
+calculating sigma on grid:  18%|█▊        | 23/125 [00:10<00:48,  2.10it/s][A
+calculating sigma on grid:  19%|█▉        | 24/125 [00:10<00:47,  2.11it/s][A
+calculating sigma on grid:  20%|██        | 25/125 [00:11<00:48,  2.06it/s][A
+calculating sigma on grid:  21%|██        | 26/125 [00:11<00:46,  2.13it/s][A
+calculating sigma on grid:  22%|██▏       | 27/125 [00:12<00:44,  2.18it/s][A
+calculating sigma on grid:  22%|██▏       | 28/125 [00:12<00:43,  2.24it/s][A
+calculating sigma on grid:  23%|██▎       | 29/125 [00:13<00:41,  2.30it/s][A
+calculating sigma on grid:  24%|██▍       | 30/125 [00:13<00:42,  2.26it/s][A
+calculating sigma on grid:  25%|██▍       | 31/125 [00:13<00:40,  2.32it/s][A
+calculating sigma on grid:  26%|██▌       | 32/125 [00:14<00:39,  2.33it/s][A
+calculating sigma on grid:  26%|██▋       | 33/125 [00:14<00:39,  2.31it/s][A
+calculating sigma on grid:  27%|██▋       | 34/125 [00:15<00:39,  2.30it/s][A
+calculating sigma on grid:  28%|██▊       | 35/125 [00:15<00:39,  2.30it/s][A
+calculating sigma on grid:  29%|██▉       | 36/125 [00:16<00:38,  2.31it/s][A
+calculating sigma on grid:  30%|██▉       | 37/125 [00:16<00:38,  2.30it/s][A
+calculating sigma on grid:  30%|███       | 38/125 [00:16<00:37,  2.31it/s][A
+calculating sigma on grid:  31%|███       | 39/125 [00:17<00:37,  2.32it/s][A
+calculating sigma on grid:  32%|███▏      | 40/125 [00:17<00:37,  2.27it/s][A
+calculating sigma on grid:  33%|███▎      | 41/125 [00:18<00:36,  2.29it/s][A
+calculating sigma on grid:  34%|███▎      | 42/125 [00:18<00:36,  2.29it/s][A
+calculating sigma on grid:  34%|███▍      | 43/125 [00:19<00:36,  2.25it/s][A
+calculating sigma on grid:  35%|███▌      | 44/125 [00:19<00:36,  2.23it/s][A
+calculating sigma on grid:  36%|███▌      | 45/125 [00:20<00:37,  2.13it/s][A
+calculating sigma on grid:  37%|███▋      | 46/125 [00:20<00:36,  2.14it/s][A
+calculating sigma on grid:  38%|███▊      | 47/125 [00:21<00:35,  2.17it/s][A
+calculating sigma on grid:  38%|███▊      | 48/125 [00:21<00:35,  2.17it/s][A
+calculating sigma on grid:  39%|███▉      | 49/125 [00:22<00:36,  2.10it/s][A
+calculating sigma on grid:  40%|████      | 50/125 [00:22<00:36,  2.04it/s][A
+calculating sigma on grid:  41%|████      | 51/125 [00:22<00:34,  2.13it/s][A
+calculating sigma on grid:  42%|████▏     | 52/125 [00:23<00:33,  2.18it/s][A
+calculating sigma on grid:  42%|████▏     | 53/125 [00:23<00:32,  2.20it/s][A
+calculating sigma on grid:  43%|████▎     | 54/125 [00:24<00:32,  2.20it/s][A
+calculating sigma on grid:  44%|████▍     | 55/125 [00:24<00:32,  2.15it/s][A
+calculating sigma on grid:  45%|████▍     | 56/125 [00:25<00:32,  2.15it/s][A
+calculating sigma on grid:  46%|████▌     | 57/125 [00:25<00:31,  2.17it/s][A
+calculating sigma on grid:  46%|████▋     | 58/125 [00:26<00:29,  2.24it/s][A
+calculating sigma on grid:  47%|████▋     | 59/125 [00:26<00:30,  2.19it/s][A
+calculating sigma on grid:  48%|████▊     | 60/125 [00:27<00:30,  2.16it/s][A
+calculating sigma on grid:  49%|████▉     | 61/125 [00:27<00:29,  2.17it/s][A
+calculating sigma on grid:  50%|████▉     | 62/125 [00:27<00:28,  2.18it/s][A
+calculating sigma on grid:  50%|█████     | 63/125 [00:28<00:28,  2.19it/s][A
+calculating sigma on grid:  51%|█████     | 64/125 [00:28<00:27,  2.19it/s][A
+calculating sigma on grid:  52%|█████▏    | 65/125 [00:29<00:27,  2.19it/s][A
+calculating sigma on grid:  53%|█████▎    | 66/125 [00:29<00:26,  2.20it/s][A
+calculating sigma on grid:  54%|█████▎    | 67/125 [00:30<00:26,  2.21it/s][A
+calculating sigma on grid:  54%|█████▍    | 68/125 [00:30<00:26,  2.16it/s][A
+calculating sigma on grid:  55%|█████▌    | 69/125 [00:31<00:26,  2.11it/s][A
+calculating sigma on grid:  56%|█████▌    | 70/125 [00:31<00:26,  2.08it/s][A
+calculating sigma on grid:  57%|█████▋    | 71/125 [00:32<00:25,  2.12it/s][A
+calculating sigma on grid:  58%|█████▊    | 72/125 [00:32<00:24,  2.14it/s][A
+calculating sigma on grid:  58%|█████▊    | 73/125 [00:33<00:24,  2.15it/s][A
+calculating sigma on grid:  59%|█████▉    | 74/125 [00:33<00:23,  2.14it/s][A
+calculating sigma on grid:  60%|██████    | 75/125 [00:34<00:23,  2.13it/s][A
+calculating sigma on grid:  61%|██████    | 76/125 [00:34<00:22,  2.15it/s][A
+calculating sigma on grid:  62%|██████▏   | 77/125 [00:34<00:22,  2.18it/s][A
+calculating sigma on grid:  62%|██████▏   | 78/125 [00:35<00:20,  2.29it/s][A
+calculating sigma on grid:  63%|██████▎   | 79/125 [00:35<00:20,  2.29it/s][A
+calculating sigma on grid:  64%|██████▍   | 80/125 [00:36<00:19,  2.30it/s][A
+calculating sigma on grid:  65%|██████▍   | 81/125 [00:36<00:19,  2.27it/s][A
+calculating sigma on grid:  66%|██████▌   | 82/125 [00:37<00:19,  2.23it/s][A
+calculating sigma on grid:  66%|██████▋   | 83/125 [00:37<00:18,  2.28it/s][A
+calculating sigma on grid:  67%|██████▋   | 84/125 [00:37<00:17,  2.28it/s][A
+calculating sigma on grid:  68%|██████▊   | 85/125 [00:38<00:17,  2.29it/s][A
+calculating sigma on grid:  69%|██████▉   | 86/125 [00:38<00:16,  2.31it/s][A
+calculating sigma on grid:  70%|██████▉   | 87/125 [00:39<00:16,  2.34it/s][A
+calculating sigma on grid:  70%|███████   | 88/125 [00:39<00:15,  2.36it/s][A
+calculating sigma on grid:  71%|███████   | 89/125 [00:40<00:15,  2.30it/s][A
+calculating sigma on grid:  72%|███████▏  | 90/125 [00:40<00:14,  2.36it/s][A
+calculating sigma on grid:  73%|███████▎  | 91/125 [00:40<00:14,  2.36it/s][A
+calculating sigma on grid:  74%|███████▎  | 92/125 [00:41<00:14,  2.35it/s][A
+calculating sigma on grid:  74%|███████▍  | 93/125 [00:41<00:13,  2.34it/s][A
+calculating sigma on grid:  75%|███████▌  | 94/125 [00:42<00:13,  2.31it/s][A
+calculating sigma on grid:  76%|███████▌  | 95/125 [00:42<00:13,  2.26it/s][A
+calculating sigma on grid:  77%|███████▋  | 96/125 [00:43<00:12,  2.23it/s][A
+calculating sigma on grid:  78%|███████▊  | 97/125 [00:43<00:12,  2.24it/s][A
+calculating sigma on grid:  78%|███████▊  | 98/125 [00:44<00:11,  2.26it/s][A
+calculating sigma on grid:  79%|███████▉  | 99/125 [00:44<00:11,  2.31it/s][A
+calculating sigma on grid:  80%|████████  | 100/125 [00:44<00:10,  2.30it/s][A
+calculating sigma on grid:  81%|████████  | 101/125 [00:45<00:10,  2.38it/s][A
+calculating sigma on grid:  82%|████████▏ | 102/125 [00:45<00:09,  2.44it/s][A
+calculating sigma on grid:  82%|████████▏ | 103/125 [00:46<00:08,  2.45it/s][A
+calculating sigma on grid:  83%|████████▎ | 104/125 [00:46<00:08,  2.45it/s][A
+calculating sigma on grid:  84%|████████▍ | 105/125 [00:46<00:08,  2.41it/s][A
+calculating sigma on grid:  85%|████████▍ | 106/125 [00:47<00:07,  2.44it/s][A
+calculating sigma on grid:  86%|████████▌ | 107/125 [00:47<00:07,  2.41it/s][A
+calculating sigma on grid:  86%|████████▋ | 108/125 [00:48<00:07,  2.43it/s][A
+calculating sigma on grid:  87%|████████▋ | 109/125 [00:48<00:06,  2.40it/s][A
+calculating sigma on grid:  88%|████████▊ | 110/125 [00:49<00:06,  2.29it/s][A
+calculating sigma on grid:  89%|████████▉ | 111/125 [00:49<00:05,  2.35it/s][A
+calculating sigma on grid:  90%|████████▉ | 112/125 [00:49<00:05,  2.39it/s][A
+calculating sigma on grid:  90%|█████████ | 113/125 [00:50<00:05,  2.34it/s][A
+calculating sigma on grid:  91%|█████████ | 114/125 [00:50<00:04,  2.36it/s][A
+calculating sigma on grid:  92%|█████████▏| 115/125 [00:51<00:04,  2.30it/s][A
+calculating sigma on grid:  93%|█████████▎| 116/125 [00:51<00:03,  2.35it/s][A
+calculating sigma on grid:  94%|█████████▎| 117/125 [00:51<00:03,  2.35it/s][A
+calculating sigma on grid:  94%|█████████▍| 118/125 [00:52<00:03,  2.32it/s][A
+calculating sigma on grid:  95%|█████████▌| 119/125 [00:52<00:02,  2.35it/s][A
+calculating sigma on grid:  96%|█████████▌| 120/125 [00:53<00:02,  2.36it/s][A
+calculating sigma on grid:  97%|█████████▋| 121/125 [00:53<00:01,  2.36it/s][A
+calculating sigma on grid:  98%|█████████▊| 122/125 [00:54<00:01,  2.33it/s][A
+calculating sigma on grid:  98%|█████████▊| 123/125 [00:54<00:00,  2.31it/s][A
+calculating sigma on grid:  99%|█████████▉| 124/125 [00:55<00:00,  2.33it/s][A
+calculating sigma on grid: 100%|██████████| 125/125 [00:55<00:00,  2.34it/s][Acalculating sigma on grid: 100%|██████████| 125/125 [00:55<00:00,  2.26it/s]
+
+calculating alpha_lm on grid:   0%|          | 0/125 [00:00<?, ?it/s][A
+calculating alpha_lm on grid:   1%|          | 1/125 [00:00<01:03,  1.95it/s][A
+calculating alpha_lm on grid:   2%|▏         | 2/125 [00:01<01:03,  1.94it/s][A
+calculating alpha_lm on grid:   2%|▏         | 3/125 [00:01<01:05,  1.85it/s][A
+calculating alpha_lm on grid:   3%|▎         | 4/125 [00:02<01:05,  1.85it/s][A
+calculating alpha_lm on grid:   4%|▍         | 5/125 [00:02<01:04,  1.85it/s][A
+calculating alpha_lm on grid:   5%|▍         | 6/125 [00:03<01:05,  1.83it/s][A
+calculating alpha_lm on grid:   6%|▌         | 7/125 [00:03<01:04,  1.83it/s][A
+calculating alpha_lm on grid:   6%|▋         | 8/125 [00:04<01:05,  1.79it/s][A
+calculating alpha_lm on grid:   7%|▋         | 9/125 [00:04<01:04,  1.80it/s][A
+calculating alpha_lm on grid:   8%|▊         | 10/125 [00:05<01:02,  1.83it/s][A
+calculating alpha_lm on grid:   9%|▉         | 11/125 [00:05<01:02,  1.82it/s][A
+calculating alpha_lm on grid:  10%|▉         | 12/125 [00:06<01:02,  1.80it/s][A
+calculating alpha_lm on grid:  10%|█         | 13/125 [00:07<01:01,  1.81it/s][A
+calculating alpha_lm on grid:  11%|█         | 14/125 [00:07<01:01,  1.79it/s][A
+calculating alpha_lm on grid:  12%|█▏        | 15/125 [00:08<01:03,  1.75it/s][A
+calculating alpha_lm on grid:  13%|█▎        | 16/125 [00:08<01:03,  1.73it/s][A
+calculating alpha_lm on grid:  14%|█▎        | 17/125 [00:09<01:02,  1.72it/s][A
+calculating alpha_lm on grid:  14%|█▍        | 18/125 [00:10<01:01,  1.74it/s][A
+calculating alpha_lm on grid:  15%|█▌        | 19/125 [00:10<01:01,  1.74it/s][A
+calculating alpha_lm on grid:  16%|█▌        | 20/125 [00:11<01:00,  1.73it/s][A
+calculating alpha_lm on grid:  17%|█▋        | 21/125 [00:11<00:58,  1.77it/s][A
+calculating alpha_lm on grid:  18%|█▊        | 22/125 [00:12<00:57,  1.80it/s][A
+calculating alpha_lm on grid:  18%|█▊        | 23/125 [00:12<00:57,  1.78it/s][A
+calculating alpha_lm on grid:  19%|█▉        | 24/125 [00:13<00:58,  1.74it/s][A
+calculating alpha_lm on grid:  20%|██        | 25/125 [00:14<00:58,  1.71it/s][A
+calculating alpha_lm on grid:  21%|██        | 26/125 [00:14<00:56,  1.76it/s][A
+calculating alpha_lm on grid:  22%|██▏       | 27/125 [00:15<00:55,  1.78it/s][A
+calculating alpha_lm on grid:  22%|██▏       | 28/125 [00:15<00:53,  1.80it/s][A
+calculating alpha_lm on grid:  23%|██▎       | 29/125 [00:16<00:54,  1.76it/s][A
+calculating alpha_lm on grid:  24%|██▍       | 30/125 [00:16<00:53,  1.76it/s][A
+calculating alpha_lm on grid:  25%|██▍       | 31/125 [00:17<00:52,  1.78it/s][A
+calculating alpha_lm on grid:  26%|██▌       | 32/125 [00:17<00:50,  1.84it/s][A
+calculating alpha_lm on grid:  26%|██▋       | 33/125 [00:18<00:50,  1.83it/s][A
+calculating alpha_lm on grid:  27%|██▋       | 34/125 [00:18<00:49,  1.85it/s][A
+calculating alpha_lm on grid:  28%|██▊       | 35/125 [00:19<00:48,  1.85it/s][A
+calculating alpha_lm on grid:  29%|██▉       | 36/125 [00:20<00:48,  1.85it/s][A
+calculating alpha_lm on grid:  30%|██▉       | 37/125 [00:20<00:47,  1.84it/s][A
+calculating alpha_lm on grid:  30%|███       | 38/125 [00:21<00:46,  1.86it/s][A
+calculating alpha_lm on grid:  31%|███       | 39/125 [00:21<00:46,  1.84it/s][A
+calculating alpha_lm on grid:  32%|███▏      | 40/125 [00:22<00:47,  1.81it/s][A
+calculating alpha_lm on grid:  33%|███▎      | 41/125 [00:22<00:45,  1.84it/s][A
+calculating alpha_lm on grid:  34%|███▎      | 42/125 [00:23<00:45,  1.84it/s][A
+calculating alpha_lm on grid:  34%|███▍      | 43/125 [00:23<00:44,  1.86it/s][A
+calculating alpha_lm on grid:  35%|███▌      | 44/125 [00:24<00:43,  1.87it/s][A
+calculating alpha_lm on grid:  36%|███▌      | 45/125 [00:24<00:43,  1.84it/s][A
+calculating alpha_lm on grid:  37%|███▋      | 46/125 [00:25<00:42,  1.87it/s][A
+calculating alpha_lm on grid:  38%|███▊      | 47/125 [00:25<00:41,  1.86it/s][A
+calculating alpha_lm on grid:  38%|███▊      | 48/125 [00:26<00:42,  1.82it/s][A
+calculating alpha_lm on grid:  39%|███▉      | 49/125 [00:27<00:41,  1.84it/s][A
+calculating alpha_lm on grid:  40%|████      | 50/125 [00:27<00:42,  1.75it/s][A
+calculating alpha_lm on grid:  41%|████      | 51/125 [00:28<00:40,  1.84it/s][A
+calculating alpha_lm on grid:  42%|████▏     | 52/125 [00:28<00:41,  1.77it/s][A
+calculating alpha_lm on grid:  42%|████▏     | 53/125 [00:29<00:41,  1.76it/s][A
+calculating alpha_lm on grid:  43%|████▎     | 54/125 [00:29<00:40,  1.77it/s][A
+calculating alpha_lm on grid:  44%|████▍     | 55/125 [00:30<00:38,  1.82it/s][A
+calculating alpha_lm on grid:  45%|████▍     | 56/125 [00:30<00:36,  1.88it/s][A
+calculating alpha_lm on grid:  46%|████▌     | 57/125 [00:31<00:36,  1.89it/s][A
+calculating alpha_lm on grid:  46%|████▋     | 58/125 [00:32<00:35,  1.89it/s][A
+calculating alpha_lm on grid:  47%|████▋     | 59/125 [00:32<00:35,  1.87it/s][A
+calculating alpha_lm on grid:  48%|████▊     | 60/125 [00:33<00:34,  1.87it/s][A
+calculating alpha_lm on grid:  49%|████▉     | 61/125 [00:33<00:33,  1.92it/s][A
+calculating alpha_lm on grid:  50%|████▉     | 62/125 [00:34<00:32,  1.94it/s][A
+calculating alpha_lm on grid:  50%|█████     | 63/125 [00:34<00:32,  1.94it/s][A
+calculating alpha_lm on grid:  51%|█████     | 64/125 [00:35<00:31,  1.94it/s][A
+calculating alpha_lm on grid:  52%|█████▏    | 65/125 [00:35<00:31,  1.92it/s][A
+calculating alpha_lm on grid:  53%|█████▎    | 66/125 [00:36<00:31,  1.90it/s][A
+calculating alpha_lm on grid:  54%|█████▎    | 67/125 [00:36<00:30,  1.92it/s][A
+calculating alpha_lm on grid:  54%|█████▍    | 68/125 [00:37<00:30,  1.88it/s][A
+calculating alpha_lm on grid:  55%|█████▌    | 69/125 [00:37<00:29,  1.89it/s][A
+calculating alpha_lm on grid:  56%|█████▌    | 70/125 [00:38<00:29,  1.90it/s][A
+calculating alpha_lm on grid:  57%|█████▋    | 71/125 [00:38<00:28,  1.93it/s][A
+calculating alpha_lm on grid:  58%|█████▊    | 72/125 [00:39<00:28,  1.88it/s][A
+calculating alpha_lm on grid:  58%|█████▊    | 73/125 [00:39<00:28,  1.83it/s][A
+calculating alpha_lm on grid:  59%|█████▉    | 74/125 [00:40<00:27,  1.84it/s][A
+calculating alpha_lm on grid:  60%|██████    | 75/125 [00:41<00:27,  1.84it/s][A
+calculating alpha_lm on grid:  61%|██████    | 76/125 [00:41<00:26,  1.88it/s][A
+calculating alpha_lm on grid:  62%|██████▏   | 77/125 [00:42<00:25,  1.86it/s][A
+calculating alpha_lm on grid:  62%|██████▏   | 78/125 [00:42<00:24,  1.90it/s][A
+calculating alpha_lm on grid:  63%|██████▎   | 79/125 [00:43<00:24,  1.87it/s][A
+calculating alpha_lm on grid:  64%|██████▍   | 80/125 [00:43<00:24,  1.85it/s][A
+calculating alpha_lm on grid:  65%|██████▍   | 81/125 [00:44<00:23,  1.87it/s][A
+calculating alpha_lm on grid:  66%|██████▌   | 82/125 [00:44<00:22,  1.88it/s][A
+calculating alpha_lm on grid:  66%|██████▋   | 83/125 [00:45<00:22,  1.87it/s][A
+calculating alpha_lm on grid:  67%|██████▋   | 84/125 [00:45<00:21,  1.88it/s][A
+calculating alpha_lm on grid:  68%|██████▊   | 85/125 [00:46<00:21,  1.89it/s][A
+calculating alpha_lm on grid:  69%|██████▉   | 86/125 [00:46<00:20,  1.91it/s][A
+calculating alpha_lm on grid:  70%|██████▉   | 87/125 [00:47<00:20,  1.88it/s][A
+calculating alpha_lm on grid:  70%|███████   | 88/125 [00:47<00:19,  1.85it/s][A
+calculating alpha_lm on grid:  71%|███████   | 89/125 [00:48<00:19,  1.86it/s][A
+calculating alpha_lm on grid:  72%|███████▏  | 90/125 [00:49<00:18,  1.86it/s][A
+calculating alpha_lm on grid:  73%|███████▎  | 91/125 [00:49<00:18,  1.87it/s][A
+calculating alpha_lm on grid:  74%|███████▎  | 92/125 [00:50<00:17,  1.85it/s][A
+calculating alpha_lm on grid:  74%|███████▍  | 93/125 [00:50<00:17,  1.86it/s][A
+calculating alpha_lm on grid:  75%|███████▌  | 94/125 [00:51<00:16,  1.85it/s][A
+calculating alpha_lm on grid:  76%|███████▌  | 95/125 [00:51<00:16,  1.87it/s][A
+calculating alpha_lm on grid:  77%|███████▋  | 96/125 [00:52<00:15,  1.92it/s][A
+calculating alpha_lm on grid:  78%|███████▊  | 97/125 [00:52<00:14,  1.93it/s][A
+calculating alpha_lm on grid:  78%|███████▊  | 98/125 [00:53<00:13,  1.93it/s][A
+calculating alpha_lm on grid:  79%|███████▉  | 99/125 [00:53<00:14,  1.85it/s][A
+calculating alpha_lm on grid:  80%|████████  | 100/125 [00:54<00:13,  1.84it/s][A
+calculating alpha_lm on grid:  81%|████████  | 101/125 [00:54<00:12,  1.94it/s][A
+calculating alpha_lm on grid:  82%|████████▏ | 102/125 [00:55<00:11,  1.99it/s][A
+calculating alpha_lm on grid:  82%|████████▏ | 103/125 [00:55<00:10,  2.01it/s][A
+calculating alpha_lm on grid:  83%|████████▎ | 104/125 [00:56<00:10,  1.99it/s][A
+calculating alpha_lm on grid:  84%|████████▍ | 105/125 [00:56<00:10,  2.00it/s][A
+calculating alpha_lm on grid:  85%|████████▍ | 106/125 [00:57<00:09,  2.01it/s][A
+calculating alpha_lm on grid:  86%|████████▌ | 107/125 [00:57<00:08,  2.02it/s][A
+calculating alpha_lm on grid:  86%|████████▋ | 108/125 [00:58<00:08,  1.99it/s][A
+calculating alpha_lm on grid:  87%|████████▋ | 109/125 [00:58<00:08,  1.96it/s][A
+calculating alpha_lm on grid:  88%|████████▊ | 110/125 [00:59<00:07,  1.95it/s][A
+calculating alpha_lm on grid:  89%|████████▉ | 111/125 [00:59<00:07,  1.93it/s][A
+calculating alpha_lm on grid:  90%|████████▉ | 112/125 [01:00<00:06,  1.92it/s][A
+calculating alpha_lm on grid:  90%|█████████ | 113/125 [01:00<00:06,  1.93it/s][A
+calculating alpha_lm on grid:  91%|█████████ | 114/125 [01:01<00:05,  1.94it/s][A
+calculating alpha_lm on grid:  92%|█████████▏| 115/125 [01:01<00:05,  1.91it/s][A
+calculating alpha_lm on grid:  93%|█████████▎| 116/125 [01:02<00:04,  1.94it/s][A
+calculating alpha_lm on grid:  94%|█████████▎| 117/125 [01:02<00:04,  1.92it/s][A
+calculating alpha_lm on grid:  94%|█████████▍| 118/125 [01:03<00:03,  1.95it/s][A
+calculating alpha_lm on grid:  95%|█████████▌| 119/125 [01:04<00:03,  1.85it/s][A
+calculating alpha_lm on grid:  96%|█████████▌| 120/125 [01:04<00:02,  1.84it/s][A
+calculating alpha_lm on grid:  97%|█████████▋| 121/125 [01:05<00:02,  1.90it/s][A
+calculating alpha_lm on grid:  98%|█████████▊| 122/125 [01:05<00:01,  1.95it/s][A
+calculating alpha_lm on grid:  98%|█████████▊| 123/125 [01:06<00:01,  1.87it/s][A
+calculating alpha_lm on grid:  99%|█████████▉| 124/125 [01:06<00:00,  1.91it/s][A
+calculating alpha_lm on grid: 100%|██████████| 125/125 [01:07<00:00,  1.86it/s][Acalculating alpha_lm on grid: 100%|██████████| 125/125 [01:07<00:00,  1.86it/s]
+
+  0%|          | 0/25 [00:00<?, ?it/s][A
+  4%|▍         | 1/25 [00:07<03:03,  7.63s/it][A
+  8%|▊         | 2/25 [00:09<01:36,  4.19s/it][A
+ 16%|█▌        | 4/25 [00:09<00:34,  1.63s/it][A
+ 20%|██        | 5/25 [00:12<00:41,  2.07s/it][A
+ 28%|██▊       | 7/25 [00:13<00:23,  1.33s/it][A
+ 32%|███▏      | 8/25 [00:14<00:21,  1.25s/it][A
+ 36%|███▌      | 9/25 [00:16<00:21,  1.34s/it][A
+ 40%|████      | 10/25 [00:17<00:17,  1.18s/it][A
+ 44%|████▍     | 11/25 [00:17<00:15,  1.08s/it][A
+ 48%|████▊     | 12/25 [00:18<00:13,  1.02s/it][A
+ 52%|█████▏    | 13/25 [00:21<00:18,  1.51s/it][A
+ 64%|██████▍   | 16/25 [00:23<00:08,  1.01it/s][A
+ 68%|██████▊   | 17/25 [00:24<00:08,  1.08s/it][A
+ 72%|███████▏  | 18/25 [00:25<00:08,  1.16s/it][A
+ 76%|███████▌  | 19/25 [00:26<00:06,  1.02s/it][A
+ 80%|████████  | 20/25 [00:27<00:04,  1.01it/s][A
+ 84%|████████▍ | 21/25 [00:28<00:04,  1.04s/it][A
+ 88%|████████▊ | 22/25 [00:30<00:04,  1.36s/it][A
+ 92%|█████████▏| 23/25 [00:31<00:02,  1.09s/it][A
+ 96%|█████████▌| 24/25 [00:31<00:00,  1.18it/s][A
+100%|██████████| 25/25 [00:32<00:00,  1.21it/s][A100%|██████████| 25/25 [00:32<00:00,  1.29s/it]
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/5289 [00:00<?, ?it/s][A
+calculating left/right snrs, sensitivity for samples:   1%|          | 40/5289 [00:00<00:13, 399.83it/s][A
+calculating left/right snrs, sensitivity for samples:   2%|▏         | 80/5289 [00:00<00:15, 342.82it/s][A
+calculating left/right snrs, sensitivity for samples:   2%|▏         | 115/5289 [00:00<00:15, 335.48it/s][A
+calculating left/right snrs, sensitivity for samples:   3%|▎         | 149/5289 [00:00<00:16, 314.24it/s][A
+calculating left/right snrs, sensitivity for samples:   4%|▎         | 192/5289 [00:00<00:14, 350.53it/s][A
+calculating left/right snrs, sensitivity for samples:   4%|▍         | 228/5289 [00:00<00:14, 340.32it/s][A
+calculating left/right snrs, sensitivity for samples:   5%|▍         | 263/5289 [00:00<00:15, 328.56it/s][A
+calculating left/right snrs, sensitivity for samples:   6%|▌         | 298/5289 [00:00<00:14, 333.85it/s][A
+calculating left/right snrs, sensitivity for samples:   6%|▋         | 340/5289 [00:00<00:13, 357.19it/s][A
+calculating left/right snrs, sensitivity for samples:   7%|▋         | 376/5289 [00:01<00:14, 345.86it/s][A
+calculating left/right snrs, sensitivity for samples:   8%|▊         | 414/5289 [00:01<00:13, 354.95it/s][A
+calculating left/right snrs, sensitivity for samples:   9%|▊         | 450/5289 [00:01<00:14, 342.78it/s][A
+calculating left/right snrs, sensitivity for samples:   9%|▉         | 499/5289 [00:01<00:12, 382.72it/s][A
+calculating left/right snrs, sensitivity for samples:  10%|█         | 538/5289 [00:01<00:13, 352.37it/s][A
+calculating left/right snrs, sensitivity for samples:  11%|█         | 588/5289 [00:01<00:11, 392.23it/s][A
+calculating left/right snrs, sensitivity for samples:  12%|█▏        | 629/5289 [00:01<00:12, 379.20it/s][A
+calculating left/right snrs, sensitivity for samples:  13%|█▎        | 668/5289 [00:01<00:12, 361.96it/s][A
+calculating left/right snrs, sensitivity for samples:  14%|█▎        | 718/5289 [00:01<00:11, 398.62it/s][A
+calculating left/right snrs, sensitivity for samples:  14%|█▍        | 759/5289 [00:02<00:12, 364.27it/s][A
+calculating left/right snrs, sensitivity for samples:  15%|█▌        | 797/5289 [00:02<00:12, 351.20it/s][A
+calculating left/right snrs, sensitivity for samples:  16%|█▌        | 833/5289 [00:02<00:13, 334.78it/s][A
+calculating left/right snrs, sensitivity for samples:  17%|█▋        | 880/5289 [00:02<00:12, 366.11it/s][A
+calculating left/right snrs, sensitivity for samples:  17%|█▋        | 918/5289 [00:02<00:12, 347.42it/s][A
+calculating left/right snrs, sensitivity for samples:  18%|█▊        | 964/5289 [00:02<00:11, 376.02it/s][A
+calculating left/right snrs, sensitivity for samples:  19%|█▉        | 1003/5289 [00:02<00:12, 351.39it/s][A
+calculating left/right snrs, sensitivity for samples:  20%|█▉        | 1052/5289 [00:02<00:10, 388.32it/s][A
+calculating left/right snrs, sensitivity for samples:  21%|██        | 1092/5289 [00:03<00:11, 352.60it/s][A
+calculating left/right snrs, sensitivity for samples:  21%|██▏       | 1129/5289 [00:03<00:12, 332.51it/s][A
+calculating left/right snrs, sensitivity for samples:  22%|██▏       | 1164/5289 [00:03<00:12, 336.61it/s][A
+calculating left/right snrs, sensitivity for samples:  23%|██▎       | 1200/5289 [00:03<00:12, 340.57it/s][A
+calculating left/right snrs, sensitivity for samples:  23%|██▎       | 1235/5289 [00:03<00:11, 339.99it/s][A
+calculating left/right snrs, sensitivity for samples:  24%|██▍       | 1271/5289 [00:03<00:11, 344.80it/s][A
+calculating left/right snrs, sensitivity for samples:  25%|██▍       | 1306/5289 [00:03<00:11, 336.78it/s][A
+calculating left/right snrs, sensitivity for samples:  25%|██▌       | 1343/5289 [00:03<00:11, 344.65it/s][A
+calculating left/right snrs, sensitivity for samples:  26%|██▌       | 1378/5289 [00:03<00:11, 340.92it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1416/5289 [00:04<00:11, 351.60it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1452/5289 [00:04<00:11, 343.09it/s][A
+calculating left/right snrs, sensitivity for samples:  28%|██▊       | 1492/5289 [00:04<00:10, 355.66it/s][A
+calculating left/right snrs, sensitivity for samples:  29%|██▉       | 1528/5289 [00:04<00:11, 328.19it/s][A
+calculating left/right snrs, sensitivity for samples:  30%|██▉       | 1570/5289 [00:04<00:10, 351.23it/s][A
+calculating left/right snrs, sensitivity for samples:  30%|███       | 1606/5289 [00:04<00:10, 335.57it/s][A
+calculating left/right snrs, sensitivity for samples:  31%|███       | 1648/5289 [00:04<00:10, 358.04it/s][A
+calculating left/right snrs, sensitivity for samples:  32%|███▏      | 1685/5289 [00:04<00:10, 343.69it/s][A
+calculating left/right snrs, sensitivity for samples:  33%|███▎      | 1720/5289 [00:04<00:10, 338.56it/s][A
+calculating left/right snrs, sensitivity for samples:  33%|███▎      | 1761/5289 [00:05<00:09, 356.72it/s][A
+calculating left/right snrs, sensitivity for samples:  34%|███▍      | 1797/5289 [00:05<00:10, 337.15it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▍      | 1839/5289 [00:05<00:09, 358.80it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▌      | 1876/5289 [00:05<00:09, 347.12it/s][A
+calculating left/right snrs, sensitivity for samples:  36%|███▌      | 1915/5289 [00:05<00:09, 357.14it/s][A
+calculating left/right snrs, sensitivity for samples:  37%|███▋      | 1964/5289 [00:05<00:08, 392.51it/s][A
+calculating left/right snrs, sensitivity for samples:  38%|███▊      | 2004/5289 [00:05<00:09, 358.54it/s][A
+calculating left/right snrs, sensitivity for samples:  39%|███▊      | 2048/5289 [00:05<00:08, 379.64it/s][A
+calculating left/right snrs, sensitivity for samples:  39%|███▉      | 2087/5289 [00:05<00:08, 361.87it/s][A
+calculating left/right snrs, sensitivity for samples:  40%|████      | 2133/5289 [00:06<00:08, 388.44it/s][A
+calculating left/right snrs, sensitivity for samples:  41%|████      | 2173/5289 [00:06<00:08, 358.89it/s][A
+calculating left/right snrs, sensitivity for samples:  42%|████▏     | 2213/5289 [00:06<00:08, 368.09it/s][A
+calculating left/right snrs, sensitivity for samples:  43%|████▎     | 2251/5289 [00:06<00:08, 352.90it/s][A
+calculating left/right snrs, sensitivity for samples:  43%|████▎     | 2298/5289 [00:06<00:07, 381.40it/s][A
+calculating left/right snrs, sensitivity for samples:  44%|████▍     | 2337/5289 [00:06<00:08, 348.30it/s][A
+calculating left/right snrs, sensitivity for samples:  45%|████▍     | 2376/5289 [00:06<00:08, 356.61it/s][A
+calculating left/right snrs, sensitivity for samples:  46%|████▌     | 2413/5289 [00:06<00:08, 333.68it/s][A
+calculating left/right snrs, sensitivity for samples:  46%|████▋     | 2454/5289 [00:06<00:08, 353.33it/s][A
+calculating left/right snrs, sensitivity for samples:  47%|████▋     | 2491/5289 [00:07<00:08, 343.05it/s][A
+calculating left/right snrs, sensitivity for samples:  48%|████▊     | 2540/5289 [00:07<00:07, 383.03it/s][A
+calculating left/right snrs, sensitivity for samples:  49%|████▉     | 2580/5289 [00:07<00:07, 367.95it/s][A
+calculating left/right snrs, sensitivity for samples:  49%|████▉     | 2618/5289 [00:07<00:07, 349.94it/s][A
+calculating left/right snrs, sensitivity for samples:  50%|█████     | 2657/5289 [00:07<00:07, 359.79it/s][A
+calculating left/right snrs, sensitivity for samples:  51%|█████     | 2694/5289 [00:07<00:07, 340.23it/s][A
+calculating left/right snrs, sensitivity for samples:  52%|█████▏    | 2739/5289 [00:07<00:06, 369.14it/s][A
+calculating left/right snrs, sensitivity for samples:  53%|█████▎    | 2777/5289 [00:07<00:07, 350.28it/s][A
+calculating left/right snrs, sensitivity for samples:  53%|█████▎    | 2823/5289 [00:07<00:06, 379.65it/s][A
+calculating left/right snrs, sensitivity for samples:  54%|█████▍    | 2862/5289 [00:08<00:06, 356.64it/s][A
+calculating left/right snrs, sensitivity for samples:  55%|█████▌    | 2910/5289 [00:08<00:06, 389.47it/s][A
+calculating left/right snrs, sensitivity for samples:  56%|█████▌    | 2950/5289 [00:08<00:06, 379.56it/s][A
+calculating left/right snrs, sensitivity for samples:  57%|█████▋    | 2989/5289 [00:08<00:06, 357.95it/s][A
+calculating left/right snrs, sensitivity for samples:  57%|█████▋    | 3035/5289 [00:08<00:05, 383.77it/s][A
+calculating left/right snrs, sensitivity for samples:  58%|█████▊    | 3075/5289 [00:08<00:06, 366.36it/s][A
+calculating left/right snrs, sensitivity for samples:  59%|█████▉    | 3120/5289 [00:08<00:05, 388.54it/s][A
+calculating left/right snrs, sensitivity for samples:  60%|█████▉    | 3170/5289 [00:08<00:05, 418.19it/s][A
+calculating left/right snrs, sensitivity for samples:  61%|██████    | 3213/5289 [00:08<00:05, 377.69it/s][A
+calculating left/right snrs, sensitivity for samples:  62%|██████▏   | 3265/5289 [00:09<00:04, 414.90it/s][A
+calculating left/right snrs, sensitivity for samples:  63%|██████▎   | 3308/5289 [00:09<00:05, 390.19it/s][A
+calculating left/right snrs, sensitivity for samples:  63%|██████▎   | 3349/5289 [00:09<00:05, 386.74it/s][A
+calculating left/right snrs, sensitivity for samples:  64%|██████▍   | 3392/5289 [00:09<00:04, 397.94it/s][A
+calculating left/right snrs, sensitivity for samples:  65%|██████▍   | 3433/5289 [00:09<00:05, 358.15it/s][A
+calculating left/right snrs, sensitivity for samples:  66%|██████▌   | 3478/5289 [00:09<00:04, 379.82it/s][A
+calculating left/right snrs, sensitivity for samples:  66%|██████▋   | 3517/5289 [00:09<00:04, 357.48it/s][A
+calculating left/right snrs, sensitivity for samples:  67%|██████▋   | 3568/5289 [00:09<00:04, 396.42it/s][A
+calculating left/right snrs, sensitivity for samples:  68%|██████▊   | 3609/5289 [00:09<00:04, 381.60it/s][A
+calculating left/right snrs, sensitivity for samples:  69%|██████▉   | 3648/5289 [00:10<00:04, 380.96it/s][A
+calculating left/right snrs, sensitivity for samples:  70%|██████▉   | 3695/5289 [00:10<00:03, 401.98it/s][A
+calculating left/right snrs, sensitivity for samples:  71%|███████   | 3736/5289 [00:10<00:04, 376.69it/s][A
+calculating left/right snrs, sensitivity for samples:  71%|███████▏  | 3781/5289 [00:10<00:03, 396.53it/s][A
+calculating left/right snrs, sensitivity for samples:  72%|███████▏  | 3822/5289 [00:10<00:04, 356.55it/s][A
+calculating left/right snrs, sensitivity for samples:  73%|███████▎  | 3870/5289 [00:10<00:03, 386.59it/s][A
+calculating left/right snrs, sensitivity for samples:  74%|███████▍  | 3910/5289 [00:10<00:03, 353.92it/s][A
+calculating left/right snrs, sensitivity for samples:  75%|███████▍  | 3947/5289 [00:10<00:03, 342.33it/s][A
+calculating left/right snrs, sensitivity for samples:  75%|███████▌  | 3983/5289 [00:11<00:03, 330.16it/s][A
+calculating left/right snrs, sensitivity for samples:  76%|███████▌  | 4026/5289 [00:11<00:03, 356.07it/s][A
+calculating left/right snrs, sensitivity for samples:  77%|███████▋  | 4066/5289 [00:11<00:03, 367.05it/s][A
+calculating left/right snrs, sensitivity for samples:  78%|███████▊  | 4104/5289 [00:11<00:03, 355.07it/s][A
+calculating left/right snrs, sensitivity for samples:  79%|███████▊  | 4154/5289 [00:11<00:02, 394.95it/s][A
+calculating left/right snrs, sensitivity for samples:  79%|███████▉  | 4195/5289 [00:11<00:03, 363.81it/s][A
+calculating left/right snrs, sensitivity for samples:  80%|████████  | 4233/5289 [00:11<00:02, 362.01it/s][A
+calculating left/right snrs, sensitivity for samples:  81%|████████  | 4272/5289 [00:11<00:02, 369.16it/s][A
+calculating left/right snrs, sensitivity for samples:  81%|████████▏ | 4310/5289 [00:11<00:02, 353.63it/s][A
+calculating left/right snrs, sensitivity for samples:  82%|████████▏ | 4353/5289 [00:12<00:02, 374.38it/s][A
+calculating left/right snrs, sensitivity for samples:  83%|████████▎ | 4391/5289 [00:12<00:02, 355.44it/s][A
+calculating left/right snrs, sensitivity for samples:  84%|████████▍ | 4441/5289 [00:12<00:02, 393.90it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▍ | 4481/5289 [00:12<00:02, 394.07it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▌ | 4521/5289 [00:12<00:02, 376.81it/s][A
+calculating left/right snrs, sensitivity for samples:  86%|████████▌ | 4560/5289 [00:12<00:01, 372.13it/s][A
+calculating left/right snrs, sensitivity for samples:  87%|████████▋ | 4598/5289 [00:12<00:01, 360.68it/s][A
+calculating left/right snrs, sensitivity for samples:  88%|████████▊ | 4643/5289 [00:12<00:01, 384.76it/s][A
+calculating left/right snrs, sensitivity for samples:  89%|████████▊ | 4682/5289 [00:12<00:01, 362.12it/s][A
+calculating left/right snrs, sensitivity for samples:  89%|████████▉ | 4731/5289 [00:13<00:01, 394.16it/s][A
+calculating left/right snrs, sensitivity for samples:  90%|█████████ | 4771/5289 [00:13<00:01, 367.76it/s][A
+calculating left/right snrs, sensitivity for samples:  91%|█████████ | 4818/5289 [00:13<00:01, 391.81it/s][A
+calculating left/right snrs, sensitivity for samples:  92%|█████████▏| 4858/5289 [00:13<00:01, 366.37it/s][A
+calculating left/right snrs, sensitivity for samples:  93%|█████████▎| 4907/5289 [00:13<00:00, 398.50it/s][A
+calculating left/right snrs, sensitivity for samples:  94%|█████████▎| 4948/5289 [00:13<00:00, 371.43it/s][A
+calculating left/right snrs, sensitivity for samples:  94%|█████████▍| 4995/5289 [00:13<00:00, 396.91it/s][A
+calculating left/right snrs, sensitivity for samples:  95%|█████████▌| 5036/5289 [00:13<00:00, 380.48it/s][A
+calculating left/right snrs, sensitivity for samples:  96%|█████████▌| 5075/5289 [00:13<00:00, 376.88it/s][A
+calculating left/right snrs, sensitivity for samples:  97%|█████████▋| 5126/5289 [00:14<00:00, 413.05it/s][A
+calculating left/right snrs, sensitivity for samples:  98%|█████████▊| 5168/5289 [00:14<00:00, 369.23it/s][A
+calculating left/right snrs, sensitivity for samples:  99%|█████████▊| 5219/5289 [00:14<00:00, 404.61it/s][A
+calculating left/right snrs, sensitivity for samples:  99%|█████████▉| 5261/5289 [00:14<00:00, 374.14it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 5289/5289 [00:14<00:00, 365.35it/s]
+Drawing samples:  29%|██▉       | 288.0/1000 [05:02<12:26,  1.05s/it]/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utcut1" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utctai" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+WARNING: Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary. [astropy.coordinates.builtin_frames.utils]
+2026-01-22  02:29:42 astropy WARNING : Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary.
+/home/ben.patterson/projects/simple-pe/simple_pe/localization/loc.py:29: RuntimeWarning: invalid value encountered in sqrt
+  sigma = 1 / np.sqrt(ev + epsilon)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/5415 [00:00<?, ?it/s][A
+calculating left/right snrs, sensitivity for samples:   1%|          | 31/5415 [00:00<00:17, 308.53it/s][A
+calculating left/right snrs, sensitivity for samples:   1%|▏         | 73/5415 [00:00<00:14, 369.50it/s][A
+calculating left/right snrs, sensitivity for samples:   2%|▏         | 110/5415 [00:00<00:16, 323.59it/s][A
+calculating left/right snrs, sensitivity for samples:   3%|▎         | 162/5415 [00:00<00:13, 392.48it/s][A
+calculating left/right snrs, sensitivity for samples:   4%|▎         | 203/5415 [00:00<00:14, 356.48it/s][A
+calculating left/right snrs, sensitivity for samples:   5%|▍         | 248/5415 [00:00<00:13, 382.78it/s][A
+calculating left/right snrs, sensitivity for samples:   5%|▌         | 288/5415 [00:00<00:14, 360.87it/s][A
+calculating left/right snrs, sensitivity for samples:   6%|▌         | 332/5415 [00:00<00:13, 381.68it/s][A
+calculating left/right snrs, sensitivity for samples:   7%|▋         | 375/5415 [00:00<00:12, 395.01it/s][A
+calculating left/right snrs, sensitivity for samples:   8%|▊         | 416/5415 [00:01<00:13, 358.38it/s][A
+calculating left/right snrs, sensitivity for samples:   9%|▊         | 462/5415 [00:01<00:12, 382.88it/s][A
+calculating left/right snrs, sensitivity for samples:   9%|▉         | 502/5415 [00:01<00:13, 371.20it/s][A
+calculating left/right snrs, sensitivity for samples:  10%|█         | 552/5415 [00:01<00:12, 404.13it/s][A
+calculating left/right snrs, sensitivity for samples:  11%|█         | 594/5415 [00:01<00:12, 377.83it/s][A
+calculating left/right snrs, sensitivity for samples:  12%|█▏        | 642/5415 [00:01<00:11, 403.45it/s][A
+calculating left/right snrs, sensitivity for samples:  13%|█▎        | 684/5415 [00:01<00:12, 378.29it/s][A
+calculating left/right snrs, sensitivity for samples:  13%|█▎        | 728/5415 [00:01<00:11, 394.49it/s][A
+calculating left/right snrs, sensitivity for samples:  14%|█▍        | 770/5415 [00:02<00:11, 398.83it/s][A
+calculating left/right snrs, sensitivity for samples:  15%|█▍        | 811/5415 [00:02<00:11, 383.90it/s][A
+calculating left/right snrs, sensitivity for samples:  16%|█▌        | 852/5415 [00:02<00:11, 388.17it/s][A
+calculating left/right snrs, sensitivity for samples:  16%|█▋        | 892/5415 [00:02<00:12, 356.51it/s][A
+calculating left/right snrs, sensitivity for samples:  17%|█▋        | 937/5415 [00:02<00:11, 381.49it/s][A
+calculating left/right snrs, sensitivity for samples:  18%|█▊        | 976/5415 [00:02<00:12, 365.08it/s][A
+calculating left/right snrs, sensitivity for samples:  19%|█▊        | 1014/5415 [00:02<00:11, 369.16it/s][A
+calculating left/right snrs, sensitivity for samples:  19%|█▉        | 1052/5415 [00:02<00:12, 347.74it/s][A
+calculating left/right snrs, sensitivity for samples:  20%|██        | 1095/5415 [00:02<00:11, 368.45it/s][A
+calculating left/right snrs, sensitivity for samples:  21%|██        | 1144/5415 [00:03<00:10, 398.83it/s][A
+calculating left/right snrs, sensitivity for samples:  22%|██▏       | 1185/5415 [00:03<00:11, 359.92it/s][A
+calculating left/right snrs, sensitivity for samples:  23%|██▎       | 1229/5415 [00:03<00:11, 379.57it/s][A
+calculating left/right snrs, sensitivity for samples:  23%|██▎       | 1268/5415 [00:03<00:11, 353.11it/s][A
+calculating left/right snrs, sensitivity for samples:  24%|██▍       | 1307/5415 [00:03<00:11, 362.65it/s][A
+calculating left/right snrs, sensitivity for samples:  25%|██▍       | 1347/5415 [00:03<00:10, 371.30it/s][A
+calculating left/right snrs, sensitivity for samples:  26%|██▌       | 1385/5415 [00:03<00:11, 360.89it/s][A
+calculating left/right snrs, sensitivity for samples:  26%|██▋       | 1422/5415 [00:03<00:11, 357.84it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1459/5415 [00:03<00:11, 346.95it/s][A
+calculating left/right snrs, sensitivity for samples:  28%|██▊       | 1505/5415 [00:04<00:10, 377.38it/s][A
+calculating left/right snrs, sensitivity for samples:  29%|██▊       | 1544/5415 [00:04<00:10, 360.89it/s][A
+calculating left/right snrs, sensitivity for samples:  29%|██▉       | 1591/5415 [00:04<00:09, 389.55it/s][A
+calculating left/right snrs, sensitivity for samples:  30%|███       | 1631/5415 [00:04<00:10, 361.80it/s][A
+calculating left/right snrs, sensitivity for samples:  31%|███       | 1682/5415 [00:04<00:09, 400.43it/s][A
+calculating left/right snrs, sensitivity for samples:  32%|███▏      | 1723/5415 [00:04<00:09, 380.93it/s][A
+calculating left/right snrs, sensitivity for samples:  33%|███▎      | 1762/5415 [00:04<00:09, 370.60it/s][A
+calculating left/right snrs, sensitivity for samples:  33%|███▎      | 1800/5415 [00:04<00:10, 352.77it/s][A
+calculating left/right snrs, sensitivity for samples:  34%|███▍      | 1838/5415 [00:04<00:09, 360.03it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▍      | 1877/5415 [00:05<00:09, 365.86it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▌      | 1914/5415 [00:05<00:10, 346.71it/s][A
+calculating left/right snrs, sensitivity for samples:  36%|███▌      | 1950/5415 [00:05<00:10, 345.16it/s][A
+calculating left/right snrs, sensitivity for samples:  37%|███▋      | 1985/5415 [00:05<00:10, 339.30it/s][A
+calculating left/right snrs, sensitivity for samples:  38%|███▊      | 2037/5415 [00:05<00:08, 385.89it/s][A
+calculating left/right snrs, sensitivity for samples:  38%|███▊      | 2076/5415 [00:05<00:09, 364.73it/s][A
+calculating left/right snrs, sensitivity for samples:  39%|███▉      | 2120/5415 [00:05<00:08, 384.20it/s][A
+calculating left/right snrs, sensitivity for samples:  40%|███▉      | 2162/5415 [00:05<00:08, 391.70it/s][A
+calculating left/right snrs, sensitivity for samples:  41%|████      | 2202/5415 [00:05<00:08, 383.50it/s][A
+calculating left/right snrs, sensitivity for samples:  42%|████▏     | 2254/5415 [00:06<00:07, 420.27it/s][A
+calculating left/right snrs, sensitivity for samples:  42%|████▏     | 2297/5415 [00:06<00:08, 385.69it/s][A
+calculating left/right snrs, sensitivity for samples:  43%|████▎     | 2340/5415 [00:06<00:07, 397.05it/s][A
+calculating left/right snrs, sensitivity for samples:  44%|████▍     | 2381/5415 [00:06<00:07, 393.15it/s][A
+calculating left/right snrs, sensitivity for samples:  45%|████▍     | 2421/5415 [00:06<00:07, 385.68it/s][A
+calculating left/right snrs, sensitivity for samples:  45%|████▌     | 2461/5415 [00:06<00:07, 388.93it/s][A
+calculating left/right snrs, sensitivity for samples:  46%|████▌     | 2501/5415 [00:06<00:07, 367.40it/s][A
+calculating left/right snrs, sensitivity for samples:  47%|████▋     | 2550/5415 [00:06<00:07, 399.54it/s][A
+calculating left/right snrs, sensitivity for samples:  48%|████▊     | 2591/5415 [00:06<00:07, 370.35it/s][A
+calculating left/right snrs, sensitivity for samples:  49%|████▊     | 2639/5415 [00:07<00:06, 397.04it/s][A
+calculating left/right snrs, sensitivity for samples:  49%|████▉     | 2680/5415 [00:07<00:07, 369.33it/s][A
+calculating left/right snrs, sensitivity for samples:  50%|█████     | 2721/5415 [00:07<00:07, 377.80it/s][A
+calculating left/right snrs, sensitivity for samples:  51%|█████     | 2760/5415 [00:07<00:07, 351.32it/s][A
+calculating left/right snrs, sensitivity for samples:  52%|█████▏    | 2799/5415 [00:07<00:07, 360.12it/s][A
+calculating left/right snrs, sensitivity for samples:  52%|█████▏    | 2836/5415 [00:07<00:07, 342.91it/s][A
+calculating left/right snrs, sensitivity for samples:  53%|█████▎    | 2880/5415 [00:07<00:06, 366.95it/s][A
+calculating left/right snrs, sensitivity for samples:  54%|█████▍    | 2918/5415 [00:07<00:07, 343.53it/s][A
+calculating left/right snrs, sensitivity for samples:  55%|█████▍    | 2958/5415 [00:07<00:06, 357.86it/s][A
+calculating left/right snrs, sensitivity for samples:  55%|█████▌    | 2995/5415 [00:08<00:07, 344.85it/s][A
+calculating left/right snrs, sensitivity for samples:  56%|█████▌    | 3039/5415 [00:08<00:06, 367.22it/s][A
+calculating left/right snrs, sensitivity for samples:  57%|█████▋    | 3077/5415 [00:08<00:06, 344.82it/s][A
+calculating left/right snrs, sensitivity for samples:  58%|█████▊    | 3122/5415 [00:08<00:06, 372.95it/s][A
+calculating left/right snrs, sensitivity for samples:  58%|█████▊    | 3160/5415 [00:08<00:06, 350.96it/s][A
+calculating left/right snrs, sensitivity for samples:  59%|█████▉    | 3196/5415 [00:08<00:06, 330.74it/s][A
+calculating left/right snrs, sensitivity for samples:  60%|█████▉    | 3230/5415 [00:08<00:06, 328.83it/s][A
+calculating left/right snrs, sensitivity for samples:  60%|██████    | 3264/5415 [00:08<00:06, 313.56it/s][A
+calculating left/right snrs, sensitivity for samples:  61%|██████    | 3316/5415 [00:08<00:05, 368.53it/s][A
+calculating left/right snrs, sensitivity for samples:  62%|██████▏   | 3354/5415 [00:09<00:05, 351.40it/s][A
+calculating left/right snrs, sensitivity for samples:  63%|██████▎   | 3394/5415 [00:09<00:05, 363.55it/s][A
+calculating left/right snrs, sensitivity for samples:  63%|██████▎   | 3431/5415 [00:09<00:05, 345.67it/s][A
+calculating left/right snrs, sensitivity for samples:  64%|██████▍   | 3473/5415 [00:09<00:05, 364.19it/s][A
+calculating left/right snrs, sensitivity for samples:  65%|██████▍   | 3510/5415 [00:09<00:05, 362.13it/s][A
+calculating left/right snrs, sensitivity for samples:  66%|██████▌   | 3547/5415 [00:09<00:05, 355.83it/s][A
+calculating left/right snrs, sensitivity for samples:  66%|██████▋   | 3591/5415 [00:09<00:04, 378.93it/s][A
+calculating left/right snrs, sensitivity for samples:  67%|██████▋   | 3630/5415 [00:09<00:04, 361.89it/s][A
+calculating left/right snrs, sensitivity for samples:  68%|██████▊   | 3681/5415 [00:09<00:04, 401.58it/s][A
+calculating left/right snrs, sensitivity for samples:  69%|██████▊   | 3722/5415 [00:10<00:04, 359.16it/s][A
+calculating left/right snrs, sensitivity for samples:  70%|██████▉   | 3771/5415 [00:10<00:04, 393.68it/s][A
+calculating left/right snrs, sensitivity for samples:  70%|███████   | 3812/5415 [00:10<00:04, 377.54it/s][A
+calculating left/right snrs, sensitivity for samples:  71%|███████   | 3852/5415 [00:10<00:04, 382.93it/s][A
+calculating left/right snrs, sensitivity for samples:  72%|███████▏  | 3891/5415 [00:10<00:03, 381.23it/s][A
+calculating left/right snrs, sensitivity for samples:  73%|███████▎  | 3930/5415 [00:10<00:04, 369.06it/s][A
+calculating left/right snrs, sensitivity for samples:  73%|███████▎  | 3969/5415 [00:10<00:03, 371.62it/s][A
+calculating left/right snrs, sensitivity for samples:  74%|███████▍  | 4007/5415 [00:10<00:03, 363.01it/s][A
+calculating left/right snrs, sensitivity for samples:  75%|███████▍  | 4053/5415 [00:10<00:03, 388.96it/s][A
+calculating left/right snrs, sensitivity for samples:  76%|███████▌  | 4093/5415 [00:11<00:03, 348.36it/s][A
+calculating left/right snrs, sensitivity for samples:  76%|███████▋  | 4136/5415 [00:11<00:03, 367.53it/s][A
+calculating left/right snrs, sensitivity for samples:  77%|███████▋  | 4174/5415 [00:11<00:03, 355.78it/s][A
+calculating left/right snrs, sensitivity for samples:  78%|███████▊  | 4226/5415 [00:11<00:02, 399.04it/s][A
+calculating left/right snrs, sensitivity for samples:  79%|███████▉  | 4267/5415 [00:11<00:03, 370.81it/s][A
+calculating left/right snrs, sensitivity for samples:  80%|███████▉  | 4312/5415 [00:11<00:02, 390.67it/s][A
+calculating left/right snrs, sensitivity for samples:  80%|████████  | 4352/5415 [00:11<00:02, 381.33it/s][A
+calculating left/right snrs, sensitivity for samples:  81%|████████  | 4391/5415 [00:11<00:02, 381.80it/s][A
+calculating left/right snrs, sensitivity for samples:  82%|████████▏ | 4431/5415 [00:11<00:02, 385.65it/s][A
+calculating left/right snrs, sensitivity for samples:  83%|████████▎ | 4470/5415 [00:12<00:02, 369.66it/s][A
+calculating left/right snrs, sensitivity for samples:  83%|████████▎ | 4511/5415 [00:12<00:02, 380.07it/s][A
+calculating left/right snrs, sensitivity for samples:  84%|████████▍ | 4550/5415 [00:12<00:02, 360.19it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▍ | 4599/5415 [00:12<00:02, 394.98it/s][A
+calculating left/right snrs, sensitivity for samples:  86%|████████▌ | 4639/5415 [00:12<00:01, 389.30it/s][A
+calculating left/right snrs, sensitivity for samples:  86%|████████▋ | 4679/5415 [00:12<00:01, 375.64it/s][A
+calculating left/right snrs, sensitivity for samples:  87%|████████▋ | 4725/5415 [00:12<00:01, 397.55it/s][A
+calculating left/right snrs, sensitivity for samples:  88%|████████▊ | 4766/5415 [00:12<00:01, 370.34it/s][A
+calculating left/right snrs, sensitivity for samples:  89%|████████▉ | 4817/5415 [00:12<00:01, 408.32it/s][A
+calculating left/right snrs, sensitivity for samples:  90%|████████▉ | 4859/5415 [00:13<00:01, 376.58it/s][A
+calculating left/right snrs, sensitivity for samples:  91%|█████████ | 4904/5415 [00:13<00:01, 395.34it/s][A
+calculating left/right snrs, sensitivity for samples:  91%|█████████▏| 4945/5415 [00:13<00:01, 372.65it/s][A
+calculating left/right snrs, sensitivity for samples:  92%|█████████▏| 4986/5415 [00:13<00:01, 382.38it/s][A
+calculating left/right snrs, sensitivity for samples:  93%|█████████▎| 5025/5415 [00:13<00:01, 383.90it/s][A
+calculating left/right snrs, sensitivity for samples:  94%|█████████▎| 5064/5415 [00:13<00:00, 370.66it/s][A
+calculating left/right snrs, sensitivity for samples:  94%|█████████▍| 5106/5415 [00:13<00:00, 383.45it/s][A
+calculating left/right snrs, sensitivity for samples:  95%|█████████▌| 5145/5415 [00:13<00:00, 360.61it/s][A
+calculating left/right snrs, sensitivity for samples:  96%|█████████▌| 5188/5415 [00:13<00:00, 379.31it/s][A
+calculating left/right snrs, sensitivity for samples:  97%|█████████▋| 5229/5415 [00:14<00:00, 386.75it/s][A
+calculating left/right snrs, sensitivity for samples:  97%|█████████▋| 5269/5415 [00:14<00:00, 350.94it/s][A
+calculating left/right snrs, sensitivity for samples:  98%|█████████▊| 5312/5415 [00:14<00:00, 370.92it/s][A
+calculating left/right snrs, sensitivity for samples:  99%|█████████▉| 5350/5415 [00:14<00:00, 351.54it/s][A
+calculating left/right snrs, sensitivity for samples:  99%|█████████▉| 5386/5415 [00:14<00:00, 338.04it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 5415/5415 [00:14<00:00, 370.42it/s]
+Drawing samples:  52%|█████▏    | 523.0/1000 [05:18<04:09,  1.91it/s]/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utcut1" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utctai" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+WARNING: Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary. [astropy.coordinates.builtin_frames.utils]
+2026-01-22  02:29:59 astropy WARNING : Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary.
+/home/ben.patterson/projects/simple-pe/simple_pe/localization/loc.py:29: RuntimeWarning: invalid value encountered in sqrt
+  sigma = 1 / np.sqrt(ev + epsilon)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/5516 [00:00<?, ?it/s][A
+calculating left/right snrs, sensitivity for samples:   1%|          | 30/5516 [00:00<00:18, 295.41it/s][A
+calculating left/right snrs, sensitivity for samples:   1%|          | 66/5516 [00:00<00:16, 330.29it/s][A
+calculating left/right snrs, sensitivity for samples:   2%|▏         | 100/5516 [00:00<00:16, 329.44it/s][A
+calculating left/right snrs, sensitivity for samples:   2%|▏         | 133/5516 [00:00<00:17, 315.68it/s][A
+calculating left/right snrs, sensitivity for samples:   3%|▎         | 177/5516 [00:00<00:14, 356.57it/s][A
+calculating left/right snrs, sensitivity for samples:   4%|▍         | 213/5516 [00:00<00:15, 334.24it/s][A
+calculating left/right snrs, sensitivity for samples:   5%|▍         | 256/5516 [00:00<00:14, 362.46it/s][A
+calculating left/right snrs, sensitivity for samples:   6%|▌         | 305/5516 [00:00<00:13, 398.21it/s][A
+calculating left/right snrs, sensitivity for samples:   6%|▋         | 346/5516 [00:01<00:15, 338.53it/s][A
+calculating left/right snrs, sensitivity for samples:   7%|▋         | 382/5516 [00:01<00:15, 340.01it/s][A
+calculating left/right snrs, sensitivity for samples:   8%|▊         | 418/5516 [00:01<00:15, 334.64it/s][A
+calculating left/right snrs, sensitivity for samples:   8%|▊         | 461/5516 [00:01<00:14, 360.39it/s][A
+calculating left/right snrs, sensitivity for samples:   9%|▉         | 509/5516 [00:01<00:12, 391.67it/s][A
+calculating left/right snrs, sensitivity for samples:  10%|▉         | 549/5516 [00:01<00:13, 360.92it/s][A
+calculating left/right snrs, sensitivity for samples:  11%|█         | 595/5516 [00:01<00:12, 385.90it/s][A
+calculating left/right snrs, sensitivity for samples:  12%|█▏        | 635/5516 [00:01<00:13, 349.16it/s][A
+calculating left/right snrs, sensitivity for samples:  12%|█▏        | 674/5516 [00:01<00:13, 359.34it/s][A
+calculating left/right snrs, sensitivity for samples:  13%|█▎        | 711/5516 [00:02<00:13, 353.14it/s][A
+calculating left/right snrs, sensitivity for samples:  14%|█▎        | 750/5516 [00:02<00:13, 359.78it/s][A
+calculating left/right snrs, sensitivity for samples:  14%|█▍        | 787/5516 [00:02<00:13, 351.83it/s][A
+calculating left/right snrs, sensitivity for samples:  15%|█▍        | 823/5516 [00:02<00:13, 343.64it/s][A
+calculating left/right snrs, sensitivity for samples:  16%|█▌        | 862/5516 [00:02<00:13, 355.23it/s][A
+calculating left/right snrs, sensitivity for samples:  16%|█▋        | 898/5516 [00:02<00:12, 356.05it/s][A
+calculating left/right snrs, sensitivity for samples:  17%|█▋        | 934/5516 [00:02<00:13, 342.61it/s][A
+calculating left/right snrs, sensitivity for samples:  18%|█▊        | 970/5516 [00:02<00:13, 347.19it/s][A
+calculating left/right snrs, sensitivity for samples:  18%|█▊        | 1008/5516 [00:02<00:12, 355.95it/s][A
+calculating left/right snrs, sensitivity for samples:  19%|█▉        | 1051/5516 [00:02<00:11, 374.67it/s][A
+calculating left/right snrs, sensitivity for samples:  20%|█▉        | 1089/5516 [00:03<00:12, 353.44it/s][A
+calculating left/right snrs, sensitivity for samples:  20%|██        | 1126/5516 [00:03<00:12, 356.05it/s][A
+calculating left/right snrs, sensitivity for samples:  21%|██        | 1162/5516 [00:03<00:12, 340.72it/s][A
+calculating left/right snrs, sensitivity for samples:  22%|██▏       | 1208/5516 [00:03<00:11, 372.68it/s][A
+calculating left/right snrs, sensitivity for samples:  23%|██▎       | 1247/5516 [00:03<00:11, 375.68it/s][A
+calculating left/right snrs, sensitivity for samples:  23%|██▎       | 1285/5516 [00:03<00:12, 350.07it/s][A
+calculating left/right snrs, sensitivity for samples:  24%|██▍       | 1338/5516 [00:03<00:10, 397.90it/s][A
+calculating left/right snrs, sensitivity for samples:  25%|██▌       | 1379/5516 [00:03<00:11, 366.65it/s][A
+calculating left/right snrs, sensitivity for samples:  26%|██▌       | 1417/5516 [00:03<00:11, 366.83it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1463/5516 [00:04<00:10, 390.46it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1503/5516 [00:04<00:11, 364.26it/s][A
+calculating left/right snrs, sensitivity for samples:  28%|██▊       | 1551/5516 [00:04<00:10, 394.64it/s][A
+calculating left/right snrs, sensitivity for samples:  29%|██▉       | 1592/5516 [00:04<00:10, 366.04it/s][A
+calculating left/right snrs, sensitivity for samples:  30%|██▉       | 1642/5516 [00:04<00:09, 400.91it/s][A
+calculating left/right snrs, sensitivity for samples:  31%|███       | 1684/5516 [00:04<00:10, 375.93it/s][A
+calculating left/right snrs, sensitivity for samples:  31%|███▏      | 1727/5516 [00:04<00:09, 386.81it/s][A
+calculating left/right snrs, sensitivity for samples:  32%|███▏      | 1767/5516 [00:04<00:10, 357.10it/s][A
+calculating left/right snrs, sensitivity for samples:  33%|███▎      | 1815/5516 [00:04<00:09, 388.58it/s][A
+calculating left/right snrs, sensitivity for samples:  34%|███▎      | 1855/5516 [00:05<00:10, 346.07it/s][A
+calculating left/right snrs, sensitivity for samples:  34%|███▍      | 1891/5516 [00:05<00:10, 332.35it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▍      | 1926/5516 [00:05<00:10, 329.54it/s][A
+calculating left/right snrs, sensitivity for samples:  36%|███▌      | 1960/5516 [00:05<00:10, 330.87it/s][A
+calculating left/right snrs, sensitivity for samples:  36%|███▋      | 2000/5516 [00:05<00:10, 349.14it/s][A
+calculating left/right snrs, sensitivity for samples:  37%|███▋      | 2036/5516 [00:05<00:10, 340.80it/s][A
+calculating left/right snrs, sensitivity for samples:  38%|███▊      | 2083/5516 [00:05<00:09, 375.64it/s][A
+calculating left/right snrs, sensitivity for samples:  38%|███▊      | 2122/5516 [00:05<00:09, 368.11it/s][A
+calculating left/right snrs, sensitivity for samples:  39%|███▉      | 2160/5516 [00:06<00:09, 351.61it/s][A
+calculating left/right snrs, sensitivity for samples:  40%|███▉      | 2205/5516 [00:06<00:08, 374.95it/s][A
+calculating left/right snrs, sensitivity for samples:  41%|████      | 2243/5516 [00:06<00:09, 345.57it/s][A
+calculating left/right snrs, sensitivity for samples:  41%|████▏     | 2286/5516 [00:06<00:08, 364.73it/s][A
+calculating left/right snrs, sensitivity for samples:  42%|████▏     | 2324/5516 [00:06<00:09, 340.32it/s][A
+calculating left/right snrs, sensitivity for samples:  43%|████▎     | 2370/5516 [00:06<00:08, 370.52it/s][A
+calculating left/right snrs, sensitivity for samples:  44%|████▎     | 2412/5516 [00:06<00:08, 384.01it/s][A
+calculating left/right snrs, sensitivity for samples:  44%|████▍     | 2452/5516 [00:06<00:08, 362.16it/s][A
+calculating left/right snrs, sensitivity for samples:  45%|████▌     | 2500/5516 [00:06<00:07, 392.79it/s][A
+calculating left/right snrs, sensitivity for samples:  46%|████▌     | 2541/5516 [00:07<00:08, 355.46it/s][A
+calculating left/right snrs, sensitivity for samples:  47%|████▋     | 2587/5516 [00:07<00:07, 381.84it/s][A
+calculating left/right snrs, sensitivity for samples:  48%|████▊     | 2627/5516 [00:07<00:07, 374.06it/s][A
+calculating left/right snrs, sensitivity for samples:  48%|████▊     | 2666/5516 [00:07<00:07, 378.42it/s][A
+calculating left/right snrs, sensitivity for samples:  49%|████▉     | 2706/5516 [00:07<00:07, 381.78it/s][A
+calculating left/right snrs, sensitivity for samples:  50%|████▉     | 2745/5516 [00:07<00:07, 369.77it/s][A
+calculating left/right snrs, sensitivity for samples:  51%|█████     | 2790/5516 [00:07<00:06, 391.35it/s][A
+calculating left/right snrs, sensitivity for samples:  51%|█████▏    | 2830/5516 [00:07<00:07, 371.01it/s][A
+calculating left/right snrs, sensitivity for samples:  52%|█████▏    | 2877/5516 [00:07<00:06, 397.70it/s][A
+calculating left/right snrs, sensitivity for samples:  53%|█████▎    | 2918/5516 [00:08<00:06, 393.46it/s][A
+calculating left/right snrs, sensitivity for samples:  54%|█████▎    | 2958/5516 [00:08<00:07, 362.73it/s][A
+calculating left/right snrs, sensitivity for samples:  54%|█████▍    | 3002/5516 [00:08<00:06, 383.37it/s][A
+calculating left/right snrs, sensitivity for samples:  55%|█████▌    | 3041/5516 [00:08<00:06, 358.26it/s][A
+calculating left/right snrs, sensitivity for samples:  56%|█████▌    | 3084/5516 [00:08<00:06, 376.36it/s][A
+calculating left/right snrs, sensitivity for samples:  57%|█████▋    | 3123/5516 [00:08<00:06, 357.16it/s][A
+calculating left/right snrs, sensitivity for samples:  57%|█████▋    | 3160/5516 [00:08<00:06, 343.17it/s][A
+calculating left/right snrs, sensitivity for samples:  58%|█████▊    | 3199/5516 [00:08<00:06, 354.04it/s][A
+calculating left/right snrs, sensitivity for samples:  59%|█████▊    | 3235/5516 [00:08<00:06, 345.87it/s][A
+calculating left/right snrs, sensitivity for samples:  59%|█████▉    | 3280/5516 [00:09<00:05, 372.71it/s][A
+calculating left/right snrs, sensitivity for samples:  60%|██████    | 3318/5516 [00:09<00:06, 339.75it/s][A
+calculating left/right snrs, sensitivity for samples:  61%|██████    | 3367/5516 [00:09<00:05, 379.45it/s][A
+calculating left/right snrs, sensitivity for samples:  62%|██████▏   | 3406/5516 [00:09<00:06, 348.79it/s][A
+calculating left/right snrs, sensitivity for samples:  62%|██████▏   | 3442/5516 [00:09<00:05, 345.89it/s][A
+calculating left/right snrs, sensitivity for samples:  63%|██████▎   | 3478/5516 [00:09<00:05, 342.70it/s][ADrawing samples:  52%|█████▏    | 523.0/1000 [05:30<04:09,  1.91it/s]
+calculating left/right snrs, sensitivity for samples:  64%|██████▎   | 3513/5516 [00:09<00:06, 325.86it/s][A
+calculating left/right snrs, sensitivity for samples:  64%|██████▍   | 3551/5516 [00:09<00:05, 339.31it/s][A
+calculating left/right snrs, sensitivity for samples:  65%|██████▌   | 3586/5516 [00:09<00:05, 334.28it/s][A
+calculating left/right snrs, sensitivity for samples:  66%|██████▌   | 3632/5516 [00:10<00:05, 366.44it/s][A
+calculating left/right snrs, sensitivity for samples:  67%|██████▋   | 3670/5516 [00:10<00:05, 344.02it/s][A
+calculating left/right snrs, sensitivity for samples:  67%|██████▋   | 3722/5516 [00:10<00:04, 390.87it/s][A
+calculating left/right snrs, sensitivity for samples:  68%|██████▊   | 3762/5516 [00:10<00:04, 381.48it/s][A
+calculating left/right snrs, sensitivity for samples:  69%|██████▉   | 3801/5516 [00:10<00:04, 346.25it/s][A
+calculating left/right snrs, sensitivity for samples:  70%|██████▉   | 3842/5516 [00:10<00:04, 362.00it/s][A
+calculating left/right snrs, sensitivity for samples:  70%|███████   | 3880/5516 [00:10<00:04, 360.50it/s][A
+calculating left/right snrs, sensitivity for samples:  71%|███████   | 3925/5516 [00:10<00:04, 383.17it/s][A
+calculating left/right snrs, sensitivity for samples:  72%|███████▏  | 3964/5516 [00:10<00:04, 357.86it/s][A
+calculating left/right snrs, sensitivity for samples:  73%|███████▎  | 4009/5516 [00:11<00:03, 382.74it/s][A
+calculating left/right snrs, sensitivity for samples:  73%|███████▎  | 4048/5516 [00:11<00:03, 373.06it/s][A
+calculating left/right snrs, sensitivity for samples:  74%|███████▍  | 4086/5516 [00:11<00:04, 355.12it/s][A
+calculating left/right snrs, sensitivity for samples:  75%|███████▍  | 4134/5516 [00:11<00:03, 387.98it/s][A
+calculating left/right snrs, sensitivity for samples:  76%|███████▌  | 4174/5516 [00:11<00:03, 359.05it/s][A
+calculating left/right snrs, sensitivity for samples:  77%|███████▋  | 4220/5516 [00:11<00:03, 384.53it/s][A
+calculating left/right snrs, sensitivity for samples:  77%|███████▋  | 4260/5516 [00:11<00:03, 354.12it/s][A
+calculating left/right snrs, sensitivity for samples:  78%|███████▊  | 4306/5516 [00:11<00:03, 381.24it/s][A
+calculating left/right snrs, sensitivity for samples:  79%|███████▉  | 4346/5516 [00:12<00:03, 362.45it/s][A
+calculating left/right snrs, sensitivity for samples:  80%|███████▉  | 4387/5516 [00:12<00:03, 374.49it/s][A
+calculating left/right snrs, sensitivity for samples:  80%|████████  | 4426/5516 [00:12<00:02, 367.28it/s][A
+calculating left/right snrs, sensitivity for samples:  81%|████████  | 4464/5516 [00:12<00:02, 353.72it/s][A
+calculating left/right snrs, sensitivity for samples:  82%|████████▏ | 4505/5516 [00:12<00:02, 367.81it/s][A
+calculating left/right snrs, sensitivity for samples:  82%|████████▏ | 4543/5516 [00:12<00:02, 342.16it/s][A
+calculating left/right snrs, sensitivity for samples:  83%|████████▎ | 4585/5516 [00:12<00:02, 360.29it/s][A
+calculating left/right snrs, sensitivity for samples:  84%|████████▍ | 4622/5516 [00:12<00:02, 341.48it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▍ | 4671/5516 [00:12<00:02, 378.58it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▌ | 4710/5516 [00:13<00:02, 354.86it/s][A
+calculating left/right snrs, sensitivity for samples:  86%|████████▌ | 4747/5516 [00:13<00:02, 351.98it/s][A
+calculating left/right snrs, sensitivity for samples:  87%|████████▋ | 4783/5516 [00:13<00:02, 341.92it/s][A
+calculating left/right snrs, sensitivity for samples:  88%|████████▊ | 4832/5516 [00:13<00:01, 382.28it/s][A
+calculating left/right snrs, sensitivity for samples:  88%|████████▊ | 4871/5516 [00:13<00:01, 382.67it/s][A
+calculating left/right snrs, sensitivity for samples:  89%|████████▉ | 4910/5516 [00:13<00:01, 370.64it/s][A
+calculating left/right snrs, sensitivity for samples:  90%|████████▉ | 4951/5516 [00:13<00:01, 379.01it/s][A
+calculating left/right snrs, sensitivity for samples:  90%|█████████ | 4990/5516 [00:13<00:01, 352.72it/s][A
+calculating left/right snrs, sensitivity for samples:  91%|█████████▏| 5034/5516 [00:13<00:01, 375.26it/s][A
+calculating left/right snrs, sensitivity for samples:  92%|█████████▏| 5073/5516 [00:14<00:01, 342.81it/s][A
+calculating left/right snrs, sensitivity for samples:  93%|█████████▎| 5109/5516 [00:14<00:01, 341.35it/s][A
+calculating left/right snrs, sensitivity for samples:  93%|█████████▎| 5146/5516 [00:14<00:01, 348.98it/s][A
+calculating left/right snrs, sensitivity for samples:  94%|█████████▍| 5190/5516 [00:14<00:00, 370.86it/s][A
+calculating left/right snrs, sensitivity for samples:  95%|█████████▍| 5228/5516 [00:14<00:00, 349.74it/s][A
+calculating left/right snrs, sensitivity for samples:  96%|█████████▌| 5278/5516 [00:14<00:00, 386.67it/s][A
+calculating left/right snrs, sensitivity for samples:  96%|█████████▋| 5318/5516 [00:14<00:00, 353.30it/s][A
+calculating left/right snrs, sensitivity for samples:  97%|█████████▋| 5367/5516 [00:14<00:00, 388.08it/s][A
+calculating left/right snrs, sensitivity for samples:  98%|█████████▊| 5407/5516 [00:14<00:00, 369.88it/s][A
+calculating left/right snrs, sensitivity for samples:  99%|█████████▊| 5446/5516 [00:15<00:00, 373.90it/s][A
+calculating left/right snrs, sensitivity for samples:  99%|█████████▉| 5484/5516 [00:15<00:00, 356.83it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 5516/5516 [00:15<00:00, 362.06it/s]
+Drawing samples:  76%|███████▋  | 765.0/1000 [05:36<01:16,  3.09it/s]/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utcut1" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utctai" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+WARNING: Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary. [astropy.coordinates.builtin_frames.utils]
+2026-01-22  02:30:16 astropy WARNING : Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary.
+/home/ben.patterson/projects/simple-pe/simple_pe/localization/loc.py:29: RuntimeWarning: invalid value encountered in sqrt
+  sigma = 1 / np.sqrt(ev + epsilon)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/5175 [00:00<?, ?it/s][A
+calculating left/right snrs, sensitivity for samples:   1%|          | 47/5175 [00:00<00:10, 469.16it/s][A
+calculating left/right snrs, sensitivity for samples:   2%|▏         | 94/5175 [00:00<00:14, 361.37it/s][A
+calculating left/right snrs, sensitivity for samples:   3%|▎         | 138/5175 [00:00<00:12, 389.00it/s][A
+calculating left/right snrs, sensitivity for samples:   3%|▎         | 179/5175 [00:00<00:13, 359.11it/s][A
+calculating left/right snrs, sensitivity for samples:   4%|▍         | 229/5175 [00:00<00:12, 402.33it/s][A
+calculating left/right snrs, sensitivity for samples:   5%|▌         | 271/5175 [00:00<00:13, 372.08it/s][A
+calculating left/right snrs, sensitivity for samples:   6%|▌         | 310/5175 [00:00<00:12, 375.95it/s][A
+calculating left/right snrs, sensitivity for samples:   7%|▋         | 349/5175 [00:00<00:13, 362.79it/s][A
+calculating left/right snrs, sensitivity for samples:   7%|▋         | 386/5175 [00:01<00:13, 352.44it/s][A
+calculating left/right snrs, sensitivity for samples:   8%|▊         | 424/5175 [00:01<00:13, 359.79it/s][A
+calculating left/right snrs, sensitivity for samples:   9%|▉         | 461/5175 [00:01<00:13, 336.98it/s][A
+calculating left/right snrs, sensitivity for samples:  10%|▉         | 499/5175 [00:01<00:13, 346.46it/s][A
+calculating left/right snrs, sensitivity for samples:  10%|█         | 535/5175 [00:01<00:14, 325.32it/s][A
+calculating left/right snrs, sensitivity for samples:  11%|█         | 573/5175 [00:01<00:13, 339.26it/s][A
+calculating left/right snrs, sensitivity for samples:  12%|█▏        | 612/5175 [00:01<00:12, 352.73it/s][A
+calculating left/right snrs, sensitivity for samples:  13%|█▎        | 648/5175 [00:01<00:13, 342.55it/s][A
+calculating left/right snrs, sensitivity for samples:  13%|█▎        | 694/5175 [00:01<00:11, 373.78it/s][A
+calculating left/right snrs, sensitivity for samples:  14%|█▍        | 732/5175 [00:02<00:12, 346.47it/s][A
+calculating left/right snrs, sensitivity for samples:  15%|█▌        | 783/5175 [00:02<00:11, 389.89it/s][A
+calculating left/right snrs, sensitivity for samples:  16%|█▌        | 823/5175 [00:02<00:11, 387.24it/s][A
+calculating left/right snrs, sensitivity for samples:  17%|█▋        | 863/5175 [00:02<00:11, 371.92it/s][A
+calculating left/right snrs, sensitivity for samples:  18%|█▊        | 908/5175 [00:02<00:10, 392.25it/s][A
+calculating left/right snrs, sensitivity for samples:  18%|█▊        | 948/5175 [00:02<00:11, 368.69it/s][A
+calculating left/right snrs, sensitivity for samples:  19%|█▉        | 996/5175 [00:02<00:10, 398.18it/s][A
+calculating left/right snrs, sensitivity for samples:  20%|██        | 1037/5175 [00:02<00:11, 370.72it/s][A
+calculating left/right snrs, sensitivity for samples:  21%|██        | 1079/5175 [00:02<00:10, 383.77it/s][A
+calculating left/right snrs, sensitivity for samples:  22%|██▏       | 1119/5175 [00:03<00:11, 360.45it/s][A
+calculating left/right snrs, sensitivity for samples:  22%|██▏       | 1160/5175 [00:03<00:10, 372.17it/s][A
+calculating left/right snrs, sensitivity for samples:  23%|██▎       | 1198/5175 [00:03<00:10, 361.72it/s][A
+calculating left/right snrs, sensitivity for samples:  24%|██▍       | 1243/5175 [00:03<00:10, 384.28it/s][A
+calculating left/right snrs, sensitivity for samples:  25%|██▍       | 1282/5175 [00:03<00:10, 355.69it/s][A
+calculating left/right snrs, sensitivity for samples:  26%|██▌       | 1332/5175 [00:03<00:09, 393.09it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1373/5175 [00:03<00:10, 376.46it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1413/5175 [00:03<00:09, 381.31it/s][A
+calculating left/right snrs, sensitivity for samples:  28%|██▊       | 1459/5175 [00:03<00:09, 401.88it/s][A
+calculating left/right snrs, sensitivity for samples:  29%|██▉       | 1500/5175 [00:04<00:10, 367.41it/s][A
+calculating left/right snrs, sensitivity for samples:  30%|██▉       | 1544/5175 [00:04<00:09, 386.71it/s][A
+calculating left/right snrs, sensitivity for samples:  31%|███       | 1584/5175 [00:04<00:09, 361.06it/s][A
+calculating left/right snrs, sensitivity for samples:  31%|███▏      | 1630/5175 [00:04<00:09, 387.15it/s][A
+calculating left/right snrs, sensitivity for samples:  32%|███▏      | 1670/5175 [00:04<00:09, 354.72it/s][A
+calculating left/right snrs, sensitivity for samples:  33%|███▎      | 1713/5175 [00:04<00:09, 374.19it/s][A
+calculating left/right snrs, sensitivity for samples:  34%|███▍      | 1752/5175 [00:04<00:09, 349.35it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▍      | 1798/5175 [00:04<00:08, 377.02it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▌      | 1837/5175 [00:04<00:09, 350.78it/s][A
+calculating left/right snrs, sensitivity for samples:  36%|███▌      | 1873/5175 [00:05<00:09, 341.76it/s][A
+calculating left/right snrs, sensitivity for samples:  37%|███▋      | 1911/5175 [00:05<00:09, 351.99it/s][A
+calculating left/right snrs, sensitivity for samples:  38%|███▊      | 1947/5175 [00:05<00:09, 342.31it/s][A
+calculating left/right snrs, sensitivity for samples:  39%|███▊      | 1996/5175 [00:05<00:08, 382.27it/s][A
+calculating left/right snrs, sensitivity for samples:  39%|███▉      | 2035/5175 [00:05<00:08, 367.86it/s][A
+calculating left/right snrs, sensitivity for samples:  40%|████      | 2073/5175 [00:05<00:08, 369.81it/s][A
+calculating left/right snrs, sensitivity for samples:  41%|████      | 2116/5175 [00:05<00:07, 385.65it/s][A
+calculating left/right snrs, sensitivity for samples:  42%|████▏     | 2155/5175 [00:05<00:08, 349.53it/s][A
+calculating left/right snrs, sensitivity for samples:  42%|████▏     | 2198/5175 [00:05<00:08, 370.47it/s][A
+calculating left/right snrs, sensitivity for samples:  43%|████▎     | 2236/5175 [00:06<00:08, 344.56it/s][A
+calculating left/right snrs, sensitivity for samples:  44%|████▍     | 2281/5175 [00:06<00:07, 371.50it/s][A
+calculating left/right snrs, sensitivity for samples:  45%|████▍     | 2321/5175 [00:06<00:07, 378.20it/s][A
+calculating left/right snrs, sensitivity for samples:  46%|████▌     | 2360/5175 [00:06<00:07, 368.52it/s][A
+calculating left/right snrs, sensitivity for samples:  46%|████▋     | 2400/5175 [00:06<00:07, 374.69it/s][A
+calculating left/right snrs, sensitivity for samples:  47%|████▋     | 2438/5175 [00:06<00:07, 354.57it/s][A
+calculating left/right snrs, sensitivity for samples:  48%|████▊     | 2474/5175 [00:06<00:07, 352.81it/s][A
+calculating left/right snrs, sensitivity for samples:  49%|████▊     | 2510/5175 [00:06<00:08, 328.58it/s][A
+calculating left/right snrs, sensitivity for samples:  49%|████▉     | 2544/5175 [00:06<00:08, 326.96it/s][A
+calculating left/right snrs, sensitivity for samples:  50%|████▉     | 2578/5175 [00:07<00:07, 330.15it/s][A
+calculating left/right snrs, sensitivity for samples:  51%|█████     | 2628/5175 [00:07<00:06, 375.82it/s][A
+calculating left/right snrs, sensitivity for samples:  52%|█████▏    | 2666/5175 [00:07<00:06, 358.47it/s][A
+calculating left/right snrs, sensitivity for samples:  52%|█████▏    | 2708/5175 [00:07<00:06, 375.51it/s][A
+calculating left/right snrs, sensitivity for samples:  53%|█████▎    | 2748/5175 [00:07<00:06, 380.75it/s][A
+calculating left/right snrs, sensitivity for samples:  54%|█████▍    | 2787/5175 [00:07<00:06, 360.60it/s][A
+calculating left/right snrs, sensitivity for samples:  55%|█████▍    | 2833/5175 [00:07<00:06, 384.69it/s][A
+calculating left/right snrs, sensitivity for samples:  55%|█████▌    | 2872/5175 [00:07<00:06, 346.06it/s][A
+calculating left/right snrs, sensitivity for samples:  56%|█████▋    | 2918/5175 [00:07<00:06, 375.80it/s][A
+calculating left/right snrs, sensitivity for samples:  57%|█████▋    | 2957/5175 [00:08<00:06, 348.72it/s][A
+calculating left/right snrs, sensitivity for samples:  58%|█████▊    | 3003/5175 [00:08<00:05, 377.08it/s][A
+calculating left/right snrs, sensitivity for samples:  59%|█████▉    | 3045/5175 [00:08<00:05, 387.33it/s][A
+calculating left/right snrs, sensitivity for samples:  60%|█████▉    | 3085/5175 [00:08<00:05, 363.23it/s][A
+calculating left/right snrs, sensitivity for samples:  61%|██████    | 3131/5175 [00:08<00:05, 387.48it/s][A
+calculating left/right snrs, sensitivity for samples:  61%|██████▏   | 3171/5175 [00:08<00:05, 361.00it/s][A
+calculating left/right snrs, sensitivity for samples:  62%|██████▏   | 3222/5175 [00:08<00:04, 399.24it/s][A
+calculating left/right snrs, sensitivity for samples:  63%|██████▎   | 3263/5175 [00:08<00:05, 367.48it/s][A
+calculating left/right snrs, sensitivity for samples:  64%|██████▍   | 3305/5175 [00:08<00:04, 381.12it/s][A
+calculating left/right snrs, sensitivity for samples:  65%|██████▍   | 3345/5175 [00:09<00:04, 380.92it/s][A
+calculating left/right snrs, sensitivity for samples:  65%|██████▌   | 3384/5175 [00:09<00:04, 360.69it/s][A
+calculating left/right snrs, sensitivity for samples:  66%|██████▋   | 3433/5175 [00:09<00:04, 392.90it/s][A
+calculating left/right snrs, sensitivity for samples:  67%|██████▋   | 3473/5175 [00:09<00:04, 362.26it/s][A
+calculating left/right snrs, sensitivity for samples:  68%|██████▊   | 3518/5175 [00:09<00:04, 384.12it/s][A
+calculating left/right snrs, sensitivity for samples:  69%|██████▉   | 3558/5175 [00:09<00:04, 359.38it/s][A
+calculating left/right snrs, sensitivity for samples:  70%|██████▉   | 3610/5175 [00:09<00:03, 401.08it/s][A
+calculating left/right snrs, sensitivity for samples:  71%|███████   | 3652/5175 [00:09<00:04, 375.71it/s][A
+calculating left/right snrs, sensitivity for samples:  71%|███████▏  | 3697/5175 [00:10<00:03, 393.71it/s][A
+calculating left/right snrs, sensitivity for samples:  72%|███████▏  | 3738/5175 [00:10<00:03, 363.46it/s][A
+calculating left/right snrs, sensitivity for samples:  73%|███████▎  | 3788/5175 [00:10<00:03, 399.14it/s][A
+calculating left/right snrs, sensitivity for samples:  74%|███████▍  | 3830/5175 [00:10<00:03, 376.00it/s][A
+calculating left/right snrs, sensitivity for samples:  75%|███████▍  | 3869/5175 [00:10<00:03, 377.51it/s][A
+calculating left/right snrs, sensitivity for samples:  76%|███████▌  | 3908/5175 [00:10<00:03, 352.67it/s][A
+calculating left/right snrs, sensitivity for samples:  76%|███████▋  | 3946/5175 [00:10<00:03, 357.36it/s][A
+calculating left/right snrs, sensitivity for samples:  77%|███████▋  | 3983/5175 [00:10<00:03, 335.37it/s][A
+calculating left/right snrs, sensitivity for samples:  78%|███████▊  | 4026/5175 [00:10<00:03, 358.99it/s][A
+calculating left/right snrs, sensitivity for samples:  79%|███████▊  | 4063/5175 [00:11<00:03, 339.77it/s][A
+calculating left/right snrs, sensitivity for samples:  79%|███████▉  | 4105/5175 [00:11<00:02, 359.72it/s][A
+calculating left/right snrs, sensitivity for samples:  80%|████████  | 4142/5175 [00:11<00:03, 337.80it/s][A
+calculating left/right snrs, sensitivity for samples:  81%|████████  | 4177/5175 [00:11<00:02, 337.80it/s][A
+calculating left/right snrs, sensitivity for samples:  81%|████████▏ | 4212/5175 [00:11<00:02, 328.51it/s][A
+calculating left/right snrs, sensitivity for samples:  82%|████████▏ | 4254/5175 [00:11<00:02, 351.92it/s][A
+calculating left/right snrs, sensitivity for samples:  83%|████████▎ | 4301/5175 [00:11<00:02, 382.04it/s][A
+calculating left/right snrs, sensitivity for samples:  84%|████████▍ | 4340/5175 [00:11<00:02, 352.30it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▍ | 4383/5175 [00:11<00:02, 371.53it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▌ | 4421/5175 [00:12<00:02, 346.49it/s][A
+calculating left/right snrs, sensitivity for samples:  86%|████████▋ | 4470/5175 [00:12<00:01, 382.46it/s][A
+calculating left/right snrs, sensitivity for samples:  87%|████████▋ | 4510/5175 [00:12<00:01, 363.11it/s][A
+calculating left/right snrs, sensitivity for samples:  88%|████████▊ | 4548/5175 [00:12<00:01, 362.45it/s][ADrawing samples:  76%|███████▋  | 765.0/1000 [05:50<01:16,  3.09it/s]
+calculating left/right snrs, sensitivity for samples:  89%|████████▊ | 4585/5175 [00:12<00:01, 344.41it/s][A
+calculating left/right snrs, sensitivity for samples:  90%|████████▉ | 4632/5175 [00:12<00:01, 376.80it/s][A
+calculating left/right snrs, sensitivity for samples:  90%|█████████ | 4671/5175 [00:12<00:01, 353.74it/s][A
+calculating left/right snrs, sensitivity for samples:  91%|█████████ | 4714/5175 [00:12<00:01, 373.93it/s][A
+calculating left/right snrs, sensitivity for samples:  92%|█████████▏| 4753/5175 [00:13<00:01, 344.54it/s][A
+calculating left/right snrs, sensitivity for samples:  93%|█████████▎| 4798/5175 [00:13<00:01, 371.60it/s][A
+calculating left/right snrs, sensitivity for samples:  93%|█████████▎| 4837/5175 [00:13<00:00, 345.93it/s][A
+calculating left/right snrs, sensitivity for samples:  94%|█████████▍| 4881/5175 [00:13<00:00, 369.86it/s][A
+calculating left/right snrs, sensitivity for samples:  95%|█████████▌| 4919/5175 [00:13<00:00, 338.04it/s][A
+calculating left/right snrs, sensitivity for samples:  96%|█████████▌| 4961/5175 [00:13<00:00, 357.91it/s][A
+calculating left/right snrs, sensitivity for samples:  97%|█████████▋| 4998/5175 [00:13<00:00, 336.90it/s][A
+calculating left/right snrs, sensitivity for samples:  97%|█████████▋| 5041/5175 [00:13<00:00, 360.01it/s][A
+calculating left/right snrs, sensitivity for samples:  98%|█████████▊| 5078/5175 [00:13<00:00, 336.97it/s][A
+calculating left/right snrs, sensitivity for samples:  99%|█████████▉| 5123/5175 [00:14<00:00, 366.61it/s][A
+calculating left/right snrs, sensitivity for samples: 100%|█████████▉| 5161/5175 [00:14<00:00, 346.81it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 5175/5175 [00:14<00:00, 364.37it/s]
+Drawing samples:  98%|█████████▊| 978.0/1000 [05:52<00:05,  4.26it/s]/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "taiutc" yielded 1 of "dubious year (Note 4)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utcut1" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/erfa/core.py:133: ErfaWarning: ERFA function "utctai" yielded 1 of "dubious year (Note 3)"
+  warn(f'ERFA function "{func_name}" yielded {wmsg}', ErfaWarning)
+WARNING: Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary. [astropy.coordinates.builtin_frames.utils]
+2026-01-22  02:30:32 astropy WARNING : Tried to get polar motions for times after IERS data is valid. Defaulting to polar motion from the 50-yr mean for those. This may affect precision at the arcsec level. Please check your astropy.utils.iers.conf.iers_auto_url and point it to a newer version if necessary.
+/home/ben.patterson/projects/simple-pe/simple_pe/localization/loc.py:29: RuntimeWarning: invalid value encountered in sqrt
+  sigma = 1 / np.sqrt(ev + epsilon)
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pycbc/types/array.py:390: RuntimeWarning: divide by zero encountered in divide
+  return self._data.__rtruediv__(other)
+
+calculating left/right snrs, sensitivity for samples:   0%|          | 0/5446 [00:00<?, ?it/s][A
+calculating left/right snrs, sensitivity for samples:   1%|          | 29/5446 [00:00<00:18, 286.68it/s][A
+calculating left/right snrs, sensitivity for samples:   1%|          | 59/5446 [00:00<00:18, 292.80it/s][A
+calculating left/right snrs, sensitivity for samples:   2%|▏         | 99/5446 [00:00<00:15, 339.36it/s][A
+calculating left/right snrs, sensitivity for samples:   2%|▏         | 133/5446 [00:00<00:16, 326.70it/s][A
+calculating left/right snrs, sensitivity for samples:   3%|▎         | 169/5446 [00:00<00:15, 337.43it/s][A
+calculating left/right snrs, sensitivity for samples:   4%|▍         | 207/5446 [00:00<00:15, 349.20it/s][A
+calculating left/right snrs, sensitivity for samples:   4%|▍         | 242/5446 [00:00<00:15, 328.50it/s][A
+calculating left/right snrs, sensitivity for samples:   5%|▌         | 288/5446 [00:00<00:14, 366.53it/s][A
+calculating left/right snrs, sensitivity for samples:   6%|▌         | 325/5446 [00:00<00:14, 352.82it/s][A
+calculating left/right snrs, sensitivity for samples:   7%|▋         | 361/5446 [00:01<00:15, 331.11it/s][A
+calculating left/right snrs, sensitivity for samples:   7%|▋         | 399/5446 [00:01<00:14, 342.38it/s][A
+calculating left/right snrs, sensitivity for samples:   8%|▊         | 434/5446 [00:01<00:15, 329.14it/s][A
+calculating left/right snrs, sensitivity for samples:   9%|▉         | 484/5446 [00:01<00:13, 374.92it/s][A
+calculating left/right snrs, sensitivity for samples:  10%|▉         | 523/5446 [00:01<00:14, 344.86it/s][A
+calculating left/right snrs, sensitivity for samples:  10%|█         | 567/5446 [00:01<00:13, 369.74it/s][A
+calculating left/right snrs, sensitivity for samples:  11%|█         | 605/5446 [00:01<00:13, 353.65it/s][A
+calculating left/right snrs, sensitivity for samples:  12%|█▏        | 642/5446 [00:01<00:13, 352.26it/s][A
+calculating left/right snrs, sensitivity for samples:  13%|█▎        | 684/5446 [00:01<00:12, 367.61it/s][A
+calculating left/right snrs, sensitivity for samples:  13%|█▎        | 722/5446 [00:02<00:13, 350.71it/s][A
+calculating left/right snrs, sensitivity for samples:  14%|█▍        | 763/5446 [00:02<00:12, 366.61it/s][A
+calculating left/right snrs, sensitivity for samples:  15%|█▍        | 801/5446 [00:02<00:13, 354.18it/s][A
+calculating left/right snrs, sensitivity for samples:  15%|█▌        | 838/5446 [00:02<00:12, 356.70it/s][A
+calculating left/right snrs, sensitivity for samples:  16%|█▋        | 890/5446 [00:02<00:11, 402.03it/s][A
+calculating left/right snrs, sensitivity for samples:  17%|█▋        | 931/5446 [00:02<00:11, 380.56it/s][A
+calculating left/right snrs, sensitivity for samples:  18%|█▊        | 970/5446 [00:02<00:11, 373.65it/s][A
+calculating left/right snrs, sensitivity for samples:  19%|█▊        | 1021/5446 [00:02<00:10, 411.68it/s][A
+calculating left/right snrs, sensitivity for samples:  20%|█▉        | 1063/5446 [00:02<00:11, 376.81it/s][A
+calculating left/right snrs, sensitivity for samples:  20%|██        | 1109/5446 [00:03<00:10, 397.39it/s][A
+calculating left/right snrs, sensitivity for samples:  21%|██▏       | 1160/5446 [00:03<00:10, 427.00it/s][A
+calculating left/right snrs, sensitivity for samples:  22%|██▏       | 1204/5446 [00:03<00:10, 387.45it/s][A
+calculating left/right snrs, sensitivity for samples:  23%|██▎       | 1244/5446 [00:03<00:10, 389.68it/s][A
+calculating left/right snrs, sensitivity for samples:  24%|██▎       | 1284/5446 [00:03<00:11, 360.15it/s][A
+calculating left/right snrs, sensitivity for samples:  24%|██▍       | 1330/5446 [00:03<00:10, 385.67it/s][A
+calculating left/right snrs, sensitivity for samples:  25%|██▌       | 1370/5446 [00:03<00:11, 355.68it/s][A
+calculating left/right snrs, sensitivity for samples:  26%|██▌       | 1416/5446 [00:03<00:10, 382.58it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1456/5446 [00:03<00:10, 384.64it/s][A
+calculating left/right snrs, sensitivity for samples:  27%|██▋       | 1496/5446 [00:04<00:10, 360.05it/s][A
+calculating left/right snrs, sensitivity for samples:  28%|██▊       | 1533/5446 [00:04<00:10, 359.94it/s][A
+calculating left/right snrs, sensitivity for samples:  29%|██▉       | 1570/5446 [00:04<00:11, 341.08it/s][A
+calculating left/right snrs, sensitivity for samples:  30%|██▉       | 1607/5446 [00:04<00:11, 348.68it/s][A
+calculating left/right snrs, sensitivity for samples:  30%|███       | 1643/5446 [00:04<00:11, 342.10it/s][A
+calculating left/right snrs, sensitivity for samples:  31%|███       | 1687/5446 [00:04<00:10, 368.13it/s][A
+calculating left/right snrs, sensitivity for samples:  32%|███▏      | 1725/5446 [00:04<00:10, 344.61it/s][A
+calculating left/right snrs, sensitivity for samples:  32%|███▏      | 1769/5446 [00:04<00:09, 368.18it/s][A
+calculating left/right snrs, sensitivity for samples:  33%|███▎      | 1807/5446 [00:04<00:10, 350.99it/s][A
+calculating left/right snrs, sensitivity for samples:  34%|███▍      | 1847/5446 [00:05<00:09, 361.87it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▍      | 1884/5446 [00:05<00:10, 353.91it/s][A
+calculating left/right snrs, sensitivity for samples:  35%|███▌      | 1923/5446 [00:05<00:09, 363.13it/s][A
+calculating left/right snrs, sensitivity for samples:  36%|███▌      | 1960/5446 [00:05<00:10, 338.49it/s][A
+calculating left/right snrs, sensitivity for samples:  37%|███▋      | 1998/5446 [00:05<00:09, 346.65it/s][A
+calculating left/right snrs, sensitivity for samples:  37%|███▋      | 2034/5446 [00:05<00:10, 329.33it/s][A
+calculating left/right snrs, sensitivity for samples:  38%|███▊      | 2075/5446 [00:05<00:09, 349.83it/s][A
+calculating left/right snrs, sensitivity for samples:  39%|███▉      | 2111/5446 [00:05<00:09, 336.79it/s][A
+calculating left/right snrs, sensitivity for samples:  40%|███▉      | 2153/5446 [00:05<00:09, 358.71it/s][A
+calculating left/right snrs, sensitivity for samples:  40%|████      | 2190/5446 [00:06<00:09, 339.49it/s][A
+calculating left/right snrs, sensitivity for samples:  41%|████      | 2236/5446 [00:06<00:08, 368.94it/s][A
+calculating left/right snrs, sensitivity for samples:  42%|████▏     | 2274/5446 [00:06<00:09, 350.80it/s][A
+calculating left/right snrs, sensitivity for samples:  42%|████▏     | 2310/5446 [00:06<00:09, 348.34it/s][A
+calculating left/right snrs, sensitivity for samples:  43%|████▎     | 2346/5446 [00:06<00:09, 320.01it/s][A
+calculating left/right snrs, sensitivity for samples:  44%|████▍     | 2385/5446 [00:06<00:09, 336.64it/s][A
+calculating left/right snrs, sensitivity for samples:  44%|████▍     | 2420/5446 [00:06<00:09, 334.54it/s][A
+calculating left/right snrs, sensitivity for samples:  45%|████▌     | 2468/5446 [00:06<00:07, 373.33it/s][A
+calculating left/right snrs, sensitivity for samples:  46%|████▌     | 2512/5446 [00:06<00:07, 389.90it/s][A
+calculating left/right snrs, sensitivity for samples:  47%|████▋     | 2552/5446 [00:07<00:08, 349.40it/s][A
+calculating left/right snrs, sensitivity for samples:  48%|████▊     | 2600/5446 [00:07<00:07, 383.01it/s][A
+calculating left/right snrs, sensitivity for samples:  48%|████▊     | 2640/5446 [00:07<00:07, 357.57it/s][A
+calculating left/right snrs, sensitivity for samples:  49%|████▉     | 2691/5446 [00:07<00:06, 396.21it/s][A
+calculating left/right snrs, sensitivity for samples:  50%|█████     | 2732/5446 [00:07<00:07, 368.35it/s][A
+calculating left/right snrs, sensitivity for samples:  51%|█████     | 2772/5446 [00:07<00:07, 376.67it/s][A
+calculating left/right snrs, sensitivity for samples:  52%|█████▏    | 2811/5446 [00:07<00:07, 358.57it/s][A
+calculating left/right snrs, sensitivity for samples:  52%|█████▏    | 2848/5446 [00:07<00:07, 339.93it/s][A
+calculating left/right snrs, sensitivity for samples:  53%|█████▎    | 2890/5446 [00:08<00:07, 359.52it/s][A
+calculating left/right snrs, sensitivity for samples:  54%|█████▎    | 2927/5446 [00:08<00:07, 350.98it/s][A
+calculating left/right snrs, sensitivity for samples:  55%|█████▍    | 2976/5446 [00:08<00:06, 387.39it/s][A
+calculating left/right snrs, sensitivity for samples:  55%|█████▌    | 3016/5446 [00:08<00:06, 364.86it/s][A
+calculating left/right snrs, sensitivity for samples:  56%|█████▌    | 3061/5446 [00:08<00:06, 386.64it/s][A
+calculating left/right snrs, sensitivity for samples:  57%|█████▋    | 3103/5446 [00:08<00:05, 394.56it/s][A
+calculating left/right snrs, sensitivity for samples:  58%|█████▊    | 3143/5446 [00:08<00:06, 373.49it/s][A
+calculating left/right snrs, sensitivity for samples:  59%|█████▊    | 3193/5446 [00:08<00:05, 408.03it/s][A
+calculating left/right snrs, sensitivity for samples:  59%|█████▉    | 3235/5446 [00:08<00:05, 387.17it/s][A
+calculating left/right snrs, sensitivity for samples:  60%|██████    | 3275/5446 [00:09<00:05, 390.33it/s][A
+calculating left/right snrs, sensitivity for samples:  61%|██████    | 3319/5446 [00:09<00:05, 402.10it/s][A
+calculating left/right snrs, sensitivity for samples:  62%|██████▏   | 3360/5446 [00:09<00:05, 374.63it/s][A
+calculating left/right snrs, sensitivity for samples:  63%|██████▎   | 3408/5446 [00:09<00:05, 401.97it/s][A
+calculating left/right snrs, sensitivity for samples:  63%|██████▎   | 3449/5446 [00:09<00:05, 375.29it/s][A
+calculating left/right snrs, sensitivity for samples:  64%|██████▍   | 3496/5446 [00:09<00:04, 400.68it/s][A
+calculating left/right snrs, sensitivity for samples:  65%|██████▍   | 3537/5446 [00:09<00:04, 401.25it/s][A
+calculating left/right snrs, sensitivity for samples:  66%|██████▌   | 3578/5446 [00:09<00:05, 373.49it/s][A
+calculating left/right snrs, sensitivity for samples:  66%|██████▋   | 3617/5446 [00:09<00:05, 365.78it/s][A
+calculating left/right snrs, sensitivity for samples:  67%|██████▋   | 3655/5446 [00:10<00:04, 363.37it/s][A
+calculating left/right snrs, sensitivity for samples:  68%|██████▊   | 3697/5446 [00:10<00:04, 378.38it/s][A
+calculating left/right snrs, sensitivity for samples:  69%|██████▊   | 3736/5446 [00:10<00:04, 343.77it/s][A
+calculating left/right snrs, sensitivity for samples:  69%|██████▉   | 3777/5446 [00:10<00:04, 360.13it/s][A
+calculating left/right snrs, sensitivity for samples:  70%|███████   | 3814/5446 [00:10<00:04, 336.78it/s][A
+calculating left/right snrs, sensitivity for samples:  71%|███████   | 3855/5446 [00:10<00:04, 355.22it/s][A
+calculating left/right snrs, sensitivity for samples:  71%|███████▏  | 3892/5446 [00:10<00:04, 350.38it/s][A
+calculating left/right snrs, sensitivity for samples:  72%|███████▏  | 3937/5446 [00:10<00:04, 375.20it/s][A
+calculating left/right snrs, sensitivity for samples:  73%|███████▎  | 3976/5446 [00:10<00:04, 351.32it/s][A
+calculating left/right snrs, sensitivity for samples:  74%|███████▍  | 4023/5446 [00:11<00:03, 380.55it/s][A
+calculating left/right snrs, sensitivity for samples:  75%|███████▍  | 4062/5446 [00:11<00:03, 355.42it/s][A
+calculating left/right snrs, sensitivity for samples:  75%|███████▌  | 4106/5446 [00:11<00:03, 377.21it/s][A
+calculating left/right snrs, sensitivity for samples:  76%|███████▌  | 4145/5446 [00:11<00:03, 348.41it/s][A
+calculating left/right snrs, sensitivity for samples:  77%|███████▋  | 4191/5446 [00:11<00:03, 377.24it/s][A
+calculating left/right snrs, sensitivity for samples:  78%|███████▊  | 4230/5446 [00:11<00:03, 353.54it/s][A
+calculating left/right snrs, sensitivity for samples:  79%|███████▊  | 4279/5446 [00:11<00:02, 389.60it/s][A
+calculating left/right snrs, sensitivity for samples:  79%|███████▉  | 4319/5446 [00:11<00:03, 365.70it/s][A
+calculating left/right snrs, sensitivity for samples:  80%|████████  | 4357/5446 [00:11<00:02, 366.24it/s][A
+calculating left/right snrs, sensitivity for samples:  81%|████████  | 4408/5446 [00:12<00:02, 403.94it/s][A
+calculating left/right snrs, sensitivity for samples:  82%|████████▏ | 4450/5446 [00:12<00:02, 369.67it/s][A
+calculating left/right snrs, sensitivity for samples:  82%|████████▏ | 4488/5446 [00:12<00:02, 366.91it/s][A
+calculating left/right snrs, sensitivity for samples:  83%|████████▎ | 4526/5446 [00:12<00:02, 346.95it/s][A
+calculating left/right snrs, sensitivity for samples:  84%|████████▍ | 4568/5446 [00:12<00:02, 365.70it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▍ | 4606/5446 [00:12<00:02, 367.76it/s][A
+calculating left/right snrs, sensitivity for samples:  85%|████████▌ | 4644/5446 [00:12<00:02, 360.98it/s][A
+calculating left/right snrs, sensitivity for samples:  86%|████████▌ | 4696/5446 [00:12<00:01, 402.26it/s][A
+calculating left/right snrs, sensitivity for samples:  87%|████████▋ | 4737/5446 [00:13<00:01, 360.75it/s][A
+calculating left/right snrs, sensitivity for samples:  88%|████████▊ | 4779/5446 [00:13<00:01, 373.93it/s][A
+calculating left/right snrs, sensitivity for samples:  88%|████████▊ | 4818/5446 [00:13<00:01, 341.17it/s][A
+calculating left/right snrs, sensitivity for samples:  89%|████████▉ | 4858/5446 [00:13<00:01, 356.30it/s][A
+calculating left/right snrs, sensitivity for samples:  90%|████████▉ | 4895/5446 [00:13<00:01, 339.02it/s][A
+calculating left/right snrs, sensitivity for samples:  91%|█████████ | 4937/5446 [00:13<00:01, 359.99it/s][A
+calculating left/right snrs, sensitivity for samples:  91%|█████████▏| 4974/5446 [00:13<00:01, 335.93it/s][A
+calculating left/right snrs, sensitivity for samples:  92%|█████████▏| 5023/5446 [00:13<00:01, 376.99it/s][A
+calculating left/right snrs, sensitivity for samples:  93%|█████████▎| 5062/5446 [00:13<00:01, 347.73it/s][A
+calculating left/right snrs, sensitivity for samples:  94%|█████████▍| 5112/5446 [00:14<00:00, 387.89it/s][A
+calculating left/right snrs, sensitivity for samples:  95%|█████████▍| 5153/5446 [00:14<00:00, 370.79it/s][A
+calculating left/right snrs, sensitivity for samples:  95%|█████████▌| 5194/5446 [00:14<00:00, 380.38it/s][A
+calculating left/right snrs, sensitivity for samples:  96%|█████████▌| 5234/5446 [00:14<00:00, 384.26it/s][A
+calculating left/right snrs, sensitivity for samples:  97%|█████████▋| 5273/5446 [00:14<00:00, 356.03it/s][A
+calculating left/right snrs, sensitivity for samples:  98%|█████████▊| 5316/5446 [00:14<00:00, 373.50it/s][A
+calculating left/right snrs, sensitivity for samples:  98%|█████████▊| 5355/5446 [00:14<00:00, 358.92it/s][A
+calculating left/right snrs, sensitivity for samples:  99%|█████████▉| 5398/5446 [00:14<00:00, 377.70it/s][A
+calculating left/right snrs, sensitivity for samples: 100%|█████████▉| 5437/5446 [00:14<00:00, 343.54it/s][Acalculating left/right snrs, sensitivity for samples: 100%|██████████| 5446/5446 [00:14<00:00, 363.68it/s]
+Drawing samples: 1265.0it [06:09,  6.13it/s]                         Drawing samples: 1265.0it [06:09,  3.43it/s]

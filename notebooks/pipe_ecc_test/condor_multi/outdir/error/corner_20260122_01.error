@@ -1,0 +1,23 @@
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/lib/python3.10/site-packages/pykerr/qnm.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+2026-01-22  02:32:19 cpnest.utils WARNING : Setting verbosity to 0
+[32m2026-01-22  02:32:37[0m [34mPESummary[0m [1;30mWARNING :[0m [33mFailed to find 'log_likelihood' in result file. Setting every sample to have log_likelihood 0[0m
+[32m2026-01-22  02:32:37[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2026-01-22  02:32:37[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find delta_f in input file and one was not passed from the command line. Using 0.00390625Hz as default[0m
+[32m2026-01-22  02:32:37[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2026-01-22  02:32:37[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_low in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2026-01-22  02:32:37[0m [34mPESummary[0m [1;30mINFO    :[0m chi_p = 0 for all samples. Treating this as a non-precessing system
+[32m2026-01-22  02:32:37[0m [34mPESummary[0m [1;30mWARNING :[0m [33mThe redshift is being approximated using interpolation. Bear in mind that this does introduce a small error.[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find reference_frequency in input file. Using 20Hz as default[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mUsing the default load because injection_params.json failed the following checks: is_bilby_json_file, is_tgr_pesummary_json_file, is_pesummary_json_file, is_pesummary_json_file_deprecated[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_final in input file and one was not passed from the command line. Using 1024.0Hz as default[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find delta_f in input file and one was not passed from the command line. Using 0.00390625Hz as default[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_start in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find f_low in input file and one was not passed from the command line. Using 20.0Hz as default[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mINFO    :[0m in-plane spins are zero for all samples. Treating this as a non-precessing system
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mThe redshift is being approximated using interpolation. Bear in mind that this does introduce a small error.[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mCould not find reference_frequency in input file. Using 20Hz as default[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mWARNING :[0m [33mPhase it not given, we will be assuming that a reference phase of 0 to calculate all the spin angles[0m
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mINFO    :[0m Averaging the final spin from the following fits: function bbh_final_spin_precessing_projected_UIB2016 at 0x146bb6def760, function bbh_final_spin_precessing_projected_Healyetal at 0x146bb6def5b0, function bbh_final_spin_precessing_HBR2016 at 0x146bb6def910
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mINFO    :[0m Averaging the peak luminosity from the following fits: function bbh_peak_luminosity_non_precessing_UIB2016 at 0x146bb6def9a0, function bbh_peak_luminosity_non_precessing_Healyetal at 0x146bb6defa30
+[32m2026-01-22  02:32:38[0m [34mPESummary[0m [1;30mINFO    :[0m Averaging the final mass from the following fits: function bbh_final_mass_non_precessing_UIB2016 at 0x146bb6deeef0, function bbh_final_mass_non_precessing_Healyetal at 0x146bb6ded990

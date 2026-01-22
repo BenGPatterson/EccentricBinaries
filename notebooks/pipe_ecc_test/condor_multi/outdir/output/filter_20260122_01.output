@@ -1,0 +1,22 @@
+lal.MSUN_SI != Msun
+Found non-eccentric peak with SNR = 33.3694
+chirp_mass = 24.9742
+symmetric_mass_ratio = 0.2316
+chi_align = 0.2126
+distance = 1.0000
+mass_ratio = 0.5736
+inverted_mass_ratio = 1.7433
+mass_1 = 38.1674
+mass_2 = 21.8940
+total_mass = 60.0614
+Found metric at non-eccentric peak
+Eccentric peak with SNR = 33.9288
+ecc10sqrd = 0.0432
+chirp_mass = 24.6987
+symmetric_mass_ratio = 0.2315
+chi_align = 0.1992
+mass_ratio = 0.5721
+inverted_mass_ratio = 1.7481
+mass_1 = 37.8010
+mass_2 = 21.6243
+total_mass = 59.4253
