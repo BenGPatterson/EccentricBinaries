@@ -1,0 +1,12 @@
+# Rescue DAG file, created after running
+#   the outdir/submit/simple_pe_20260127_01.dag DAG file
+# Created 1/27/2026 18:02:29 UTC
+# Rescue DAG version: 2.0.1 (partial)
+#
+# Total number of Nodes: 5
+# Nodes premarked DONE: 2
+# Nodes that failed: 1
+#   analysis_20260127_01_arg_0,<ENDLIST>
+
+DONE datafind_20260127_01_arg_0
+DONE filter_20260127_01_arg_0
