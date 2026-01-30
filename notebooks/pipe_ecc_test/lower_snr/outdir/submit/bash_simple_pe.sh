@@ -3,7 +3,7 @@
 # datafind
 # PARENTS 
 # CHILDREN filter
-/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/simple_pe_datafind --outdir outdir --injection injection_params.json --delta_f 0.0625 --f_high 4096.0 --f_low 20.0 --seed 123456789 --minimum_data_length 16 --snr_threshold 4 --n_ecc_gen 6 --multipoles 22 33 44 --ecc_harmonics 0 1 -1 --channels H1:INJ L1:INJ V1:INJ --asd H1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt L1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt V1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/avirgo_O4high_NEW.txt
+/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/simple_pe_datafind --outdir outdir --injection injection_params.json --delta_f 0.0625 --f_high 4096.0 --f_low 20.0 --seed 123456789 --minimum_data_length 16 --snr_threshold 4 --n_ecc_gen 6 --multipoles 22 33 44 --ecc_harmonics 0 1 -1 --channels H1:INJ L1:INJ V1:INJ --asd H1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt L1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/aligo_O4high.txt V1:/home/ben.patterson/projects/simple-pe/examples/zero-noise/avirgo_O4high_NEW.txt --gaussian_noise
 
 # filter
 # PARENTS datafind
