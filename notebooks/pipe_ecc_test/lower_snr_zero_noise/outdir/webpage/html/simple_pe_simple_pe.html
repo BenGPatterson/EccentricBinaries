@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+  <title>Summary Pages</title>
+<!--
+                                    Made by
+            ____  ___________
+           / __ \/ ____/ ___/__  ______ ___  ____ ___  ____ ________  __
+          / /_/ / __/  \__ \/ / / / __ `__ \/ __ `__ \/ __ `/ ___/ / / /
+         / ____/ /___ ___/ / /_/ / / / / / / / / / / / /_/ / /  / /_/ /
+        /_/   /_____//____/\__,_/_/ /_/ /_/_/ /_/ /_/\__,_/_/   \__, /
+                                                               /____/
+
+                                   MIT License
+
+       PESummary was developed by Hoy et al. and source code can be seen
+       here: git.ligo.org/lscsoft/pesummary. If you wish to use PESummary
+   for your own work, please cite PESummary. The following page gives details
+   https://lscsoft.docs.ligo.org/pesummary/stable/citing_pesummary.html.
+                                     Thanks!
+  -->
+<html lang='en'>
+    <title>title</title>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'>
+
+</head>
+<body style='background-color:#F8F8F8; margin-top:5em; min-height: 100%'>
+
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+    <script src='../js/combine_corner.js'></script>
+    <script src='../js/grab.js'></script>
+    <script src='../js/modal.js'></script>
+    <script src='../js/multi_dropbar.js'></script>
+    <script src='../js/multiple_posteriors.js'></script>
+    <script src='../js/search.js'></script>
+    <script src='../js/side_bar.js'></script>
+    <script src='../js/html_to_csv.js'></script>
+    <script src='../js/html_to_json.js'></script>
+    <script src='../js/html_to_shell.js'></script>
+    <script src='../js/expert.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/table.css">
+    <link rel="stylesheet" href="../css/image_styles.css">
+    <link rel="stylesheet" href="../css/watermark.css">
+    <link rel="stylesheet" href="../css/toggle.css">
+
+<div id='background'>
+<p id='bg-text'>Preliminary Preliminary</p>
+<p id='bg-text'>Preliminary Preliminary</p>
+<p id='bg-text'>Preliminary Preliminary</p>
+</div>
+<h7 hidden>simple_pe</h7>
+<h7 hidden>simple_pe</h7>
+<nav class='navbar navbar-expand-sm fixed-top navbar-custom' style='background-color: #0173b2'>
+  <a class='navbar-brand' href='#' style='color: white'>Navbar</a>
+  <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#collapsibleNavbar'>
+    <span class='navbar-toggler-icon'></span>
+  </button>
+    <div class='collapse navbar-collapse' id='collapsibleNavbar'>
+      <ul class='navbar-nav'>
+        <li class='nav-item'>
+          <a class='nav-link' href='#' onclick='grab_html("home")'>home</a>
+        </li>
+        <li class='nav-item'>
+          <li class='nav-item dropdown'>
+            <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            Result Pages
+            </a>
+            <ul class='dropdown-menu' aria-labelledby='dropdown1'>
+              <li class='dropdown-item' href='#' onclick='grab_html("simple_pe", label="simple_pe")'><a>simple_pe</a></li>
+            </ul>
+          </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='#' onclick='grab_html("Corner", label="simple_pe")'>Corner</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='#' onclick='grab_html("Config", label="simple_pe")'>Config</a>
+        </li>
+        <li class='nav-item'>
+          <li class='nav-item dropdown'>
+            <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            1d Histograms
+            </a>
+            <ul class='dropdown-menu' aria-labelledby='dropdown1'>
+              <li class='dropdown-item' href='#' onclick='grab_html("Custom", label="simple_pe")'><a>Custom</a></li>
+              <li class='dropdown-item' href='#' onclick='grab_html("All", label="simple_pe")'><a>All</a></li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='masses' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>masses</a>
+                <ul class='dropdown-menu' aria-labelledby='masses'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("masses_all", label="simple_pe")'><a>masses_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chirp_mass", label="simple_pe")'><a>chirp_mass</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("inverted_mass_ratio", label="simple_pe")'><a>inverted_mass_ratio</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_1", label="simple_pe")'><a>mass_1</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_2", label="simple_pe")'><a>mass_2</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_ratio", label="simple_pe")'><a>mass_ratio</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("symmetric_mass_ratio", label="simple_pe")'><a>symmetric_mass_ratio</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("total_mass", label="simple_pe")'><a>total_mass</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='source' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>source</a>
+                <ul class='dropdown-menu' aria-labelledby='source'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("source_all", label="simple_pe")'><a>source_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chirp_mass_source", label="simple_pe")'><a>chirp_mass_source</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_1_source", label="simple_pe")'><a>mass_1_source</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("mass_2_source", label="simple_pe")'><a>mass_2_source</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("total_mass_source", label="simple_pe")'><a>total_mass_source</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='remnant' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>remnant</a>
+                <ul class='dropdown-menu' aria-labelledby='remnant'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("remnant_all", label="simple_pe")'><a>remnant_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("final_mass", label="simple_pe")'><a>final_mass</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("final_mass_source", label="simple_pe")'><a>final_mass_source</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("final_spin", label="simple_pe")'><a>final_spin</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='inclination' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>inclination</a>
+                <ul class='dropdown-menu' aria-labelledby='inclination'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("inclination_all", label="simple_pe")'><a>inclination_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("cos_theta_jn", label="simple_pe")'><a>cos_theta_jn</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("theta_jn", label="simple_pe")'><a>theta_jn</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("viewing_angle", label="simple_pe")'><a>viewing_angle</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='spins' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>spins</a>
+                <ul class='dropdown-menu' aria-labelledby='spins'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("spins_all", label="simple_pe")'><a>spins_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("a_1", label="simple_pe")'><a>a_1</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("a_2", label="simple_pe")'><a>a_2</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chi_eff", label="simple_pe")'><a>chi_eff</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chi_p", label="simple_pe")'><a>chi_p</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("spin_1z", label="simple_pe")'><a>spin_1z</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("spin_2z", label="simple_pe")'><a>spin_2z</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='spin_angles' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>spin_angles</a>
+                <ul class='dropdown-menu' aria-labelledby='spin_angles'>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='tidal' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>tidal</a>
+                <ul class='dropdown-menu' aria-labelledby='tidal'>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='location' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>location</a>
+                <ul class='dropdown-menu' aria-labelledby='location'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("location_all", label="simple_pe")'><a>location_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("comoving_distance", label="simple_pe")'><a>comoving_distance</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("dec", label="simple_pe")'><a>dec</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("luminosity_distance", label="simple_pe")'><a>luminosity_distance</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("ra", label="simple_pe")'><a>ra</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("redshift", label="simple_pe")'><a>redshift</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='timings' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>timings</a>
+                <ul class='dropdown-menu' aria-labelledby='timings'>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='SNR' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>SNR</a>
+                <ul class='dropdown-menu' aria-labelledby='SNR'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("SNR_all", label="simple_pe")'><a>SNR_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("left_snr", label="simple_pe")'><a>left_snr</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("right_snr", label="simple_pe")'><a>right_snr</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='calibration' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>calibration</a>
+                <ul class='dropdown-menu' aria-labelledby='calibration'>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='energy' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>energy</a>
+                <ul class='dropdown-menu' aria-labelledby='energy'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("energy_all", label="simple_pe")'><a>energy_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("peak_luminosity", label="simple_pe")'><a>peak_luminosity</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("radiated_energy", label="simple_pe")'><a>radiated_energy</a></li>
+                </ul>
+              </li>
+              <li class='dropdown-item dropdown'>
+                <a class='dropdown-toggle' id='others' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>others</a>
+                <ul class='dropdown-menu' aria-labelledby='others'>
+                  <li class='dropdown-item' href='#' onclick='grab_html("others_all", label="simple_pe")'><a>others_all</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("log_likelihood", label="simple_pe")'><a>log_likelihood</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("chi_align", label="simple_pe")'><a>chi_align</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("ecc10sqrd", label="simple_pe")'><a>ecc10sqrd</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("not_left", label="simple_pe")'><a>not_left</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("not_right", label="simple_pe")'><a>not_right</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("f_sig", label="simple_pe")'><a>f_sig</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("alpha_net", label="simple_pe")'><a>alpha_net</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("distance_face_on", label="simple_pe")'><a>distance_face_on</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("ecc10", label="simple_pe")'><a>ecc10</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_33", label="simple_pe")'><a>rho_33</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_not_right", label="simple_pe")'><a>rho_not_right</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_not_left", label="simple_pe")'><a>rho_not_left</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_p", label="simple_pe")'><a>rho_p</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("rho_ecc", label="simple_pe")'><a>rho_ecc</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_33", label="simple_pe")'><a>p_33</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_2pol", label="simple_pe")'><a>p_2pol</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_not_right", label="simple_pe")'><a>p_not_right</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_not_left", label="simple_pe")'><a>p_not_left</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("p_ecc", label="simple_pe")'><a>p_ecc</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("weights", label="simple_pe")'><a>weights</a></li>
+                  <li class='dropdown-item' href='#' onclick='grab_html("comoving_volume", label="simple_pe")'><a>comoving_volume</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        <li class='nav-item'>
+          <li class='nav-item dropdown'>
+            <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            2d Histograms
+            </a>
+            <ul class='dropdown-menu' aria-labelledby='dropdown1'>
+              <li class='dropdown-item' href='#' onclick='grab_html("masses", label="simple_pe")'><a>masses</a></li>
+              <li class='dropdown-item' href='#' onclick='grab_html("spins", label="simple_pe")'><a>spins</a></li>
+              <li class='dropdown-item' href='#' onclick='grab_html("location", label="simple_pe")'><a>location</a></li>
+              <li class='dropdown-item' href='#' onclick='grab_html("timings", label="simple_pe")'><a>timings</a></li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+    <div class='collapse navbar-collapse' id='collapsibleNavbar'>
+      <ul class='navbar-nav flex-row ml-md-auto d-none d-md-flex'style='margin-right:1em;'>
+  <a class='nav-link' href='#', onclick='grab_html("Downloads")'>Downloads</a>
+  <a class='nav-link' href='#', onclick='grab_html("About")'>About</a>
+      </ul>
+    </div>
+    <input type='text' placeholder='search' id='search'>
+    <button type='submit' onclick='myFunction()'>Search</button>
+</nav>
+  <div class='banner'>
+simple_pe
+</div>
+  <div class='paragraph'>
+The figures below show the plots for simple_pe
+</div>
+<link rel='stylesheet' href='../css/image_styles.css'>
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();
+  });
+</script>
+<style>
+  .popover {
+    max-width: 550px;
+    width: 550px;
+  }
+</style>
+<div class='container' style='margin-top:3em; margin-bottom:5em; background-color:#FFFFFF; box-shadow: 0 0 5px grey; max-width: 1400px'>
+  <div class='mx-auto d-block'>
+    <div class='row justify-content-center'>
+      <div class='row'>
+        <div class='column' style='padding-left: 1em;'>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='0'>
+        <img src='../plots/simple_pe_1d_posterior_mass_1.png' alt='No image available' style='align-items:center; width:675.0px;'id=simple_pe_1d_posterior_mass_1 onclick='modal("simple_pe_1d_posterior_mass_1", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-3'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot 1d_histogram --parameter mass_1 --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-3' style='margin-left: -71.05263157894737px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the marginalized posterior distribution for mass_1 (the detector-frame (redshifted) mass of the heavier object). The vertical dashed lines show the 90% credible interval. The title gives the median and 90% confidence interval.'>Caption</button>
+          </div>
+          </div>
+          </div>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='1'>
+        <img src='../plots/simple_pe_1d_posterior_mass_2.png' alt='No image available' style='align-items:center; width:675.0px;'id=simple_pe_1d_posterior_mass_2 onclick='modal("simple_pe_1d_posterior_mass_2", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-3'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot 1d_histgram --parameter mass_2 --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-3' style='margin-left: -71.05263157894737px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the marginalized posterior distribution for mass_2 (the detector-frame (redshifted) mass of the lighter object). The vertical dashed lines show the 90% credible interval. The title gives the median and 90% confidence interval.'>Caption</button>
+          </div>
+          </div>
+          </div>
+        </div>
+        <div class='column' style='padding-left: 1em;'>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='2'>
+        <img src='../plots/simple_pe_1d_posterior_a_1.png' alt='No image available' style='align-items:center; width:450.0px;'id=simple_pe_1d_posterior_a_1 onclick='modal("simple_pe_1d_posterior_a_1", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-4'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot 1d_histogram --parameter a_1 --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-4' style='margin-left: -47.36842105263158px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the marginalized posterior distribution for a_1 (the dimensionless spin magnitude of the primary object). The vertical dashed lines show the 90% credible interval. The title gives the median and 90% confidence interval.'>Caption</button>
+          </div>
+          </div>
+          </div>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='3'>
+        <img src='../plots/simple_pe_1d_posterior_a_2.png' alt='No image available' style='align-items:center; width:450.0px;'id=simple_pe_1d_posterior_a_2 onclick='modal("simple_pe_1d_posterior_a_2", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-4'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot 1d_histogram --parameter a_2 --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-4' style='margin-left: -47.36842105263158px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the marginalized posterior distribution for a_2 (the dimensionless spin magnitude of the secondary object). The vertical dashed lines show the 90% credible interval. The title gives the median and 90% confidence interval.'>Caption</button>
+          </div>
+          </div>
+          </div>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='4'>
+        <img src='../plots/simple_pe_1d_posterior_chi_eff.png' alt='No image available' style='align-items:center; width:450.0px;'id=simple_pe_1d_posterior_chi_eff onclick='modal("simple_pe_1d_posterior_chi_eff", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-4'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot 1d_histogram --parameter chi_eff --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-4' style='margin-left: -47.36842105263158px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the marginalized posterior distribution for chi_eff (the effective inspiral spin parameter). The vertical dashed lines show the 90% credible interval. The title gives the median and 90% confidence interval.'>Caption</button>
+          </div>
+          </div>
+          </div>
+        </div>
+        <div class='column' style='padding-left: 1em;'>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='5'>
+        <img src='../plots/simple_pe_1d_posterior_iota.png' alt='No image available' style='align-items:center; width:337.5px;'id=simple_pe_1d_posterior_iota onclick='modal("simple_pe_1d_posterior_iota", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-5'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot 1d_histogram --parameter iota --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-5' style='margin-left: -35.526315789473685px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the marginalized posterior distribution for iota (the angle between the total orbital angular momentum, L, and the line of sight, N). The vertical dashed lines show the 90% credible interval. The title gives the median and 90% confidence interval.'>Caption</button>
+          </div>
+          </div>
+          </div>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='6'>
+        <img src='../plots/simple_pe_skymap.png' alt='No image available' style='align-items:center; width:337.5px;'id=simple_pe_skymap onclick='modal("simple_pe_skymap", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-5'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot skymap  --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-5' style='margin-left: -35.526315789473685px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the most likely position of the source that generated the gravitational wave. We give the 50% and 90% credible intervals. The black region corresponds to the most likely position and light orange least likely.'>Caption</button>
+          </div>
+          </div>
+          </div>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='7'>
+        <img src='../plots/simple_pe_waveform.png' alt='No image available' style='align-items:center; width:337.5px;'id=simple_pe_waveform onclick='modal("simple_pe_waveform", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-5'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot waveform  --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-5' style='margin-left: -35.526315789473685px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the frequency domain waveform generated from the maximum likelihood samples.'>Caption</button>
+          </div>
+          </div>
+          </div>
+          <div class='container' style='display: inline-block; width: auto; padding: 0;'>
+      <a href='#demo_6E8E0B' data-slide-to='8'>
+        <img src='../plots/simple_pe_1d_posterior_luminosity_distance.png' alt='No image available' style='align-items:center; width:337.5px;'id=simple_pe_1d_posterior_luminosity_distance onclick='modal("simple_pe_1d_posterior_luminosity_distance", "Modal_6E8E0B")'>
+      </a>
+      <div class='row justify-content-center'>
+      <div class='col-sm-5'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='/home/ben.patterson/.conda/envs/igwn_eccentric_new/bin/summaryplots --webdir /home/ben.patterson/projects/EccentricBinaries/notebooks/pipe_ecc_test/lower_snr_zero_noise/outdir/webpage/plots --samples outdir/output/posterior_samples.dat --burnin 0 --plot 1d_histogram --parameter luminosity_distance --labels simple_pe'>Command Line</button>
+          </div>
+      <div class='col-sm-5' style='margin-left: -35.526315789473685px;'>
+          <button value='test' class='btn btn-info btn-xs' style='cursor: pointer' data-toggle='popover' data-placement='top' data-content='Plot showing the marginalized posterior distribution for luminosity_distance (the luminosity distance of the source). The vertical dashed lines show the 90% credible interval. The title gives the median and 90% confidence interval.'>Caption</button>
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class='modal fade bs-example-modal-lg' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true' id='Modal_6E8E0B' style='margin-top: 200px;'>
+  <div class='modal-dialog modal-lg' style='width:90%'>
+    <div class='modal-content'>
+      <div id='demo_6E8E0B' class='carousel slide' data-ride='carousel' data-interval='false'>
+        <ul class='carousel-indicators'>
+          <li data-target='#demo_6E8E0B' data-slide-to-'0' class='active'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'0'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'1'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'2'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'3'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'4'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'5'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'6'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'7'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to-'8'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to='0' class='active'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to='1'></li>
+          <li data-target='#demo_6E8E0B' data-slide-to='2'></li>
+        </ul>
+        <div class='carousel-inner'>
+          <div class='carousel-item active'>
+            <img src=../plots/simple_pe_1d_posterior_mass_1.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+          <div class='carousel-item'>
+            <img src=../plots/simple_pe_1d_posterior_mass_2.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+          <div class='carousel-item'>
+            <img src=../plots/simple_pe_1d_posterior_a_1.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+          <div class='carousel-item'>
+            <img src=../plots/simple_pe_1d_posterior_a_2.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+          <div class='carousel-item'>
+            <img src=../plots/simple_pe_1d_posterior_chi_eff.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+          <div class='carousel-item'>
+            <img src=../plots/simple_pe_1d_posterior_iota.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+          <div class='carousel-item'>
+            <img src=../plots/simple_pe_skymap.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+          <div class='carousel-item'>
+            <img src=../plots/simple_pe_waveform.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+          <div class='carousel-item'>
+            <img src=../plots/simple_pe_1d_posterior_luminosity_distance.png style='align-items:center;' class='mx-auto d-block'>
+          </div>
+        </div>
+        <a class='carousel-control-prev' href='#demo_6E8E0B' data-slide='prev'>
+          <span class='carousel-control-prev-icon'></span>
+        </a>
+        <a class='carousel-control-next' href='#demo_6E8E0B' data-slide='next'>
+          <span class='carousel-control-next-icon'></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class='banner' style='font-size: 26px;'>
+Summary Table
+</div>
+  <div class='paragraph'>
+Table summarising the key data for each posterior distribution.
+</div>
+<div class='container' style='margin-top:3em; margin-bottom:5em; max-width:1400px'>
+    <div class='row justify-content-center'>
+<style>
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 10.0%;
+    float: left;
+}
+</style>
+                  <div class='container' style='max-width:1400px'>
+                    <div class='table-responsive'>
+                        <table class='table table-hover header-fixed' style='max-width:1400px'>
+                          <thead>
+                            <tr>
+                              <th colspan='1'> </th>
+                              <th colspan='1'>5th percentile</th>
+                              <th colspan='1'>90% HPD</th>
+                              <th colspan='1'>95th percentile</th>
+                              <th colspan='1'>injected</th>
+                              <th colspan='1'>maxL</th>
+                              <th colspan='1'>maxP</th>
+                              <th colspan='1'>mean</th>
+                              <th colspan='1'>median</th>
+                              <th colspan='1'>std</th>
+                            </tr>
+                          <tbody>
+                            <tr>
+                              <td>chirp_mass</td>
+                              <td>24.044</td>
+                              <td>nan</td>
+                              <td>25.342</td>
+                              <td>nan</td>
+                              <td>24.152</td>
+                              <td>None</td>
+                              <td>24.692</td>
+                              <td>24.692</td>
+                              <td>0.405</td>
+                            </tr>
+                            <tr>
+                              <td>symmetric_mass_ratio</td>
+                              <td>0.214</td>
+                              <td>nan</td>
+                              <td>0.248</td>
+                              <td>nan</td>
+                              <td>0.214</td>
+                              <td>None</td>
+                              <td>0.233</td>
+                              <td>0.234</td>
+                              <td>0.01</td>
+                            </tr>
+                            <tr>
+                              <td>chi_align</td>
+                              <td>0.125</td>
+                              <td>nan</td>
+                              <td>0.27</td>
+                              <td>nan</td>
+                              <td>0.213</td>
+                              <td>None</td>
+                              <td>0.199</td>
+                              <td>0.199</td>
+                              <td>0.044</td>
+                            </tr>
+                            <tr>
+                              <td>ecc10sqrd</td>
+                              <td>0.028</td>
+                              <td>nan</td>
+                              <td>0.067</td>
+                              <td>nan</td>
+                              <td>0.067</td>
+                              <td>None</td>
+                              <td>0.047</td>
+                              <td>0.047</td>
+                              <td>0.012</td>
+                            </tr>
+                            <tr>
+                              <td>ra</td>
+                              <td>1.18</td>
+                              <td>nan</td>
+                              <td>1.249</td>
+                              <td>nan</td>
+                              <td>1.191</td>
+                              <td>None</td>
+                              <td>1.216</td>
+                              <td>1.216</td>
+                              <td>0.027</td>
+                            </tr>
+                            <tr>
+                              <td>dec</td>
+                              <td>0.163</td>
+                              <td>nan</td>
+                              <td>0.33</td>
+                              <td>nan</td>
+                              <td>0.278</td>
+                              <td>None</td>
+                              <td>0.248</td>
+                              <td>0.248</td>
+                              <td>0.073</td>
+                            </tr>
+                            <tr>
+                              <td>left_snr</td>
+                              <td>14.174</td>
+                              <td>nan</td>
+                              <td>15.11</td>
+                              <td>nan</td>
+                              <td>14.464</td>
+                              <td>None</td>
+                              <td>14.669</td>
+                              <td>14.693</td>
+                              <td>0.488</td>
+                            </tr>
+                            <tr>
+                              <td>right_snr</td>
+                              <td>18.66</td>
+                              <td>nan</td>
+                              <td>18.7</td>
+                              <td>nan</td>
+                              <td>18.7</td>
+                              <td>None</td>
+                              <td>18.687</td>
+                              <td>18.693</td>
+                              <td>0.044</td>
+                            </tr>
+                            <tr>
+                              <td>not_left</td>
+                              <td>11.017</td>
+                              <td>nan</td>
+                              <td>12.198</td>
+                              <td>nan</td>
+                              <td>11.852</td>
+                              <td>None</td>
+                              <td>11.587</td>
+                              <td>11.567</td>
+                              <td>0.571</td>
+                            </tr>
+                            <tr>
+                              <td>not_right</td>
+                              <td>0.135</td>
+                              <td>nan</td>
+                              <td>1.218</td>
+                              <td>nan</td>
+                              <td>0.058</td>
+                              <td>None</td>
+                              <td>0.587</td>
+                              <td>0.524</td>
+                              <td>0.541</td>
+                            </tr>
+                            <tr>
+                              <td>f_sig</td>
+                              <td>33022.967</td>
+                              <td>nan</td>
+                              <td>37202.692</td>
+                              <td>nan</td>
+                              <td>34336.837</td>
+                              <td>None</td>
+                              <td>35094.588</td>
+                              <td>35106.284</td>
+                              <td>1841.246</td>
+                            </tr>
+                            <tr>
+                              <td>alpha_net</td>
+                              <td>0.294</td>
+                              <td>nan</td>
+                              <td>0.384</td>
+                              <td>nan</td>
+                              <td>0.357</td>
+                              <td>None</td>
+                              <td>0.337</td>
+                              <td>0.335</td>
+                              <td>0.046</td>
+                            </tr>
+                            <tr>
+                              <td>theta_jn</td>
+                              <td>0.207</td>
+                              <td>nan</td>
+                              <td>0.942</td>
+                              <td>nan</td>
+                              <td>0.324</td>
+                              <td>None</td>
+                              <td>0.572</td>
+                              <td>0.579</td>
+                              <td>0.248</td>
+                            </tr>
+                            <tr>
+                              <td>cos_theta_jn</td>
+                              <td>0.588</td>
+                              <td>nan</td>
+                              <td>0.979</td>
+                              <td>nan</td>
+                              <td>0.948</td>
+                              <td>None</td>
+                              <td>0.821</td>
+                              <td>0.837</td>
+                              <td>0.14</td>
+                            </tr>
+                            <tr>
+                              <td>distance_face_on</td>
+                              <td>1765.934</td>
+                              <td>nan</td>
+                              <td>1989.449</td>
+                              <td>nan</td>
+                              <td>1836.195</td>
+                              <td>None</td>
+                              <td>1876.716</td>
+                              <td>1877.341</td>
+                              <td>98.462</td>
+                            </tr>
+                            <tr>
+                              <td>luminosity_distance</td>
+                              <td>1173.295</td>
+                              <td>nan</td>
+                              <td>1989.565</td>
+                              <td>nan</td>
+                              <td>1702.796</td>
+                              <td>None</td>
+                              <td>1587.572</td>
+                              <td>1587.095</td>
+                              <td>283.922</td>
+                            </tr>
+                            <tr>
+                              <td>chi_p</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>ecc10</td>
+                              <td>0.166</td>
+                              <td>nan</td>
+                              <td>0.259</td>
+                              <td>nan</td>
+                              <td>0.259</td>
+                              <td>None</td>
+                              <td>0.215</td>
+                              <td>0.217</td>
+                              <td>0.029</td>
+                            </tr>
+                            <tr>
+                              <td>rho_33</td>
+                              <td>0.214</td>
+                              <td>nan</td>
+                              <td>2.46</td>
+                              <td>nan</td>
+                              <td>1.33</td>
+                              <td>None</td>
+                              <td>1.31</td>
+                              <td>1.311</td>
+                              <td>0.77</td>
+                            </tr>
+                            <tr>
+                              <td>rho_not_right</td>
+                              <td>0.001</td>
+                              <td>nan</td>
+                              <td>0.789</td>
+                              <td>nan</td>
+                              <td>0.009</td>
+                              <td>None</td>
+                              <td>0.197</td>
+                              <td>0.093</td>
+                              <td>0.434</td>
+                            </tr>
+                            <tr>
+                              <td>rho_not_left</td>
+                              <td>19.533</td>
+                              <td>nan</td>
+                              <td>19.533</td>
+                              <td>nan</td>
+                              <td>19.533</td>
+                              <td>None</td>
+                              <td>19.533</td>
+                              <td>19.533</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>rho_p</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>rho_ecc</td>
+                              <td>0.096</td>
+                              <td>nan</td>
+                              <td>0.165</td>
+                              <td>nan</td>
+                              <td>0.165</td>
+                              <td>None</td>
+                              <td>0.132</td>
+                              <td>0.133</td>
+                              <td>0.021</td>
+                            </tr>
+                            <tr>
+                              <td>p_33</td>
+                              <td>0.539</td>
+                              <td>nan</td>
+                              <td>0.999</td>
+                              <td>nan</td>
+                              <td>0.915</td>
+                              <td>None</td>
+                              <td>0.819</td>
+                              <td>0.857</td>
+                              <td>0.171</td>
+                            </tr>
+                            <tr>
+                              <td>p_2pol</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>p_not_right</td>
+                              <td>0.219</td>
+                              <td>nan</td>
+                              <td>0.493</td>
+                              <td>nan</td>
+                              <td>0.499</td>
+                              <td>None</td>
+                              <td>0.394</td>
+                              <td>0.421</td>
+                              <td>0.119</td>
+                            </tr>
+                            <tr>
+                              <td>p_not_left</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>p_ecc</td>
+                              <td>0.012</td>
+                              <td>nan</td>
+                              <td>0.022</td>
+                              <td>nan</td>
+                              <td>0.022</td>
+                              <td>None</td>
+                              <td>0.017</td>
+                              <td>0.017</td>
+                              <td>0.003</td>
+                            </tr>
+                            <tr>
+                              <td>weights</td>
+                              <td>0.208</td>
+                              <td>nan</td>
+                              <td>0.735</td>
+                              <td>nan</td>
+                              <td>0.865</td>
+                              <td>None</td>
+                              <td>0.458</td>
+                              <td>0.451</td>
+                              <td>0.173</td>
+                            </tr>
+                            <tr>
+                              <td>log_likelihood</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>a_1</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>spin_1z</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>a_2</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>spin_2z</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>redshift</td>
+                              <td>0.228</td>
+                              <td>nan</td>
+                              <td>0.362</td>
+                              <td>nan</td>
+                              <td>0.316</td>
+                              <td>None</td>
+                              <td>0.297</td>
+                              <td>0.298</td>
+                              <td>0.047</td>
+                            </tr>
+                            <tr>
+                              <td>comoving_distance</td>
+                              <td>955.203</td>
+                              <td>nan</td>
+                              <td>1461.07</td>
+                              <td>nan</td>
+                              <td>1293.524</td>
+                              <td>None</td>
+                              <td>1219.105</td>
+                              <td>1223.026</td>
+                              <td>177.842</td>
+                            </tr>
+                            <tr>
+                              <td>comoving_volume</td>
+                              <td>3650691906.655</td>
+                              <td>nan</td>
+                              <td>13064778222.738</td>
+                              <td>nan</td>
+                              <td>9065930987.504</td>
+                              <td>None</td>
+                              <td>7949780254.764</td>
+                              <td>7662946743.815</td>
+                              <td>3214703629.08</td>
+                            </tr>
+                            <tr>
+                              <td>mass_ratio</td>
+                              <td>0.451</td>
+                              <td>[0.425 0.836]</td>
+                              <td>0.826</td>
+                              <td>nan</td>
+                              <td>0.451</td>
+                              <td>None</td>
+                              <td>0.609</td>
+                              <td>0.594</td>
+                              <td>0.123</td>
+                            </tr>
+                            <tr>
+                              <td>inverted_mass_ratio</td>
+                              <td>1.21</td>
+                              <td>nan</td>
+                              <td>2.218</td>
+                              <td>nan</td>
+                              <td>2.218</td>
+                              <td>None</td>
+                              <td>1.694</td>
+                              <td>1.683</td>
+                              <td>0.312</td>
+                            </tr>
+                            <tr>
+                              <td>mass_1</td>
+                              <td>31.343</td>
+                              <td>nan</td>
+                              <td>42.487</td>
+                              <td>nan</td>
+                              <td>41.962</td>
+                              <td>None</td>
+                              <td>37.04</td>
+                              <td>37.068</td>
+                              <td>3.535</td>
+                            </tr>
+                            <tr>
+                              <td>mass_2</td>
+                              <td>19.133</td>
+                              <td>nan</td>
+                              <td>25.995</td>
+                              <td>nan</td>
+                              <td>18.919</td>
+                              <td>None</td>
+                              <td>22.212</td>
+                              <td>22.014</td>
+                              <td>2.205</td>
+                            </tr>
+                            <tr>
+                              <td>total_mass</td>
+                              <td>56.812</td>
+                              <td>nan</td>
+                              <td>62.027</td>
+                              <td>nan</td>
+                              <td>60.881</td>
+                              <td>None</td>
+                              <td>59.251</td>
+                              <td>59.138</td>
+                              <td>1.647</td>
+                            </tr>
+                            <tr>
+                              <td>mass_1_source</td>
+                              <td>23.954</td>
+                              <td>nan</td>
+                              <td>33.018</td>
+                              <td>nan</td>
+                              <td>31.876</td>
+                              <td>None</td>
+                              <td>28.579</td>
+                              <td>28.727</td>
+                              <td>2.892</td>
+                            </tr>
+                            <tr>
+                              <td>mass_2_source</td>
+                              <td>14.634</td>
+                              <td>nan</td>
+                              <td>20.124</td>
+                              <td>nan</td>
+                              <td>14.372</td>
+                              <td>None</td>
+                              <td>17.141</td>
+                              <td>17.022</td>
+                              <td>1.813</td>
+                            </tr>
+                            <tr>
+                              <td>total_mass_source</td>
+                              <td>42.843</td>
+                              <td>nan</td>
+                              <td>48.633</td>
+                              <td>nan</td>
+                              <td>46.248</td>
+                              <td>None</td>
+                              <td>45.72</td>
+                              <td>45.669</td>
+                              <td>2.021</td>
+                            </tr>
+                            <tr>
+                              <td>chirp_mass_source</td>
+                              <td>18.082</td>
+                              <td>nan</td>
+                              <td>20.175</td>
+                              <td>nan</td>
+                              <td>18.347</td>
+                              <td>None</td>
+                              <td>19.054</td>
+                              <td>19.008</td>
+                              <td>0.735</td>
+                            </tr>
+                            <tr>
+                              <td>chi_eff</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>nan</td>
+                              <td>0.0</td>
+                              <td>None</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                              <td>0.0</td>
+                            </tr>
+                            <tr>
+                              <td>final_spin</td>
+                              <td>0.604</td>
+                              <td>nan</td>
+                              <td>0.681</td>
+                              <td>nan</td>
+                              <td>0.604</td>
+                              <td>None</td>
+                              <td>0.647</td>
+                              <td>0.65</td>
+                              <td>0.024</td>
+                            </tr>
+                            <tr>
+                              <td>peak_luminosity</td>
+                              <td>2.58</td>
+                              <td>nan</td>
+                              <td>3.632</td>
+                              <td>nan</td>
+                              <td>2.581</td>
+                              <td>None</td>
+                              <td>3.146</td>
+                              <td>3.167</td>
+                              <td>0.324</td>
+                            </tr>
+                            <tr>
+                              <td>final_mass</td>
+                              <td>54.174</td>
+                              <td>nan</td>
+                              <td>59.753</td>
+                              <td>nan</td>
+                              <td>58.671</td>
+                              <td>None</td>
+                              <td>56.745</td>
+                              <td>56.62</td>
+                              <td>1.751</td>
+                            </tr>
+                            <tr>
+                              <td>final_mass_source</td>
+                              <td>40.9</td>
+                              <td>nan</td>
+                              <td>46.741</td>
+                              <td>nan</td>
+                              <td>44.569</td>
+                              <td>None</td>
+                              <td>43.786</td>
+                              <td>43.734</td>
+                              <td>2.02</td>
+                            </tr>
+                            <tr>
+                              <td>radiated_energy</td>
+                              <td>1.705</td>
+                              <td>nan</td>
+                              <td>2.14</td>
+                              <td>nan</td>
+                              <td>1.679</td>
+                              <td>None</td>
+                              <td>1.934</td>
+                              <td>1.941</td>
+                              <td>0.139</td>
+                            </tr>
+                            <tr>
+                              <td>viewing_angle</td>
+                              <td>0.207</td>
+                              <td>nan</td>
+                              <td>0.942</td>
+                              <td>nan</td>
+                              <td>0.324</td>
+                              <td>None</td>
+                              <td>0.572</td>
+                              <td>0.579</td>
+                              <td>0.248</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+    </div>
+</div>
+<div class='container' style='margin-top:-4em; margin-bottom:5em; max-width: 1400px'>
+<button type='button' onclick='export_table_to_csv("summary_information_simple_pe.csv")' class='btn btn-outline-secondary btn-table'>Export to CSV</button>
+</div>
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+<div class='jumbotron' style='margin-bottom:0; line-height: 0.5;background-color:#989898; bottom:0; position:bottom;width:100%'>
+<div class='container'>
+  <div class='row'>
+    <div class='col-sm-4 icon-bar'>
+      <div class='icon'>
+<a href='https://git.ligo.org/lscsoft/pesummary/tree/v1.3.2' data-toggle='tooltip' title='View PESummary-v1.3.2'><i class='fa fa-code' style='font-size: 30px; color: #E8E8E8; font-weight: 900; padding-right:10px'></i></a>
+<a href='https://git.ligo.org/lscsoft/pesummary/issues' data-toggle='tooltip' title='Open an issue ticket'><i class='fa fa-ticket' style='font-size: 30px; color: #E8E8E8; font-weight: 900; padding-right:10px'></i></a>
+<a href='https://lscsoft.docs.ligo.org/pesummary/' data-toggle='tooltip' title='View the docs!'><i class='fa fa-book' style='font-size: 30px; color: #E8E8E8; font-weight: 900; padding-right:10px'></i></a>
+<a href='https://lscsoft.docs.ligo.org/pesummary/stable/tutorials/make_your_own_page_from_metafile.html' data-toggle='tooltip' title='Make your own page'><i class='fa fa-window-restore' style='font-size: 30px; color: #E8E8E8; font-weight: 900; padding-right:10px'></i></a>
+      </div>
+    </div>
+    <div class='col-sm-7'>
+<p style='color: #E8E8E8; font-weight: bold; font-family: arial-body; margin-top:14px'>This page was produced by ben.patterson at 06:44 on February 02 2026</p>
+    </div>
+  </div>
+</div>
+</div>
