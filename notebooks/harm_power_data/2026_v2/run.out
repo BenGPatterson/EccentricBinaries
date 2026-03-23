@@ -1,0 +1,5 @@
+lal.MSUN_SI != Msun
+Varying chirp_mass over 10.0 to 40.0
+Varying mass_ratio over 1.0 to 0.2
+Varying chi_align over -0.5 to 0.5
+Varying ecc10sqrd over 0.0 to 0.25
