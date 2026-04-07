@@ -1,0 +1,2 @@
+2026-04-07 13:43:29,702 - pyswarms.single.global_best - INFO - Optimize for 8 iters with {'c1': 0.5, 'c2': 3.0, 'w': 0.01}
+2026-04-07 13:43:59,992 - pyswarms.single.global_best - INFO - Optimize for 8 iters with {'c1': 0.5, 'c2': 3.0, 'w': 0.01}
